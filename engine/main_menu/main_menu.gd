@@ -1,0 +1,33 @@
+extends Node2D
+
+var main: Node2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	main = get_tree().get_root().get_node("Main")
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta:float) -> void:
+	pass
+
+
+func _on_start_game_btn_button_up() -> void:
+	var tile_main:Node = load("res://engine/tile_level/tile_main.tscn").instantiate()
+	main.add_child(tile_main)
+	self.queue_free()
+	#TODO: Replace this with a choose-slot menu. Once we know what it is we need to save...
+
+
+func _on_load_game_btn_button_up() -> void:
+	pass # Replace with function body.
+
+
+func _on_options_btn_button_up() -> void:
+	pass # Replace with function body.
+
+
+func _on_quit_btn_button_up() -> void:
+	get_tree().quit()
+	pass # Replace with function body.

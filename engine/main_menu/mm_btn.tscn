@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://b31daxgkecksu"]
+
+[sub_resource type="Theme" id="Theme_bnmw3"]
+
+[node name="MmBtn" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(180, 40)
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+theme = SubResource("Theme_bnmw3")
+text = "HAHAHAH"

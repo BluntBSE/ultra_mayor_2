@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://cql8a4g6tksjt"]
+
+[ext_resource type="Script" path="res://engine/main_menu/main_menu.gd" id="1_b5j7k"]
+[ext_resource type="Texture2D" uid="uid://kanqce26h116" path="res://engine/main_menu/assets/mm_bg.jpg" id="1_ht06p"]
+[ext_resource type="FontFile" uid="uid://dgwrlf53u1wv7" path="res://engine/common/fonts/fonstars-v3-font/Fonstars-4Bo0p.otf" id="2_5o8ot"]
+[ext_resource type="Theme" uid="uid://cgideo8tlcca1" path="res://engine/common/themes/main_menu_theme.tres" id="3_mkuo2"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_b5j7k")
+
+[node name="MmBg" type="Sprite2D" parent="."]
+scale = Vector2(1.43254, 1.38932)
+texture = ExtResource("1_ht06p")
+centered = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 1448.0
+offset_top = 92.0
+offset_right = 1792.0
+offset_bottom = 338.0
+theme_override_fonts/normal_font = ExtResource("2_5o8ot")
+theme_override_font_sizes/normal_font_size = 80
+text = "Ultra 
+
+Mayor"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 77.0
+offset_top = 419.0
+offset_right = 436.0
+offset_bottom = 822.0
+theme_override_constants/separation = 25
+
+[node name="StartGameBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mkuo2")
+text = "NEW GAME"
+
+[node name="LoadGameBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mkuo2")
+text = "LOAD GAME"
+
+[node name="OptionsBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mkuo2")
+text = "OPTIONS"
+
+[node name="QuitBtn" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mkuo2")
+text = "QUIT
+"
+
+[connection signal="button_up" from="VBoxContainer/StartGameBtn" to="." method="_on_start_game_btn_button_up"]
+[connection signal="button_up" from="VBoxContainer/LoadGameBtn" to="." method="_on_load_game_btn_button_up"]
+[connection signal="button_up" from="VBoxContainer/OptionsBtn" to="." method="_on_options_btn_button_up"]
+[connection signal="button_up" from="VBoxContainer/QuitBtn" to="." method="_on_quit_btn_button_up"]

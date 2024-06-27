@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqgi8y4fqpc4g"]
+
+[ext_resource type="Script" path="res://engine/tile_level/map.gd" id="1_si778"]
+
+[sub_resource type="Theme" id="Theme_nfc0e"]
+
+[node name="TileMain" type="Node2D"]
+
+[node name="viewport_simulator" type="ColorRect" parent="."]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 1, 1, 0.0823529)
+
+[node name="header_bar" type="ColorRect" parent="."]
+visible = false
+offset_left = 2.0
+offset_right = 1916.0
+offset_bottom = 66.0
+theme = SubResource("Theme_nfc0e")
+color = Color(0.854902, 0.129412, 0.498039, 1)
+
+[node name="header_bar2" type="ColorRect" parent="."]
+visible = false
+offset_left = 1679.0
+offset_right = 1919.0
+offset_bottom = 1081.0
+theme = SubResource("Theme_nfc0e")
+color = Color(0.854902, 0.129412, 0.498039, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("1_si778")

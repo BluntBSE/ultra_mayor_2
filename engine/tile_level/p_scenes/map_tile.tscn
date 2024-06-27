@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw7s8jxs3oihv"]
+
+[ext_resource type="Script" path="res://engine/tile_level/p_scenes/map_tile.gd" id="1_1asw1"]
+[ext_resource type="Texture2D" uid="uid://cmvisamj0ddul" path="res://engine/tile_level/assets/Snow/Snow1.png" id="2_d73dw"]
+
+[node name="MapTile" type="Node2D"]
+script = ExtResource("1_1asw1")
+
+[node name="bg_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_d73dw")
+centered = false
+
+[node name="hover_area" type="Area2D" parent="."]
+
+[node name="hover_collider" type="CollisionPolygon2D" parent="hover_area"]
+position = Vector2(36, 36)
+build_mode = 1
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0)
