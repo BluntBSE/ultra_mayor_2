@@ -1,36 +1,42 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqgi8y4fqpc4g"]
+[gd_scene load_steps=4 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/map.gd" id="1_si778"]
+[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="2_22q1o"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
 [node name="TileMain" type="Node2D"]
 
-[node name="viewport_simulator" type="ColorRect" parent="."]
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("1_si778")
+
+[node name="TileMap" type="TileMap" parent="."]
 visible = false
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(948, 540)
+script = ExtResource("2_22q1o")
+
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="viewport_simulator" type="ColorRect" parent="UICanvas"]
 custom_minimum_size = Vector2(1920, 1080)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
 color = Color(1, 1, 1, 0.0823529)
 
-[node name="header_bar" type="ColorRect" parent="."]
-visible = false
-offset_left = 2.0
-offset_right = 1916.0
-offset_bottom = 66.0
-theme = SubResource("Theme_nfc0e")
-color = Color(0.854902, 0.129412, 0.498039, 1)
-
-[node name="header_bar2" type="ColorRect" parent="."]
-visible = false
-offset_left = 1679.0
+[node name="header_bar2" type="ColorRect" parent="UICanvas"]
+offset_left = 1585.0
 offset_right = 1919.0
 offset_bottom = 1081.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0.854902, 0.129412, 0.498039, 1)
 
-[node name="TileMap" type="TileMap" parent="."]
-format = 2
-
-[node name="Map" type="Node2D" parent="."]
-script = ExtResource("1_si778")
+[node name="header_bar" type="ColorRect" parent="UICanvas"]
+offset_left = 2.0
+offset_right = 1916.0
+offset_bottom = 66.0
+theme = SubResource("Theme_nfc0e")
+color = Color(0.854902, 0.129412, 0.498039, 1)
