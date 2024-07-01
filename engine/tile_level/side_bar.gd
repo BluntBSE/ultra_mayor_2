@@ -15,6 +15,8 @@ class_name SideBar
 @onready var building_name:RichTextLabel = %TerrainData/BuildingName
 @onready var terrain_name:RichTextLabel = %TerrainData/TerrainName
 @onready var population:RichTextLabel = %TerrainData/Population
+@onready var power: RichTextLabel = %TerrainData/Power
+@onready var development: RichTextLabel = %TerrainData/Development
 @onready var services:RichTextLabel = %TerrainData/Services
 @onready var resilience: RichTextLabel = %TerrainData/Resilience
 @onready var modifiers_rtl: RichTextLabel  = %TerrainData/Modifiers
@@ -31,10 +33,16 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 	var lt:LogicalTile = args.logical
 	if lt.building != "":
 		var texture:Resource = load(BuildingsLib.lib[lt.building].portrait)
+		building_port.visible = true
 		building_port.texture = texture
 		building_name.text = BuildingsLib.lib[lt.building].display_text
 	else:
-		building_port.texture = load("res://engine/tile_level/assets/portraits/ai_snow_portrait.jpg")
+		#Load terrain portrait. Hardcoded for the moment.
+		building_port.texture = load(TerrainLib.lib[lt.terrain].portrait)
+	#Non-nullables
+	terrain_name.text = TerrainLib.lib[lt.terrain].display_text
+	power.text = "Power: " + str(lt.power)
+	development.text = "Development: " + str(lt.development)
 
 func _ready()->void:
 	pass # Replace with function body.

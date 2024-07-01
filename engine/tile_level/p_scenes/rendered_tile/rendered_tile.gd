@@ -15,10 +15,6 @@ signal hovered_cell #Emitted when this is moused over.
 signal exit_hover_cell
 signal clicked_cell
 
-
-#Display nodes
-
-
 func unpack() -> void:
 	#x and y should already be set by the draw_map_grid in the Map node
 	var format_string:String  = "%s, %s"

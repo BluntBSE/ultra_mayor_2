@@ -97,6 +97,13 @@ bbcode_enabled = true
 text = "Population: 696,696"
 fit_content = true
 
+[node name="Development" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Development: X"
+fit_content = true
+
 [node name="Power" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2

@@ -6,12 +6,10 @@ var building:String = ""
 var occupant:Node2D = null
 var x:int
 var y:int
-var development:int #0 = None. 1 = Utilities Only. 2-3-4 are "1 2 3" from player perspective.
-var power:int
-var services:int
-var health:int
-var waste:bool
-var modifiers:Array
+var development:int = 0 #0 = None. 1 = Utilities Only. 2-3-4 are "1 2 3" from player perspective.
+var power:int = 0
+var services:int = 0
+var modifiers:Array = []
 
 
 
