@@ -8,6 +8,8 @@ var x_offset: int = 60
 var y_offset: int = 75
 var rendered_grid:Array = [] #Possibly maintaining both the visual nodes and decoupled logic is excessive. Oh well.
 enum {CITY_BUILDER, BATTLE_MODE}
+signal city_builder
+signal battle_mode
 var map_mode:int = CITY_BUILDER
 
 
@@ -15,6 +17,20 @@ var map_mode:int = CITY_BUILDER
 #PROBABLY REMOVE THESE
 var primary_selection: Dictionary = {} #{ "x": 1, "y": 0 }
 var secondary_selection: Dictionary = {}
+
+#Observers
+@onready var header: TileMapHeaderBar = %header_bar
+#header.connect()#
+
+func set_mode(mode:int) -> void:
+	#Linked to signals from the buttons or other sources that set the map into city or battle mode.
+	print("Emitting mode signals. Received: ", mode)
+	map_mode = mode
+	if map_mode == 0:
+		city_builder.emit(mode)
+	if map_mode == 1:
+		battle_mode.emit(mode)
+
 
 func fill_map_data(grid_x:int, grid_y:int) -> Array:
 	#Rudimentarily puts generic maptiles in
@@ -30,7 +46,7 @@ func draw_map_grid(grid:Array) -> void:
 	for x:int in grid.size():
 		rendered_grid.append([])
 		for y:int in grid[x].size():
-			var rendered_tile:RenderedTile = load("res://engine/tile_level/p_scenes/rendered_tile.tscn").instantiate()
+			var rendered_tile:RenderedTile = load("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
 			rendered_tile.x = x
 			rendered_tile.y = y
 			if x % 2 != 0: #If the X is odd, shif it down.
@@ -41,11 +57,35 @@ func draw_map_grid(grid:Array) -> void:
 			rendered_tile.unpack()
 			rendered_grid[x].append(rendered_tile)
 			add_child(rendered_tile)
-			rendered_tile.hovered_cell.connect(on_hovered_cell)
+			#Connect appropriate signals
+			rendered_tile.hovered_cell.connect(on_hovered_cell_enter)
+			rendered_tile.exit_hover_cell.connect(on_hovered_cell_exit)
 			rendered_tile.clicked_cell.connect(on_clicked_cell)
 
-func on_hovered_cell(args:Dictionary) -> void:
-	pass
+func draw_tile_sprites(tile:LogicalTile, x:int, y:int) -> void:
+	#Handle buildings
+	var building:Building = BuildingsLib.lib[tile.building]
+	var building_sprite:Resource = load(building.sprite)
+
+	#Draw
+	var rendered_tile:RenderedTile = rendered_grid[x][y]
+	print(rendered_tile.building_sprite)
+	rendered_tile.building_sprite.texture = building_sprite
+
+
+
+#XXXXXXXXXXXXXXXX
+#User interactions with map
+
+func on_hovered_cell_enter(args:Dictionary) -> void:
+	var rendered_tile:RenderedTile = rendered_grid[args.x][args.y]
+	#May need to check for map_mode at this point. Currently not doing so.
+	rendered_tile.state_machine.Change("hovered_basic", {})
+
+
+func on_hovered_cell_exit(args:Dictionary) -> void:
+	var rendered_tile:RenderedTile = rendered_grid[args.x][args.y]
+	rendered_tile.state_machine.Change("basic", {})
 
 func clear_selection_from_map() -> void:
 	if primary_selection != {}:
@@ -54,7 +94,6 @@ func clear_selection_from_map() -> void:
 	if secondary_selection != {}:
 		var secondary_rendered:RenderedTile = rendered_grid[secondary_selection.x][secondary_selection.y]
 		secondary_rendered.state_machine.Change("base", {})
-
 
 
 func apply_selection_to_map()->void:
@@ -69,67 +108,19 @@ func apply_selection_to_map()->void:
 		secondary_rendered.state_machine.Change("secondary_selected", {})
 
 
-
 func on_clicked_cell(args:Dictionary) -> void:
+	var selection_dict:Dictionary = { "x": args.x, "y": args.y }
 	if map_mode == CITY_BUILDER:
 		#handle_cb_click
 		pass
 	if map_mode == BATTLE_MODE:
 		#handle_battle_click
 		pass
-
-	#You can replace this big chain of logic with stateHandleInput on the tile states. I think. Idk yet.
 	print("CLICKED", args)
-	#Takes in x and y from the RenderedTile
-	#Uses that X and Y to select the LogicalTile in the backend
-	var selection_dict:Dictionary = { "x": args.x, "y": args.y }
-
-	#Maybe move this logic to its own function
-	#If no selections exist, add to primary selection
-	if primary_selection == {} and secondary_selection == {}:
-		print("No selections at all")
-		primary_selection = selection_dict
-		print("Primary selection is now", primary_selection)
-
-	#If a primary selection already exists and a secondary selection does not...
-	elif primary_selection != {} and secondary_selection == {}:
-		print("Primary detected, no secondary detected")
-		#And you click primary again...
-		if primary_selection == selection_dict:
-			#Remove it
-			primary_selection = {}
-		#Otherwise, make it the secondary selection
-		else:
-			secondary_selection = selection_dict
-
-	#If both a primary and secondary selection exist...
-	elif primary_selection != {} and secondary_selection != {}:
-		print("Both primary and secondary detected")
-		#And you click the secondary again
-		if secondary_selection == selection_dict:
-			#Remove your secondary selection
-			var secondary_tile:RenderedTile = rendered_grid[secondary_selection.x][secondary_selection.y]
-			secondary_tile.state_machine.Change("basic", {})
-			secondary_selection = {}
-		#And you click the primary again
-		elif primary_selection == selection_dict:
-
-			#Remove all selections
-			primary_selection = {}
-			secondary_selection = {}
-
-	print("Primary Selection at end of selection tree", primary_selection)
-	#After all that, update tile states
-	#clear_selection_states #If it becomes an issue ,do this so we don't have to update the state of all tiles on the map.
-	apply_selection_to_map()
-	#draw_path_between()
 
 
 
 
-	#If that LogicalTile is ALREADY selected, remove it, then apply selection(aka remove htem)
-
-	#If the LogicalTile is NOT selected, then apply selection ( change state of RenderedTile )
 
 
 	pass
@@ -137,9 +128,19 @@ func on_clicked_cell(args:Dictionary) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#Signal connections
+	city_builder.connect(header.update_label)
+	battle_mode.connect(header.update_label)
+
+	#Draw map
 	grid = fill_map_data(grid_x, grid_y)
 	draw_map_grid(grid)
+	#Remove this after testing
+	var test_tile:LogicalTile = grid[0][0]
+	print("My test tile is", test_tile)
+	draw_tile_sprites(test_tile, 0, 0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
 	pass
+

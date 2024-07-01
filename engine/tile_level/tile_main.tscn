@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqgi8y4fqpc4g"]
+[gd_scene load_steps=5 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/map.gd" id="1_si778"]
 [ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="2_22q1o"]
+[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="3_qpeak"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
@@ -36,11 +37,13 @@ theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
 
 [node name="header_bar" type="ColorRect" parent="UICanvas"]
+unique_name_in_owner = true
 offset_left = 2.0
 offset_right = 1916.0
 offset_bottom = 66.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
+script = ExtResource("3_qpeak")
 
 [node name="debug_builder_button" type="Button" parent="UICanvas/header_bar"]
 layout_mode = 0
@@ -57,3 +60,14 @@ offset_top = 12.0
 offset_right = 324.0
 offset_bottom = 43.0
 text = "BATTLE MODE"
+
+[node name="mode_label" type="RichTextLabel" parent="UICanvas/header_bar"]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 12.0
+offset_right = 964.0
+offset_bottom = 48.0
+text = "CURRENT MODE: BATTLE MODE"
+
+[connection signal="button_up" from="UICanvas/header_bar/debug_builder_button" to="Map" method="set_mode" binds= [0]]
+[connection signal="button_up" from="UICanvas/header_bar/debug_battle_mode" to="Map" method="set_mode" binds= [1]]

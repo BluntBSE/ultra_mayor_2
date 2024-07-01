@@ -5,8 +5,15 @@ class_name RenderedTile
 @export var y: int
 var bg_sprite:Sprite2D
 var state_machine:StateMachine = StateMachine.new()
+#Sprites are rendered on top of the terrain in the order they appaer.
+var infra_sprite: Sprite2D
+@onready var building_sprite: Sprite2D = %building_sprite
+var occupant_sprite: Sprite2D
+var effect_sprite: Sprite2D
+var test_string:String = "foo"
 
 signal hovered_cell #Emitted when this is moused over.
+signal exit_hover_cell
 signal clicked_cell
 
 
@@ -51,6 +58,12 @@ func custom_hover_enter() -> void:
 
 #Connected via inspector to hover_area
 func custom_hover_exit()  -> void:
+	exit_hover_cell.emit(
+		{
+		"x":x,
+		"y":y
+		}
+	)
 	pass # Replace with function body.
 
 func custom_click() -> void:
