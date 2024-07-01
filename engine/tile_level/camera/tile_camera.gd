@@ -17,3 +17,8 @@ func _process(delta: float) ->void:
 		position.x -= cam_speed
 	if Input.is_key_label_pressed(KEY_D):
 		position.x += cam_speed
+	if Input.is_key_label_pressed(KEY_R):
+		zoom -= Vector2(0.01,0.01)
+	if Input.is_key_label_pressed(KEY_F):
+		zoom += Vector2(0.01,0.01)
+

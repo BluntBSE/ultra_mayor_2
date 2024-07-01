@@ -15,11 +15,13 @@ centered = false
 
 [node name="infra_sprite" type="Sprite2D" parent="."]
 visible = false
+scale = Vector2(1.2, 1.2)
 centered = false
 
 [node name="building_sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-centered = false
+position = Vector2(32, 32)
+scale = Vector2(1.25, 1.25)
 
 [node name="occupant_sprite" type="Sprite2D" parent="."]
 visible = false

@@ -10,7 +10,6 @@ var infra_sprite: Sprite2D
 @onready var building_sprite: Sprite2D = %building_sprite
 var occupant_sprite: Sprite2D
 var effect_sprite: Sprite2D
-var test_string:String = "foo"
 
 signal hovered_cell #Emitted when this is moused over.
 signal exit_hover_cell

@@ -2,7 +2,7 @@ class_name LogicalTile
 
 var sprite:String = "res://engine/tile_level/assets/Snow/Snow1.png" #shouldn't be here.
 var terrain:String = "snow"
-var building:String = "coal_plant"
+var building:String = ""
 var occupant:Node2D = null
 var x:int
 var y:int

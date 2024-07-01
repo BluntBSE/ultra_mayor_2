@@ -10,6 +10,8 @@ var rendered_grid:Array = [] #Possibly maintaining both the visual nodes and dec
 enum {CITY_BUILDER, BATTLE_MODE}
 signal city_builder
 signal battle_mode
+signal dataful_hover
+signal dataful_click
 var map_mode:int = CITY_BUILDER
 
 
@@ -19,8 +21,10 @@ var primary_selection: Dictionary = {} #{ "x": 1, "y": 0 }
 var secondary_selection: Dictionary = {}
 
 #Observers
-@onready var header: TileMapHeaderBar = %header_bar
+@onready var header: TileMapHeaderBar = %HeaderBar
+@onready var side_bar: SideBar = %SideBar
 #header.connect()#
+@onready var observers:Array = [header, side_bar]
 
 func set_mode(mode:int) -> void:
 	#Linked to signals from the buttons or other sources that set the map into city or battle mode.
@@ -57,20 +61,20 @@ func draw_map_grid(grid:Array) -> void:
 			rendered_tile.unpack()
 			rendered_grid[x].append(rendered_tile)
 			add_child(rendered_tile)
-			#Connect appropriate signals
+			#Connect appropriate signals to this node
 			rendered_tile.hovered_cell.connect(on_hovered_cell_enter)
 			rendered_tile.exit_hover_cell.connect(on_hovered_cell_exit)
 			rendered_tile.clicked_cell.connect(on_clicked_cell)
 
-func draw_tile_sprites(tile:LogicalTile, x:int, y:int) -> void:
-	#Handle buildings
-	var building:Building = BuildingsLib.lib[tile.building]
-	var building_sprite:Resource = load(building.sprite)
 
-	#Draw
+func draw_tile_sprites(tile:LogicalTile, x:int, y:int) -> void:
 	var rendered_tile:RenderedTile = rendered_grid[x][y]
-	print(rendered_tile.building_sprite)
-	rendered_tile.building_sprite.texture = building_sprite
+	#Handle buildings
+	if tile.building != "":
+		var building:Building = BuildingsLib.lib[tile.building]
+		var building_sprite:Resource = load(building.sprite)
+		rendered_tile.building_sprite.texture = building_sprite
+
 
 
 
@@ -79,6 +83,9 @@ func draw_tile_sprites(tile:LogicalTile, x:int, y:int) -> void:
 
 func on_hovered_cell_enter(args:Dictionary) -> void:
 	var rendered_tile:RenderedTile = rendered_grid[args.x][args.y]
+	var logical_tile:LogicalTile = grid[args.x][args.y]
+	#Ugly. Does this need fixing?
+	dataful_hover.emit({"logical": logical_tile, "rt": rendered_tile})
 	#May need to check for map_mode at this point. Currently not doing so.
 	rendered_tile.state_machine.Change("hovered_basic", {})
 
@@ -111,15 +118,18 @@ func apply_selection_to_map()->void:
 func on_clicked_cell(args:Dictionary) -> void:
 	var selection_dict:Dictionary = { "x": args.x, "y": args.y }
 	if map_mode == CITY_BUILDER:
-		#handle_cb_click
-		pass
+		handle_cb_click(args)
 	if map_mode == BATTLE_MODE:
 		#handle_battle_click
 		pass
 	print("CLICKED", args)
 
 
+func handle_cb_click(args:Dictionary) -> void:
+	print("Executing city builder click")
 
+	#Ultimately we want to emit a signal with the tile's data for the UI to display.
+	pass
 
 
 
@@ -131,14 +141,20 @@ func _ready() -> void:
 	#Signal connections
 	city_builder.connect(header.update_label)
 	battle_mode.connect(header.update_label)
+	#Connect observers
+	for observer:Node in observers:
+		if observer.has_method("on_hovered_cell_enter"):
+			dataful_hover.connect(observer.on_hovered_cell_enter)
+
 
 	#Draw map
 	grid = fill_map_data(grid_x, grid_y)
 	draw_map_grid(grid)
 	#Remove this after testing
-	var test_tile:LogicalTile = grid[0][0]
+	var test_tile:LogicalTile = grid[10][10]
+	test_tile.building = "coal_plant"
 	print("My test tile is", test_tile)
-	draw_tile_sprites(test_tile, 0, 0)
+	draw_tile_sprites(test_tile, 10, 10)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
