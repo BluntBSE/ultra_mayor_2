@@ -3,6 +3,7 @@ class_name RenderedTile
 
 @export var x: int
 @export var y: int
+var bg_sprite:Sprite2D
 var state_machine:StateMachine = StateMachine.new()
 
 signal hovered_cell #Emitted when this is moused over.
@@ -21,15 +22,18 @@ func unpack() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#state_machine.Add("basic", BasicStateRT.new(self, {}))
-	#state_machine.Add("primary_selected", PrimarySelectionRT.new(self,{}))
-	#state_machine.Add("secondary_selected", SecondarySelectionRT.new(self,{}))
-	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{"bg_sprite":get_node("bg_sprite")}))
+	bg_sprite = get_node("bg_sprite")
 
+	state_machine.Add("basic", BasicStateRT.new(self, {}))
+	state_machine.Add("primary_selected", PrimarySelectionRT.new(self,{}))
+	state_machine.Add("secondary_selected", SecondarySelectionRT.new(self,{}))
+	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
+	#Default state:
+	state_machine.Change("basic",{})
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
-	pass
+	state_machine._current.stateUpdate(delta)
 
 #Connected via inspector to hover_area
 func custom_hover_enter() -> void:
@@ -39,6 +43,10 @@ func custom_hover_enter() -> void:
 		"y": y
 		}
 	)
+	#Do a stateHandleInput to determine what happens? E.G: If selected, nothing.
+
+	#For now...
+	#state_machine.stateHandleInput("hovered_basic", {"bg_sprite":get_node("bg_sprite")} )
 
 
 #Connected via inspector to hover_area

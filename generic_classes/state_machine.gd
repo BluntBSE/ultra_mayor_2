@@ -12,7 +12,7 @@ func Remove(state_id:String) -> void:
 	_stateDict.erase(state_id)
 func Clear() -> void:
 	_stateDict = {}
-func Change(state_id:String, args:Object) -> void:
+func Change(state_id:String, args:Dictionary) -> void:
 	_current.stateExit()
 	var next:GenericState = _stateDict[state_id]
 	next.stateEnter(args)
@@ -26,8 +26,8 @@ func stateUpdate(dt:float) -> void:
 
 
 
-func handleInput() -> void:
-	_current.stateHandleInput()
+func handleInput(args:Dictionary) -> void:
+	_current.stateHandleInput(args)
 
 
 

@@ -7,6 +7,10 @@ var grid_y: int = 20
 var x_offset: int = 60
 var y_offset: int = 75
 var rendered_grid:Array = [] #Possibly maintaining both the visual nodes and decoupled logic is excessive. Oh well.
+enum {CITY_BUILDER, BATTLE_MODE}
+var map_mode:int = CITY_BUILDER
+
+
 
 #PROBABLY REMOVE THESE
 var primary_selection: Dictionary = {} #{ "x": 1, "y": 0 }
@@ -46,23 +50,35 @@ func on_hovered_cell(args:Dictionary) -> void:
 func clear_selection_from_map() -> void:
 	if primary_selection != {}:
 		var primary_rendered:RenderedTile = rendered_grid[primary_selection.x][primary_selection.y]
-		primary_rendered.state_machine.Change("base", null)
+		primary_rendered.state_machine.Change("base", {})
 	if secondary_selection != {}:
 		var secondary_rendered:RenderedTile = rendered_grid[secondary_selection.x][secondary_selection.y]
-		secondary_rendered.state_machine.Change("base", null)
+		secondary_rendered.state_machine.Change("base", {})
 
 
 
 func apply_selection_to_map()->void:
+	print("Attempting to apply")
+	print("Application primary is", primary_selection)
 	if primary_selection != {}:
+		print("We have a primary selection!")
 		var primary_rendered:RenderedTile = rendered_grid[primary_selection.x][primary_selection.y]
-		primary_rendered.state_machine.Change("primary_selection", null)
+		primary_rendered.state_machine.Change("primary_selected", {})
 	if secondary_selection != {}:
 		var secondary_rendered:RenderedTile = rendered_grid[secondary_selection.x][secondary_selection.y]
-		secondary_rendered.state_machine.Change("secondary_selection", null)
+		secondary_rendered.state_machine.Change("secondary_selected", {})
+
 
 
 func on_clicked_cell(args:Dictionary) -> void:
+	if map_mode == CITY_BUILDER:
+		#handle_cb_click
+		pass
+	if map_mode == BATTLE_MODE:
+		#handle_battle_click
+		pass
+
+	#You can replace this big chain of logic with stateHandleInput on the tile states. I think. Idk yet.
 	print("CLICKED", args)
 	#Takes in x and y from the RenderedTile
 	#Uses that X and Y to select the LogicalTile in the backend
@@ -71,10 +87,13 @@ func on_clicked_cell(args:Dictionary) -> void:
 	#Maybe move this logic to its own function
 	#If no selections exist, add to primary selection
 	if primary_selection == {} and secondary_selection == {}:
+		print("No selections at all")
 		primary_selection = selection_dict
+		print("Primary selection is now", primary_selection)
 
 	#If a primary selection already exists and a secondary selection does not...
-	if primary_selection != {} and secondary_selection == {}:
+	elif primary_selection != {} and secondary_selection == {}:
+		print("Primary detected, no secondary detected")
 		#And you click primary again...
 		if primary_selection == selection_dict:
 			#Remove it
@@ -84,21 +103,25 @@ func on_clicked_cell(args:Dictionary) -> void:
 			secondary_selection = selection_dict
 
 	#If both a primary and secondary selection exist...
-	if primary_selection != {} and secondary_selection != {}:
+	elif primary_selection != {} and secondary_selection != {}:
+		print("Both primary and secondary detected")
 		#And you click the secondary again
 		if secondary_selection == selection_dict:
 			#Remove your secondary selection
+			var secondary_tile:RenderedTile = rendered_grid[secondary_selection.x][secondary_selection.y]
+			secondary_tile.state_machine.Change("basic", {})
 			secondary_selection = {}
 		#And you click the primary again
 		elif primary_selection == selection_dict:
+
 			#Remove all selections
 			primary_selection = {}
 			secondary_selection = {}
 
-
+	print("Primary Selection at end of selection tree", primary_selection)
 	#After all that, update tile states
 	#clear_selection_states #If it becomes an issue ,do this so we don't have to update the state of all tiles on the map.
-	#apply_selection_states()
+	apply_selection_to_map()
 	#draw_path_between()
 
 

@@ -14,7 +14,6 @@ texture = ExtResource("2_nqxid")
 centered = false
 
 [node name="hover_area" type="Area2D" parent="."]
-visible = false
 
 [node name="hover_collider" type="CollisionShape2D" parent="hover_area"]
 position = Vector2(36, 36)

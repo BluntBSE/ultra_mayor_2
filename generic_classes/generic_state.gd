@@ -6,9 +6,9 @@ var _args: Dictionary
 
 func stateUpdate(_dt: float) -> void:
 	pass
-func stateHandleInput() -> void :
+func stateHandleInput(_args:Dictionary) -> void :
 	pass
-func stateEnter(_args: Object) -> void:
+func stateEnter(_args: Dictionary) -> void:
 	pass
 func stateExit() -> void:
 	pass
