@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://engine/tile_level/map.gd" id="1_si778"]
 [ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="2_22q1o"]
 [ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="3_qpeak"]
-[ext_resource type="Texture2D" uid="uid://bmjtmvewfshys" path="res://engine/tile_level/assets/AI_mech_1.jpg" id="3_xytgo"]
+[ext_resource type="Texture2D" path="res://engine/tile_level/assets/AI_mech_1.jpg" id="3_xytgo"]
 [ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_8227k"]
 [ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="6_4y67y"]
 [ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_640ry"]
@@ -23,7 +23,7 @@ format = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(948, 540)
-zoom = Vector2(2, 2)
+zoom = Vector2(0.75, 0.75)
 script = ExtResource("2_22q1o")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]

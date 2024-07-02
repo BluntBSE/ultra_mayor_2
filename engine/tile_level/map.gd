@@ -4,8 +4,8 @@ extends Node2D
 var grid: Array = []
 var grid_x: int = 20
 var grid_y: int = 20
-var x_offset: int = 60
-var y_offset: int = 75
+@export var x_offset: int = 90
+@export var y_offset: int = 300
 var rendered_grid:Array = [] #Possibly maintaining both the visual nodes and decoupled logic is excessive. Oh well.
 enum {CITY_BUILDER, BATTLE_MODE}
 signal city_builder
@@ -36,7 +36,7 @@ func set_mode(mode:int) -> void:
 		battle_mode.emit(mode)
 
 
-func fill_map_data(grid_x:int, grid_y:int) -> Array:
+func generate_generic_map(grid_x:int, grid_y:int) -> Array:
 	#Rudimentarily puts generic maptiles in
 	var grid:Array = []
 	for x in range(0,grid_x):
@@ -47,20 +47,32 @@ func fill_map_data(grid_x:int, grid_y:int) -> Array:
 	return grid
 
 func draw_map_grid(grid:Array) -> void:
+	print("DRAWING")
 	for x:int in grid.size():
 		rendered_grid.append([])
 		for y:int in grid[x].size():
 			var rendered_tile:RenderedTile = load("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
 			rendered_tile.x = x
 			rendered_tile.y = y
-			if x % 2 != 0: #If the X is odd, shif it down.
+			#rendered_tile.z_index = y
+			if x % 2 != 0: #If the X is odd, shift it down and increase its z index.
 				rendered_tile.position.y = (float(y)+0.5) * y_offset
+				rendered_tile.z_index = rendered_tile.z_index + 1
 			else:
 				rendered_tile.position.y = y * y_offset
+			#Z index goes up by 10 for every row down we go.
+			rendered_tile.z_index = rendered_tile.z_index + (y * 10)
 			rendered_tile.position.x = x * x_offset
 			rendered_tile.unpack()
+			#Replace these with better handlers
+			var key:String = grid[x][y].terrain
+			var terrain_sprite:String = TerrainLib.lib[key].sprite
+
+
 			rendered_grid[x].append(rendered_tile)
 			add_child(rendered_tile)
+
+			rendered_tile.bg_sprite.texture = load(terrain_sprite)
 			#Connect appropriate signals to this node
 			rendered_tile.hovered_cell.connect(on_hovered_cell_enter)
 			rendered_tile.exit_hover_cell.connect(on_hovered_cell_exit)
@@ -148,7 +160,9 @@ func _ready() -> void:
 
 
 	#Draw map
-	grid = fill_map_data(grid_x, grid_y)
+	grid = generate_generic_map(grid_x, grid_y)
+	var terrain_map:Array = generate_logical_terrain_map(grid_x,grid_y)
+	grid = apply_logical_terrain_map(grid, terrain_map)
 	draw_map_grid(grid)
 	#Remove this after testing
 	var test_tile:LogicalTile = grid[10][10]
@@ -156,7 +170,61 @@ func _ready() -> void:
 	print("My test tile is", test_tile)
 	draw_tile_sprites(test_tile, 10, 10)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
 	pass
 
+
+#Move this to a helper class.
+func generate_logical_terrain_map(x:int,y:int)->Array:
+	var output:Array = []
+	var moisture:FastNoiseLite = FastNoiseLite.new()
+	moisture.seed = randi()
+	moisture.noise_type = FastNoiseLite.TYPE_PERLIN
+	var altitude:FastNoiseLite = FastNoiseLite.new()
+	altitude.noise_type = FastNoiseLite.TYPE_PERLIN
+	altitude.seed = randi()
+	moisture.frequency = 0.1
+	altitude.frequency = 0.3 #???
+	for col in range(x):
+		output.append([])
+		for row in range(y):
+			#-10 to 10
+			#Then 0 to 20
+			#Then 0 to 2
+			var moisture_int:int = round ( ( moisture.get_noise_2d(col,row)*10)  ) #
+			moisture_int = clamp(moisture_int, 0, 2)
+			var altitude_int:int = round ( ( altitude.get_noise_2d(col,row)*10)  )
+			altitude_int = clamp(altitude_int, 0, 2)
+
+			#
+			#POssibly put this in its own function...s
+			#X = moisture
+			#y = altitude
+			var terrain_options:Array = [
+				["plain", "plain", "mountain"],
+				["plain", "plain", "hills"],
+				["water", "bog", "hills"],
+			]
+
+			output[col].append(
+					{
+						"moisture": moisture_int,
+						"altitude": altitude_int,
+						"terrain": terrain_options[moisture_int][altitude_int]
+					}
+				)
+
+	print("OUTPUT IS", output)
+	return output
+
+
+func apply_logical_terrain_map(grid:Array, terrain_map:Array)->Array:
+	for col in range(grid.size()):
+		for row in range(grid[col].size()):
+			var tile:LogicalTile = grid[col][row]
+			tile.terrain = terrain_map[col][row].terrain
+			print(tile.terrain)
+
+	return grid

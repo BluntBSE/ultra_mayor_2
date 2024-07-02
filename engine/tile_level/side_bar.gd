@@ -29,7 +29,6 @@ func fetch_building_sprite()->void:
 	pass
 
 func on_hovered_cell_enter(args:Dictionary) -> void:
-	print("Hello from sidebar hover")
 	var lt:LogicalTile = args.logical
 	if lt.building != "":
 		var texture:Resource = load(BuildingsLib.lib[lt.building].portrait)

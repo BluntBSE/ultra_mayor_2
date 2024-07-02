@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw7s8jxs3oihv"]
+[gd_scene load_steps=5 format=3 uid="uid://bw7s8jxs3oihv"]
 
 [ext_resource type="Script" path="res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.gd" id="1_0e00g"]
+[ext_resource type="Texture2D" uid="uid://dbc2omoe4y20n" path="res://engine/tile_level/assets/terrain/tileset_b/PNG/tail_3/1.png" id="2_32lfy"]
 [ext_resource type="Texture2D" uid="uid://f5lsng1agvpx" path="res://engine/tile_level/assets/Snow/Snow5.png" id="2_db4uc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a0ent"]
@@ -10,18 +11,17 @@ radius = 32.0156
 script = ExtResource("1_0e00g")
 
 [node name="bg_sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_db4uc")
+texture = ExtResource("2_32lfy")
 centered = false
 
 [node name="infra_sprite" type="Sprite2D" parent="."]
-visible = false
 scale = Vector2(1.2, 1.2)
 centered = false
 
 [node name="building_sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(32, 32)
-scale = Vector2(1.25, 1.25)
+position = Vector2(97, 107)
+scale = Vector2(4.21, 4.21)
 
 [node name="occupant_sprite" type="Sprite2D" parent="."]
 visible = false
@@ -33,16 +33,18 @@ texture = ExtResource("2_db4uc")
 centered = false
 
 [node name="hover_area" type="Area2D" parent="."]
+position = Vector2(7, 20)
+scale = Vector2(2.39377, 2.39377)
 
 [node name="hover_collider" type="CollisionShape2D" parent="hover_area"]
 position = Vector2(36, 36)
 shape = SubResource("CircleShape2D_a0ent")
 
 [node name="xy_coords" type="RichTextLabel" parent="."]
-offset_left = 11.0
-offset_top = 20.0
-offset_right = 62.0
-offset_bottom = 54.0
+offset_left = 73.0
+offset_top = 92.0
+offset_right = 124.0
+offset_bottom = 126.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "0 , 0"
