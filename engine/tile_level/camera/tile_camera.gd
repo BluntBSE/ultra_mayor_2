@@ -1,6 +1,6 @@
 extends Camera2D
 
-var cam_speed:int = 10
+var cam_speed:int = 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

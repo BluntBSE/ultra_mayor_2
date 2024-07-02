@@ -32,16 +32,18 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 	var lt:LogicalTile = args.logical
 	if lt.building != "":
 		var texture:Resource = load(BuildingsLib.lib[lt.building].portrait)
-		building_port.visible = true
+		building_name.visible = true
 		building_port.texture = texture
 		building_name.text = BuildingsLib.lib[lt.building].display_text
 	else:
-		#Load terrain portrait. Hardcoded for the moment.
+		building_name.visible = false
 		building_port.texture = load(TerrainLib.lib[lt.terrain].portrait)
 	#Non-nullables
 	terrain_name.text = TerrainLib.lib[lt.terrain].display_text
 	power.text = "Power: " + str(lt.power)
 	development.text = "Development: " + str(lt.development)
+	services.text = "Services: " + str (lt.services)
+	resilience.text = "Resilience: " + str(lt.resilience)
 
 func _ready()->void:
 	pass # Replace with function body.

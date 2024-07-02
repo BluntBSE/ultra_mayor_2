@@ -71,7 +71,7 @@ func draw_map_grid(grid:Array) -> void:
 
 			rendered_grid[x].append(rendered_tile)
 			add_child(rendered_tile)
-
+				
 			rendered_tile.bg_sprite.texture = load(terrain_sprite)
 			#Connect appropriate signals to this node
 			rendered_tile.hovered_cell.connect(on_hovered_cell_enter)
@@ -86,6 +86,13 @@ func draw_tile_sprites(tile:LogicalTile, x:int, y:int) -> void:
 		var building:Building = BuildingsLib.lib[tile.building]
 		var building_sprite:Resource = load(building.sprite)
 		rendered_tile.building_sprite.texture = building_sprite
+	if tile.occupant != null:
+		print("Found an occupant")
+		var pilot:LogicalPilot = PilotLib.lib[tile.occupant.id]
+
+		var pilot_tile_sprite:Resource = load (pilot.sprite)
+		print("SPRITE SHOULD BE, ", pilot_tile_sprite)
+		rendered_tile.occupant_sprite.texture = pilot_tile_sprite
 
 
 
@@ -167,8 +174,13 @@ func _ready() -> void:
 	#Remove this after testing
 	var test_tile:LogicalTile = grid[10][10]
 	test_tile.building = "coal_plant"
-	print("My test tile is", test_tile)
-	draw_tile_sprites(test_tile, 10, 10)
+	var test_tile_2:LogicalTile = grid[11][11]
+	print(PilotLib.lib)
+	print(PilotLib.lib["demo_pilot"])
+	test_tile_2.occupant = PilotLib.lib["demo_pilot"]
+	print("Tile 2 occupant, ", test_tile_2.occupant)
+	draw_tile_sprites(test_tile, 10, 10) 
+	draw_tile_sprites(test_tile_2, 11, 11)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -204,7 +216,7 @@ func generate_logical_terrain_map(x:int,y:int)->Array:
 			#y = altitude
 			var terrain_options:Array = [
 				["plain", "plain", "mountain"],
-				["plain", "plain", "hills"],
+				["plain", "forest", "hills"],
 				["water", "bog", "hills"],
 			]
 
@@ -225,6 +237,6 @@ func apply_logical_terrain_map(grid:Array, terrain_map:Array)->Array:
 		for row in range(grid[col].size()):
 			var tile:LogicalTile = grid[col][row]
 			tile.terrain = terrain_map[col][row].terrain
-			print(tile.terrain)
+
 
 	return grid
