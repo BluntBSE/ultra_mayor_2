@@ -8,12 +8,25 @@ var state_machine:StateMachine = StateMachine.new()
 #Sprites are rendered on top of the terrain in the order they appaer.
 var infra_sprite: Sprite2D
 @onready var building_sprite: Sprite2D = %building_sprite
-var occupant_sprite: Sprite2D
+@onready var occupant_sprite: Sprite2D = %occupant_sprite
 var effect_sprite: Sprite2D
 
 signal hovered_cell #Emitted when this is moused over.
 signal exit_hover_cell
 signal clicked_cell
+
+#Override setters. For example, scale sprites.
+var occupant_sprite_width: int = 128
+var occupant_sprite_height: int = 128
+
+func update_occupant_sprite(texture:CompressedTexture2D)->void:
+	occupant_sprite.texture = texture
+	var og_width: float = float(occupant_sprite.texture.get_height())
+	var og_height: float = float(occupant_sprite.texture.get_width())
+	var h_scale:float = float(occupant_sprite_height) / og_height
+	var w_scale:float = float(occupant_sprite_width) / og_width
+	occupant_sprite.scale = Vector2(w_scale, h_scale)
+
 
 func unpack() -> void:
 	#x and y should already be set by the draw_map_grid in the Map node

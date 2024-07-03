@@ -5,10 +5,10 @@ class_name SideBar
 #Occupant
 @onready var occupant_port: TextureRect = %OccupantPort
 @onready var occupant_name: RichTextLabel = %OccupantData/OccupantName
-@onready var occupant_type: RichTextLabel = %OccupantData/OccupantType
-@onready var occupant_target: RichTextLabel = %OccupantData/Target
+#@onready var occupant_type: RichTextLabel = %OccupantData/OccupantType
+#@onready var occupant_target: RichTextLabel = %OccupantData/Target
 #Idk what to do with this one yet.
-@onready var inspect_button: Node = %OccupantData/Inspect
+#@onready var inspect_button: Node = %OccupantData/Inspect
 
 #Building & Terrain
 @onready var building_port: TextureRect = %BuildingPort
@@ -38,6 +38,18 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 	else:
 		building_name.visible = false
 		building_port.texture = load(TerrainLib.lib[lt.terrain].portrait)
+
+	if lt.occupant != null:
+
+		var occupant_portrait:String = lt.occupant.portrait
+		occupant_port.texture = load(occupant_portrait)
+		occupant_name.text = lt.occupant.display_name
+		%OccupantData.visible=true
+
+	else:
+		occupant_port.texture = null
+		%OccupantData.visible = false
+
 	#Non-nullables
 	terrain_name.text = TerrainLib.lib[lt.terrain].display_text
 	power.text = "Power: " + str(lt.power)

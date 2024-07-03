@@ -1,3 +1,6 @@
+REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
+
+
 On a 1920x1080 display, try to display ~24 tiles across
 
 Every RenderedTile tile has a "highlighted" state. Toggling of the states is organized at the TileMain level.

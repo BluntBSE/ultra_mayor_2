@@ -24,6 +24,7 @@ position = Vector2(97, 107)
 scale = Vector2(4.21, 4.21)
 
 [node name="occupant_sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(91, 114)
 
 [node name="effect_sprite" type="Sprite2D" parent="."]
@@ -47,6 +48,13 @@ offset_bottom = 126.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "0 , 0"
+
+[node name="scale_reference" type="ColorRect" parent="."]
+visible = false
+offset_left = 22.0
+offset_top = 43.0
+offset_right = 150.0
+offset_bottom = 171.0
 
 [connection signal="input_event" from="hover_area" to="." method="_on_hover_area_input_event"]
 [connection signal="mouse_entered" from="hover_area" to="." method="custom_hover_enter"]

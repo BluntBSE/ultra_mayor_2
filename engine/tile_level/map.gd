@@ -12,6 +12,7 @@ signal city_builder
 signal battle_mode
 signal dataful_hover
 signal dataful_click
+#REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED A REAL STATE MACHINE?
 var map_mode:int = CITY_BUILDER
 
 
@@ -71,7 +72,7 @@ func draw_map_grid(grid:Array) -> void:
 
 			rendered_grid[x].append(rendered_tile)
 			add_child(rendered_tile)
-				
+
 			rendered_tile.bg_sprite.texture = load(terrain_sprite)
 			#Connect appropriate signals to this node
 			rendered_tile.hovered_cell.connect(on_hovered_cell_enter)
@@ -92,7 +93,7 @@ func draw_tile_sprites(tile:LogicalTile, x:int, y:int) -> void:
 
 		var pilot_tile_sprite:Resource = load (pilot.sprite)
 		print("SPRITE SHOULD BE, ", pilot_tile_sprite)
-		rendered_tile.occupant_sprite.texture = pilot_tile_sprite
+		rendered_tile.update_occupant_sprite(pilot_tile_sprite)
 
 
 
@@ -107,6 +108,7 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 	dataful_hover.emit({"logical": logical_tile, "rt": rendered_tile})
 	#May need to check for map_mode at this point. Currently not doing so.
 	rendered_tile.state_machine.Change("hovered_basic", {})
+	#If there is an occupant on the map, change the portrait
 
 
 func on_hovered_cell_exit(args:Dictionary) -> void:
@@ -139,13 +141,25 @@ func on_clicked_cell(args:Dictionary) -> void:
 	if map_mode == CITY_BUILDER:
 		handle_cb_click(args)
 	if map_mode == BATTLE_MODE:
-		#handle_battle_click
+		handle_battle_click(args)
 		pass
 	print("CLICKED", args)
 
 
 func handle_cb_click(args:Dictionary) -> void:
 	print("Executing city builder click")
+
+	#Ultimately we want to emit a signal with the tile's data for the UI to display.
+	pass
+
+func handle_battle_click(args:Dictionary) -> void:
+	print("Executing battle mode click click")
+	#1. Check if there's an occupant.
+	#2. If there is, check if it's player owned. (Being of type == pilot is probably enough)
+	#   If so:
+	#3. Freeze the portrait in place. Maybe add a highlight to it.
+	#4. Change the tile underneath to the hovered state (primary selection?)
+
 
 	#Ultimately we want to emit a signal with the tile's data for the UI to display.
 	pass
@@ -175,11 +189,10 @@ func _ready() -> void:
 	var test_tile:LogicalTile = grid[10][10]
 	test_tile.building = "coal_plant"
 	var test_tile_2:LogicalTile = grid[11][11]
-	print(PilotLib.lib)
-	print(PilotLib.lib["demo_pilot"])
+	#I am pretty confident that putting constructors in the lib makes a new instances every time.
 	test_tile_2.occupant = PilotLib.lib["demo_pilot"]
 	print("Tile 2 occupant, ", test_tile_2.occupant)
-	draw_tile_sprites(test_tile, 10, 10) 
+	draw_tile_sprites(test_tile, 10, 10)
 	draw_tile_sprites(test_tile_2, 11, 11)
 
 
