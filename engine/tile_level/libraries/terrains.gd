@@ -39,7 +39,7 @@ static var lib:Dictionary = {
 		"display_text": "Mountains",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain.png",
 		"portrait": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain.png",
-		"move_cost": 4
+		"move_cost": 3
 		}
 	),
 	"water": Terrain.new(
@@ -47,7 +47,7 @@ static var lib:Dictionary = {
 		"display_text": "Water",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/water.png",
 		"portrait": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/water.png",
-		"move_cost": 1
+		"move_cost": 3
 		}
 	),
 	"bog": Terrain.new(

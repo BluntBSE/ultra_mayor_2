@@ -145,8 +145,12 @@ func handle_battle_click(args:Dictionary) -> void:
 	var rt:RenderedTile = rendered_grid[x][y]
 
 	#Quick debug tool. Probably need to remove this.
-	if selection_primary != {} and selection_secondary != {}:
 
+
+	if selection_primary != {} and selection_secondary != {}:
+		for column:Array in rendered_grid:
+			for tile:RenderedTile in column:
+				tile.state_machine.Change("basic", {})
 		selection_primary.rt.state_machine.Change("basic", {})
 		#If you've got two selections and you click your primary again, you re-select your primary
 		if selection_primary.x  == x and selection_primary.y == y:
@@ -154,6 +158,8 @@ func handle_battle_click(args:Dictionary) -> void:
 		selection_secondary.rt.state_machine.Change("basic", {})
 		selection_primary = {}
 		selection_secondary ={}
+
+
 	#Remove above clearance
 
 	if lt.occupant != null:
@@ -167,7 +173,9 @@ func handle_battle_click(args:Dictionary) -> void:
 			selection_secondary = {"x":x, "y":y, "lt": lt, "rt": rt}
 			print("PRIMARY SELECTION", selection_primary)
 			print("SECONDARY SELECTION", selection_secondary)
-
+			var to_highlight:Array = find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":selection_secondary.x, "y": selection_secondary.y})
+			for coord:Dictionary in to_highlight:
+				rendered_grid[coord.x][coord.y].state_machine.Change("primary_selected", {})
 	if selection_primary != {} and selection_secondary != {}:
 		#Draw the path.
 		pass
@@ -212,10 +220,6 @@ func _ready() -> void:
 	print("Tile 2 occupant, ", test_tile_2.occupant)
 	draw_tile_sprites(test_tile, 10, 10)
 	draw_tile_sprites(test_tile_2, 11, 11)
-	var rand_neighbors:Array = find_neighbors({"x": 10, "y": 1}, grid)
-	for coords:Dictionary in rand_neighbors:
-		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.state_machine.Change("primary_selected", {})
 
 
 
@@ -318,8 +322,83 @@ func find_neighbors(origin:Dictionary, grid:Array)->Array:
 
 	return neighbors
 
-func find_path(grid:Array, origin:Dictionary, target:Dictionary)->void:
-	pass
+func find_path_basic(grid:Array, origin:Dictionary, target:Dictionary)->void:
+	var frontier:Array = []
+	frontier.push_back(origin)
+	var came_from:Dictionary = {}
+	came_from[origin] = {}
+
+	while not frontier.is_empty():
+		var current:Dictionary = frontier.pop_front()
+
+		if current == target:
+			print("Got to target!")
+			break
+
+		var neighbors:Array = find_neighbors(current, grid)
+		for neighbor:Dictionary in neighbors:
+			if !came_from.has(neighbor):
+				frontier.push_back(neighbor)
+				came_from[neighbor] = current
+
+
+	#If you got out of this loop you should have found the target.
+	var path:Array = [target]
+	var previous:Dictionary = came_from[target]
+	while previous != {}:
+		path.push_front(previous)
+		previous = came_from[previous]
+
+	print("THE END PATH IS", path)
+
+
+func find_path_pilot(grid:Array, origin:Dictionary, target:Dictionary)->Array:
+	var occupant:LogicalPilot = grid[origin.x][origin.y].occupant
+	print("OCCUPANT IS", occupant.display_name)
+	var frontier:Array = []
+	frontier.push_back(origin)
+	var came_from:Dictionary = {}
+	came_from[origin] = {}
+	var cost_so_far:Dictionary = {}
+	cost_so_far[origin]=0
+
+	var foo:Variant = func sort_path(a:Dictionary, b:Dictionary)->bool:
+		#print("I RECEIVED", a, "AND", b)
+		if cost_so_far[b] > cost_so_far[a]:
+			return true
+		else:
+			return false
+
+	while not frontier.is_empty():
+		var current:Dictionary = frontier.pop_front()
+		if current == target:
+			print("Got to target!")
+			break
+
+		var neighbors:Array = find_neighbors(current, grid)
+		for neighbor:Dictionary in neighbors:
+			var current_terrain:String = grid[current.x][current.y].terrain
+			var new_cost:int = cost_so_far[current] + TerrainLib.lib[current_terrain].move_cost
+			if !cost_so_far.has(neighbor) or new_cost < cost_so_far[neighbor]:
+				cost_so_far[neighbor] = new_cost
+				frontier.push_back(neighbor)
+				#Super crude, shouldn't sort every time, but whatever. Replace with a priorityqueue implementation later.
+				frontier.sort_custom(foo)
+				came_from[neighbor] = current
+
+
+	#If you got out of this loop you should have found the target.
+	var path:Array = [target]
+	var previous:Dictionary = came_from[target]
+	while previous != {}:
+		path.push_front(previous)
+		previous = came_from[previous]
+
+	print("THE END PATH IS", path)
+	return path
+
+
+
 
 func draw_path()->void:
 	pass
