@@ -49,6 +49,16 @@ mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 text = "0 , 0"
 
+[node name="move_cost" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+offset_left = 74.0
+offset_top = 45.0
+offset_right = 125.0
+offset_bottom = 79.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "0"
+
 [node name="scale_reference" type="ColorRect" parent="."]
 visible = false
 offset_left = 22.0

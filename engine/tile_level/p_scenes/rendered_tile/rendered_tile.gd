@@ -9,6 +9,7 @@ var state_machine:StateMachine = StateMachine.new()
 var infra_sprite: Sprite2D
 @onready var building_sprite: Sprite2D = %building_sprite
 @onready var occupant_sprite: Sprite2D = %occupant_sprite
+@onready var move_cost: RichTextLabel = %move_cost
 var effect_sprite: Sprite2D
 
 signal hovered_cell #Emitted when this is moused over.
@@ -45,6 +46,15 @@ func _ready() -> void:
 	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
 	#Default state:
 	state_machine.Change("basic",{})
+
+
+func handle_input(args:Dictionary)->void:
+	#This is typically triggered by TileMain up above
+	#It might seem goofy to emit a signal from this tile, send it to main, then send instructions back
+	#But we have state on both the main and this particular tile and the outcomes are dependent on both.
+	#print("Rendered tile at: ", x, y, " Received input of type:", args)
+	state_machine._current.stateHandleInput(args)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:

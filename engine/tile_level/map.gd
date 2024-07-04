@@ -11,15 +11,13 @@ enum {CITY_BUILDER, BATTLE_MODE}
 signal city_builder
 signal battle_mode
 signal dataful_hover
+signal dataful_hover_exit
 signal dataful_click
 #REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED A REAL STATE MACHINE?
-var map_mode:int = CITY_BUILDER
+var map_mode:int = BATTLE_MODE
 
-
-
-#PROBABLY REMOVE THESE
-var primary_selection: Dictionary = {} #{ "x": 1, "y": 0 }
-var secondary_selection: Dictionary = {}
+var selection_primary: Dictionary #{"x":x, "y":y, "lt":lt, "rt": rt}
+var selection_secondary: Dictionary
 
 #Observers
 @onready var header: TileMapHeaderBar = %HeaderBar
@@ -107,33 +105,20 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 	#Ugly. Does this need fixing?
 	dataful_hover.emit({"logical": logical_tile, "rt": rendered_tile})
 	#May need to check for map_mode at this point. Currently not doing so.
-	rendered_tile.state_machine.Change("hovered_basic", {})
-	#If there is an occupant on the map, change the portrait
+	rendered_tile.handle_input(RTArgs.make({"event": "hover_enter"}))
+
 
 
 func on_hovered_cell_exit(args:Dictionary) -> void:
 	var rendered_tile:RenderedTile = rendered_grid[args.x][args.y]
-	rendered_tile.state_machine.Change("basic", {})
+	rendered_tile.handle_input(RTArgs.make({"event":"hover_exit"}))
 
 func clear_selection_from_map() -> void:
-	if primary_selection != {}:
-		var primary_rendered:RenderedTile = rendered_grid[primary_selection.x][primary_selection.y]
-		primary_rendered.state_machine.Change("base", {})
-	if secondary_selection != {}:
-		var secondary_rendered:RenderedTile = rendered_grid[secondary_selection.x][secondary_selection.y]
-		secondary_rendered.state_machine.Change("base", {})
+	pass
 
 
 func apply_selection_to_map()->void:
-	print("Attempting to apply")
-	print("Application primary is", primary_selection)
-	if primary_selection != {}:
-		print("We have a primary selection!")
-		var primary_rendered:RenderedTile = rendered_grid[primary_selection.x][primary_selection.y]
-		primary_rendered.state_machine.Change("primary_selected", {})
-	if secondary_selection != {}:
-		var secondary_rendered:RenderedTile = rendered_grid[secondary_selection.x][secondary_selection.y]
-		secondary_rendered.state_machine.Change("secondary_selected", {})
+	pass
 
 
 func on_clicked_cell(args:Dictionary) -> void:
@@ -142,7 +127,6 @@ func on_clicked_cell(args:Dictionary) -> void:
 		handle_cb_click(args)
 	if map_mode == BATTLE_MODE:
 		handle_battle_click(args)
-		pass
 	print("CLICKED", args)
 
 
@@ -154,6 +138,40 @@ func handle_cb_click(args:Dictionary) -> void:
 
 func handle_battle_click(args:Dictionary) -> void:
 	print("Executing battle mode click click")
+	var selection_dict:Dictionary = { "x": args.x, "y": args.y }
+	var x:int = selection_dict.x
+	var y:int = selection_dict.y
+	var lt:LogicalTile = grid[x][y]
+	var rt:RenderedTile = rendered_grid[x][y]
+
+	#Quick debug tool. Probably need to remove this.
+	if selection_primary != {} and selection_secondary != {}:
+
+		selection_primary.rt.state_machine.Change("basic", {})
+		#If you've got two selections and you click your primary again, you re-select your primary
+		if selection_primary.x  == x and selection_primary.y == y:
+				selection_primary.rt.state_machine.Change("hovered_basic", {})
+		selection_secondary.rt.state_machine.Change("basic", {})
+		selection_primary = {}
+		selection_secondary ={}
+	#Remove above clearance
+
+	if lt.occupant != null:
+		if selection_primary == {}:
+			rt.handle_input(RTArgs.make({"event": "left_click", "selection_primary": selection_primary, "selection_secondary": selection_secondary, "map_mode": "battle"}))
+			selection_primary = {"x":x, "y":y, "lt": lt, "rt": rt}
+
+	if lt.occupant == null:
+		if selection_primary != {}:
+			rt.handle_input(RTArgs.make({"event": "left_click", "selection_primary": selection_primary, "selection_secondary": selection_secondary, "map_mode": "battle"}))
+			selection_secondary = {"x":x, "y":y, "lt": lt, "rt": rt}
+			print("PRIMARY SELECTION", selection_primary)
+			print("SECONDARY SELECTION", selection_secondary)
+
+	if selection_primary != {} and selection_secondary != {}:
+		#Draw the path.
+		pass
+
 	#1. Check if there's an occupant.
 	#2. If there is, check if it's player owned. (Being of type == pilot is probably enough)
 	#   If so:
@@ -174,7 +192,7 @@ func _ready() -> void:
 	#Signal connections
 	city_builder.connect(header.update_label)
 	battle_mode.connect(header.update_label)
-	#Connect observers
+	#Connect observers, such as sidebar.
 	for observer:Node in observers:
 		if observer.has_method("on_hovered_cell_enter"):
 			dataful_hover.connect(observer.on_hovered_cell_enter)
@@ -194,6 +212,11 @@ func _ready() -> void:
 	print("Tile 2 occupant, ", test_tile_2.occupant)
 	draw_tile_sprites(test_tile, 10, 10)
 	draw_tile_sprites(test_tile_2, 11, 11)
+	var rand_neighbors:Array = find_neighbors({"x": 10, "y": 1}, grid)
+	for coords:Dictionary in rand_neighbors:
+		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
+		rt.state_machine.Change("primary_selected", {})
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -241,7 +264,6 @@ func generate_logical_terrain_map(x:int,y:int)->Array:
 					}
 				)
 
-	print("OUTPUT IS", output)
 	return output
 
 
@@ -253,3 +275,51 @@ func apply_logical_terrain_map(grid:Array, terrain_map:Array)->Array:
 
 
 	return grid
+
+
+func find_neighbors(origin:Dictionary, grid:Array)->Array:
+	var x:int = origin.x
+	var y: int = origin.y
+	var max_x:int = grid.size()
+	var max_y:int = grid[0].size()
+	var neighbors:Array = []
+	var potential_neighbors:Array=[]
+	var logical_neighbors: Array = []
+	#If X is odd, neighbors are different than if X is even
+	"""
+	For a cell (X,Y) where Y is even, the neighbors are: (X,Y-1),(X+1,Y-1),(X-1,Y),(X+1,Y),(X,Y+1),(X+1,Y+1)
+
+	For a cell (X,Y) where Y is odd, the neighbors are: (X-1,Y-1),(X,Y-1),(X-1,Y),(X+1,Y),(X-1,Y+1),(X,Y+1)
+	"""
+	if x % 2 == 0:  # X is even
+		potential_neighbors= [
+			{"x": x-1, "y": y-1},#Top left
+			{"x": x+1, "y": y-1},#Top Right
+			{"x": x-1, "y": y},#Bottom left
+			{"x": x+1, "y": y},#Bottom Right
+			{"x": x-2, "y": y},#Left
+			{"x": x+2, "y": y}#Right
+		]
+	else:  # X is odd
+		potential_neighbors = [
+			{"x": x-1, "y": y}, #Top left
+			{"x": x+1, "y": y},#Top Right
+			{"x": x+2, "y": y},#Right
+			{"x": x+1, "y": y+1},#Bottom Right
+			{"x": x-1, "y": y+1},#Bottom Left
+			{"x": x-2, "y": y}#Left
+		]
+
+	for neighbor:Dictionary in potential_neighbors:
+		var nx:int = neighbor.x
+		var ny:int = neighbor.y
+		if nx >= 0 and nx < max_x and ny >= 0 and ny < max_y:
+			neighbors.append(neighbor)
+
+	return neighbors
+
+func find_path(grid:Array, origin:Dictionary, target:Dictionary)->void:
+	pass
+
+func draw_path()->void:
+	pass
