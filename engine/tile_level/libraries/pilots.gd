@@ -5,7 +5,10 @@ static var lib:Dictionary = {
 		"id": "demo_pilot",
 		"display_name": "Demo Pilot",
 		"sprite":"res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/demo_mech.png",
-		"portrait": "res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/alicia.png"
+		"portrait": "res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/alicia.png",
+		"move_points": 4,
+		"moves_remaining": 4,
+		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1})
 	})
 
 }
