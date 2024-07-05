@@ -47,21 +47,21 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 	#Ugly. Does this need fixing?
 	dataful_hover.emit({"logical": logical_tile, "rt": rendered_tile})
 	#May need to check for map_mode at this point. Currently not doing so.
-	rendered_tile.handle_input(RTArgs.make({"event": "hover_enter"}))
+	rendered_tile.handle_input(RTArgs.make({"event": "hover_enter", "map": self}))
 
 	if map_mode == BATTLE_MODE:
 		if selection_primary != {}:
 			for coord:Dictionary in tiles_to_highlight_pf:
-				rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "hover_exit"}))
+				rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "move_deselect", "map": self}))
 			tiles_to_highlight_pf = PathHelpers.find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":args.x, "y": args.y})
 			for coord:Dictionary in tiles_to_highlight_pf:
-				rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "hover_enter"}))
+				rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "move_preview", "map": self}))
 
 
 
 func on_hovered_cell_exit(args:Dictionary) -> void:
 	var rendered_tile:RenderedTile = rendered_grid[args.x][args.y]
-	rendered_tile.handle_input(RTArgs.make({"event":"hover_exit"}))
+	rendered_tile.handle_input(RTArgs.make({"event":"hover_exit", "map":self}))
 
 
 
@@ -108,12 +108,12 @@ func handle_battle_click(args:Dictionary) -> void:
 
 	if lt.occupant != null:
 		if selection_primary == {}:
-			rt.handle_input(RTArgs.make({"event": "left_click", "selection_primary": selection_primary, "selection_secondary": selection_secondary, "map_mode": "battle"}))
+			rt.handle_input(RTArgs.make({"event": "left_click", "map":self}))
 			selection_primary = {"x":x, "y":y, "lt": lt, "rt": rt}
 
 	if lt.occupant == null:
 		if selection_primary != {}:
-			rt.handle_input(RTArgs.make({"event": "left_click", "selection_primary": selection_primary, "selection_secondary": selection_secondary, "map_mode": "battle"}))
+			rt.handle_input(RTArgs.make({"event": "left_click", "map": self}))
 			selection_secondary = {"x":x, "y":y, "lt": lt, "rt": rt}
 			print("PRIMARY SELECTION", selection_primary)
 			print("SECONDARY SELECTION", selection_secondary)

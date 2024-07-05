@@ -44,6 +44,7 @@ func _ready() -> void:
 	state_machine.Add("primary_selected", PrimarySelectionRT.new(self,{}))
 	state_machine.Add("secondary_selected", SecondarySelectionRT.new(self,{}))
 	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
+	state_machine.Add("move_preview", MovePreviewRT.new(self,{}))
 	#Default state:
 	state_machine.Change("basic",{})
 

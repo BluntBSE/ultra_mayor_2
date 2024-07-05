@@ -1,6 +1,7 @@
 extends GenericState
 class_name HoveredBasicRT
 
+
 #All states have access to _reference (the node associated with this state) and _args ( a dictionary of args )
 var sprite:Sprite2D
 
@@ -17,12 +18,12 @@ func stateHandleInput(args:Dictionary)->void:
 			_reference.state_machine.Change("basic", {})
 
 	#Battle mode inputs
-	if args.map_mode == "battle":
+	if args.map.map_mode == 1: #Battle Mode
 		if args.event == "left_click":
 			print("RECEIVED A CLICK WITH", args)
-			if args.selection_primary == {}:
+			if args.map.selection_primary == {}:
 				_reference.state_machine.Change("primary_selected", {})
-			elif args.selection_secondary == {}:
+			elif args.map.selection_secondary == {}:
 				print("GOING SECONDARY")
 				_reference.state_machine.Change("secondary_selected", {})
 

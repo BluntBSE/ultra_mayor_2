@@ -11,4 +11,6 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.state_machine.Change("basic", {})
 	if args.event == "hover_enter":
 		_reference.state_machine.Change("hovered_basic", {})
+	if args.event == "move_preview":
+		_reference.state_machine.Change("move_preview", {})
 

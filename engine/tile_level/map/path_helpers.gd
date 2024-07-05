@@ -71,6 +71,7 @@ static func find_path_pilot(grid:Array, origin:Dictionary, target:Dictionary)->A
 		var neighbors:Array = PathHelpers.find_neighbors(current, grid)
 		for neighbor:Dictionary in neighbors:
 			var current_terrain:String = grid[current.x][current.y].terrain
+			#Adjust for speed chart here
 			var new_cost:int = cost_so_far[current] + TerrainLib.lib[current_terrain].move_cost
 			if !cost_so_far.has(neighbor) or new_cost < cost_so_far[neighbor]:
 				cost_so_far[neighbor] = new_cost
@@ -87,10 +88,17 @@ static func find_path_pilot(grid:Array, origin:Dictionary, target:Dictionary)->A
 	while previous != {}:
 		full_path.push_front(previous)
 		previous = came_from[previous]
+
 	#Now see how far you can get down the path with the move speed that you have.
+	#We dont' want to render anything under the moving agent right now or use the original tile in calculations, so remove the origin
+	full_path.erase(origin)
+
 	var reachable_path:Array = []
+	var reach_cost:int = 0 #Couldn't figure out how to use cost_so_far without referencing original terrain anyway.
 	for path_coords:Dictionary in full_path:
-		if cost_so_far[path_coords] <= move_points:
+		#Modify for speed chart later
+		reach_cost += TerrainLib.lib[grid[path_coords.x][path_coords.y].terrain].move_cost
+		if reach_cost <= move_points:
 			reachable_path.append(path_coords)
 
 	return reachable_path
