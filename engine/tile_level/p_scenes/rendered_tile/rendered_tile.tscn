@@ -9,8 +9,6 @@ radius = 32.0156
 
 [node name="RenderedTile" type="Node2D"]
 script = ExtResource("1_0e00g")
-x = null
-y = null
 
 [node name="bg_sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_32lfy")

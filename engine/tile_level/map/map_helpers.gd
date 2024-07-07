@@ -12,7 +12,6 @@ static func generate_generic_map(grid_x:int, grid_y:int) -> Array:
 	return grid
 
 static func draw_map_grid(map:Node, grid:Array, rendered_grid:Array, x_offset:int, y_offset:int) -> void:
-	print("DRAWING")
 	for x:int in grid.size():
 		rendered_grid.append([])
 		for y:int in grid[x].size():
@@ -41,8 +40,9 @@ static func draw_map_grid(map:Node, grid:Array, rendered_grid:Array, x_offset:in
 			#Connect appropriate signals to this node
 			rendered_tile.hovered_cell.connect(map.on_hovered_cell_enter)
 			rendered_tile.exit_hover_cell.connect(map.on_hovered_cell_exit)
-			rendered_tile.clicked_cell.connect(map.on_clicked_cell)
-
+			rendered_tile.left_clicked_cell.connect(map.on_left_clicked_cell)
+			rendered_tile.right_clicked_cell.connect(map.on_right_clicked_cell)
+			#rendered_tile.modulate = "#ffffff4b"
 
 static func draw_tile_sprites(rendered_grid:Array, tile:LogicalTile, x:int, y:int) -> void:
 	var rendered_tile:RenderedTile = rendered_grid[x][y]
@@ -51,10 +51,43 @@ static func draw_tile_sprites(rendered_grid:Array, tile:LogicalTile, x:int, y:in
 		var building:Building = BuildingsLib.lib[tile.building]
 		var building_sprite:Resource = load(building.sprite)
 		rendered_tile.building_sprite.texture = building_sprite
+	#if tile.occupant != null:
+		#var pilot:LogicalPilot = PilotLib.lib[tile.occupant.id]
+		#var pilot_tile_sprite:Resource = load (pilot.sprite)
+		#rendered_tile.update_occupant_sprite(pilot_tile_sprite)
+static func get_tile_midpoint(rt:RenderedTile)->Vector2:
+	var sprite: Sprite2D = rt.bg_sprite
+	var og_width:int = sprite.texture.get_width()
+	var og_height:int = sprite.texture.get_height()
+	var og_dimensions:Vector2 = Vector2(og_width, og_height)
+	var midpoint:Vector2 = og_dimensions/2
+	return midpoint
+
+static func get_tile_midpoint_global(rt:RenderedTile)->Vector2:
+	var sprite: Sprite2D = rt.bg_sprite
+	var og_width:int = sprite.texture.get_width()
+	var og_height:int = sprite.texture.get_height()
+	var og_dimensions:Vector2 = Vector2(og_width, og_height)
+	var midpoint:Vector2 = og_dimensions/2
+	var global_midpoint:Vector2 = rt.global_position + midpoint
+	return global_midpoint
+
+
+static func draw_occupants(rendered_grid:Array, tile:LogicalTile, x:int, y:int)->void:
+	var rendered_tile:RenderedTile = rendered_grid[x][y]
 	if tile.occupant != null:
-		var pilot:LogicalPilot = PilotLib.lib[tile.occupant.id]
-		var pilot_tile_sprite:Resource = load (pilot.sprite)
-		rendered_tile.update_occupant_sprite(pilot_tile_sprite)
+		if tile.occupant is LogicalPilot:
+			var pilot:LogicalPilot = tile.occupant
+			var pilot_texture:Resource = load (pilot.sprite)
+			var rp:RenderedPilot = load("res://engine/tile_level/p_scenes/rendered_pilot/rendered_pilot.tscn").instantiate()
+			rendered_tile.add_child(rp)
+			rendered_tile.rendered_occupant = rp
+			rp.z_index = 4000
+			#Could use local position, idc
+			var vector_midpoint:Vector2 = get_tile_midpoint_global(rendered_tile)
+			rp.global_position = vector_midpoint
+			rp.update_sprite(pilot_texture)
+	pass
 
 
 static func apply_logical_terrain_map(grid:Array, terrain_map:Array)->Array:

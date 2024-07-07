@@ -152,13 +152,29 @@ text = "Alicia June
 (Public Works)"
 fit_content = true
 
-[node name="Button" type="Button" parent="UICanvas/SideBar"]
+[node name="EndTurnBtn" type="Button" parent="UICanvas/SideBar"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 876.0
 offset_right = 178.0
 offset_bottom = 907.0
 text = "END TURN"
+
+[node name="GoBtn" type="Button" parent="UICanvas/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 831.0
+offset_right = 178.0
+offset_bottom = 862.0
+text = "GO"
+
+[node name="ResetBtn" type="Button" parent="UICanvas/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 790.0
+offset_right = 178.0
+offset_bottom = 821.0
+text = "RESET"
 
 [node name="HeaderBar" type="ColorRect" parent="UICanvas"]
 unique_name_in_owner = true

@@ -7,6 +7,8 @@ func stateEnter(args:Dictionary) ->void:
 	_reference.bg_sprite.modulate="#ffffff"
 
 func stateHandleInput(args:Dictionary)->void:
+	if args.event == "clear":
+		_reference.state_machine.Change("basic", {})
 	if args.event == "hover_exit":
 		_reference.state_machine.Change("basic", {})
 	if args.event == "hover_enter":

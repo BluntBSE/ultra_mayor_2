@@ -15,6 +15,10 @@ func stateHandleInput(args:Dictionary)->void:
 	if args.event:
 		if args.event == "move_deselect":
 			_reference.state_machine.Change("basic", {})
+		if args.event == "selection_secondary":
+			_reference.state_machine.Change("selected_secondary", {})
+		if args.event == "clear":
+			_reference.state_machine.Change("basic", {})
 
 
 

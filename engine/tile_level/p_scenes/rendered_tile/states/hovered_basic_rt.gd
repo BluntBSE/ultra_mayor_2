@@ -16,16 +16,10 @@ func stateHandleInput(args:Dictionary)->void:
 	if args.event:
 		if args.event == "hover_exit":
 			_reference.state_machine.Change("basic", {})
-
-	#Battle mode inputs
-	if args.map.map_mode == 1: #Battle Mode
-		if args.event == "left_click":
-			print("RECEIVED A CLICK WITH", args)
-			if args.map.selection_primary == {}:
-				_reference.state_machine.Change("primary_selected", {})
-			elif args.map.selection_secondary == {}:
-				print("GOING SECONDARY")
-				_reference.state_machine.Change("secondary_selected", {})
+		if args.event == "move_preview":
+			_reference.state_machine.Change("move_preview", {})
+		if args.event == "selection_primary":
+			_reference.state_machine.Change("selected_primary", {})
 
 
 

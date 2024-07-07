@@ -115,7 +115,6 @@ static func find_path_basic(grid:Array, origin:Dictionary, target:Dictionary)->v
 		var current:Dictionary = frontier.pop_front()
 
 		if current == target:
-			print("Got to target!")
 			break
 
 		var neighbors:Array = PathHelpers.find_neighbors(current, grid)

@@ -8,18 +8,22 @@ var state_machine:StateMachine = StateMachine.new()
 #Sprites are rendered on top of the terrain in the order they appaer.
 var infra_sprite: Sprite2D
 @onready var building_sprite: Sprite2D = %building_sprite
+#Deprecated variable
 @onready var occupant_sprite: Sprite2D = %occupant_sprite
 @onready var move_cost: RichTextLabel = %move_cost
 var effect_sprite: Sprite2D
+var rendered_occupant: Object
 
 signal hovered_cell #Emitted when this is moused over.
 signal exit_hover_cell
-signal clicked_cell
+signal left_clicked_cell
+signal right_clicked_cell
 
 #Override setters. For example, scale sprites.
 var occupant_sprite_width: int = 128
 var occupant_sprite_height: int = 128
 
+#Deprecated function
 func update_occupant_sprite(texture:CompressedTexture2D)->void:
 	occupant_sprite.texture = texture
 	var og_width: float = float(occupant_sprite.texture.get_height())
@@ -41,8 +45,8 @@ func _ready() -> void:
 	bg_sprite = get_node("bg_sprite")
 
 	state_machine.Add("basic", BasicStateRT.new(self, {}))
-	state_machine.Add("primary_selected", PrimarySelectionRT.new(self,{}))
-	state_machine.Add("secondary_selected", SecondarySelectionRT.new(self,{}))
+	state_machine.Add("selected_primary", PrimarySelectionRT.new(self,{}))
+	state_machine.Add("selected_secondary", SecondarySelectionRT.new(self,{}))
 	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
 	state_machine.Add("move_preview", MovePreviewRT.new(self,{}))
 	#Default state:
@@ -85,8 +89,17 @@ func custom_hover_exit()  -> void:
 	)
 	pass # Replace with function body.
 
-func custom_click() -> void:
-	clicked_cell.emit(
+func custom_left_click() -> void:
+	left_clicked_cell.emit(
+		{
+		"x": x,
+		"y": y
+		}
+	)
+
+
+func custom_right_click() -> void:
+	right_clicked_cell.emit(
 		{
 		"x": x,
 		"y": y
@@ -96,5 +109,7 @@ func custom_click() -> void:
 
 
 func _on_hover_area_input_event(viewport:Node, event:InputEvent, shape_idx:int) ->void:
-	if event is InputEventMouseButton and event.is_released():
-		custom_click() #Emit signal to Map node
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+		custom_left_click() #Emit signal to Map node
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
+		custom_right_click() #Emit signal to Map node
