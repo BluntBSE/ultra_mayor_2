@@ -78,6 +78,13 @@ func on_left_clicked_cell(args:Dictionary) -> void:
 	if map_mode == BATTLE_MODE:
 		handle_battle_click(args)
 
+func clear_selections()->void:
+		for coords:Dictionary in tiles_to_highlight_pf:
+			rendered_grid[coords.x][coords.y].handle_input({"event": "clear", "map": self})
+		if selection_primary != {}:
+			rendered_grid[selection_primary.x][selection_primary.y].handle_input({"event": "clear", "map": self})
+		selection_primary = {}
+		selection_secondary = {}
 
 func on_right_clicked_cell(args:Dictionary) -> void:
 
@@ -85,13 +92,8 @@ func on_right_clicked_cell(args:Dictionary) -> void:
 		pass
 	if map_mode == BATTLE_MODE:
 		#Clear it all for now
-		for coords:Dictionary in tiles_to_highlight_pf:
-			rendered_grid[coords.x][coords.y].handle_input({"event": "clear", "map": self})
-			if selection_primary != {}:
-				rendered_grid[selection_primary.x][selection_primary.y].handle_input({"event": "clear", "map": self})
-			selection_primary = {}
-			selection_secondary = {}
-		pass
+		clear_selections()
+
 
 
 func handle_cb_click(args:Dictionary) -> void:
@@ -110,7 +112,6 @@ func handle_battle_click(args:Dictionary) -> void:
 
 	#Quick debug tool. Probably need to remove this.
 
-
 	if selection_primary != {} and selection_secondary != {}:
 		#If you've got two selections and you click your primary again, clear -- This is bugged
 		if selection_primary.x  == x and selection_primary.y == y:
@@ -121,7 +122,6 @@ func handle_battle_click(args:Dictionary) -> void:
 			selection_secondary ={}
 
 		#If you clicked the secondary selection, confirm the move.
-
 		if selection_secondary.x == x and selection_secondary.y == y:
 			print("Determined you clicked on the secondary")
 			if lt.occupant == null:
@@ -129,7 +129,17 @@ func handle_battle_click(args:Dictionary) -> void:
 				if grid[selection_primary.x][selection_primary.y].occupant.id in PilotLib.lib:
 					var occupant:RenderedPilot = rendered_grid[selection_primary.x][selection_primary.y].rendered_occupant
 					print("OCCUPANT IS", occupant)
-					occupant.state_machine.Change("moving", {"origin": selection_primary, "target": selection_dict, "map": self})
+					occupant.state_machine.Change("moving", {"origin": selection_primary, "target": selection_dict, "map": self, "path":tiles_to_highlight_pf})
+					#Remove occupant from logical and rendered grids
+					#PUt this in its own function? And more, only do it after the move is complete?
+					grid[x][y].occupant = grid[selection_primary.x][selection_primary.y].occupant
+					grid[selection_primary.x][selection_primary.y].occupant = null
+					rendered_grid[x][y].rendered_occupant = rendered_grid[selection_primary.x][selection_primary.y].rendered_occupant
+					rendered_grid[selection_primary.x][selection_primary.y].rendered_occupant = null
+
+
+					clear_selections()
+					return
 
 
 
@@ -149,7 +159,7 @@ func handle_battle_click(args:Dictionary) -> void:
 				#for coord:Dictionary in to_highlight:
 					#rendered_grid[coord.x][coord.y].state_machine.Change("selected_primary", {})
 			else:
-				var coords:Dictionary = tiles_to_highlight_pf[-1]
+				var coords:Dictionary = tiles_to_highlight_pf.back()
 				print("FINAL COORDS", coords)
 				var tile:RenderedTile = rendered_grid[coords.x][coords.y]
 				tile.handle_input(RTArgs.make({"event": "selection_secondary", "map": self}))
