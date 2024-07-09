@@ -110,12 +110,15 @@ func handle_battle_click(args:Dictionary) -> void:
 	var lt:LogicalTile = grid[x][y]
 	var rt:RenderedTile = rendered_grid[x][y]
 
+
 	#Quick debug tool. Probably need to remove this.
+	print("PRIMARY SELECTION", selection_primary)
+	print("SECONDARY SELECTION", selection_secondary)
 
 	if selection_primary != {} and selection_secondary != {}:
 		#If you've got two selections and you click your primary again, clear -- This is bugged
 		if selection_primary.x  == x and selection_primary.y == y:
-			print("BUNKUM")
+			print("CLEARING")
 			selection_primary.rt.state_machine.Change("hovered_basic", {})
 			selection_secondary.rt.state_machine.Change("basic", {})
 			selection_primary = {}
@@ -128,9 +131,9 @@ func handle_battle_click(args:Dictionary) -> void:
 				print("WHEEE")
 				if grid[selection_primary.x][selection_primary.y].occupant.id in PilotLib.lib:
 					var occupant:RenderedPilot = rendered_grid[selection_primary.x][selection_primary.y].rendered_occupant
-					print("OCCUPANT IS", occupant)
+					print("ABOUT TO ENTER MOVING STATE")
 					occupant.state_machine.Change("moving", {"origin": selection_primary, "target": selection_dict, "map": self, "path":tiles_to_highlight_pf})
-					#Remove occupant from logical and rendered grids
+
 					#PUt this in its own function? And more, only do it after the move is complete?
 					grid[x][y].occupant = grid[selection_primary.x][selection_primary.y].occupant
 					grid[selection_primary.x][selection_primary.y].occupant = null
@@ -150,11 +153,18 @@ func handle_battle_click(args:Dictionary) -> void:
 
 	if lt.occupant == null:
 		if selection_primary != {}:
-			if args in tiles_to_highlight_pf:
+			#TODO: See if we can find a way to make this a named callback.
+			#Checks to see if any of the tiles_to_highlight exactly match the coords of args.
+			#Added this because tiles_to_highlight gained move cost data.
+			if tiles_to_highlight_pf.any(func(element:Dictionary)->bool:
+				if element.x == args.x:
+					if element.y == args.y:
+						return true
+				return false
+				):
 				rt.handle_input(RTArgs.make({"event": "selection_secondary", "map": self}))
 				selection_secondary = {"x":x, "y":y, "lt": lt, "rt": rt}
-				print("PRIMARY SELECTION", selection_primary)
-				print("SECONDARY SELECTION", selection_secondary)
+
 				#var to_highlight:Array = find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":selection_secondary.x, "y": selection_secondary.y})
 				#for coord:Dictionary in to_highlight:
 					#rendered_grid[coord.x][coord.y].state_machine.Change("selected_primary", {})
@@ -178,7 +188,6 @@ func _ready() -> void:
 	for observer:Node in observers:
 		if observer.has_method("on_hovered_cell_enter"):
 			dataful_hover.connect(observer.on_hovered_cell_enter)
-
 
 	#Create and draw map
 	grid = MapHelpers.generate_generic_map(grid_x, grid_y)

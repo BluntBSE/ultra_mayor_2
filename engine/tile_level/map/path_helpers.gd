@@ -47,7 +47,7 @@ static func find_neighbors(origin:Dictionary, grid:Array)->Array:
 
 static func find_path_pilot(grid:Array, origin:Dictionary, target:Dictionary)->Array:
 	var occupant:LogicalPilot = grid[origin.x][origin.y].occupant
-	var move_points:int = occupant.move_points
+	var moves_remaining:int = occupant.moves_remaining
 	var frontier:Array = []
 	var came_from:Dictionary = {}
 	came_from[origin] = {}
@@ -98,7 +98,9 @@ static func find_path_pilot(grid:Array, origin:Dictionary, target:Dictionary)->A
 	for path_coords:Dictionary in full_path:
 		#Modify for speed chart later
 		reach_cost += TerrainLib.lib[grid[path_coords.x][path_coords.y].terrain].move_cost
-		if reach_cost <= move_points:
+		if reach_cost <= moves_remaining:
+			#NEXT: Adding reach cost is a good idea. Why does it break my shit?
+			path_coords.reach_cost = reach_cost
 			reachable_path.append(path_coords)
 
 	return reachable_path
