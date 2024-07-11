@@ -6,6 +6,7 @@ corresponding cost and then always return the Vector2 in it with
 the lowest cost value.
 Based on: https://en.wikipedia.org/wiki/Binary_heap
 """
+"""
 var _data: Array = []
 
 func insert(element: Vector2, cost: float) -> void:
@@ -67,3 +68,4 @@ func _down_heap(index: int) -> void:
 	if smallest != index:
 		self._swap(index, smallest)
 		self._down_heap(smallest)
+	"""

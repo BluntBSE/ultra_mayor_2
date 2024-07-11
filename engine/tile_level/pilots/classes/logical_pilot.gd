@@ -1,14 +1,8 @@
 class_name LogicalPilot extends Occupant
 
 #Replace "Object" with real types later
-var id:String
-var display_name:String
-var sprite:String
-var portrait:String
-var deck:Object
-var speed_chart:SpeedChart
-var move_points:int
-var moves_remaining:int
+
+
 
 #Maybe it's useful to store LAST/CURRENT_POSITION and LAST_MR here? To add a fast reset?
 

@@ -15,4 +15,8 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.state_machine.Change("hovered_basic", {})
 	if args.event == "move_preview":
 		_reference.state_machine.Change("move_preview", {})
+	if args.event == "kaiju_path_preview":
+		_reference.state_machine.Change("kaiju_path_preview", {})
+	if args.event == "kaiju_move_preview":
+		_reference.state_machine.Change("kaiju_move_preview", {})
 

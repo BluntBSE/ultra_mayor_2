@@ -1,0 +1,14 @@
+REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
+
+
+Path to highlight has to be moved to the pilot level, not the map level.
+
+Maybe not HAS to be. But KAIJU for sure.
+
+To do this properly, you must make path removal also tied to each pilot/kaiju
+
+Add speedchart.
+
+Allow Kaiju and Pilots to move into, or avoid, each others tiles respectively.
+
+Should RenderedGrid and Grid just be variables accessible to occupants at all times? Idk

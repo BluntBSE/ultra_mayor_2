@@ -49,6 +49,8 @@ func _ready() -> void:
 	state_machine.Add("selected_secondary", SecondarySelectionRT.new(self,{}))
 	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
 	state_machine.Add("move_preview", MovePreviewRT.new(self,{}))
+	state_machine.Add("kaiju_path_preview", KaijuPathPreviewRT.new(self,{}))
+	state_machine.Add("kaiju_move_preview", KaijuMovePreviewRT.new(self,{}))
 	#Default state:
 	state_machine.Change("basic",{})
 

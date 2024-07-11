@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmkiuwes4dyeg"]
 
-[ext_resource type="Script" path="res://engine/tile_level/p_scenes/rendered_pilot/rendered_pilot.gd" id="1_3ywhu"]
+[ext_resource type="Script" path="res://engine/tile_level/pilots/classes/rendered_pilot.gd" id="1_3ywhu"]
 [ext_resource type="Texture2D" uid="uid://bd5mv4bjbb3ar" path="res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/GMS EVEREST SP-3.png" id="2_avns8"]
 
 [node name="RenderedPilot" type="Node2D"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://21cch2buev8a"]
+
+[ext_resource type="Script" path="res://engine/tile_level/kaiju/rendered_kaiju.gd" id="1_qryxv"]
+[ext_resource type="Texture2D" uid="uid://bd5mv4bjbb3ar" path="res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/GMS EVEREST SP-3.png" id="2_x7my2"]
+
+[node name="RenderedKaiju" type="Node2D"]
+z_index = 1000
+z_as_relative = false
+script = ExtResource("1_qryxv")
+
+[node name="sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_x7my2")

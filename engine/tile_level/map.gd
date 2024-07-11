@@ -4,11 +4,14 @@ class_name Map
 
 #X, then Y
 var grid: Array = []
-var grid_x: int = 20
-var grid_y: int = 20
+var grid_x: int = 40
+var grid_y: int = 30
 @export var x_offset: int = 90
 @export var y_offset: int = 300
 var rendered_grid:Array = [] #Possibly maintaining both the visual nodes and decoupled logic is excessive. Oh well.
+var occupants: Array = [] # Might be useful to just hold a reference to all occupants.
+var pilots:Array = []
+var kaiju:Array = []
 var turn_counter:int = 0
 enum {CITY_BUILDER, BATTLE_MODE}
 
@@ -40,7 +43,11 @@ func set_mode(mode:int) -> void:
 		battle_mode.emit(mode)
 
 
-
+func pass_turn()->void:
+	for occupant:Occupant in occupants:
+		print("Reset move points of ", occupant.display_name)
+		occupant.moves_remaining = occupant.move_points
+	pass
 
 #XXXXXXXXXXXXXXXX
 #User interactions with map
@@ -55,12 +62,19 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 
 	if map_mode == BATTLE_MODE:
 		if selection_primary != {} and selection_secondary == {}:
-			for coord:Dictionary in tiles_to_highlight_pf:
-				rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "move_deselect", "map": self}))
-			tiles_to_highlight_pf = PathHelpers.find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":args.x, "y": args.y})
-			#Include the mouse point
-			for coord:Dictionary in tiles_to_highlight_pf:
-				rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "move_preview", "map": self}))
+			#If you have a selection, and the first selection is a pilot.
+			if grid[selection_primary.x][selection_primary.y].occupant.id in PilotLib.lib:
+				for coord:Dictionary in tiles_to_highlight_pf:
+					rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "move_deselect", "map": self}))
+				tiles_to_highlight_pf = PathHelpers.find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":args.x, "y": args.y})
+				#Include the mouse point
+				for coord:Dictionary in tiles_to_highlight_pf:
+					rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "move_preview", "map": self}))
+			if grid[selection_primary.x][selection_primary.y].occupant.id in KaijuLib.lib:
+				var kaiju:LogicalKaiju = grid[selection_primary.x][selection_primary.y].occupant
+				kaiju.show_movement(rendered_grid, self)
+
+				pass
 
 
 
@@ -126,13 +140,16 @@ func handle_battle_click(args:Dictionary) -> void:
 
 		#If you clicked the secondary selection, confirm the move.
 		if selection_secondary.x == x and selection_secondary.y == y:
-			print("Determined you clicked on the secondary")
 			if lt.occupant == null:
-				print("WHEEE")
 				if grid[selection_primary.x][selection_primary.y].occupant.id in PilotLib.lib:
-					var occupant:RenderedPilot = rendered_grid[selection_primary.x][selection_primary.y].rendered_occupant
-					print("ABOUT TO ENTER MOVING STATE")
-					occupant.state_machine.Change("moving", {"origin": selection_primary, "target": selection_dict, "map": self, "path":tiles_to_highlight_pf})
+					#Split into a do_pilot_movement function?
+					print("I THINK THERE'S A DANG PILOT HERE")
+					var logical_occupant:LogicalPilot = grid[selection_primary.x][selection_primary.y].occupant
+					var rendered_occupant:RenderedPilot = rendered_grid[selection_primary.x][selection_primary.y].rendered_occupant
+					rendered_occupant.state_machine.Change("moving", {"origin": selection_primary, "target": selection_dict, "map": self, "path":tiles_to_highlight_pf})
+					var reach_cost:int = tiles_to_highlight_pf[-1].reach_cost
+					logical_occupant.moves_remaining -= reach_cost
+
 
 					#PUt this in its own function? And more, only do it after the move is complete?
 					grid[x][y].occupant = grid[selection_primary.x][selection_primary.y].occupant
@@ -153,30 +170,32 @@ func handle_battle_click(args:Dictionary) -> void:
 
 	if lt.occupant == null:
 		if selection_primary != {}:
-			#TODO: See if we can find a way to make this a named callback.
-			#Checks to see if any of the tiles_to_highlight exactly match the coords of args.
-			#Added this because tiles_to_highlight gained move cost data.
-			if tiles_to_highlight_pf.any(func(element:Dictionary)->bool:
-				if element.x == args.x:
-					if element.y == args.y:
-						return true
-				return false
-				):
-				rt.handle_input(RTArgs.make({"event": "selection_secondary", "map": self}))
-				selection_secondary = {"x":x, "y":y, "lt": lt, "rt": rt}
+			if grid[selection_primary.x][selection_primary.y].occupant.id in PilotLib.lib:
 
-				#var to_highlight:Array = find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":selection_secondary.x, "y": selection_secondary.y})
-				#for coord:Dictionary in to_highlight:
-					#rendered_grid[coord.x][coord.y].state_machine.Change("selected_primary", {})
-			else:
-				var coords:Dictionary = tiles_to_highlight_pf.back()
-				print("FINAL COORDS", coords)
-				var tile:RenderedTile = rendered_grid[coords.x][coords.y]
-				tile.handle_input(RTArgs.make({"event": "selection_secondary", "map": self}))
+				#TODO: See if we can find a way to make this a named callback.
+				#Checks to see if any of the tiles_to_highlight exactly match the coords of args.
+				#Added this because tiles_to_highlight gained move cost data.
+				if tiles_to_highlight_pf.any(func(element:Dictionary)->bool:
+					if element.x == args.x:
+						if element.y == args.y:
+							return true
+					return false
+					):
+					rt.handle_input(RTArgs.make({"event": "selection_secondary", "map": self}))
+					selection_secondary = {"x":x, "y":y, "lt": lt, "rt": rt}
+
+					#var to_highlight:Array = find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":selection_secondary.x, "y": selection_secondary.y})
+					#for coord:Dictionary in to_highlight:
+						#rendered_grid[coord.x][coord.y].state_machine.Change("selected_primary", {})
+				else:
+					var coords:Dictionary = tiles_to_highlight_pf.back()
+					print("FINAL COORDS", coords)
+					var tile:RenderedTile = rendered_grid[coords.x][coords.y]
+					tile.handle_input(RTArgs.make({"event": "selection_secondary", "map": self}))
 
 
 
-	pass
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -198,11 +217,39 @@ func _ready() -> void:
 	var test_tile:LogicalTile = grid[10][10]
 	test_tile.building = "coal_plant"
 	var test_tile_2:LogicalTile = grid[10][10]
+	var test_tile_3:LogicalTile = grid[20][20]
+	#You better figure out how to handle two Kaiju near each other pathfinding....And soon
+	var test_tile_4:LogicalTile = grid[22][20]
+	var test_tile_5:LogicalTile = grid[10][20]
+	var test_tile_6:LogicalTile = grid[5][5]
 	#I am pretty confident that putting constructors in the lib makes a new instances every time.
+	#DEBUG: Adding occupants
+	#PRobably now demands a make-occupant function
 	test_tile_2.occupant = PilotLib.lib["demo_pilot"]
+	test_tile_2.occupant.unpack(self, grid, rendered_grid)
+	test_tile_4.occupant = KaijuLib.lib["raiju"]
+	test_tile_4.occupant.unpack(self, grid, rendered_grid)
+	test_tile_3.occupant = KaijuLib.lib["dragon"]
+	test_tile_3.occupant.unpack(self, grid, rendered_grid)
+	var dragon:LogicalKaiju = test_tile_3.occupant
+	dragon.path_to_target_from({"x":20, "y":20})
+	test_tile_5.occupant = KaijuLib.lib["bird"]
+	test_tile_5.occupant.unpack(self, grid, rendered_grid)
+
+	var test_kaiju_destination:Dictionary = {"x": 10, "y": 10}
+	var test_kaiju_3:LogicalKaiju = test_tile_3.occupant
+
+	#END DEBUG
 	print("Tile 2 occupant, ", test_tile_2.occupant)
-	MapHelpers.draw_tile_sprites(rendered_grid,test_tile, 10, 10)
-	MapHelpers.draw_occupants(rendered_grid,test_tile,10,10)
+	#Debug additions
+	var demo_cells:Array = [[10,10],[20,20],[22,20],[10,20],[5,5]]
+	for cell:Array in demo_cells:
+		MapHelpers.draw_tile_sprites(rendered_grid, grid[cell[0]][cell[1]], cell[0], cell[1])
+		MapHelpers.draw_occupants(rendered_grid, grid[cell[0]][cell[1]], cell[0], cell[1])
+		occupants.append(grid[cell[0]][cell[1]].occupant)
+		print(occupants)
+
+	#var t3_paths:Dictionary = PathHelpers.find_path_kaiju(grid, {"x":20, "y":20}, {"x": 10, "y": 10})
 	#draw_occupant_sprites
 	#MapHelpers.draw_tile_sprites(rendered_grid,test_tile_2, 10, 11)
 
