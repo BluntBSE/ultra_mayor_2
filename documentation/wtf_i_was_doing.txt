@@ -1,11 +1,19 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
-Path to highlight has to be moved to the pilot level, not the map level.
+CONSIDER: Making occupants observe the tiles to which they are parented?
+Could even have all tiles be observers of signals emitted at the map level instead of calling the tiles. Idk
+
+Do I need to add reparenting of the occupants during movement?
+
+Path to highlight has to be moved to the pilot level, not the map level. [Done for Kaiju]
 
 Maybe not HAS to be. But KAIJU for sure.
 
 To do this properly, you must make path removal also tied to each pilot/kaiju
+
+Let's say that after ALL the movement stuff is in, let's try switching to a signal based pattern
+If you do a signal based pattern, you could probably emit the current selections with every emission.
 
 Add speedchart.
 

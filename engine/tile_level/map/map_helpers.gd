@@ -7,7 +7,7 @@ static func generate_generic_map(grid_x:int, grid_y:int) -> Array:
 	for x in range(0,grid_x):
 		grid.append([])
 		for y in range(0,grid_y):
-			grid[x].append(LogicalTile.new())
+			grid[x].append(LogicalTile.new(x,y))
 
 	return grid
 

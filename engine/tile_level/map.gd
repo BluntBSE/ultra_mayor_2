@@ -44,9 +44,20 @@ func set_mode(mode:int) -> void:
 
 
 func pass_turn()->void:
+	for column:Array in grid:
+			for tile:LogicalTile in column:
+				print("LOGICAL TILE SCANNED AT ", tile.x, tile.y)
+				if tile.occupant:
+					if tile.occupant.id in KaijuLib.lib:
+						print("FOUND KAIJU ", tile.occupant.display_name)
+						var logical_occupant: LogicalKaiju = tile.occupant
+						var rendered_occupant:RenderedKaiju = rendered_grid[tile.x][tile.y].rendered_occupant
+						rendered_occupant.state_machine.Change("moving", {"origin": {"x":tile.x,"y":tile.y}, "target": logical_occupant.target_coords , "map": self, "path":logical_occupant.reachable_path})
+
 	for occupant:Occupant in occupants:
-		print("Reset move points of ", occupant.display_name)
-		occupant.moves_remaining = occupant.move_points
+		pass
+		#print("Reset move points of ", occupant.display_name)
+		#occupant.moves_remaining = occupant.move_points
 	pass
 
 #XXXXXXXXXXXXXXXX
@@ -70,19 +81,23 @@ func on_hovered_cell_enter(args:Dictionary) -> void:
 				#Include the mouse point
 				for coord:Dictionary in tiles_to_highlight_pf:
 					rendered_grid[coord.x][coord.y].handle_input(RTArgs.make({"event": "move_preview", "map": self}))
-			if grid[selection_primary.x][selection_primary.y].occupant.id in KaijuLib.lib:
-				var kaiju:LogicalKaiju = grid[selection_primary.x][selection_primary.y].occupant
+		if logical_tile.occupant:
+			if logical_tile.occupant.id in KaijuLib.lib:
+				var kaiju:LogicalKaiju = logical_tile.occupant
 				kaiju.show_movement(rendered_grid, self)
 
-				pass
 
 
 
 
 func on_hovered_cell_exit(args:Dictionary) -> void:
 	var rendered_tile:RenderedTile = rendered_grid[args.x][args.y]
+	var logical_tile:LogicalTile = grid[args.x][args.y]
 	rendered_tile.handle_input(RTArgs.make({"event":"hover_exit", "map":self}))
-
+	if logical_tile.occupant:
+		if logical_tile.occupant.id in KaijuLib.lib:
+			var kaiju:LogicalKaiju = logical_tile.occupant
+			kaiju.clear_movement(rendered_grid, self)
 
 
 func on_left_clicked_cell(args:Dictionary) -> void:
@@ -225,16 +240,16 @@ func _ready() -> void:
 	#I am pretty confident that putting constructors in the lib makes a new instances every time.
 	#DEBUG: Adding occupants
 	#PRobably now demands a make-occupant function
-	test_tile_2.occupant = PilotLib.lib["demo_pilot"]
-	test_tile_2.occupant.unpack(self, grid, rendered_grid)
-	test_tile_4.occupant = KaijuLib.lib["raiju"]
-	test_tile_4.occupant.unpack(self, grid, rendered_grid)
+	#test_tile_2.occupant = PilotLib.lib["demo_pilot"]
+	#test_tile_2.occupant.unpack(self, grid, rendered_grid)
+	#test_tile_4.occupant = KaijuLib.lib["raiju"]
+	#test_tile_4.occupant.unpack(self, grid, rendered_grid)
 	test_tile_3.occupant = KaijuLib.lib["dragon"]
 	test_tile_3.occupant.unpack(self, grid, rendered_grid)
 	var dragon:LogicalKaiju = test_tile_3.occupant
 	dragon.path_to_target_from({"x":20, "y":20})
-	test_tile_5.occupant = KaijuLib.lib["bird"]
-	test_tile_5.occupant.unpack(self, grid, rendered_grid)
+	#test_tile_5.occupant = KaijuLib.lib["bird"]
+	#test_tile_5.occupant.unpack(self, grid, rendered_grid)
 
 	var test_kaiju_destination:Dictionary = {"x": 10, "y": 10}
 	var test_kaiju_3:LogicalKaiju = test_tile_3.occupant

@@ -9,18 +9,24 @@ func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.handle_input(RTArgs.make({"event": "kaiju_move_preview", "map": map}))
-	pass
+
 
 func draw_full_path()->void:
 	for coords:Dictionary in full_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.handle_input(RTArgs.make({"event": "kaiju_path_preview", "map": map}))
-	pass
+
+
+func clear_movement(rendered_grid:Array, map:Node2D)->void:
+	for coords:Dictionary in full_path:
+		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
+		rt.handle_input(RTArgs.make({"event": "move_deselect", "map": map}))
+
+
 
 func show_movement(rendered_grid:Array, map:Node2D)->void:
 	draw_full_path()
 	draw_reachable_path()
-	pass
 
 func path_to_target_from(origin:Dictionary)->void:
 	var paths:Dictionary = PathHelpers.find_path_kaiju(logical_grid,origin,target_coords)

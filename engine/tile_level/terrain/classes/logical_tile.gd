@@ -13,7 +13,9 @@ var resilience: int = 0
 var modifiers:Array = []
 
 
-
+func _init(_x:int,_y:int)->void:
+	x = _x
+	y = _y
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

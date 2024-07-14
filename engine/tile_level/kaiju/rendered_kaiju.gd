@@ -27,8 +27,8 @@ func update_sprite(texture:CompressedTexture2D)->void:
 
 func _ready() -> void:
 
-	state_machine.Add("basic", BasicStatePilot.new(self, {}))
-	state_machine.Add("moving", MovingStatePilot.new(self, {}))
+	state_machine.Add("basic", BasicStateKaiju.new(self, {}))
+	state_machine.Add("moving", MovingStateKaiju.new(self, {}))
 
 	state_machine.Change("basic",{})
 
