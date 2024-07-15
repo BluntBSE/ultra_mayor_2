@@ -12,13 +12,16 @@ func stateEnter(args:Dictionary)->void:
 	sprite.modulate = "#4ac4d0a8"
 
 func stateHandleInput(args:Dictionary)->void:
-	if args.event:
-		if args.event == "move_deselect":
-			_reference.state_machine.Change("basic", {})
-		if args.event == "selection_secondary":
-			_reference.state_machine.Change("selected_secondary", {})
-		if args.event == "clear":
-			_reference.state_machine.Change("basic", {})
+	if args.event == RTInputs.CLEAR:
+		_reference.state_machine.Change("basic", {})
+	if args.event == RTInputs.HOVER_EXIT:
+		_reference.state_machine.Change("basic", {})
+	if args.event == RTInputs.P_M_PREVIEW:
+		_reference.state_machine.Change("move_preview", {})
+	if args.event == RTInputs.K_P_PREVIEW:
+		_reference.state_machine.Change("kaiju_path_preview", {})
+	if args.event == RTInputs.K_M_PREVIEW:
+		_reference.state_machine.Change("kaiju_move_preview", {})
 
 
 

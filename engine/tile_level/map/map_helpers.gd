@@ -1,60 +1,44 @@
 class_name MapHelpers
 
 
-static func generate_generic_map(grid_x:int, grid_y:int) -> Array:
+static func generate_logical_grid(grid_x:int, grid_y:int, _map:Map_2) -> Array:
 	#Rudimentarily puts generic maptiles in
 	var grid:Array = []
 	for x in range(0,grid_x):
 		grid.append([])
 		for y in range(0,grid_y):
-			grid[x].append(LogicalTile.new(x,y))
+			grid[x].append(LogicalTile.new(x,y, _map, grid))
 
 	return grid
 
-static func draw_map_grid(map:Node, grid:Array, rendered_grid:Array, x_offset:int, y_offset:int) -> void:
-	for x:int in grid.size():
-		rendered_grid.append([])
-		for y:int in grid[x].size():
+static func generate_rendered_grid(map:Node, logical_grid:Array, rendered_grid:Array, x_offset:int, y_offset:int) -> Array:
+	var output_rg:Array = []
+	for x:int in logical_grid.size():
+		output_rg.append([])
+		for y:int in logical_grid[x].size():
 			var rendered_tile:RenderedTile = load("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
-			rendered_tile.x = x
-			rendered_tile.y = y
-			#rendered_tile.z_index = y
-			if x % 2 != 0: #If the X is odd, shift it down and increase its z index.
-				rendered_tile.position.y = (float(y)+0.5) * y_offset
-				rendered_tile.z_index = rendered_tile.z_index + 1
-			else:
-				rendered_tile.position.y = y * y_offset
-			#Z index goes up by 10 for every row down we go.
-			rendered_tile.z_index = rendered_tile.z_index + (y * 10)
-			rendered_tile.position.x = x * x_offset
-			rendered_tile.unpack()
+			rendered_tile.unpack(x,y,map,logical_grid)
 			#Replace these with better handlers
-			var key:String = grid[x][y].terrain
-			var terrain_sprite:String = TerrainLib.lib[key].sprite
-
-
-			rendered_grid[x].append(rendered_tile)
+			output_rg[x].append(rendered_tile)
 			map.add_child(rendered_tile)
 
-			rendered_tile.bg_sprite.texture = load(terrain_sprite)
-			#Connect appropriate signals to this node
-			rendered_tile.hovered_cell.connect(map.on_hovered_cell_enter)
-			rendered_tile.exit_hover_cell.connect(map.on_hovered_cell_exit)
-			rendered_tile.left_clicked_cell.connect(map.on_left_clicked_cell)
-			rendered_tile.right_clicked_cell.connect(map.on_right_clicked_cell)
-			#rendered_tile.modulate = "#ffffff4b"
 
-static func draw_tile_sprites(rendered_grid:Array, tile:LogicalTile, x:int, y:int) -> void:
-	var rendered_tile:RenderedTile = rendered_grid[x][y]
+	return output_rg
+
+static func draw_tile_sprites(tile:LogicalTile, rendered_grid:Array) -> void:
+	var rendered_tile: RenderedTile = rendered_grid[tile.x][tile.y]
 	#Handle buildings
 	if tile.building != "":
 		var building:Building = BuildingsLib.lib[tile.building]
 		var building_sprite:Resource = load(building.sprite)
 		rendered_tile.building_sprite.texture = building_sprite
-	#if tile.occupant != null:
-		#var pilot:LogicalPilot = PilotLib.lib[tile.occupant.id]
-		#var pilot_tile_sprite:Resource = load (pilot.sprite)
-		#rendered_tile.update_occupant_sprite(pilot_tile_sprite)
+
+static func draw_all_tile_sprites(logical_grid:Array, rendered_grid:Array)->void:
+	for column:Array in logical_grid:
+		for tile:LogicalTile in column:
+			draw_tile_sprites(tile, rendered_grid)
+
+
 static func get_tile_midpoint(rt:RenderedTile)->Vector2:
 	var sprite: Sprite2D = rt.bg_sprite
 	var og_width:int = sprite.texture.get_width()
@@ -73,8 +57,8 @@ static func get_tile_midpoint_global(rt:RenderedTile)->Vector2:
 	return global_midpoint
 
 
-static func draw_occupants(rendered_grid:Array, tile:LogicalTile, x:int, y:int)->void:
-	var rendered_tile:RenderedTile = rendered_grid[x][y]
+static func draw_occupants(rendered_grid:Array, tile:LogicalTile)->void:
+	var rendered_tile:RenderedTile = rendered_grid[tile.x][tile.y]
 	if tile.occupant != null:
 		if tile.occupant is LogicalPilot:
 			var pilot:LogicalPilot = tile.occupant
@@ -100,20 +84,16 @@ static func draw_occupants(rendered_grid:Array, tile:LogicalTile, x:int, y:int)-
 			var vector_midpoint:Vector2 = get_tile_midpoint_global(rendered_tile)
 			rp.global_position = vector_midpoint
 			rp.update_sprite(kaiju_texture)
-			pass
+
 	pass
 
 
-static func apply_logical_terrain_map(grid:Array, terrain_map:Array)->Array:
-	for col in range(grid.size()):
-		for row in range(grid[col].size()):
-			var tile:LogicalTile = grid[col][row]
-			tile.terrain = terrain_map[col][row].terrain
+static func draw_all_occupants(logical_grid:Array, rendered_grid:Array, )->void:
+	for column:Array in logical_grid:
+		for tile:LogicalTile in column:
+			draw_occupants(rendered_grid, tile)
 
-
-	return grid
-
-static func generate_logical_terrain_map(x:int,y:int)->Array:
+static func generate_logical_terrain_map(width:int,height:int)->Array:
 	var output:Array = []
 	var moisture:FastNoiseLite = FastNoiseLite.new()
 	moisture.seed = randi()
@@ -123,9 +103,9 @@ static func generate_logical_terrain_map(x:int,y:int)->Array:
 	altitude.seed = randi()
 	moisture.frequency = 0.1
 	altitude.frequency = 0.3 #???
-	for col in range(x):
+	for col in range(width):
 		output.append([])
-		for row in range(y):
+		for row in range(height):
 			#-10 to 10
 			#Then 0 to 20
 			#Then 0 to 2
@@ -155,5 +135,13 @@ static func generate_logical_terrain_map(x:int,y:int)->Array:
 	return output
 
 
+static func apply_logical_terrain_map(grid:Array, terrain_map:Array)->Array:
+	for col in range(grid.size()):
+		for row in range(grid[col].size()):
+			var tile:LogicalTile = grid[col][row]
+			tile.terrain = terrain_map[col][row].terrain
+
+
+	return grid
 
 

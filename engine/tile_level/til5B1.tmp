@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_ar066"]
+[ext_resource type="Script" path="res://engine/tile_level/map.gd" id="1_si778"]
 [ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="2_22q1o"]
-[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nk7ha"]
 [ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="3_qpeak"]
 [ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_8227k"]
 [ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="4_aw21a"]
@@ -15,7 +15,7 @@
 script = ExtResource("1_ar066")
 
 [node name="Map" type="Node2D" parent="."]
-script = ExtResource("2_nk7ha")
+script = ExtResource("1_si778")
 
 [node name="TileMap" type="TileMap" parent="."]
 visible = false

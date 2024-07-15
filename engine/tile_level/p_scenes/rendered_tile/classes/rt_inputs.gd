@@ -1,0 +1,13 @@
+class_name  RTInputs
+
+enum {
+	CLEAR,
+	HOVER,
+	HOVER_EXIT,
+	SELECT,
+	SELECT_2,
+	CONTEXT,
+	P_M_PREVIEW,
+	K_P_PREVIEW,
+	K_M_PREVIEW,
+}

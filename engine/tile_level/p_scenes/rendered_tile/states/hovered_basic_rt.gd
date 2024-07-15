@@ -4,22 +4,24 @@ class_name HoveredBasicRT
 
 #All states have access to _reference (the node associated with this state) and _args ( a dictionary of args )
 var sprite:Sprite2D
+var tile: RenderedTile
 
 func unpack(args:Dictionary)->void:
 	sprite = _reference.bg_sprite
+	tile = _reference
+
 
 
 func stateEnter(args:Dictionary)->void:
 	sprite.modulate = "#bdbdbd"
 
 func stateHandleInput(args:Dictionary)->void:
-	if args.event:
-		if args.event == "hover_exit":
-			_reference.state_machine.Change("basic", {})
-		if args.event == "move_preview":
-			_reference.state_machine.Change("move_preview", {})
-		if args.event == "selection_primary":
-			_reference.state_machine.Change("selected_primary", {})
+	if args.event == RTInputs.HOVER_EXIT:
+		tile.state_machine.Change("basic", {})
+	if args.event == RTInputs.SELECT:
+		_reference.state_machine.Change("selection_primary", {})
+
+	pass
 
 
 
