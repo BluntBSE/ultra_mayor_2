@@ -3,7 +3,7 @@ class_name MovingStatePilot
 
 var origin:Dictionary
 var target:Dictionary
-var map: Map
+var map: Map_2
 var path: Array
 var t: float
 var next_coord:Dictionary = {}
@@ -23,15 +23,7 @@ func stateEnter(args:Dictionary) ->void:
 
 
 func stateHandleInput(args:Dictionary)->void:
-	if args.event == "clear":
-		_reference.state_machine.Change("basic", {})
-	if args.event == "hover_exit":
-		_reference.state_machine.Change("basic", {})
-	if args.event == "hover_enter":
-		_reference.state_machine.Change("hovered_basic", {})
-	if args.event == "move_preview":
-		_reference.state_machine.Change("move_preview", {})
-
+	pass
 
 func stateUpdate(delta:float)->void:
 	if next_coord == {}:

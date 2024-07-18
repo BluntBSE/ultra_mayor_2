@@ -15,12 +15,53 @@ func _init(args:Dictionary)->void:
 	moves_remaining = args.moves_remaining
 	#deck = args.deck
 
+func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
+	x = _x
+	y = _y
+	#print("LOGICAL GRID", _logical_grid)
+	map = _map
+	logical_grid=_logical_grid
+	rendered_grid=_rendered_grid
 
-func clear_highlight(path:Array)->void:
+func sync(_x:int,_y:int)->void:
+	#Maybe this isn't the best place to do this clear.
+	#Probably, if LP is going to be in charge, make map call a function on LP that then calls RP.
+	var rt:RenderedTile = rendered_grid[x][y]
+	rt.handle_input({"event":RTInputs.CLEAR})
+	#Assign self to LT at new XY
+	logical_grid[_x][_y].occupant = self
+	#Unset self from old xy
+	logical_grid[x][y].occupant = null
+
+	#Assign avatar to the appropriate parent in renderedGrid
+	var rp:RenderedPilot = rendered_grid[x][y].rendered_occupant
+	rendered_grid[_x][_y].rendered_occupant = rp
+	#Unset avatar from old xy
+	rendered_grid[x][y].rendered_occupant = null
+
+	#TODO: reparent node?
+	#Set own xy to new xy
+	x = _x
+	y = _y
+
+	clear_path()
+
+#Determine whether or not a rendered tile signal concerns this occupant.
+func process_rt_signal()->void:
+	pass
+
+
+func clear_path()->void:
 	#Should this be a signal instead?
-	for coords:Dictionary in path:
+	for coords:Dictionary in active_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.handle_input({"event":RTInputs.CLEAR})
+	active_path = []
+	#We don't do the below because calling it during every move of the mouse, like this is,
+	#Makes it hollow. We could do a MOVE_DESLECT event, or put it on the map to do.
+	#Currently we've done the latter, since selection belongs to the map generally, not just during pilot movement.
+	#Clear own tile as well. --
+	#rendered_grid[x][y].handle_input({"event":RTInputs.CLEAR})
 
 func preview_highlight(path:Array)->void:
 	for coords:Dictionary in path:
@@ -28,16 +69,27 @@ func preview_highlight(path:Array)->void:
 		rt.handle_input({"event":RTInputs.P_M_PREVIEW})
 
 func find_path(target:LogicalTile)->void:
-	clear_highlight(active_path)
+	clear_path()
 	#TODO: Can move THROUGH pilots. Cannot move through Kaiju. Cannot end turn in either.
 	var origin:Dictionary = {"x": x, "y": y}
-	var destination:Dictionary = {"x": target.x, "y": target.y}
+	var destination:Dictionary# = {"x": target.x, "y": target.y} - But don't allow kaiju
 	var moves_remaining:int = moves_remaining
 	var frontier:Array = []
 	var came_from:Dictionary = {}
 	came_from[origin] = {}
 	var cost_so_far:Dictionary = {}
 	cost_so_far[origin]=0
+	#Don't allow pathing directly onto Kaiju. At some point, we probably want to auto path to an adjacent tile. Later.
+	if target.occupant != null:
+		if target.occupant in KaijuLib.lib:
+			return
+		#Handle pathing directly onto pilots. Also not allowed, but this section avoids crash while hovering over this particular pilot.
+		elif target.occupant == self:
+			destination = {"x": target.x, "y": target.y}
+		else:
+			return
+	else:
+		destination = {"x": target.x, "y": target.y}
 
 	frontier.push_back(origin)
 
@@ -54,6 +106,12 @@ func find_path(target:LogicalTile)->void:
 			break
 
 		var neighbors:Array = PathHelpers.find_neighbors(current, logical_grid)
+		#Remove all elements in neighbors that contain a kaiju as a valid pathfinding option.
+		for neighbor:Dictionary in neighbors:
+			if logical_grid[neighbor.x][neighbor.y].occupant:
+				if logical_grid[neighbor.x][neighbor.y].occupant.id in KaijuLib.lib:
+					neighbors.erase(neighbor)
+
 		for neighbor:Dictionary in neighbors:
 			var current_terrain:String = logical_grid[current.x][current.y].terrain
 			#Adjust for speed chart here
@@ -85,7 +143,7 @@ func find_path(target:LogicalTile)->void:
 		reach_cost += TerrainLib.lib[logical_grid[path_coords.x][path_coords.y].terrain].move_cost
 		if reach_cost <= moves_remaining:
 			path_coords.reach_cost = reach_cost
-			reachable_path.append(path_coords)
+			reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
 
 	active_path = reachable_path
 	preview_highlight(active_path)

@@ -1,6 +1,8 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
-Little worried about whether or not I need to free the objects made by RTSig and MapSig
+Hooking up display to hovers, selections
+
+Turns?
 
 CONSIDER: Making occupants observe the tiles to which they are parented?
 Could even have all tiles be observers of signals emitted at the map level instead of calling the tiles. Idk

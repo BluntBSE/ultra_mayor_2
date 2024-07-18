@@ -9,3 +9,4 @@ func _init(_x:int, _y:int, _event:String)->void:
 	x = _x
 	y = _y
 	event = _event
+

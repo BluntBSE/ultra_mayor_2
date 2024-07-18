@@ -23,6 +23,8 @@ signal rt_declare_selection_primary#:LogicalTile
 signal rt_declare_selection_secondary#:LogicalTile
 signal rt_declare_clear_all
 signal rt_pilot_path
+signal rt_pilot_move
+signal rt_kaiju_move
 
 var occupant_sprite_width: int = 128
 var occupant_sprite_height: int = 128
@@ -34,7 +36,10 @@ func is_self(args:MapSigObj)->bool:
 			return true
 	return false
 
+
+
 func process_map_signal(args:MapSigObj)->void:
+	var pilot:LogicalPilot = null
 
 	#If the signal doesn't concern this tile, stop.
 	if !is_self(args):
@@ -64,19 +69,33 @@ func process_map_signal(args:MapSigObj)->void:
 		if args.selection_primary != null and args.selection_secondary == null:
 			#If you have a pilot selected...
 			if args.selection_primary.occupant.id in PilotLib.lib:
-				var pilot:LogicalPilot = args.selection_primary.occupant
+				pilot = args.selection_primary.occupant
 				#Tell occupant to path to target.
 				pilot.find_path(args.logical_tile)
-			if args.event == "hover_enter":
-				input_args.event = RTInputs.HOVER
-			if args.event == "hover_exit":
-				input_args.event = RTInputs.HOVER_EXIT
-			if args.event == "left_click":
-				#Check if it's an occupant (enemy), or empty (path)
-				input_args.event = RTInputs.SELECT_2
-			if args.event == "right_click":
-				#Replace with CONTEXT later
-				input_args.event = RTInputs.CLEAR
+				if args.event == "hover_enter":
+					input_args.event = RTInputs.HOVER
+				if args.event == "hover_exit":
+					input_args.event = RTInputs.HOVER_EXIT
+				if args.event == "left_click":
+					#If you have no moves left, deselect.
+					if pilot.moves_remaining <= 0:
+						rt_declare_clear_all.emit()
+						return
+					#If you are within the maximum path of the pilot, use that
+
+					if args.logical_tile == pilot.active_path[-1].tile:
+						rt_declare_selection_secondary.emit(args.logical_tile)
+						#input_args.event = RTInputs.SELECT
+					else:
+						rt_declare_selection_secondary.emit(pilot.active_path[-1].tile)
+
+						#input_args.event = RTInputs.SELECT
+					if args.logical_tile.occupant == null:
+						pass
+					input_args.event = RTInputs.SELECT_2
+				if args.event == "right_click":
+					#Replace with CONTEXT later
+					input_args.event = RTInputs.CLEAR
 
 		#There is a secondary selection
 		if args.selection_primary != null and args.selection_secondary != null:
@@ -85,10 +104,30 @@ func process_map_signal(args:MapSigObj)->void:
 			if args.event == "hover_exit":
 				input_args.event = RTInputs.HOVER_EXIT
 			if args.event == "left_click":
-				input_args.event = RTInputs.CLEAR
+				if args.selection_primary.occupant.id in PilotLib.lib:
+
+					if args.selection_secondary == args.logical_tile:
+						print("ATTEMPTING TO MOVE PILOT!")
+						pilot = args.selection_primary.occupant
+						var destination:Dictionary = pilot.active_path[-1]
+						rt_pilot_move.emit({"pilot": args.selection_primary.occupant, "target": destination})
+						#If the tile is within the pilot's active path, go for it, otherwise, emit with ther last item in the path...
+						#Might not need to do that at all. Could just emit last on path no matter what.
+					else:
+						pilot = args.selection_primary.occupant
+						#A signal would be less coupley...But don't we have a guaranteed coupling here?
+						pilot.clear_path()
+						print("I SHOULD BE CLEARING ALL HM HM")
+						rt_declare_clear_all.emit()
+
+
+
 			if args.event == "right_click":
-				#Replace with CONTEXT later
-				input_args.event = RTInputs.CLEAR
+				pilot = args.selection_primary.occupant
+				args.map.selection_primary = null
+				args.map.selection_secondary = null
+				pilot.clear_path()
+
 
 	#print("input args", input_args)
 	handle_input(input_args)
@@ -116,6 +155,8 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		connect("rt_signal", map.process_rt_signal)
 		connect("rt_declare_selection_primary", map.set_selection_primary)
 		connect("rt_declare_selection_secondary", map.set_selection_secondary)
+		connect("rt_declare_clear_all", map.process_clear_all)
+		connect("rt_pilot_move", map.process_p_move_request)
 		map.connect("map_signal", process_map_signal)
 
 		%xy_coords.text = str(x) + ", " + str(y)
@@ -150,6 +191,9 @@ func _ready() -> void:
 
 
 func handle_input(args:Dictionary)->void:
+	if args.event != null:
+		pass
+		#print("RENDERED TILE AT: ", x, "  ", y, " RECEIVED AN ARGUMENT OF: ", args, " ", RTInputs.public[args.event])
 	#This is typically triggered by TileMain up above
 	#It might seem goofy to emit a signal from this tile, send it to main, then send instructions back
 	#But we have state on both the main and this particular tile and the outcomes are dependent on both.
