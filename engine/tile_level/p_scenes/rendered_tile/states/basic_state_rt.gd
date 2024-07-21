@@ -21,3 +21,7 @@ func stateHandleInput(args:Dictionary)->void:
 	if args.event == RTInputs.K_M_PREVIEW:
 		_reference.state_machine.Change("kaiju_move_preview", {})
 
+func stateExit()->void:
+	_reference.prev_state = "basic"
+	pass
+

@@ -40,7 +40,14 @@ accordingly.
 """
 Event queue?? For tooltips?
 """
-
+func get_kaiju()->Array:
+	var kaijus:Array = []
+	for column:Array in logical_grid:
+		for tile:LogicalTile in column:
+			if tile.occupant != null:
+				if tile.occupant.id in KaijuLib.lib:
+					kaijus.append(tile.occupant)
+	return kaijus
 
 #What about a dictionary containing a path for every entity that might need one?
 func process_rt_signal(args:RTSigObj)->void:
@@ -48,6 +55,11 @@ func process_rt_signal(args:RTSigObj)->void:
 	map_signal.emit(map_sig)
 
 func process_p_move_request(args:Dictionary)->void:
+	"""
+	Expects signal like:
+	var destination:Dictionary = pilot.active_path[-1]
+	rt_pilot_move.emit({"pilot": args.selection_primary.occupant, "target": destination})
+	"""
 	var x:int = args.target.x
 	var y:int = args.target.y
 	var rt_target:RenderedTile = rendered_grid[x][y]
@@ -55,10 +67,6 @@ func process_p_move_request(args:Dictionary)->void:
 	var l_pilot:LogicalPilot = args.pilot
 	var r_pilot:RenderedPilot = rendered_grid[l_pilot.x][l_pilot.y].rendered_occupant
 	var lt_pilot:LogicalTile = logical_grid[l_pilot.x][l_pilot.y]
-	"""	path = args.path
-	target = args.target
-	origin = args.origin
-	map = args.map"""
 	r_pilot.state_machine.Change("moving", {"path": l_pilot.active_path, "target": {"x": x, "y": y}, "origin": {"x":l_pilot.x, "y": l_pilot.y},"map":self})
 	var move_cost:int = l_pilot.active_path[-1].reach_cost
 	l_pilot.moves_remaining -= move_cost
@@ -66,9 +74,26 @@ func process_p_move_request(args:Dictionary)->void:
 	l_pilot.sync(x,y)
 	selection_primary = null
 	selection_secondary = null
+	draw_kaiju_paths()
+
 
 	#sync -- remove pilot from original lt. Make occupant of target lt. Unparent/reparent nodes.
 	pass
+
+func process_k_move_request(args:Dictionary)->void:
+	var x:int = args.target.x
+	var y:int = args.target.y
+	var rt_target:RenderedTile = rendered_grid[x][y]
+	var lg_target:LogicalTile = logical_grid[x][y]
+	var l_kaiju:LogicalKaiju = args.kaiju
+	var r_kaiju:RenderedKaiju = rendered_grid[l_kaiju.x][l_kaiju.y].rendered_occupant
+	var lt_kaiju:LogicalTile = logical_grid[l_kaiju.x][l_kaiju.y]
+	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":self})
+	#var move_cost:int = l_kaiju.active_path[-1].reach_cost
+	#l_kaiju.moves_remaining -= move_cost
+
+	l_kaiju.sync(x,y)
+
 
 func set_selection_primary(args:LogicalTile)->void:
 	print("UPDATING PRIMARY SELECTION TO ", args.x, " ", args.y)
@@ -108,9 +133,9 @@ func add_pilot(id:String, lt:LogicalTile)->void:
 
 func add_test_elements()->void:
 	var tt_1:LogicalTile = logical_grid[10][10]
-	var tt_2:LogicalTile = logical_grid[12][12]
-	var tt_3:LogicalTile = logical_grid[15][12]
-	tt_1.building = "coal_plant"
+	var tt_2:LogicalTile = logical_grid[24][13]
+	var tt_3:LogicalTile = logical_grid[25][13]
+	tt_1.building = BuildingsLib.lib["coal_plant"]
 
 	#Tile 2
 	add_pilot("demo_pilot", tt_2)
@@ -118,6 +143,41 @@ func add_test_elements()->void:
 
 	#Tile 3
 	tt_3.occupant = KaijuLib.lib["dragon"]
+	tt_3.occupant.unpack(self, tt_3.x, tt_3.y, logical_grid, rendered_grid)
+
+
+func pass_turn()->void:
+	var pilots:Array = []
+	var kaijus:Array = []
+	for column:Array in logical_grid:
+		for tile:LogicalTile in column:
+			if tile.occupant != null:
+				print(" IT'S A ", tile.occupant.id)
+				if tile.occupant.id in PilotLib.lib:
+					pilots.append(tile.occupant)
+				if tile.occupant.id in KaijuLib.lib:
+					kaijus.append(tile.occupant)
+	print("PILOTS ARE", pilots)
+	print("KAIJU ARE", kaijus)
+
+	for kaiju:LogicalKaiju in kaijus:
+		process_k_move_request({"kaiju":kaiju, "target":kaiju.reachable_path[-1] })
+
+	draw_kaiju_paths()
+	#Start a battle, if any is happening
+
+	#End Battle
+
+	#Move kaiju
+
+
+	#Restore moves remaining
+	for pilot:LogicalPilot in pilots:
+		pilot.moves_remaining = pilot.move_points
+	for kaiju:LogicalKaiju in kaijus:
+		kaiju.moves_remaining = kaiju.move_points
+
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -130,3 +190,18 @@ func _ready() -> void:
 
 	MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
 	MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
+
+	draw_kaiju_paths()
+
+		#kaiju.find_target()
+
+func draw_kaiju_paths()->void:
+	var kaijus:Array = get_kaiju()
+	for kaiju:LogicalKaiju in kaijus:
+		kaiju.clear_path()
+		kaiju.find_target("power")
+		kaiju.path_to_target()
+		kaiju.show_movement()
+	pass
+
+

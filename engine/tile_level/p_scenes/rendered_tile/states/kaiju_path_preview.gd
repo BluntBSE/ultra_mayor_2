@@ -14,16 +14,13 @@ func stateEnter(args:Dictionary)->void:
 func stateHandleInput(args:Dictionary)->void:
 	if args.event == RTInputs.CLEAR:
 		_reference.state_machine.Change("basic", {})
-	if args.event == RTInputs.HOVER_EXIT:
-		_reference.state_machine.Change("basic", {})
-	if args.event == RTInputs.HOVER:
-		_reference.state_machine.Change("hovered_basic", {})
-	if args.event == RTInputs.P_M_PREVIEW:
-		_reference.state_machine.Change("move_preview", {})
-	if args.event == RTInputs.K_P_PREVIEW:
-		_reference.state_machine.Change("kaiju_path_preview", {})
+	if args.event == RTInputs.SELECT_2:
+		_reference.state_machine.Change("selection_secondary", {})
+	if args.event == RTInputs.SELECT:
+		_reference.state_machine.Change("selection_primary", {})
 	if args.event == RTInputs.K_M_PREVIEW:
 		_reference.state_machine.Change("kaiju_move_preview", {})
+
 
 
 
@@ -31,4 +28,5 @@ func stateHandleInput(args:Dictionary)->void:
 func stateUpdate(delta:float) -> void:
 	pass
 
-
+func stateExit()->void:
+	_reference.prev_state = "kaiju_path_preview"

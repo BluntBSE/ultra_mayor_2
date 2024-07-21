@@ -51,11 +51,12 @@ func process_rt_signal()->void:
 	pass
 
 
+
 func clear_path()->void:
 	#Should this be a signal instead?
 	for coords:Dictionary in active_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event":RTInputs.CLEAR})
+		rt.handle_input({"event":RTInputs.REVERT}) #Maybe...Revert
 	active_path = []
 	#We don't do the below because calling it during every move of the mouse, like this is,
 	#Makes it hollow. We could do a MOVE_DESLECT event, or put it on the map to do.

@@ -10,6 +10,7 @@ enum {
 	P_M_PREVIEW,
 	K_P_PREVIEW,
 	K_M_PREVIEW,
+	REVERT,
 }
 
 #Used for rendering the names of the enum above in debug msgs because I'm dumb
@@ -23,6 +24,7 @@ static var public:Dictionary = {
 	P_M_PREVIEW: "p_m_preview",
 	K_P_PREVIEW: "k_p_preview",
 	K_M_PREVIEW: "k_m_preview",
+	REVERT: "revert",
 }
 
 

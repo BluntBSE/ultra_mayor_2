@@ -39,11 +39,11 @@ func occupant_to_sidebar(lt:LogicalTile)->void:
 
 
 func tile_to_sidebar(lt:LogicalTile)->void:
-	if lt.building != "":
-		var texture:Resource = load(BuildingsLib.lib[lt.building].portrait)
+	if lt.building != null:
+		var texture:Resource = load(lt.building.portrait)
 		building_name.visible = true
 		building_port.texture = texture
-		building_name.text = BuildingsLib.lib[lt.building].display_text
+		building_name.text = lt.building.display_text
 	else:
 		building_name.visible = false
 		building_port.texture = load(TerrainLib.lib[lt.terrain].portrait)

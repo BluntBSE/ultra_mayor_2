@@ -19,6 +19,7 @@ unique_name_in_owner = true
 script = ExtResource("2_nk7ha")
 
 [node name="TileMap" type="TileMap" parent="."]
+visible = false
 format = 2
 
 [node name="UICanvas" type="CanvasLayer" parent="."]

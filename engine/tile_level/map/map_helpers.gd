@@ -28,9 +28,8 @@ static func generate_rendered_grid(map:Node, logical_grid:Array, rendered_grid:A
 static func draw_tile_sprites(tile:LogicalTile, rendered_grid:Array) -> void:
 	var rendered_tile: RenderedTile = rendered_grid[tile.x][tile.y]
 	#Handle buildings
-	if tile.building != "":
-		var building:Building = BuildingsLib.lib[tile.building]
-		var building_sprite:Resource = load(building.sprite)
+	if tile.building != null:
+		var building_sprite:Resource = load(tile.building.sprite)
 		rendered_tile.building_sprite.texture = building_sprite
 
 static func draw_all_tile_sprites(logical_grid:Array, rendered_grid:Array)->void:

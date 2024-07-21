@@ -1,6 +1,7 @@
 extends Node2D
 class_name RenderedTile
 
+var prev_state:String = "basic"
 @export var x: int
 @export var y: int
 var logical_parent:LogicalTile
@@ -63,7 +64,7 @@ func process_map_signal(args:MapSigObj)->void:
 					input_args.event = RTInputs.SELECT
 			if args.event == "right_click":
 				#Replace with CONTEXT later
-				input_args.event = RTInputs.CLEAR
+				input_args.event = RTInputs.REVERT
 
 		#If there is a primary selection
 		if args.selection_primary != null and args.selection_secondary == null:
@@ -95,7 +96,7 @@ func process_map_signal(args:MapSigObj)->void:
 					input_args.event = RTInputs.SELECT_2
 				if args.event == "right_click":
 					#Replace with CONTEXT later
-					input_args.event = RTInputs.CLEAR
+					input_args.event = RTInputs.REVERT
 
 		#There is a secondary selection
 		if args.selection_primary != null and args.selection_secondary != null:
@@ -191,13 +192,20 @@ func _ready() -> void:
 
 
 func handle_input(args:Dictionary)->void:
-	if args.event != null:
-		pass
-		#print("RENDERED TILE AT: ", x, "  ", y, " RECEIVED AN ARGUMENT OF: ", args, " ", RTInputs.public[args.event])
+	if args.event == null:
+		return
+
+	if args.event == RTInputs.CLEAR:
+		state_machine.Change("basic", {})
+		return
+
+	if args.event == RTInputs.REVERT:
+		state_machine.Change(prev_state, {})
+		return
 	#This is typically triggered by TileMain up above
 	#It might seem goofy to emit a signal from this tile, send it to main, then send instructions back
 	#But we have state on both the main and this particular tile and the outcomes are dependent on both.
-	#print("Rendered tile at: ", x, y, " Received input of type:", args)
+
 	state_machine._current.stateHandleInput(args)
 
 
