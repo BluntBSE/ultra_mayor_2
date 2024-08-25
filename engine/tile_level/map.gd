@@ -1,6 +1,6 @@
 extends Node2D
 class_name Map
-
+"""
 
 #X, then Y
 var grid: Array = []
@@ -201,7 +201,7 @@ func handle_battle_click(args:Dictionary) -> void:
 
 					#var to_highlight:Array = find_path_pilot(grid, {"x":selection_primary.x, "y":selection_primary.y}, {"x":selection_secondary.x, "y": selection_secondary.y})
 					#for coord:Dictionary in to_highlight:
-						#rendered_grid[coord.x][coord.y].state_machine.Change("selected_primary", {})
+						#rendered_grid[coord.x][coord.y].state_machine.Change("selection_primary", {})
 				else:
 					var coords:Dictionary = tiles_to_highlight_pf.back()
 					print("FINAL COORDS", coords)
@@ -224,10 +224,10 @@ func _ready() -> void:
 			dataful_hover.connect(observer.on_hovered_cell_enter)
 
 	#Create and draw map
-	grid = MapHelpers.generate_generic_map(grid_x, grid_y)
+	#grid = MapHelpers.generate_generic_map(grid_x, grid_y)
 	var terrain_map:Array = MapHelpers.generate_logical_terrain_map(grid_x,grid_y)
 	grid = MapHelpers.apply_logical_terrain_map(grid, terrain_map)
-	MapHelpers.draw_map_grid(self, grid, rendered_grid, x_offset, y_offset)
+	#MapHelpers.draw_map_grid(self, grid, rendered_grid, x_offset, y_offset)
 	#Add testing entities. Remove this after testing
 	var test_tile:LogicalTile = grid[10][10]
 	test_tile.building = "coal_plant"
@@ -259,8 +259,8 @@ func _ready() -> void:
 	#Debug additions
 	var demo_cells:Array = [[10,10],[20,20],[22,20],[10,20],[5,5]]
 	for cell:Array in demo_cells:
-		MapHelpers.draw_tile_sprites(rendered_grid, grid[cell[0]][cell[1]], cell[0], cell[1])
-		MapHelpers.draw_occupants(rendered_grid, grid[cell[0]][cell[1]], cell[0], cell[1])
+		#MapHelpers.draw_tile_sprites(rendered_grid, grid[cell[0]][cell[1]], cell[0], cell[1])
+		#MapHelpers.draw_occupants(rendered_grid, grid[cell[0]][cell[1]], cell[0], cell[1])
 		occupants.append(grid[cell[0]][cell[1]].occupant)
 		print(occupants)
 
@@ -274,3 +274,4 @@ func _ready() -> void:
 func _process(delta:float) -> void:
 	pass
 
+"""

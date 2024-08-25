@@ -33,6 +33,9 @@ func _ready() -> void:
 	state_machine.Change("basic",{})
 
 
+
+
+
 func _process(d:float) ->void:
 	state_machine.stateUpdate(d)
 

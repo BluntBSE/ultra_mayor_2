@@ -1,0 +1,228 @@
+[gd_scene load_steps=10 format=3 uid="uid://cqgi8y4fqpc4g"]
+
+[ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_ar066"]
+[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="2_22q1o"]
+[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nk7ha"]
+[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="3_qpeak"]
+[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_8227k"]
+[ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="4_aw21a"]
+[ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="6_4y67y"]
+[ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_640ry"]
+
+[sub_resource type="Theme" id="Theme_nfc0e"]
+
+[node name="TileMain" type="Node2D"]
+script = ExtResource("1_ar066")
+
+[node name="Map" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_nk7ha")
+
+[node name="TileMap" type="TileMap" parent="."]
+visible = false
+format = 2
+
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="viewport_simulator" type="ColorRect" parent="UICanvas"]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.85098)
+
+[node name="SideBar" type="ColorRect" parent="UICanvas"]
+unique_name_in_owner = true
+offset_left = 1641.0
+offset_top = 66.0
+offset_right = 1921.0
+offset_bottom = 1081.0
+theme = SubResource("Theme_nfc0e")
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_8227k")
+
+[node name="OccupantPort" type="TextureRect" parent="UICanvas/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 41.0
+offset_top = 47.0
+offset_right = 1136.0
+offset_bottom = 1531.0
+scale = Vector2(0.188198, 0.188198)
+texture = ExtResource("4_aw21a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="UICanvas/SideBar/OccupantPort"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 1164.0
+offset_right = 1110.0
+offset_bottom = 1499.0
+color = Color(0, 0, 0, 0.658824)
+
+[node name="BuildingPort" type="TextureRect" parent="UICanvas/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 43.0
+offset_top = 353.0
+offset_right = 1106.0
+offset_bottom = 1203.0
+scale = Vector2(0.188198, 0.188198)
+texture = ExtResource("6_640ry")
+expand_mode = 1
+
+[node name="TerrainData" type="VBoxContainer" parent="UICanvas/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 38.0
+offset_top = 540.0
+offset_right = 256.0
+offset_bottom = 752.0
+
+[node name="BuildingName" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Building: Coal Plantx"
+fit_content = true
+
+[node name="TerrainName" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Terrain: Default"
+fit_content = true
+
+[node name="Population" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Population: 696,696"
+fit_content = true
+
+[node name="Development" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Development: X"
+fit_content = true
+
+[node name="Power" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Power: 9"
+fit_content = true
+
+[node name="Services" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Services: 9"
+fit_content = true
+
+[node name="Resilience" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Resilience: 9"
+fit_content = true
+
+[node name="Modifiers" type="RichTextLabel" parent="UICanvas/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Modifiers: None"
+fit_content = true
+
+[node name="OccupantData" type="VBoxContainer" parent="UICanvas/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 42.0
+offset_top = 277.0
+offset_right = 260.0
+offset_bottom = 325.0
+
+[node name="OccupantName" type="RichTextLabel" parent="UICanvas/SideBar/OccupantData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Alicia June
+(Public Works)"
+fit_content = true
+
+[node name="EndTurnBtn" type="Button" parent="UICanvas/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 876.0
+offset_right = 178.0
+offset_bottom = 907.0
+text = "END TURN"
+
+[node name="GoBtn" type="Button" parent="UICanvas/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 831.0
+offset_right = 178.0
+offset_bottom = 862.0
+text = "GO"
+
+[node name="ResetBtn" type="Button" parent="UICanvas/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 790.0
+offset_right = 178.0
+offset_bottom = 821.0
+text = "RESET"
+
+[node name="HeaderBar" type="ColorRect" parent="UICanvas"]
+unique_name_in_owner = true
+offset_right = 1920.0
+offset_bottom = 66.0
+theme = SubResource("Theme_nfc0e")
+color = Color(0, 0, 0, 1)
+script = ExtResource("3_qpeak")
+
+[node name="debug_builder_button" type="Button" parent="UICanvas/HeaderBar"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 12.0
+offset_right = 157.0
+offset_bottom = 43.0
+text = "BUILDER MODE"
+
+[node name="debug_battle_mode" type="Button" parent="UICanvas/HeaderBar"]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 12.0
+offset_right = 324.0
+offset_bottom = 43.0
+text = "BATTLE MODE"
+
+[node name="mode_label" type="RichTextLabel" parent="UICanvas/HeaderBar"]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 12.0
+offset_right = 964.0
+offset_bottom = 48.0
+text = "CURRENT MODE: BATTLE MODE"
+
+[node name="TextureButton" type="TextureButton" parent="UICanvas/HeaderBar"]
+layout_mode = 0
+offset_left = 1860.0
+offset_top = 5.0
+offset_right = 1916.0
+offset_bottom = 61.0
+texture_normal = ExtResource("6_4y67y")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(948, 540)
+zoom = Vector2(0.75, 0.75)
+script = ExtResource("2_22q1o")
+
+[connection signal="button_up" from="UICanvas/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
+[connection signal="button_up" from="UICanvas/HeaderBar/debug_builder_button" to="Map" method="set_mode" binds= [0]]
+[connection signal="button_up" from="UICanvas/HeaderBar/debug_battle_mode" to="Map" method="set_mode" binds= [1]]
+[connection signal="button_up" from="UICanvas/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]

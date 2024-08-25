@@ -15,8 +15,8 @@ static var lib:Dictionary = {
 		"display_name": "Dragon",
 		"sprite":"res://engine/tile_level/kaiju/assets/sprites/AI_dragon_sprite.png",
 		"portrait": "res://engine/tile_level/kaiju/assets/sprites/AI_dragon_sprite.png",
-		"move_points": 4,
-		"moves_remaining": 4,
+		"move_points": 3,
+		"moves_remaining": 3,
 		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1})
 	}),
 	"bird": LogicalKaiju.new({

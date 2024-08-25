@@ -3,7 +3,7 @@ class_name MovingStateKaiju
 
 var origin:Dictionary
 var target:Dictionary
-var map: Map
+var map: Map_2
 var path: Array
 var t: float
 var next_coord:Dictionary = {}

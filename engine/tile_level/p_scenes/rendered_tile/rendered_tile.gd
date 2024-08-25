@@ -1,10 +1,15 @@
 extends Node2D
 class_name RenderedTile
 
+var prev_state:String = "basic"
 @export var x: int
 @export var y: int
-var bg_sprite:Sprite2D
+var logical_parent:LogicalTile
+var logical_grid:Array
+var map:Map_2
+@onready var bg_sprite:Sprite2D = %bg_sprite
 var state_machine:StateMachine = StateMachine.new()
+
 #Sprites are rendered on top of the terrain in the order they appaer.
 var infra_sprite: Sprite2D
 @onready var building_sprite: Sprite2D = %building_sprite
@@ -14,14 +19,122 @@ var infra_sprite: Sprite2D
 var effect_sprite: Sprite2D
 var rendered_occupant: Object
 
-signal hovered_cell #Emitted when this is moused over.
-signal exit_hover_cell
-signal left_clicked_cell
-signal right_clicked_cell
+signal rt_signal
+signal rt_request_selection_primary#:LogicalTile
+signal rt_request_selection_secondary#:LogicalTile
+signal rt_request_clear_all
+signal rt_pilot_path
+signal rt_pilot_move
+signal rt_kaiju_move
 
-#Override setters. For example, scale sprites.
 var occupant_sprite_width: int = 128
 var occupant_sprite_height: int = 128
+
+func is_self(args:MapSigObj)->bool:
+	#Determine if the map signal concerns this rendered tile.
+	if args.x == x:
+		if args.y == y:
+			return true
+	return false
+
+
+
+func process_map_signal(args:MapSigObj)->void:
+	var pilot:LogicalPilot = null
+
+	#If the signal doesn't concern this tile, stop.
+	if !is_self(args):
+		return
+	#print("PROCESSING MAP SIGNAL AT", args.x, " ", args.y, " ", args.event)
+	var input_args:Dictionary = {"event": null}
+	#Else, construct input args to pass to HandleInput
+	#We don't pass the map signal directly since the map isn't the only way to do "inputs"
+	if args.map_mode == 1: #Battle mode
+		#If there is no selections at all.
+		if args.selection_primary == null and args.selection_secondary == null:
+			if args.event == "hover_enter":
+				input_args.event = RTInputs.HOVER
+			if args.event == "hover_exit":
+				input_args.event = RTInputs.HOVER_EXIT
+			if args.event == "left_click":
+				#In battle mode, only primary select tiles with occupants
+				if args.logical_tile.occupant != null:
+					print("Hello from tile, trying to set selection now with", args.event)
+					rt_request_selection_primary.emit(args.logical_tile)
+					input_args.event = RTInputs.SELECT
+			if args.event == "right_click":
+				#Replace with CONTEXT later
+				input_args.event = RTInputs.REVERT
+
+		#If there is a primary selection
+		if args.selection_primary != null and args.selection_secondary == null:
+			#If you have a pilot selected...
+			if args.selection_primary.occupant.id in PilotLib.lib:
+				pilot = args.selection_primary.occupant
+				#Tell occupant to path to target.
+				pilot.find_path(args.logical_tile)
+				if args.event == "hover_enter":
+					input_args.event = RTInputs.HOVER
+				if args.event == "hover_exit":
+					input_args.event = RTInputs.HOVER_EXIT
+				if args.event == "left_click":
+					#If you have no moves left, deselect.
+					if pilot.moves_remaining <= 0:
+						rt_request_clear_all.emit()
+						return
+					#If you are within the maximum path of the pilot, use that
+
+					if args.logical_tile == pilot.active_path[-1].tile:
+						rt_request_selection_secondary.emit(args.logical_tile)
+						#input_args.event = RTInputs.SELECT
+					else:
+						rt_request_selection_secondary.emit(pilot.active_path[-1].tile)
+
+						#input_args.event = RTInputs.SELECT
+					if args.logical_tile.occupant == null:
+						pass
+					input_args.event = RTInputs.SELECT_2
+				if args.event == "right_click":
+					#Replace with CONTEXT later
+					input_args.event = RTInputs.REVERT
+
+		#There is a secondary selection
+		if args.selection_primary != null and args.selection_secondary != null:
+			if args.event == "hover_enter":
+				input_args.event = RTInputs.HOVER
+			if args.event == "hover_exit":
+				input_args.event = RTInputs.HOVER_EXIT
+			if args.event == "left_click":
+				if args.selection_primary.occupant.id in PilotLib.lib:
+
+					if args.selection_secondary == args.logical_tile:
+						print("ATTEMPTING TO MOVE PILOT!")
+						pilot = args.selection_primary.occupant
+						var destination:Dictionary = pilot.active_path[-1]
+						rt_pilot_move.emit({"pilot": args.selection_primary.occupant, "target": destination})
+						#If the tile is within the pilot's active path, go for it, otherwise, emit with ther last item in the path...
+						#Might not need to do that at all. Could just emit last on path no matter what.
+					else:
+						pilot = args.selection_primary.occupant
+						#A signal would be less coupley...But don't we have a guaranteed coupling here?
+						pilot.clear_path()
+						print("I SHOULD BE CLEARING ALL HM HM")
+						rt_request_clear_all.emit()
+
+
+
+			if args.event == "right_click":
+				pilot = args.selection_primary.occupant
+				args.map.selection_primary = null
+				args.map.selection_secondary = null
+				pilot.clear_path()
+
+
+	#print("input args", input_args)
+	handle_input(input_args)
+
+
+
 
 #Deprecated function
 func update_occupant_sprite(texture:CompressedTexture2D)->void:
@@ -33,11 +146,34 @@ func update_occupant_sprite(texture:CompressedTexture2D)->void:
 	occupant_sprite.scale = Vector2(w_scale, h_scale)
 
 
-func unpack() -> void:
-	#x and y should already be set by the draw_map_grid in the Map node
-	var format_string:String  = "%s, %s"
-	var coord_string:String = format_string % [str(x), str(y)]
-	get_node("xy_coords").text = coord_string
+func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
+		x = _x
+		y = _y
+		map = _map
+		logical_grid = _logical_grid
+		logical_parent = logical_grid[x][y]
+
+		connect("rt_signal", map.process_rt_signal)
+		connect("rt_request_selection_primary", map.set_selection_primary)
+		connect("rt_request_selection_secondary", map.set_selection_secondary)
+		connect("rt_request_clear_all", map.process_clear_all)
+		connect("rt_pilot_move", map.process_p_move_request)
+		map.connect("map_signal", process_map_signal)
+
+		%xy_coords.text = str(x) + ", " + str(y)
+		#rendered_tile.z_index = y
+		if x % 2 != 0: #If the X is odd, shift it down and increase its z index.
+			position.y = (float(y)+0.5) * map.y_offset
+			z_index = z_index + 1
+		else:
+			position.y = y * map.y_offset
+		#Z index goes up by 10 for every row down we go.
+		z_index = z_index + (y * 10)
+		position.x = x * map.x_offset
+		#Replace these with better handlers
+		var key:String = logical_grid[x][y].terrain
+		var terrain_sprite:String = TerrainLib.lib[key].sprite
+		%bg_sprite.texture = load(terrain_sprite)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -45,8 +181,8 @@ func _ready() -> void:
 	bg_sprite = get_node("bg_sprite")
 
 	state_machine.Add("basic", BasicStateRT.new(self, {}))
-	state_machine.Add("selected_primary", PrimarySelectionRT.new(self,{}))
-	state_machine.Add("selected_secondary", SecondarySelectionRT.new(self,{}))
+	state_machine.Add("selection_primary", PrimarySelectionRT.new(self,{}))
+	state_machine.Add("selection_secondary", SecondarySelectionRT.new(self,{}))
 	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
 	state_machine.Add("move_preview", MovePreviewRT.new(self,{}))
 	state_machine.Add("kaiju_path_preview", KaijuPathPreviewRT.new(self,{}))
@@ -56,62 +192,51 @@ func _ready() -> void:
 
 
 func handle_input(args:Dictionary)->void:
+	if args.event == null:
+		return
+
+	if args.event == RTInputs.CLEAR:
+		state_machine.Change("basic", {})
+		return
+
+	if args.event == RTInputs.REVERT:
+		state_machine.Change(prev_state, {})
+		return
 	#This is typically triggered by TileMain up above
 	#It might seem goofy to emit a signal from this tile, send it to main, then send instructions back
 	#But we have state on both the main and this particular tile and the outcomes are dependent on both.
-	#print("Rendered tile at: ", x, y, " Received input of type:", args)
+
 	state_machine._current.stateHandleInput(args)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta:float) -> void:
 	state_machine._current.stateUpdate(delta)
 
-#Connected via inspector to hover_area
-func custom_hover_enter() -> void:
-	hovered_cell.emit(
-		{
-		"x": x,
-		"y": y
-		}
-	)
-	#Do a stateHandleInput to determine what happens? E.G: If selected, nothing.
 
-	#For now...
-	#state_machine.stateHandleInput("hovered_basic", {"bg_sprite":get_node("bg_sprite")} )
 
 
 #Connected via inspector to hover_area
 func custom_hover_exit()  -> void:
-	exit_hover_cell.emit(
-		{
-		"x":x,
-		"y":y
-		}
-	)
-	pass # Replace with function body.
+	var event_str:String = "hover_exit"
+	var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+	rt_signal.emit(rt_sig_obj)
 
-func custom_left_click() -> void:
-	left_clicked_cell.emit(
-		{
-		"x": x,
-		"y": y
-		}
-	)
-
-
-func custom_right_click() -> void:
-	right_clicked_cell.emit(
-		{
-		"x": x,
-		"y": y
-		}
-	)
-
+func custom_hover_enter()  -> void:
+	var event_str:String = "hover_enter"
+	var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+	rt_signal.emit(rt_sig_obj)
 
 
 func _on_hover_area_input_event(viewport:Node, event:InputEvent, shape_idx:int) ->void:
+	var event_str:String = ""
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
-		custom_left_click() #Emit signal to Map node
+		event_str  = "left_click"
+		var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+		rt_signal.emit(rt_sig_obj)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
-		custom_right_click() #Emit signal to Map node
+		event_str = "right_click"
+		var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+		rt_signal.emit(rt_sig_obj)
+

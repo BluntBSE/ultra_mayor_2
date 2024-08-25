@@ -16,5 +16,6 @@ func _process(delta:float )->void:
 	pass
 
 func stateHandleInput(args:Dictionary)->void:
-	if args.event == "clear":
+	if args.event == RTInputs.CLEAR:
 		_reference.state_machine.Change("basic", {})
+

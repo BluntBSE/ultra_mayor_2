@@ -1,5 +1,18 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+Planning a pilot move inside of the Kaiju's projected path doesn't highlight it correctly.
+
+
+
+probably need to go A* instead of breadth-first cuz it's slow
+
+the whole tile interaction thing gotta get fixed. Revert isn't enough. I think we might need specific events.
+
+Hooking up display to hovers, selections
+
+Turns?
+
+When player hovers a possible pilot move, redraw the kaiju path in real time?
 
 CONSIDER: Making occupants observe the tiles to which they are parented?
 Could even have all tiles be observers of signals emitted at the map level instead of calling the tiles. Idk
