@@ -11,6 +11,7 @@ enum {
 	K_P_PREVIEW,
 	K_M_PREVIEW,
 	REVERT,
+	K_P_CLEAR
 }
 
 #Used for rendering the names of the enum above in debug msgs because I'm dumb

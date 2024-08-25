@@ -10,10 +10,11 @@ var rendered_grid:Array = [] #Possibly maintaining both the visual nodes and dec
 var occupants: Array = [] # Might be useful to just hold a reference to all occupants.
 var pilots:Array = []
 var kaiju:Array = []
+var kaiju_blocks:Array = []
 var turn_counter:int = 0
 enum {CITY_BUILDER, BATTLE_MODE}
 
-#REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED A REAL STATE MACHINE?
+#REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED  A REAL STATE MACHINE?
 var map_mode:int = BATTLE_MODE
 
 var selection_primary: LogicalTile#{"x":x, "y":y, "lt":lt, "rt": rt}
@@ -67,6 +68,21 @@ func process_p_move_request(args:Dictionary)->void:
 	var l_pilot:LogicalPilot = args.pilot
 	var r_pilot:RenderedPilot = rendered_grid[l_pilot.x][l_pilot.y].rendered_occupant
 	var lt_pilot:LogicalTile = logical_grid[l_pilot.x][l_pilot.y]
+
+	#Is the target in the logical path? If not, break. Clear all selections.
+	var active_tiles:Array = []
+	for dict:Dictionary in l_pilot.active_path:
+		active_tiles.append(dict.tile)
+
+	print("ACTIVE TILES: ", active_tiles)
+	if lg_target not in active_tiles:
+		print("NOT IN")
+		print(l_pilot.active_path)
+		process_clear_all()
+		return
+
+	print("GOING TO:", lg_target)
+	#If it is, continue.
 	r_pilot.state_machine.Change("moving", {"path": l_pilot.active_path, "target": {"x": x, "y": y}, "origin": {"x":l_pilot.x, "y": l_pilot.y},"map":self})
 	var move_cost:int = l_pilot.active_path[-1].reach_cost
 	l_pilot.moves_remaining -= move_cost
@@ -102,9 +118,15 @@ func set_selection_primary(args:LogicalTile)->void:
 
 
 func set_selection_secondary(args:LogicalTile)->void:
+	#See if it's even legal...This is for battle mdoe only.
+	kaiju_blocks=[]
 	selection_secondary=args
 	var rt:RenderedTile = rendered_grid[args.x][args.y]
 	rt.handle_input({"event": RTInputs.SELECT_2})
+	#print("ARGS ARE...", args)
+	#kaiju_blocks.append(args)
+	#print("KAIJU BLOCKS ARE NOW", kaiju_blocks, kaiju_blocks[0].x, kaiju_blocks[0].y)
+	#draw_kaiju_paths()
 
 func set_mode(mode:int) -> void:
 	#Linked to signals from the buttons or other sources that set the map into city or battle mode.

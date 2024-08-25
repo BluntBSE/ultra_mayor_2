@@ -20,9 +20,9 @@ var effect_sprite: Sprite2D
 var rendered_occupant: Object
 
 signal rt_signal
-signal rt_declare_selection_primary#:LogicalTile
-signal rt_declare_selection_secondary#:LogicalTile
-signal rt_declare_clear_all
+signal rt_request_selection_primary#:LogicalTile
+signal rt_request_selection_secondary#:LogicalTile
+signal rt_request_clear_all
 signal rt_pilot_path
 signal rt_pilot_move
 signal rt_kaiju_move
@@ -60,7 +60,7 @@ func process_map_signal(args:MapSigObj)->void:
 				#In battle mode, only primary select tiles with occupants
 				if args.logical_tile.occupant != null:
 					print("Hello from tile, trying to set selection now with", args.event)
-					rt_declare_selection_primary.emit(args.logical_tile)
+					rt_request_selection_primary.emit(args.logical_tile)
 					input_args.event = RTInputs.SELECT
 			if args.event == "right_click":
 				#Replace with CONTEXT later
@@ -80,15 +80,15 @@ func process_map_signal(args:MapSigObj)->void:
 				if args.event == "left_click":
 					#If you have no moves left, deselect.
 					if pilot.moves_remaining <= 0:
-						rt_declare_clear_all.emit()
+						rt_request_clear_all.emit()
 						return
 					#If you are within the maximum path of the pilot, use that
 
 					if args.logical_tile == pilot.active_path[-1].tile:
-						rt_declare_selection_secondary.emit(args.logical_tile)
+						rt_request_selection_secondary.emit(args.logical_tile)
 						#input_args.event = RTInputs.SELECT
 					else:
-						rt_declare_selection_secondary.emit(pilot.active_path[-1].tile)
+						rt_request_selection_secondary.emit(pilot.active_path[-1].tile)
 
 						#input_args.event = RTInputs.SELECT
 					if args.logical_tile.occupant == null:
@@ -119,7 +119,7 @@ func process_map_signal(args:MapSigObj)->void:
 						#A signal would be less coupley...But don't we have a guaranteed coupling here?
 						pilot.clear_path()
 						print("I SHOULD BE CLEARING ALL HM HM")
-						rt_declare_clear_all.emit()
+						rt_request_clear_all.emit()
 
 
 
@@ -154,9 +154,9 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		logical_parent = logical_grid[x][y]
 
 		connect("rt_signal", map.process_rt_signal)
-		connect("rt_declare_selection_primary", map.set_selection_primary)
-		connect("rt_declare_selection_secondary", map.set_selection_secondary)
-		connect("rt_declare_clear_all", map.process_clear_all)
+		connect("rt_request_selection_primary", map.set_selection_primary)
+		connect("rt_request_selection_secondary", map.set_selection_secondary)
+		connect("rt_request_clear_all", map.process_clear_all)
 		connect("rt_pilot_move", map.process_p_move_request)
 		map.connect("map_signal", process_map_signal)
 

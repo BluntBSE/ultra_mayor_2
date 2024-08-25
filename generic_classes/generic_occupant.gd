@@ -10,7 +10,7 @@ var deck:Object
 var speed_chart:SpeedChart
 var move_points:int
 var moves_remaining:int
-var map:Node2D
+var map:Map_2
 var logical_grid:Array
 var rendered_grid:Array
 

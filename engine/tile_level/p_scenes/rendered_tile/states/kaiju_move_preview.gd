@@ -19,8 +19,10 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.state_machine.Change("selection_secondary", {})
 	if args.event == RTInputs.SELECT:
 		_reference.state_machine.Change("selection_primary", {})
-
-
+	if args.event == RTInputs.P_M_PREVIEW:
+		_reference.state_machine.Change("move_preview", {})
+	if args.event == RTInputs.K_P_CLEAR:
+		_reference.state_machine.Change("basic", {})
 
 
 func stateUpdate(delta:float) -> void:

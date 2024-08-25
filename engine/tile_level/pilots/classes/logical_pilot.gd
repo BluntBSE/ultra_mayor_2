@@ -69,6 +69,13 @@ func preview_highlight(path:Array)->void:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.handle_input({"event":RTInputs.P_M_PREVIEW})
 
+
+func apply_kaiju_block(tile:LogicalTile)->void:
+	#Allow previewing of kaiju moves while player attempts to move
+	map.kaiju_blocks = []
+	map.kaiju_blocks.append(tile)
+
+
 func find_path(target:LogicalTile)->void:
 	clear_path()
 	#TODO: Can move THROUGH pilots. Cannot move through Kaiju. Cannot end turn in either.
@@ -117,21 +124,25 @@ func find_path(target:LogicalTile)->void:
 			var current_terrain:String = logical_grid[current.x][current.y].terrain
 			#Adjust for speed chart here
 			var new_cost:int = cost_so_far[current] + TerrainLib.lib[current_terrain].move_cost
+
+			if new_cost > moves_remaining:
+				break
 			if !cost_so_far.has(neighbor) or new_cost < cost_so_far[neighbor]:
 				cost_so_far[neighbor] = new_cost
 				frontier.push_back(neighbor)
 				#Super crude, shouldn't sort every time, but whatever. Replace with a priorityqueue implementation later.
-				frontier.sort_custom(ez_sort)
+				#frontier.sort_custom(ez_sort) #I took this out and it changed nothing. Idk!
 				came_from[neighbor] = current
 
 
 	#If you got out of this loop you should have found the path to the target..
 	var full_path:Array = [destination]
 
-	var previous:Dictionary = came_from[destination]
-	while previous != {}:
-		full_path.push_front(previous)
-		previous = came_from[previous]
+	if destination in came_from:
+		var previous:Dictionary = came_from[destination]
+		while previous != {}:
+			full_path.push_front(previous)
+			previous = came_from[previous]
 
 	#Now see how far you can get down the path with the move speed that you have.
 	#We dont' want to render anything under the moving agent right now or use the original tile in calculations, so remove the origin
@@ -146,6 +157,10 @@ func find_path(target:LogicalTile)->void:
 			path_coords.reach_cost = reach_cost
 			reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
 
+
+	#Need to remove the very last tile if the move cost has been exceeded.
 	active_path = reachable_path
-	preview_highlight(active_path)
+	print("SET ACTIVE PATH TO", active_path)
+	print("FULL PATH IS", full_path)
+	preview_highlight(full_path)
 

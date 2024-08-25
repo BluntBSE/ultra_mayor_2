@@ -81,18 +81,24 @@ func find_path()->Dictionary:
 			return true
 		else:
 			return false
-
 	while not frontier.is_empty():
 		var current:Dictionary = frontier.pop_front()
 		if current == destination:
 			break
 
+
 		var neighbors:Array = PathHelpers.find_neighbors(current, logical_grid)
 		#Remove all elements in neighbors that contain a kaiju as a valid pathfinding option.
+
 		for neighbor:Dictionary in neighbors:
+			#print(neighbor)
+
 			if logical_grid[neighbor.x][neighbor.y].occupant:
 				if logical_grid[neighbor.x][neighbor.y].occupant.id in PilotLib.lib:
 					neighbors.erase(neighbor)
+			if  logical_grid[neighbor.x][neighbor.y] in map.kaiju_blocks:
+				print("WOOP")
+				neighbors.erase(neighbor)
 
 		for neighbor:Dictionary in neighbors:
 			var current_terrain:String = logical_grid[current.x][current.y].terrain
@@ -135,7 +141,7 @@ func clear_path()->void:
 	#Should this be a signal instead?
 	for coords:Dictionary in reachable_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event":RTInputs.CLEAR})
+		rt.handle_input({"event":RTInputs.K_P_CLEAR})
 	reachable_path = []
 
 	for coords:Dictionary in full_path:
