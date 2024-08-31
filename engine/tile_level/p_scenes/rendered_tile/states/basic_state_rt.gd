@@ -22,6 +22,5 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.state_machine.Change("kaiju_move_preview", {})
 
 func stateExit()->void:
-	_reference.prev_state = "basic"
 	pass
 

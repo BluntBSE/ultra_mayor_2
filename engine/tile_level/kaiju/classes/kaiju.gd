@@ -10,14 +10,16 @@ var target:LogicalTile
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event": RTInputs.K_M_PREVIEW })
+		#TODO: stuff
+		pass
 
 
 func draw_full_path()->void:
 
 	for coords:Dictionary in full_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event": RTInputs.K_P_PREVIEW })
+		#TODO: stuff
+		pass
 
 
 

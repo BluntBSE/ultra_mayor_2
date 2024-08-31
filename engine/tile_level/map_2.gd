@@ -17,7 +17,7 @@ enum {CITY_BUILDER, BATTLE_MODE}
 #REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED  A REAL STATE MACHINE?
 var map_mode:int = BATTLE_MODE
 
-var selection_primary: LogicalTile#{"x":x, "y":y, "lt":lt, "rt": rt}
+var selection_primary: LogicalTile
 var selection_secondary: LogicalTile
 
 #Observers
@@ -38,9 +38,7 @@ accordingly.
 """
 #RTs children of LTs?
 
-"""
-Event queue?? For tooltips?
-"""
+
 func get_kaiju()->Array:
 	var kaijus:Array = []
 	for column:Array in logical_grid:
@@ -52,49 +50,37 @@ func get_kaiju()->Array:
 
 #What about a dictionary containing a path for every entity that might need one?
 func process_rt_signal(args:RTSigObj)->void:
-	var map_sig:MapSigObj = MapSigObj.new(self, args.x,args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
-	map_signal.emit(map_sig)
+	#var map_sig:MapSigObj = MapSigObj.new(self, args.x,args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
+	#map_signal.emit(map_sig)
+	print("map got RT signal as", args)
+	var rt:RenderedTile = rendered_grid[args.x][args.y]
+	var lt:LogicalTile = logical_grid[args.x][args.y]
+	var pilot_1:LogicalPilot
 
-func process_p_move_request(args:Dictionary)->void:
-	"""
-	Expects signal like:
-	var destination:Dictionary = pilot.active_path[-1]
-	rt_pilot_move.emit({"pilot": args.selection_primary.occupant, "target": destination})
-	"""
-	var x:int = args.target.x
-	var y:int = args.target.y
-	var rt_target:RenderedTile = rendered_grid[x][y]
-	var lg_target:LogicalTile = logical_grid[x][y]
-	var l_pilot:LogicalPilot = args.pilot
-	var r_pilot:RenderedPilot = rendered_grid[l_pilot.x][l_pilot.y].rendered_occupant
-	var lt_pilot:LogicalTile = logical_grid[l_pilot.x][l_pilot.y]
+	if selection_primary:
+		if selection_primary.occupant:
+			if selection_primary.occupant.id in PilotLib.lib:
+				pilot_1 = selection_primary.occupant
 
-	#Is the target in the logical path? If not, break. Clear all selections.
-	var active_tiles:Array = []
-	for dict:Dictionary in l_pilot.active_path:
-		active_tiles.append(dict.tile)
+	if args.event=="hover_enter":
+		#DetermineHoverBehavior()?
+		rt.active_highlights.append("basic_hovered")
+		if pilot_1:
+				pilot_1.find_path(lt)
 
-	print("ACTIVE TILES: ", active_tiles)
-	if lg_target not in active_tiles:
-		print("NOT IN")
-		print(l_pilot.active_path)
-		process_clear_all()
-		return
-
-	print("GOING TO:", lg_target)
-	#If it is, continue.
-	r_pilot.state_machine.Change("moving", {"path": l_pilot.active_path, "target": {"x": x, "y": y}, "origin": {"x":l_pilot.x, "y": l_pilot.y},"map":self})
-	var move_cost:int = l_pilot.active_path[-1].reach_cost
-	l_pilot.moves_remaining -= move_cost
-
-	l_pilot.sync(x,y)
-	selection_primary = null
-	selection_secondary = null
-	draw_kaiju_paths()
+	if args.event=="hover_exit":
+		rt.active_highlights.erase("basic_hovered")
+	if args.event=="left_click":
+		if selection_primary == null:
+			if lt.occupant != null:
+				if lt.occupant.id in PilotLib.lib:
+					selection_primary = lt
+					rt.active_highlights.append("pilot_move_origin")
 
 
-	#sync -- remove pilot from original lt. Make occupant of target lt. Unparent/reparent nodes.
-	pass
+
+	rt.apply_highlights()
+
 
 func process_k_move_request(args:Dictionary)->void:
 	var x:int = args.target.x
@@ -214,8 +200,7 @@ func _ready() -> void:
 	MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
 
 	draw_kaiju_paths()
-
-		#kaiju.find_target()
+	#kaiju.find_target()
 
 func draw_kaiju_paths()->void:
 	var kaijus:Array = get_kaiju()

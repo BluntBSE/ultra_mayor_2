@@ -56,7 +56,8 @@ func clear_path()->void:
 	#Should this be a signal instead?
 	for coords:Dictionary in active_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event":RTInputs.REVERT}) #Maybe...Revert
+		rt.active_highlights.erase("pilot_move_preview")
+		rt.apply_highlights()
 	active_path = []
 	#We don't do the below because calling it during every move of the mouse, like this is,
 	#Makes it hollow. We could do a MOVE_DESLECT event, or put it on the map to do.
@@ -65,9 +66,11 @@ func clear_path()->void:
 	#rendered_grid[x][y].handle_input({"event":RTInputs.CLEAR})
 
 func preview_highlight(path:Array)->void:
+
 	for coords:Dictionary in path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event":RTInputs.P_M_PREVIEW})
+		rt.active_highlights.append("pilot_move_preview")
+		rt.apply_highlights()
 
 
 func apply_kaiju_block(tile:LogicalTile)->void:
@@ -126,7 +129,8 @@ func find_path(target:LogicalTile)->void:
 			var new_cost:int = cost_so_far[current] + TerrainLib.lib[current_terrain].move_cost
 
 			if new_cost > moves_remaining:
-				break
+				pass
+
 			if !cost_so_far.has(neighbor) or new_cost < cost_so_far[neighbor]:
 				cost_so_far[neighbor] = new_cost
 				frontier.push_back(neighbor)
@@ -155,12 +159,13 @@ func find_path(target:LogicalTile)->void:
 		reach_cost += TerrainLib.lib[logical_grid[path_coords.x][path_coords.y].terrain].move_cost
 		if reach_cost <= moves_remaining:
 			path_coords.reach_cost = reach_cost
+			print("IM APPENDING")
 			reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
 
-
+	#CLEAR Active path before the next line
 	#Need to remove the very last tile if the move cost has been exceeded.
 	active_path = reachable_path
 	print("SET ACTIVE PATH TO", active_path)
 	print("FULL PATH IS", full_path)
-	preview_highlight(full_path)
+	preview_highlight(reachable_path)
 
