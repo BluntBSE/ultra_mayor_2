@@ -4,6 +4,7 @@ Development / Approval = AP per turn
 
 Starts at 4, so 4 tiles = 1 AP/Turn
 
+SOME DESIGN NOTES
 
 On a 1920x1080 display, try to display ~24 tiles across
 

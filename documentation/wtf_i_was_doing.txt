@@ -1,5 +1,9 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+BLAHBLAHBLAHBLAHBLAH
+
+
+
 Planning a pilot move inside of the Kaiju's projected path doesn't highlight it correctly.
 
 
