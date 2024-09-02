@@ -152,8 +152,8 @@ func pass_turn()->void:
 	print("KAIJU ARE", kaijus)
 
 	for _kaiju:LogicalKaiju in kaijus:
-		pass
-		#kaiju.k_move({"kaiju":kaiju, "target":kaiju.reachable_path[-1] })
+		var destination:Dictionary = _kaiju.reachable_path[-1]
+		_kaiju.k_move(self, destination.x, destination.y)
 
 	draw_kaiju_paths()
 	#Start a battle, if any is happening

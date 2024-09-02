@@ -176,11 +176,20 @@ func k_move(map:Map_2, x:int, y:int)->void:
 	var l_kaiju:LogicalKaiju = self
 	var r_kaiju:RenderedKaiju = rendered_grid[l_kaiju.x][l_kaiju.y].rendered_occupant
 	var lt_kaiju:LogicalTile = logical_grid[l_kaiju.x][l_kaiju.y]
-	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":self})
+	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":map})
 	#var move_cost:int = l_kaiju.active_path[-1].reach_cost
 	#l_kaiju.moves_remaining -= move_cost
-	l_kaiju.sync(x,y)
-
+	logical_grid[self.x][self.y].occupant = null
+	logical_grid[x][y].occupant = self
+	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
+	rendered_grid[self.x][self.y].apply_highlights()
+	rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
+	rendered_grid[x][y].rendered_occupant = r_kaiju
+	self.x = x
+	self.y = y
+	if reachable_path.size()>0:
+		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
+	#Redo the highlights for the next turn!
 
 
 
