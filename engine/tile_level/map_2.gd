@@ -24,20 +24,10 @@ var selection_secondary: LogicalTile
 @onready var header: TileMapHeaderBar = %HeaderBar
 @onready var side_bar: SideBar = %SideBar
 
-signal map_signal
-
-#Theoretical behavior:
-"""
-Player interacts with a cell by hovering or clicking.
-The cell emits a signal indicating its position.
-The map received this signal. It then adds information to this signal, including active selections, etc.
-Cells listen for this information-laden signal from the map.
-They update their state or pass signals on to their children (pilots or kaiju)
-accordingly.
-
-"""
-#RTs children of LTs?
-
+signal map_signal #Deprecate?
+signal map_select_occ_signal
+signal map_hover_signal
+signal map_target_signal
 
 func get_kaiju()->Array:
 	var kaijus:Array = []
@@ -50,9 +40,6 @@ func get_kaiju()->Array:
 
 #What about a dictionary containing a path for every entity that might need one?
 func process_rt_signal(args:RTSigObj)->void:
-	#var map_sig:MapSigObj = MapSigObj.new(self, args.x,args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
-	#map_signal.emit(map_sig)
-	print("map got RT signal as", args)
 	var rt:RenderedTile = rendered_grid[args.x][args.y]
 	var lt:LogicalTile = logical_grid[args.x][args.y]
 	var pilot_1:LogicalPilot
@@ -67,7 +54,6 @@ func process_rt_signal(args:RTSigObj)->void:
 		rt.active_highlights.append("basic_hovered")
 		if pilot_1:
 				pilot_1.find_path(lt)
-
 	if args.event=="hover_exit":
 		rt.active_highlights.erase("basic_hovered")
 	if args.event=="left_click":
@@ -89,6 +75,8 @@ func process_rt_signal(args:RTSigObj)->void:
 
 
 	rt.apply_highlights()
+	var map_sig:MapSigObj = MapSigObj.new(self, args.x,args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
+	map_signal.emit(map_sig)#Emit the current state of what's happened so the sidebars, etc. can decide what to display
 
 
 
@@ -163,7 +151,7 @@ func pass_turn()->void:
 	print("PILOTS ARE", pilots)
 	print("KAIJU ARE", kaijus)
 
-	for kaiju:LogicalKaiju in kaijus:
+	for _kaiju:LogicalKaiju in kaijus:
 		pass
 		#kaiju.k_move({"kaiju":kaiju, "target":kaiju.reachable_path[-1] })
 

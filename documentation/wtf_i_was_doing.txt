@@ -1,6 +1,6 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
-occupant not being set properly after move?
+kaiju movement!
 DONE: How to reparent RPilot without changing position -- it's probably okay if it's part of the movingpilot state.
 
 probably need to go A* instead of breadth-first cuz it's slow

@@ -172,12 +172,14 @@ func p_move(x:int, y:int)->void:
 	#Tile logic updates
 	logical_grid[self.x][self.y].occupant = null
 	logical_grid[x][y].occupant = self
+	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
+	rendered_grid[self.x][self.y].apply_highlights()
 	rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
 	rendered_grid[x][y].rendered_occupant = r_pilot
 	self.x = x
 	self.y = y
 	#Reduce the moves remaining.
-	if active_path.size>0:
+	if active_path.size()>0:
 		moves_remaining = moves_remaining - active_path[-1].reach_cost
 
 
