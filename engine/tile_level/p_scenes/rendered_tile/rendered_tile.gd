@@ -1,7 +1,7 @@
 extends Node2D
 class_name RenderedTile
 
-var prev_state:String = "basic"
+#var prev_state:String = "basic"
 @export var x: int
 @export var y: int
 var logical_parent:LogicalTile
@@ -19,6 +19,40 @@ var infra_sprite: Sprite2D
 var effect_sprite: Sprite2D
 var rendered_occupant: Object
 
+#Highlight layers are added to a list. The ones with the highest priority are then actually displayed in a render_highlight() function
+const HIGHLIGHTS = {
+	"pilot_move_select": {"priority": 15, "modulation": Color.GREEN},
+	"pilot_move_origin": {"priority": 20, "modulation": Color.GREEN_YELLOW},
+	"pilot_move_preview": {"priority": 25, "modulation": Color.GREEN},
+	"basic_selection": {"priority": 40, "modulation": Color.SEA_GREEN},
+	"basic_hovered": {"priority": 50, "modulation": Color.DARK_GRAY},
+	"kaiju_next_move_preview": {"priority": 55, "modulation": Color.CRIMSON},
+	"kaiju_full_move_preview": {"priority": 60, "modulation": Color.ORANGE},
+}
+
+var active_highlights:Array = []
+
+func highlight_sorter(a:String, b:String)->bool:
+	var a_dict:Dictionary = HIGHLIGHTS[a]
+	var b_dict:Dictionary = HIGHLIGHTS[b]
+	#For two elements a and b, if the given method returns true, element b will be after element a in the array.
+	if a_dict.priority > b_dict.priority:
+
+		return false
+	else:
+		return true
+
+func apply_highlights()->void:
+	if active_highlights.size()>0:
+		print("WE HAVE HIGHLIGHTS")
+		active_highlights.sort_custom(highlight_sorter)
+		set_modulate(HIGHLIGHTS[active_highlights[0]].modulation)
+		print(active_highlights)
+		print("SET TO ", active_highlights[0])
+	else:
+		print("SETTING TO WHITE")
+		set_modulate(Color.WHITE)
+
 signal rt_signal
 signal rt_request_selection_primary#:LogicalTile
 signal rt_request_selection_secondary#:LogicalTile
@@ -31,119 +65,12 @@ var occupant_sprite_width: int = 128
 var occupant_sprite_height: int = 128
 
 func is_self(args:MapSigObj)->bool:
+	#POSSIBLY OBSOLETE?
 	#Determine if the map signal concerns this rendered tile.
 	if args.x == x:
 		if args.y == y:
 			return true
 	return false
-
-
-
-func process_map_signal(args:MapSigObj)->void:
-	var pilot:LogicalPilot = null
-
-	#If the signal doesn't concern this tile, stop.
-	if !is_self(args):
-		return
-	#print("PROCESSING MAP SIGNAL AT", args.x, " ", args.y, " ", args.event)
-	var input_args:Dictionary = {"event": null}
-	#Else, construct input args to pass to HandleInput
-	#We don't pass the map signal directly since the map isn't the only way to do "inputs"
-	if args.map_mode == 1: #Battle mode
-		#If there is no selections at all.
-		if args.selection_primary == null and args.selection_secondary == null:
-			if args.event == "hover_enter":
-				input_args.event = RTInputs.HOVER
-			if args.event == "hover_exit":
-				input_args.event = RTInputs.HOVER_EXIT
-			if args.event == "left_click":
-				#In battle mode, only primary select tiles with occupants
-				if args.logical_tile.occupant != null:
-					print("Hello from tile, trying to set selection now with", args.event)
-					rt_request_selection_primary.emit(args.logical_tile)
-					input_args.event = RTInputs.SELECT
-			if args.event == "right_click":
-				#Replace with CONTEXT later
-				input_args.event = RTInputs.REVERT
-
-		#If there is a primary selection
-		if args.selection_primary != null and args.selection_secondary == null:
-			#If you have a pilot selected...
-			if args.selection_primary.occupant.id in PilotLib.lib:
-				pilot = args.selection_primary.occupant
-				#Tell occupant to path to target.
-				pilot.find_path(args.logical_tile)
-				if args.event == "hover_enter":
-					input_args.event = RTInputs.HOVER
-				if args.event == "hover_exit":
-					input_args.event = RTInputs.HOVER_EXIT
-				if args.event == "left_click":
-					#If you have no moves left, deselect.
-					if pilot.moves_remaining <= 0:
-						rt_request_clear_all.emit()
-						return
-					#If you are within the maximum path of the pilot, use that
-
-					if args.logical_tile == pilot.active_path[-1].tile:
-						rt_request_selection_secondary.emit(args.logical_tile)
-						#input_args.event = RTInputs.SELECT
-					else:
-						rt_request_selection_secondary.emit(pilot.active_path[-1].tile)
-
-						#input_args.event = RTInputs.SELECT
-					if args.logical_tile.occupant == null:
-						pass
-					input_args.event = RTInputs.SELECT_2
-				if args.event == "right_click":
-					#Replace with CONTEXT later
-					input_args.event = RTInputs.REVERT
-
-		#There is a secondary selection
-		if args.selection_primary != null and args.selection_secondary != null:
-			if args.event == "hover_enter":
-				input_args.event = RTInputs.HOVER
-			if args.event == "hover_exit":
-				input_args.event = RTInputs.HOVER_EXIT
-			if args.event == "left_click":
-				if args.selection_primary.occupant.id in PilotLib.lib:
-
-					if args.selection_secondary == args.logical_tile:
-						print("ATTEMPTING TO MOVE PILOT!")
-						pilot = args.selection_primary.occupant
-						var destination:Dictionary = pilot.active_path[-1]
-						rt_pilot_move.emit({"pilot": args.selection_primary.occupant, "target": destination})
-						#If the tile is within the pilot's active path, go for it, otherwise, emit with ther last item in the path...
-						#Might not need to do that at all. Could just emit last on path no matter what.
-					else:
-						pilot = args.selection_primary.occupant
-						#A signal would be less coupley...But don't we have a guaranteed coupling here?
-						pilot.clear_path()
-						print("I SHOULD BE CLEARING ALL HM HM")
-						rt_request_clear_all.emit()
-
-
-
-			if args.event == "right_click":
-				pilot = args.selection_primary.occupant
-				args.map.selection_primary = null
-				args.map.selection_secondary = null
-				pilot.clear_path()
-
-
-	#print("input args", input_args)
-	handle_input(input_args)
-
-
-
-
-#Deprecated function
-func update_occupant_sprite(texture:CompressedTexture2D)->void:
-	occupant_sprite.texture = texture
-	var og_width: float = float(occupant_sprite.texture.get_height())
-	var og_height: float = float(occupant_sprite.texture.get_width())
-	var h_scale:float = float(occupant_sprite_height) / og_height
-	var w_scale:float = float(occupant_sprite_width) / og_width
-	occupant_sprite.scale = Vector2(w_scale, h_scale)
 
 
 func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
@@ -152,13 +79,9 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		map = _map
 		logical_grid = _logical_grid
 		logical_parent = logical_grid[x][y]
-
+		#Connect map to RT signal
 		connect("rt_signal", map.process_rt_signal)
-		connect("rt_request_selection_primary", map.set_selection_primary)
-		connect("rt_request_selection_secondary", map.set_selection_secondary)
-		connect("rt_request_clear_all", map.process_clear_all)
-		connect("rt_pilot_move", map.process_p_move_request)
-		map.connect("map_signal", process_map_signal)
+
 
 		%xy_coords.text = str(x) + ", " + str(y)
 		#rendered_tile.z_index = y
@@ -184,9 +107,6 @@ func _ready() -> void:
 	state_machine.Add("selection_primary", PrimarySelectionRT.new(self,{}))
 	state_machine.Add("selection_secondary", SecondarySelectionRT.new(self,{}))
 	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
-	state_machine.Add("move_preview", MovePreviewRT.new(self,{}))
-	state_machine.Add("kaiju_path_preview", KaijuPathPreviewRT.new(self,{}))
-	state_machine.Add("kaiju_move_preview", KaijuMovePreviewRT.new(self,{}))
 	#Default state:
 	state_machine.Change("basic",{})
 
@@ -200,7 +120,6 @@ func handle_input(args:Dictionary)->void:
 		return
 
 	if args.event == RTInputs.REVERT:
-		state_machine.Change(prev_state, {})
 		return
 	#This is typically triggered by TileMain up above
 	#It might seem goofy to emit a signal from this tile, send it to main, then send instructions back

@@ -10,17 +10,15 @@ var target:LogicalTile
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event": RTInputs.K_M_PREVIEW })
+		rt.active_highlights.append("kaiju_next_move_preview")
+		rt.apply_highlights()
 
 
 func draw_full_path()->void:
-
 	for coords:Dictionary in full_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event": RTInputs.K_P_PREVIEW })
-
-
-
+		rt.active_highlights.append("kaiju_full_move_preview")
+		rt.apply_highlights()
 
 func show_movement()->void:
 	draw_full_path()
@@ -30,9 +28,7 @@ func path_to_target()->void:
 	var paths:Dictionary = find_path()
 	reachable_path = paths.reachable
 	full_path = paths.full
-
-
-
+	print("PATHS ARE", "FULL:", full_path, "Reachable", reachable_path)
 func find_target(category:String)->void:
 	#TODO: Will need a way of randomly assigning target instead of just nearest. Maybe.
 	if target != null:
@@ -127,32 +123,27 @@ func find_path()->Dictionary:
 	var reachable_path:Array = []
 	var reach_cost:int = 0 #Couldn't figure out how to use cost_so_far without referencing original terrain anyway.
 	for path_coords:Dictionary in full_path:
-		#Modify for speed chart later
 		reach_cost += TerrainLib.lib[logical_grid[path_coords.x][path_coords.y].terrain].move_cost
 		if reach_cost <= moves_remaining:
 			path_coords.reach_cost = reach_cost
 			reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
 	return {"reachable": reachable_path, "full":full_path}
 
-#Maybe it's useful to store LAST/CURRENT_POSITION and LAST_MR here? To add a fast reset?
 
 
 func clear_path()->void:
 	#Should this be a signal instead?
-	for coords:Dictionary in reachable_path:
-		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event":RTInputs.K_P_CLEAR})
-	reachable_path = []
-
 	for coords:Dictionary in full_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
-		rt.handle_input({"event":RTInputs.CLEAR})
+		rt.active_highlights.erase("kaiju_full_move_preview")
+		rt.apply_highlights()
+	for coords:Dictionary in reachable_path:
+		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
+		rt.active_highlights.erase("kaiju_next_move_preview")
+		rt.apply_highlights()
+	full_path = []
 	reachable_path = []
-	#We don't do the below because calling it during every move of the mouse, like this is,
-	#Makes it hollow. We could do a MOVE_DESLECT event, or put it on the map to do.
-	#Currently we've done the latter, since selection belongs to the map generally, not just during pilot movement.
-	#Clear own tile as well. --
-	#rendered_grid[x][y].handle_input({"event":RTInputs.CLEAR})
+
 
 
 
@@ -177,6 +168,29 @@ func sync(_x:int,_y:int)->void:
 	y = _y
 
 	#clear_path()
+
+
+func k_move(map:Map_2, x:int, y:int)->void:
+	var rt_target:RenderedTile = rendered_grid[x][y]
+	var lg_target:LogicalTile = logical_grid[x][y]
+	var l_kaiju:LogicalKaiju = self
+	var r_kaiju:RenderedKaiju = rendered_grid[l_kaiju.x][l_kaiju.y].rendered_occupant
+	var lt_kaiju:LogicalTile = logical_grid[l_kaiju.x][l_kaiju.y]
+	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":map})
+	#var move_cost:int = l_kaiju.active_path[-1].reach_cost
+	#l_kaiju.moves_remaining -= move_cost
+	logical_grid[self.x][self.y].occupant = null
+	logical_grid[x][y].occupant = self
+	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
+	rendered_grid[self.x][self.y].apply_highlights()
+	rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
+	rendered_grid[x][y].rendered_occupant = r_kaiju
+	self.x = x
+	self.y = y
+	if reachable_path.size()>0:
+		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
+	#Redo the highlights for the next turn!
+
 
 
 func _init(args:Dictionary)->void:
