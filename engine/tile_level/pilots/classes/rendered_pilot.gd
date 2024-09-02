@@ -2,6 +2,7 @@ extends Node2D
 class_name RenderedPilot
 
 
+
 var id:String
 @onready var sprite_node:Sprite2D = %sprite
 var display_name:String

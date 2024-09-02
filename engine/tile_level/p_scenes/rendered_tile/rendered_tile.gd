@@ -21,29 +21,34 @@ var rendered_occupant: Object
 
 #Highlight layers are added to a list. The ones with the highest priority are then actually displayed in a render_highlight() function
 const HIGHLIGHTS = {
-	"kaiju_projected": {"priority": 10, "modulation": Color.REBECCA_PURPLE},
-	"basic_hovered": {"priority": 30, "modulation": Color.DARK_GRAY},
-	"basic_selection": {"priority":35, "modulation": Color.SEA_GREEN},
-	"pilot_move_origin": {"priority": 40, "modulation": Color.GREEN_YELLOW},
-	"pilot_move_preview": {"priority:": 45, "modulation": Color.BLUE},
-	"pilot_move_select": {"priority": 50, "modulation": Color.GREEN}
+	"pilot_move_select": {"priority": 15, "modulation": Color.GREEN},
+	"pilot_move_origin": {"priority": 20, "modulation": Color.GREEN_YELLOW},
+	"pilot_move_preview": {"priority": 25, "modulation": Color.GREEN},
+	"basic_selection": {"priority": 40, "modulation": Color.SEA_GREEN},
+	"basic_hovered": {"priority": 50, "modulation": Color.DARK_GRAY},
+	"kaiju_next_move_preview": {"priority": 55, "modulation": Color.CRIMSON},
+	"kaiju_full_move_preview": {"priority": 60, "modulation": Color.ORANGE},
 }
 
 var active_highlights:Array = []
 
-func highlight_sorter(a:Dictionary, b:Dictionary)->bool:
+func highlight_sorter(a:String, b:String)->bool:
+	var a_dict:Dictionary = HIGHLIGHTS[a]
+	var b_dict:Dictionary = HIGHLIGHTS[b]
 	#For two elements a and b, if the given method returns true, element b will be after element a in the array.
-	if a.priority > b.priority:
+	if a_dict.priority > b_dict.priority:
+
 		return false
 	else:
 		return true
 
 func apply_highlights()->void:
 	if active_highlights.size()>0:
+		print("WE HAVE HIGHLIGHTS")
 		active_highlights.sort_custom(highlight_sorter)
 		set_modulate(HIGHLIGHTS[active_highlights[0]].modulation)
 		print(active_highlights)
-		print("SET TO", active_highlights[0])
+		print("SET TO ", active_highlights[0])
 	else:
 		print("SETTING TO WHITE")
 		set_modulate(Color.WHITE)

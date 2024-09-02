@@ -7,7 +7,9 @@ var map: Map_2
 var path: Array
 var t: float
 var next_coord:Dictionary = {}
-
+var rendered_grid:Array
+var target_global_position:Vector2
+var current_global_position:Vector2
 
 # Called when the node enters the scene tree for the first time.
 #Expects:  {"origin": args.origin, "target": args.target, "map": args.map}
@@ -16,8 +18,10 @@ func stateEnter(args:Dictionary) ->void:
 	target = args.target
 	origin = args.origin
 	map = args.map
-	var target_global_position: Vector2 = args.map.rendered_grid[args.target.x][args.target.y].global_position
-	var current_global_position: Vector2 = _reference.global_position
+	rendered_grid = map.rendered_grid
+	target_global_position = args.map.rendered_grid[args.target.x][args.target.y].global_position
+	current_global_position = _reference.global_position
+
 
 
 
@@ -41,8 +45,19 @@ func stateUpdate(delta:float)->void:
 				next_coord = path.pop_front()
 			else:
 				next_coord = {}
+				if path == []:
+					var self_pilot:RenderedPilot = _reference
+					self_pilot.get_parent().remove_child(self_pilot)
+					var target_tile:RenderedTile = rendered_grid[target.x][target.y]
+					target_tile.add_child(self_pilot)
+					self_pilot.global_position = MapHelpers.get_tile_midpoint_global(target_tile)
+
+
+
+
 
 		pass
+
 
 	pass
 

@@ -24,10 +24,6 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 	rendered_grid=_rendered_grid
 
 func sync(_x:int,_y:int)->void:
-	#Maybe this isn't the best place to do this clear.
-	#Probably, if LP is going to be in charge, make map call a function on LP that then calls RP.
-	var rt:RenderedTile = rendered_grid[x][y]
-	rt.handle_input({"event":RTInputs.CLEAR})
 	#Assign self to LT at new XY
 	logical_grid[_x][_y].occupant = self
 	#Unset self from old xy
@@ -57,19 +53,16 @@ func clear_path()->void:
 	for coords:Dictionary in active_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.active_highlights.erase("pilot_move_preview")
+		rt.active_highlights.erase("pilot_move_origin")
 		rt.apply_highlights()
 	active_path = []
-	#We don't do the below because calling it during every move of the mouse, like this is,
-	#Makes it hollow. We could do a MOVE_DESLECT event, or put it on the map to do.
-	#Currently we've done the latter, since selection belongs to the map generally, not just during pilot movement.
-	#Clear own tile as well. --
-	#rendered_grid[x][y].handle_input({"event":RTInputs.CLEAR})
 
 func preview_highlight(path:Array)->void:
 
 	for coords:Dictionary in path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.active_highlights.append("pilot_move_preview")
+		print("Applied pilot_move_preview to ", coords.x, " ", coords.y)
 		rt.apply_highlights()
 
 
@@ -169,3 +162,23 @@ func find_path(target:LogicalTile)->void:
 	print("FULL PATH IS", full_path)
 	preview_highlight(reachable_path)
 
+
+func p_move(x:int, y:int)->void:
+	var rt_target:RenderedTile = rendered_grid[x][y]
+	var lg_target:LogicalTile = logical_grid[x][y]
+	var r_pilot:RenderedPilot = rendered_grid[self.x][self.y].rendered_occupant
+	var lt_pilot:LogicalTile = logical_grid[self.x][self.y]
+	r_pilot.state_machine.Change("moving", {"path": self.active_path, "target": {"x": x, "y": y}, "origin": {"x":self.x, "y": self.y},"map":map})
+	#Tile logic updates
+	logical_grid[self.x][self.y].occupant = null
+	logical_grid[x][y].occupant = self
+	rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
+	rendered_grid[x][y].rendered_occupant = r_pilot
+	self.x = x
+	self.y = y
+	#Reduce the moves remaining.
+	if active_path.size>0:
+		moves_remaining = moves_remaining - active_path[-1].reach_cost
+
+
+	clear_path()

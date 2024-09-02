@@ -76,25 +76,23 @@ func process_rt_signal(args:RTSigObj)->void:
 				if lt.occupant.id in PilotLib.lib:
 					selection_primary = lt
 					rt.active_highlights.append("pilot_move_origin")
+		if selection_primary:
+			if selection_primary.occupant and selection_primary.occupant.id in PilotLib.lib:
+				var pilot:LogicalPilot = selection_primary.occupant
+				#Move a primary selection (pilot?)
+				if lt.occupant == null:
+					pilot.p_move(args.x,args.y)
+					selection_primary = null
+					#Do move
 
+					pass
 
 
 	rt.apply_highlights()
 
 
-func process_k_move_request(args:Dictionary)->void:
-	var x:int = args.target.x
-	var y:int = args.target.y
-	var rt_target:RenderedTile = rendered_grid[x][y]
-	var lg_target:LogicalTile = logical_grid[x][y]
-	var l_kaiju:LogicalKaiju = args.kaiju
-	var r_kaiju:RenderedKaiju = rendered_grid[l_kaiju.x][l_kaiju.y].rendered_occupant
-	var lt_kaiju:LogicalTile = logical_grid[l_kaiju.x][l_kaiju.y]
-	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":self})
-	#var move_cost:int = l_kaiju.active_path[-1].reach_cost
-	#l_kaiju.moves_remaining -= move_cost
 
-	l_kaiju.sync(x,y)
+
 
 
 func set_selection_primary(args:LogicalTile)->void:
@@ -109,10 +107,7 @@ func set_selection_secondary(args:LogicalTile)->void:
 	selection_secondary=args
 	var rt:RenderedTile = rendered_grid[args.x][args.y]
 	rt.handle_input({"event": RTInputs.SELECT_2})
-	#print("ARGS ARE...", args)
-	#kaiju_blocks.append(args)
-	#print("KAIJU BLOCKS ARE NOW", kaiju_blocks, kaiju_blocks[0].x, kaiju_blocks[0].y)
-	#draw_kaiju_paths()
+
 
 func set_mode(mode:int) -> void:
 	#Linked to signals from the buttons or other sources that set the map into city or battle mode.
@@ -169,7 +164,8 @@ func pass_turn()->void:
 	print("KAIJU ARE", kaijus)
 
 	for kaiju:LogicalKaiju in kaijus:
-		process_k_move_request({"kaiju":kaiju, "target":kaiju.reachable_path[-1] })
+		pass
+		#kaiju.k_move({"kaiju":kaiju, "target":kaiju.reachable_path[-1] })
 
 	draw_kaiju_paths()
 	#Start a battle, if any is happening
