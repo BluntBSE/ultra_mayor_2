@@ -151,10 +151,13 @@ func pass_turn()->void:
 	print("PILOTS ARE", pilots)
 	print("KAIJU ARE", kaijus)
 
+	#TODO: Make function part of logicalKaiju instead?
 	for _kaiju:LogicalKaiju in kaijus:
-		var destination:Dictionary = _kaiju.reachable_path[-1]
-		_kaiju.k_move(self, destination.x, destination.y)
-
+		if _kaiju.reachable_path.size()>0:
+			var destination:Dictionary = _kaiju.reachable_path[-1]
+			_kaiju.k_move(self, destination.x, destination.y)
+			#Reset move points
+			_kaiju.moves_remaining = _kaiju.move_points
 	draw_kaiju_paths()
 	#Start a battle, if any is happening
 
@@ -190,7 +193,7 @@ func draw_kaiju_paths()->void:
 	var kaijus:Array = get_kaiju()
 	for kaiju:LogicalKaiju in kaijus:
 		kaiju.clear_path()
-		kaiju.find_target("power")
+		kaiju.find_target("power") #TODO: Fix hardcode
 		kaiju.path_to_target()
 		kaiju.show_movement()
 	pass
