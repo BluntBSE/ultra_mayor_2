@@ -14,7 +14,6 @@ var state_machine:StateMachine = StateMachine.new()
 var infra_sprite: Sprite2D
 @onready var building_sprite: Sprite2D = %building_sprite
 #Deprecated variable
-@onready var occupant_sprite: Sprite2D = %occupant_sprite
 @onready var move_cost: RichTextLabel = %move_cost
 var effect_sprite: Sprite2D
 var rendered_occupant: Object

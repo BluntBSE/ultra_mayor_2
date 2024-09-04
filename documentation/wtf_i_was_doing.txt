@@ -1,7 +1,10 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
-Pilot with no move speed can still be sent to another tile?
+1. When there is already a selection in the map
+2. The selection is a pilot
+3. The pilot is adjacent to a kaiju
+4. The player right clicks on a tile with a kaiju (may be step 3)
 
 DONE: How to reparent RPilot without changing position -- it's probably okay if it's part of the movingpilot state.
 

@@ -67,12 +67,16 @@ func process_rt_signal(args: RTSigObj) -> void:
 		if selection_primary:
 			if selection_primary.occupant and selection_primary.occupant.id in PilotLib.lib:
 				var pilot: LogicalPilot = selection_primary.occupant
-				#Move a primary selection (pilot?)
+				#Move a pilot selection to the target point if possible
 				if lt.occupant == null:
 					pilot.p_move(args.x, args.y)
 					selection_primary = null
 					#Kaiju redraw paths too
 					draw_kaiju_paths()
+				if lt.occupant != null:
+					if lt.occupant.id in KaijuLib.lib:
+						#pilot.open_target_context_menu -- auto assigning should be a check after p_move
+						pass
 
 	rt.apply_highlights()
 	var map_sig: MapSigObj = MapSigObj.new(self, args.x, args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
