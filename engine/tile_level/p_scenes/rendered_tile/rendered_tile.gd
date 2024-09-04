@@ -44,13 +44,10 @@ func highlight_sorter(a:String, b:String)->bool:
 
 func apply_highlights()->void:
 	if active_highlights.size()>0:
-		print("WE HAVE HIGHLIGHTS")
+
 		active_highlights.sort_custom(highlight_sorter)
 		set_modulate(HIGHLIGHTS[active_highlights[0]].modulation)
-		print(active_highlights)
-		print("SET TO ", active_highlights[0])
 	else:
-		print("SETTING TO WHITE")
 		set_modulate(Color.WHITE)
 
 signal rt_signal

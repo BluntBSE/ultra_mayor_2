@@ -28,7 +28,7 @@ func path_to_target()->void:
 	var paths:Dictionary = find_path()
 	reachable_path = paths.reachable
 	full_path = paths.full
-	print("PATHS ARE", "FULL:", full_path, "Reachable", reachable_path)
+
 func find_target(category:String)->void:
 	#TODO: Will need a way of randomly assigning target instead of just nearest. Maybe.
 	if target != null:
@@ -37,15 +37,12 @@ func find_target(category:String)->void:
 	for column:Array in logical_grid:
 		for tile:LogicalTile in column:
 			if tile.building != null:
-				print("TILE BUILDING IS", tile.building.display_text)
 				if tile.building.category == category:
 					target = tile
-					print("ASSIGNED TARGET TO ", tile, tile.x, " ", tile.y)
 
 
 
 func find_path()->Dictionary:
-	print("KAIJU FINDING PATH TO TARGET", target, " at ", target.x, " ", target.y )
 	#clear_path()
 	#TODO: Can move THROUGH pilots. Cannot move through Kaiju. Cannot end turn in either.
 	var origin:Dictionary = {"x": x, "y": y}
@@ -93,7 +90,6 @@ func find_path()->Dictionary:
 				if logical_grid[neighbor.x][neighbor.y].occupant.id in PilotLib.lib:
 					neighbors.erase(neighbor)
 			if  logical_grid[neighbor.x][neighbor.y] in map.kaiju_blocks:
-				print("WOOP")
 				neighbors.erase(neighbor)
 
 		for neighbor:Dictionary in neighbors:
@@ -177,7 +173,7 @@ func k_move(map:Map_2, x:int, y:int)->void:
 	var r_kaiju:RenderedKaiju = rendered_grid[l_kaiju.x][l_kaiju.y].rendered_occupant
 	var lt_kaiju:LogicalTile = logical_grid[l_kaiju.x][l_kaiju.y]
 	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":map})
-	#var move_cost:int = l_kaiju.active_path[-1].reach_cost
+	#var move_cost:int = l_kaiju.reachable_path[-1].reach_cost
 	#l_kaiju.moves_remaining -= move_cost
 	logical_grid[self.x][self.y].occupant = null
 	logical_grid[x][y].occupant = self

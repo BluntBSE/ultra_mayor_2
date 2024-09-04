@@ -1,7 +1,7 @@
 class_name LogicalPilot extends Occupant
 
 
-var active_path:Array = []
+var reachable_path:Array = []
 signal pilot_path
 
 #Maybe it's useful to store LAST/CURRENT_POSITION and LAST_MR here? To add a fast reset?
@@ -50,19 +50,18 @@ func process_rt_signal()->void:
 
 func clear_path()->void:
 	#Should this be a signal instead?
-	for coords:Dictionary in active_path:
+	for coords:Dictionary in reachable_path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.active_highlights.erase("pilot_move_preview")
 		rt.active_highlights.erase("pilot_move_origin")
 		rt.apply_highlights()
-	active_path = []
+	reachable_path = []
 
 func preview_highlight(path:Array)->void:
 
 	for coords:Dictionary in path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.active_highlights.append("pilot_move_preview")
-		print("Applied pilot_move_preview to ", coords.x, " ", coords.y)
 		rt.apply_highlights()
 
 
@@ -145,42 +144,46 @@ func find_path(target:LogicalTile)->void:
 	#We dont' want to render anything under the moving agent right now or use the original tile in calculations, so remove the origin
 	full_path.erase(origin)
 
-	var reachable_path:Array = []
+	var _reachable_path:Array = []
 	var reach_cost:int = 0 #Couldn't figure out how to use cost_so_far without referencing original terrain anyway.
 	for path_coords:Dictionary in full_path:
 		#Modify for speed chart later
 		reach_cost += TerrainLib.lib[logical_grid[path_coords.x][path_coords.y].terrain].move_cost
 		if reach_cost <= moves_remaining:
 			path_coords.reach_cost = reach_cost
-			print("IM APPENDING")
-			reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
+			_reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
 
 	#CLEAR Active path before the next line
 	#Need to remove the very last tile if the move cost has been exceeded.
-	active_path = reachable_path
-	print("SET ACTIVE PATH TO", active_path)
-	print("FULL PATH IS", full_path)
+	reachable_path = _reachable_path
 	preview_highlight(reachable_path)
 
+func tile_is_in_reachable_path(x:int, y:int)->bool:
+	for path_item:Dictionary in reachable_path:
+		if (path_item.x ==x) and (path_item.y == y):
+			return true
+	return false
 
 func p_move(x:int, y:int)->void:
-	var rt_target:RenderedTile = rendered_grid[x][y]
-	var lg_target:LogicalTile = logical_grid[x][y]
-	var r_pilot:RenderedPilot = rendered_grid[self.x][self.y].rendered_occupant
-	var lt_pilot:LogicalTile = logical_grid[self.x][self.y]
-	r_pilot.state_machine.Change("moving", {"path": self.active_path, "target": {"x": x, "y": y}, "origin": {"x":self.x, "y": self.y},"map":map})
-	#Tile logic updates
-	logical_grid[self.x][self.y].occupant = null
-	logical_grid[x][y].occupant = self
+	print("p_move called! x is currently", self.x, "y is currently", self.y)
 	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
 	rendered_grid[self.x][self.y].apply_highlights()
-	rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
-	rendered_grid[x][y].rendered_occupant = r_pilot
-	self.x = x
-	self.y = y
-	#Reduce the moves remaining.
-	if active_path.size()>0:
-		moves_remaining = moves_remaining - active_path[-1].reach_cost
+	#First off, check if this X_Y is even in the active path!
+	if tile_is_in_reachable_path(x, y):
+		var rt_target:RenderedTile = rendered_grid[x][y]
+		var lg_target:LogicalTile = logical_grid[x][y]
+		var r_pilot:RenderedPilot = rendered_grid[self.x][self.y].rendered_occupant
+		var lt_pilot:LogicalTile = logical_grid[self.x][self.y]
+		r_pilot.state_machine.Change("moving", {"path": self.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":self.x, "y": self.y},"map":map})
+		logical_grid[self.x][self.y].occupant = null
+		logical_grid[x][y].occupant = self
+		#rendered_grid[self.x][self.y].apply_highlights()
+		rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
+		rendered_grid[x][y].rendered_occupant = r_pilot
+		self.x = x
+		self.y = y
+		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
 
 
 	clear_path()
+
