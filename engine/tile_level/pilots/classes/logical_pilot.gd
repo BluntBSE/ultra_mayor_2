@@ -183,10 +183,17 @@ func p_move(x:int, y:int)->void:
 
 	clear_path()
 
-func p_target_context(x:int, y:int)->void:
+func target_context(x:int, y:int)->void:
 	var target_lt:LogicalTile = logical_grid[x][y]
-	var taret_rt:RenderedTile = rendered_grid[x][y]
+	var target_rt:RenderedTile = rendered_grid[x][y]
 	#TODO: Get pilot options from the pilot definition, as these might change with tech tree...Should probably be a global enum
-	var pilot_actions:Array = ["shove", "battle"]
+	var actions:Array = [PilotActions.ACTIONS.BATTLE, PilotActions.ACTIONS.SHOVE]
+	#For action in actions
+	#p_target_menu.new()
+	var new_menu:PilotTargetContext = load("res://engine/tile_level/p_scenes/map_UI/pilot_target_context.tscn").instantiate()
+	new_menu.unpack(actions, self, target_lt, target_rt)
+	target_rt.add_child(new_menu)
+
+
 
 	pass

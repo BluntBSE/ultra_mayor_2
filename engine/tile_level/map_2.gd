@@ -76,6 +76,7 @@ func process_rt_signal(args: RTSigObj) -> void:
 				if lt.occupant != null:
 					if lt.occupant.id in KaijuLib.lib:
 						#pilot.open_target_context_menu -- auto assigning should be a check after p_move
+						pilot.target_context(args.x, args.y)
 						pass
 
 	rt.apply_highlights()
