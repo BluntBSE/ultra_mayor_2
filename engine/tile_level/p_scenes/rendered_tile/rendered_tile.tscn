@@ -25,10 +25,6 @@ unique_name_in_owner = true
 position = Vector2(97, 107)
 scale = Vector2(4.21, 4.21)
 
-[node name="occupant_sprite" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(91, 114)
-
 [node name="effect_sprite" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("2_db4uc")

@@ -19,6 +19,17 @@ var infra_sprite: Sprite2D
 var effect_sprite: Sprite2D
 var rendered_occupant: Object
 
+var TO_MODULATE:Array = ["bg_sprite", "infra_sprite", "building_sprite"]#List of nodes that should be affected by the custom do_modulate function
+#Append any children you want to modulate to TO_MODULATE when they become parented.
+
+func do_modulate(color:Color)->void:
+	var list:Array = []
+	for name:String in TO_MODULATE:
+		list.append(get_node(name))
+	for node:Node2D in list:
+		node.set_modulate(color)
+
+
 #Highlight layers are added to a list. The ones with the highest priority are then actually displayed in a render_highlight() function
 const HIGHLIGHTS = {
 	"pilot_move_select": {"priority": 15, "modulation": Color.GREEN},
@@ -46,9 +57,9 @@ func apply_highlights()->void:
 	if active_highlights.size()>0:
 
 		active_highlights.sort_custom(highlight_sorter)
-		set_modulate(HIGHLIGHTS[active_highlights[0]].modulation)
+		do_modulate(HIGHLIGHTS[active_highlights[0]].modulation)
 	else:
-		set_modulate(Color.WHITE)
+		do_modulate(Color.WHITE)
 
 signal rt_signal
 signal rt_request_selection_primary#:LogicalTile
