@@ -64,6 +64,9 @@ static func determine_opposite(lt_o: LogicalTile, lt_t: LogicalTile, lg: Array) 
 	var dx: int = lt_t.x - lt_o.x
 	print(lt_t.x, " MINUS ", lt_o.x, " MAKES ", dx)
 	var dy: int = lt_t.y - lt_o.y
+	#If the difference in y is odd, add +1 to the X difference.
+	if dy %2 != 0:
+		dx = dx + 1
 
 	# Calculate the coordinates of hexagon C
 	var opp_tile_x: int = lt_t.x + dx
