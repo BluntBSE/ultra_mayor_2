@@ -187,7 +187,11 @@ func k_move(map:Map_2, x:int, y:int)->void:
 		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
 	#Redo the highlights for the next turn!
 
-
+func refresh_paths()->void:
+		clear_path()
+		find_target("power")  #TODO: Fix hardcode
+		path_to_target()
+		show_movement()
 
 func _init(args:Dictionary)->void:
 	sprite = args.sprite

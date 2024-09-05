@@ -29,6 +29,18 @@ signal map_select_occ_signal
 signal map_hover_signal
 signal map_target_signal
 
+const SELECTION_HIGHLIGHTS:Array = [
+	"pilot_move_origin",
+]
+
+func unselect_all()->void:
+	if selection_primary:
+		var rt:RenderedTile = rendered_grid[selection_primary.x][selection_primary.y]
+		for highlight:String in SELECTION_HIGHLIGHTS:
+			rt.active_highlights.erase(highlight)
+		rt.apply_highlights()
+	selection_primary = null
+	selection_secondary = null
 
 func get_kaiju() -> Array:
 	var kaijus: Array = []

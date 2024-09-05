@@ -1,6 +1,18 @@
 class_name PathHelpers
 
+class PathDict:
+	#({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
+	var tile:LogicalTile
+	var reach_cost:int
+	var x:int
+	var y:int
 
+	# Constructor to initialize properties
+	func _init(tile:LogicalTile, reach_cost:int, x:int, y:int)->void:
+		self.tile = tile
+		self.reach_cost = reach_cost
+		self.x = x
+		self.y = y
 # Called when the node enters the scene tree for the first time.
 static func find_neighbors_old(origin:Dictionary, grid:Array)->Array:
 	var x:int = origin.x

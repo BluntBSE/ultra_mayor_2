@@ -10,5 +10,4 @@ script = ExtResource("1_qryxv")
 
 [node name="sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-self_modulate = Color(1, 1, 1, 0.317647)
 texture = ExtResource("2_x7my2")
