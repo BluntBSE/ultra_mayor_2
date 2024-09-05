@@ -2,7 +2,7 @@ class_name PathHelpers
 
 
 # Called when the node enters the scene tree for the first time.
-static func find_neighbors(origin:Dictionary, grid:Array)->Array:
+static func find_neighbors_old(origin:Dictionary, grid:Array)->Array:
 	var x:int = origin.x
 	var y: int = origin.y
 	var max_x:int = grid.size()
@@ -42,6 +42,50 @@ static func find_neighbors(origin:Dictionary, grid:Array)->Array:
 			neighbors.append(neighbor)
 
 	return neighbors
+
+
+
+static func find_neighbors(origin:Dictionary, grid:Array)->Array:
+	var x:int = origin.x
+	var y: int = origin.y
+	var max_x:int = grid.size()
+	var max_y:int = grid[0].size()
+	var neighbors:Array = []
+	var potential_neighbors:Array=[]
+	var logical_neighbors: Array = []
+	#If X is odd, neighbors are different than if X is even
+	"""
+	For a cell (X,Y) where Y is odd, the neighbors are: (x-1, y), (x,y-1), (x+1, y-1), (x+1, y), (x+1,y+1), (x, y+1)
+
+	For a cell (X,Y) where Y is even, the neighbors are: (X-1,Y),(X-1,Y-1),(X,Y-1),(X+1,Y+1),(X,Y+1),(X-1,Y+1)
+	"""
+	if y % 2 == 0:  # Y is even
+		potential_neighbors = [
+			{"x": x-1, "y": y},   # Left
+			{"x": x-1, "y": y-1}, # Top left
+			{"x": x, "y": y-1},   # Top right
+			{"x": x+1, "y": y+1}, # Bottom right
+			{"x": x, "y": y+1},   # Bottom left
+			{"x": x-1, "y": y+1}  # Bottom left
+		]
+	else:  # Y is odd
+		potential_neighbors = [
+			{"x": x-1, "y": y},   # Left
+			{"x": x, "y": y-1},   # Top left
+			{"x": x+1, "y": y-1}, # Top right
+			{"x": x+1, "y": y},   # Right
+			{"x": x+1, "y": y+1}, # Bottom right
+			{"x": x, "y": y+1}    # Bottom left
+		]
+
+	for neighbor:Dictionary in potential_neighbors:
+		var nx:int = neighbor.x
+		var ny:int = neighbor.y
+		if nx >= 0 and nx < max_x and ny >= 0 and ny < max_y:
+			neighbors.append(neighbor)
+
+	return neighbors
+
 
 
 static func find_path_kaiju(grid:Array, origin:Dictionary, target:Dictionary)->Dictionary:
