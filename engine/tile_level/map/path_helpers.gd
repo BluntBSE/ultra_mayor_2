@@ -55,17 +55,20 @@ static func find_neighbors(origin:Dictionary, grid:Array)->Array:
 	var logical_neighbors: Array = []
 	#If X is odd, neighbors are different than if X is even
 	"""
+	From direct left clockwise. Sample: 8,7.
+
 	For a cell (X,Y) where Y is odd, the neighbors are: (x-1, y), (x,y-1), (x+1, y-1), (x+1, y), (x+1,y+1), (x, y+1)
 
-	For a cell (X,Y) where Y is even, the neighbors are: (X-1,Y),(X-1,Y-1),(X,Y-1),(X+1,Y+1),(X,Y+1),(X-1,Y+1)
+	Sample 8,6
+	For a cell (X,Y) where Y is even, the neighbors are: (X-1,Y),(X-1,Y-1),(X,Y-1),(X+1,Y),(X,Y+1),(X-1,Y+1)
 	"""
 	if y % 2 == 0:  # Y is even
 		potential_neighbors = [
 			{"x": x-1, "y": y},   # Left
 			{"x": x-1, "y": y-1}, # Top left
 			{"x": x, "y": y-1},   # Top right
-			{"x": x+1, "y": y+1}, # Bottom right
-			{"x": x, "y": y+1},   # Bottom left
+			{"x": x+1, "y": y}, # Right right
+			{"x": x, "y": y+1},   # Bottom right
 			{"x": x-1, "y": y+1}  # Bottom left
 		]
 	else:  # Y is odd
