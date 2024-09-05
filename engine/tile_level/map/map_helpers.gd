@@ -59,20 +59,43 @@ static func get_tile_midpoint_global(rt: RenderedTile) -> Vector2:
 	return global_midpoint
 
 
+#HEX TODO: Make these vectors or classes, not dictionaries
+static func oddr_to_axial(tile: LogicalTile) -> Dictionary:
+	#TODO: Learn how this actually works
+	var q: int = tile.x - (tile.y - (tile.y & 1)) / 2
+	var r: int = tile.y
+	var axial_dict: Dictionary = {"q": q, "r": r}
+	return axial_dict
+
+
+static func axial_to_cube(axial: Dictionary) -> Dictionary:
+	var q: int = axial.q
+	var r: int = axial.r
+	var s: int = -q - r
+	var cube: Dictionary = {"q": q, "r": r, "s": s}
+	print("cube is ", cube)
+	return cube
+
+
+static func cube_to_offset(cube: Dictionary) -> Dictionary:
+	# Convert cubic coordinates to odd-r offset coordinates
+	var q: int = cube["q"]
+	var r: int = cube["r"]
+	var col: int = q + int((r - (r & 1)) / 2)
+	var row: int = r
+	return {"x": col, "y": row}
+
+
 static func determine_opposite(lt_o: LogicalTile, lt_t: LogicalTile, lg: Array) -> LogicalTile:
-	# Calculate the difference in coordinates
-	var dx: int = lt_t.x - lt_o.x
-	print(lt_t.x, " MINUS ", lt_o.x, " MAKES ", dx)
-	var dy: int = lt_t.y - lt_o.y
-	#If the difference in y is odd, add +1 to the X difference.
-	if dy %2 != 0:
-			dx = dx + 1
-
-	# Calculate the coordinates of hexagon C
-	var opp_tile_x: int = lt_t.x + dx
-	var opp_tile_y: int = lt_t.y + dy
-
-	return lg[opp_tile_x][opp_tile_y]
+	var cube_origin: Dictionary = axial_to_cube(oddr_to_axial(lt_o))
+	var cube_target: Dictionary = axial_to_cube(oddr_to_axial(lt_t))
+	var new_q: int = cube_target.q + (cube_target.q - cube_origin.q)
+	var new_r: int = cube_target.r + (cube_target.r - cube_origin.r)
+	var new_s: int = cube_target.s + (cube_target.s - cube_origin.s)
+	var reflected_dict: Dictionary = {"q": new_q, "r": new_r, "s": new_s}
+	var xy_dict:Dictionary = cube_to_offset(reflected_dict)
+	var reflected_tile:LogicalTile = lg[xy_dict.x][xy_dict.y]
+	return reflected_tile
 
 
 static func draw_occupants(rendered_grid: Array, tile: LogicalTile) -> void:
