@@ -1,7 +1,7 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 HEXAGONS:
-	Pretty sure I am using an Odd-Q vertical layout, but with pointy hexes.
+	We're using XY cordinates with "odd-r" (odd y) offset to the right
 
 Development / Approval = AP per turn
 

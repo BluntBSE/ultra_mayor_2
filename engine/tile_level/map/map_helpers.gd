@@ -61,25 +61,16 @@ static func get_tile_midpoint_global(rt: RenderedTile) -> Vector2:
 
 static func determine_opposite(lt_o: LogicalTile, lt_t: LogicalTile, lg: Array) -> LogicalTile:
 	# Calculate the difference in coordinates
-	#23, 12 and 24, 13
-	var dx: int = lt_o.x - lt_t.x  #-1
-	var dy: int = lt_o.y - lt_t.y  #-1
-	"""
-	For a cell (X,Y) where Y is even, the neighbors are: (X,Y-1),(X+1,Y-1),(X-1,Y),(X+1,Y),(X,Y+1),(X+1,Y+1)
-
-	For a cell (X,Y) where Y is odd, the neighbors are: (X-1,Y-1),(X,Y-1),(X-1,Y),(X+1,Y),(X-1,Y+1),(X,Y+1)
-	"""
-	if dy == 0:
-		print("I think DY is zero!")
-		if dx == 1:#Replace with modulo
-			dy +=1
-		if dx == -1:#Replace with modulos and negative check
-			dy -= 1
-		pass
+	var dx: int = lt_t.x - lt_o.x
+	print(lt_t.x, " MINUS ", lt_o.x, " MAKES ", dx)
+	var dy: int = lt_t.y - lt_o.y
+	#If the difference in y is odd, add +1 to the X difference.
+	if dy %2 != 0:
+			dx = dx + 1
 
 	# Calculate the coordinates of hexagon C
-	var opp_tile_x: int = lt_t.x - dx
-	var opp_tile_y: int = lt_t.y - dy
+	var opp_tile_x: int = lt_t.x + dx
+	var opp_tile_y: int = lt_t.y + dy
 
 	return lg[opp_tile_x][opp_tile_y]
 
@@ -93,7 +84,7 @@ static func draw_occupants(rendered_grid: Array, tile: LogicalTile) -> void:
 			var rp: RenderedPilot = load("res://engine/tile_level/p_scenes/rendered_pilot/rendered_pilot.tscn").instantiate()
 			rendered_tile.add_child(rp)
 			rendered_tile.rendered_occupant = rp
-			rp.z_index = 4000 #TODO: This makes the context menus weird
+			rp.z_index = 4000  #TODO: This makes the context menus weird
 			#Could use local position, idc
 			var vector_midpoint: Vector2 = get_tile_midpoint_global(rendered_tile)
 			rp.global_position = vector_midpoint
