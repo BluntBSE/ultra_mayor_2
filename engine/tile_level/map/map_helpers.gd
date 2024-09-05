@@ -59,7 +59,7 @@ static func get_tile_midpoint_global(rt: RenderedTile) -> Vector2:
 	return global_midpoint
 
 
-#HEX
+#HEX TODO: Make these vectors or classes, not dictionaries
 static func oddr_to_axial(tile: LogicalTile) -> Dictionary:
 	#TODO: Learn how this actually works
 	var q: int = tile.x - (tile.y - (tile.y & 1)) / 2
@@ -86,7 +86,7 @@ static func cube_to_offset(cube: Dictionary) -> Dictionary:
 	return {"x": col, "y": row}
 
 
-static func determine_opposite(lt_o: LogicalTile, lt_t: LogicalTile, lg: Array) -> void:
+static func determine_opposite(lt_o: LogicalTile, lt_t: LogicalTile, lg: Array) -> LogicalTile:
 	var cube_origin: Dictionary = axial_to_cube(oddr_to_axial(lt_o))
 	var cube_target: Dictionary = axial_to_cube(oddr_to_axial(lt_t))
 	var new_q: int = cube_target.q + (cube_target.q - cube_origin.q)
@@ -94,7 +94,8 @@ static func determine_opposite(lt_o: LogicalTile, lt_t: LogicalTile, lg: Array) 
 	var new_s: int = cube_target.s + (cube_target.s - cube_origin.s)
 	var reflected_dict: Dictionary = {"q": new_q, "r": new_r, "s": new_s}
 	var xy_dict:Dictionary = cube_to_offset(reflected_dict)
-	print("I THINK THE REFLECTED COORDS ARE ", xy_dict.x, " AND ", xy_dict.y)
+	var reflected_tile:LogicalTile = lg[xy_dict.x][xy_dict.y]
+	return reflected_tile
 
 
 static func draw_occupants(rendered_grid: Array, tile: LogicalTile) -> void:
