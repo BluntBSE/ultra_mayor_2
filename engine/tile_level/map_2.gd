@@ -46,6 +46,7 @@ func process_rt_signal(args: RTSigObj) -> void:
 	var lt: LogicalTile = logical_grid[args.x][args.y]
 	var pilot_1: LogicalPilot
 
+
 	if selection_primary:
 		if selection_primary.occupant:
 			if selection_primary.occupant.id in PilotLib.lib:
@@ -59,6 +60,17 @@ func process_rt_signal(args: RTSigObj) -> void:
 	if args.event == "hover_exit":
 		rt.active_highlights.erase("basic_hovered")
 	if args.event == "left_click":
+
+		if selection_primary and selection_secondary:
+			var secondary_rt:RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
+			secondary_rt.remove_child(secondary_rt.get_node("PilotTargetContext"))
+			if pilot_1:
+				pilot_1.clear_path()
+				pilot_1.clear_origin()
+			selection_primary = null
+			selection_secondary = null
+
+
 		if selection_primary == null:
 			if lt.occupant != null:
 				if lt.occupant.id in PilotLib.lib:
@@ -77,7 +89,8 @@ func process_rt_signal(args: RTSigObj) -> void:
 					if lt.occupant.id in KaijuLib.lib:
 						#pilot.open_target_context_menu -- auto assigning should be a check after p_move
 						pilot.target_context(args.x, args.y)
-						pass
+						selection_secondary=logical_grid[args.x][args.y]
+
 
 	rt.apply_highlights()
 	var map_sig: MapSigObj = MapSigObj.new(self, args.x, args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
@@ -125,8 +138,8 @@ func add_pilot(id: String, lt: LogicalTile) -> void:
 
 func add_test_elements() -> void:
 	var tt_1: LogicalTile = logical_grid[10][10]
-	var tt_2: LogicalTile = logical_grid[24][13]
-	var tt_3: LogicalTile = logical_grid[25][13]
+	var tt_2: LogicalTile = logical_grid[23][12]
+	var tt_3: LogicalTile = logical_grid[24][13]
 	tt_1.building = BuildingsLib.lib["coal_plant"]
 
 	#Tile 2

@@ -38,6 +38,7 @@ const HIGHLIGHTS = {
 	"basic_hovered": {"priority": 50, "modulation": Color.DARK_GRAY},
 	"kaiju_next_move_preview": {"priority": 55, "modulation": Color.CRIMSON},
 	"kaiju_full_move_preview": {"priority": 60, "modulation": Color.ORANGE},
+	"OPPOSITE": {"priority":5, "modulation":Color.LIGHT_BLUE}
 }
 
 var active_highlights:Array = []

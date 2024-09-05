@@ -57,6 +57,11 @@ func clear_path()->void:
 		rt.apply_highlights()
 	reachable_path = []
 
+func clear_origin()->void:
+	var origin:RenderedTile = rendered_grid[self.x][self.y]
+	origin.active_highlights.erase("pilot_move_origin")
+	origin.apply_highlights()
+
 func preview_highlight(path:Array)->void:
 
 	for coords:Dictionary in path:
