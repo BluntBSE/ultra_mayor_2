@@ -93,14 +93,13 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 
 		%xy_coords.text = str(x) + ", " + str(y)
 		#rendered_tile.z_index = y
-		if x % 2 != 0: #If the X is odd, shift it down and increase its z index.
-			position.y = (float(y)+0.5) * map.y_offset
-			z_index = z_index + 1
+		if y % 2 == 0:
+			position.x = x * map.x_offset
 		else:
-			position.y = y * map.y_offset
+			position.x = (x * map.x_offset) + (float(map.x_offset)/2)
 		#Z index goes up by 10 for every row down we go.
 		z_index = z_index + (y * 10)
-		position.x = x * map.x_offset
+		position.y = y * map.y_offset
 		#Replace these with better handlers
 		var key:String = logical_grid[x][y].terrain
 		var terrain_sprite:String = TerrainLib.lib[key].sprite

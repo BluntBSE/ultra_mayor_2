@@ -4,8 +4,8 @@ class_name Map_2
 var logical_grid: Array = []
 var grid_width: int = 40
 var grid_height: int = 30
-@export var x_offset: int = 90
-@export var y_offset: int = 300
+@export var x_offset: int = 190
+@export var y_offset: int = 160
 var rendered_grid: Array = []  #Possibly maintaining both the visual nodes and decoupled logic is excessive. Oh well.
 var occupants: Array = []  # Might be useful to just hold a reference to all occupants.
 var pilots: Array = []

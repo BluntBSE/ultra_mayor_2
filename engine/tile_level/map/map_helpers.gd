@@ -93,7 +93,7 @@ static func draw_occupants(rendered_grid: Array, tile: LogicalTile) -> void:
 			var rp: RenderedPilot = load("res://engine/tile_level/p_scenes/rendered_pilot/rendered_pilot.tscn").instantiate()
 			rendered_tile.add_child(rp)
 			rendered_tile.rendered_occupant = rp
-			rp.z_index = 4000
+			rp.z_index = 4000 #TODO: This makes the context menus weird
 			#Could use local position, idc
 			var vector_midpoint: Vector2 = get_tile_midpoint_global(rendered_tile)
 			rp.global_position = vector_midpoint

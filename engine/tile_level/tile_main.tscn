@@ -17,6 +17,7 @@ script = ExtResource("1_ar066")
 [node name="Map" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_nk7ha")
+x_offset = 185
 
 [node name="TileMap" type="TileMap" parent="."]
 format = 2
