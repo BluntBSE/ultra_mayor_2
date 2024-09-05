@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7peb24clu3dt"]
+
+[ext_resource type="Script" path="res://engine/tile_level/pilots/classes/target_context/pilot_target_context.gd" id="1_ycyc6"]
+[ext_resource type="Theme" uid="uid://bd0ivvsv2as0v" path="res://engine/menus/pilot_context.tres" id="2_2qwvq"]
+
+[node name="PilotTargetContext" type="Control"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ycyc6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_top = -160.0
+offset_right = 258.0
+offset_bottom = -31.0
+color = Color(0, 0, 0, 1)
+
+[node name="action_container" type="VBoxContainer" parent="ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="test_button" type="Button" parent="ColorRect/action_container"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_2qwvq")
+text = "Battle"
+alignment = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(2, -132)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(54, -26, -2, 133, 54, 101)

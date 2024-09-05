@@ -57,6 +57,11 @@ func clear_path()->void:
 		rt.apply_highlights()
 	reachable_path = []
 
+func clear_origin()->void:
+	var origin:RenderedTile = rendered_grid[self.x][self.y]
+	origin.active_highlights.erase("pilot_move_origin")
+	origin.apply_highlights()
+
 func preview_highlight(path:Array)->void:
 
 	for coords:Dictionary in path:
@@ -140,21 +145,18 @@ func find_path(target:LogicalTile)->void:
 			full_path.push_front(previous)
 			previous = came_from[previous]
 
-	#Now see how far you can get down the path with the move speed that you have.
 	#We dont' want to render anything under the moving agent right now or use the original tile in calculations, so remove the origin
 	full_path.erase(origin)
 
 	var _reachable_path:Array = []
 	var reach_cost:int = 0 #Couldn't figure out how to use cost_so_far without referencing original terrain anyway.
 	for path_coords:Dictionary in full_path:
-		#Modify for speed chart later
+		#TODO: Modify for speed chart later
 		reach_cost += TerrainLib.lib[logical_grid[path_coords.x][path_coords.y].terrain].move_cost
 		if reach_cost <= moves_remaining:
 			path_coords.reach_cost = reach_cost
 			_reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})
 
-	#CLEAR Active path before the next line
-	#Need to remove the very last tile if the move cost has been exceeded.
 	reachable_path = _reachable_path
 	preview_highlight(reachable_path)
 
@@ -184,6 +186,19 @@ func p_move(x:int, y:int)->void:
 		self.y = y
 		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
 
-
 	clear_path()
 
+func target_context(x:int, y:int)->void:
+	var target_lt:LogicalTile = logical_grid[x][y]
+	var target_rt:RenderedTile = rendered_grid[x][y]
+	#TODO: Get pilot options from the pilot definition, as these might change with tech tree...Should probably be a global enum
+	var actions:Array = [PilotActions.ACTIONS.BATTLE, PilotActions.ACTIONS.SHOVE]
+	#For action in actions
+	#p_target_menu.new()
+	var new_menu:PilotTargetContext = load("res://engine/tile_level/p_scenes/map_UI/pilot_target_context.tscn").instantiate()
+	new_menu.unpack(actions, self, target_lt, target_rt)
+	target_rt.add_child(new_menu)
+
+
+
+	pass

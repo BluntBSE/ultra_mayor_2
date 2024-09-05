@@ -1,7 +1,10 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
-Pilot with no move speed can still be sent to another tile?
+
+TODO:
+	-Some cleanup logic for context menus is living in TileMain. Probably shouldn't be.
+
 
 DONE: How to reparent RPilot without changing position -- it's probably okay if it's part of the movingpilot state.
 
