@@ -3,6 +3,7 @@ REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
 TODO:
+	-Fix neighbor_finding algorithm
 	-Some cleanup logic for context menus is living in TileMain. Probably shouldn't be.
 
 
