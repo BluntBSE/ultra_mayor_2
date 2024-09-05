@@ -1,5 +1,8 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+HEXAGONS:
+	Pretty sure I am using an Odd-Q vertical layout, but with pointy hexes.
+
 Development / Approval = AP per turn
 
 Starts at 4, so 4 tiles = 1 AP/Turn
