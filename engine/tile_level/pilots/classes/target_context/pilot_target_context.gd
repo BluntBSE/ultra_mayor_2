@@ -15,10 +15,10 @@ func unpack(actions: Array, pilot: LogicalPilot, l_target: LogicalTile, r_target
 		if action == PilotActions.ACTIONS.SHOVE:
 			action_btn.text = "Shove"
 			%action_container.add_child(action_btn)
-			var shove_lt:LogicalTile = MapHelpers.determine_opposite(pilot.logical_grid[pilot.x][pilot.y], l_target, pilot.logical_grid)
-			var shove_rt:RenderedTile = pilot.rendered_grid[shove_lt.x][shove_lt.y]
-			shove_rt.active_highlights.append("OPPOSITE")
-			shove_rt.apply_highlights()
+			MapHelpers.determine_opposite(pilot.logical_grid[pilot.x][pilot.y], l_target, pilot.logical_grid)
+			#var shove_rt:RenderedTile = pilot.rendered_grid[shove_lt.x][shove_lt.y]
+			#shove_rt.active_highlights.append("OPPOSITE")
+			#shove_rt.apply_highlights()
 	pass
 
 
