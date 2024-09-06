@@ -16,7 +16,7 @@ func unpack(actions: Array, pilot: LogicalPilot, l_target: LogicalTile, r_target
 			action_btn.text = "BULLY"
 			%action_container.add_child(action_btn)
 			var end_lt:LogicalTile = MapHelpers.determine_opposite(pilot.logical_grid[pilot.x][pilot.y], l_target, pilot.logical_grid)
-			action_btn.connect("button_up", do_shove.bind(l_target, end_lt))
+			action_btn.connect("button_up", do_shove.bind(pilot, l_target, end_lt))
 			action_btn.set("theme_override_colors/font_color", Color.DEEP_PINK)
 			#do_shove(l_target, end_lt)
 			#shove_rt.active_highlights.append("OPPOSITE")
@@ -24,7 +24,7 @@ func unpack(actions: Array, pilot: LogicalPilot, l_target: LogicalTile, r_target
 	pass
 
 
-func do_shove(l_origin:LogicalTile, l_end:LogicalTile)->void:
+func do_shove(pilot:LogicalPilot, l_origin:LogicalTile, l_end:LogicalTile)->void:
 	var l_kaiju:LogicalKaiju = l_origin.occupant
 	var r_origin:RenderedTile = l_origin.map.rendered_grid[l_origin.x][l_origin.y]
 	var r_kaiju:RenderedKaiju = r_origin.rendered_occupant
@@ -38,6 +38,7 @@ func do_shove(l_origin:LogicalTile, l_end:LogicalTile)->void:
 	r_origin.rendered_occupant = null
 	r_end.rendered_occupant = r_kaiju
 	l_kaiju.refresh_paths()
+	pilot.clear_path()
 	#emit a close signal instead?
 	#DEBUG
 	"""
