@@ -143,10 +143,10 @@ texture = ExtResource("3_ayg22")
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
-offset_left = 88.0
-offset_top = 731.0
-offset_right = 238.0
-offset_bottom = 881.0
+offset_left = 1665.0
+offset_top = 605.0
+offset_right = 1815.0
+offset_bottom = 755.0
 
 [node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay"]
 position = Vector2(66, 215)
@@ -170,9 +170,9 @@ text = "[center]7 / 10[/center]"
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1810.0
+offset_left = 231.0
 offset_top = 806.0
-offset_right = 1960.0
+offset_right = 381.0
 offset_bottom = 956.0
 
 [node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay2"]
@@ -194,6 +194,7 @@ bbcode_enabled = true
 text = "[center]?[/center]"
 
 [node name="InspectCard" type="Node2D" parent="."]
+visible = false
 position = Vector2(1546, 262)
 
 [node name="TextureRect" type="TextureRect" parent="InspectCard"]
@@ -510,9 +511,9 @@ metadata/_edit_use_anchors_ = true
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 1628.0
+offset_left = 49.0
 offset_top = 899.0
-offset_right = 1893.0
+offset_right = 314.0
 offset_bottom = 939.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
@@ -524,6 +525,23 @@ offset_right = 265.0
 offset_bottom = 35.0
 bbcode_enabled = true
 text = "[center]ENERGIZED[/center]"
+fit_content = true
+
+[node name="ColorRect6" type="ColorRect" parent="."]
+offset_left = 1601.0
+offset_top = 899.0
+offset_right = 1866.0
+offset_bottom = 939.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect6"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]Next Turn[/center]"
 fit_content = true
 
 [node name="ColorRect4" type="ColorRect" parent="."]
@@ -561,9 +579,9 @@ text = "[center]FIRE[/center]"
 fit_content = true
 
 [node name="ColorRect2" type="ColorRect" parent="."]
-offset_left = 1628.0
+offset_left = 49.0
 offset_top = 948.0
-offset_right = 1893.0
+offset_right = 314.0
 offset_bottom = 988.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
@@ -578,9 +596,9 @@ text = "[center]WATER[/center]"
 fit_content = true
 
 [node name="ColorRect3" type="ColorRect" parent="."]
-offset_left = 1628.0
+offset_left = 49.0
 offset_top = 996.0
-offset_right = 1893.0
+offset_right = 314.0
 offset_bottom = 1036.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
