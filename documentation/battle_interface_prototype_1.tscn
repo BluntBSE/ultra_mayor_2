@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cuwol88gxc3r6"]
+[gd_scene load_steps=19 format=3 uid="uid://cuwol88gxc3r6"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_x8hwe"]
 [ext_resource type="Texture2D" uid="uid://s8a67sim01dx" path="res://engine/card_game/assets/placeholder_card_border.png" id="2_qdhl2"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://bv2jrk87ueibm" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_leg.jpg" id="13_qifni"]
 [ext_resource type="Texture2D" uid="uid://cqr10pn8tkje1" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_tail.jpg" id="14_ihjxh"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="15_k8sqd"]
+[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://documentation/card_stub_prototype_1.tscn" id="16_02kyj"]
+[ext_resource type="PackedScene" uid="uid://b3v4y63kb2gyo" path="res://documentation/card_prototype_1.tscn" id="16_335dc"]
 
 [sub_resource type="Theme" id="Theme_igp6n"]
 
@@ -22,7 +24,7 @@
 
 [node name="BGTexture" type="TextureRect" parent="."]
 self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
-offset_right = 1911.0
+offset_right = 1923.0
 offset_bottom = 1075.0
 texture = ExtResource("1_x8hwe")
 
@@ -37,93 +39,23 @@ color = Color(0, 0, 0, 1)
 [node name="Hand" type="Node2D" parent="HandDock"]
 position = Vector2(383, 2)
 
-[node name="2DCardRoot" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(118, -7)
+[node name="CardPrototype1" parent="HandDock/Hand" instance=ExtResource("16_335dc")]
+position = Vector2(147, 133)
 
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+[node name="CardPrototype2" parent="HandDock/Hand" instance=ExtResource("16_335dc")]
+position = Vector2(352, 133)
 
-[node name="2DCardRoot2" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(237, -7)
+[node name="CardPrototype3" parent="HandDock/Hand" instance=ExtResource("16_335dc")]
+position = Vector2(551, 132)
 
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot2"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+[node name="CardPrototype4" parent="HandDock/Hand" instance=ExtResource("16_335dc")]
+position = Vector2(745, 133)
 
-[node name="2DCardRoot3" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(354, -7)
+[node name="CardPrototype5" parent="HandDock/Hand" instance=ExtResource("16_335dc")]
+position = Vector2(917, 133)
 
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot3"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="2DCardRoot4" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(475, -7)
-
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot4"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="2DCardRoot5" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(596, -7)
-
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot5"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="2DCardRoot6" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(709, -7)
-
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot6"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="2DCardRoot7" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(815, -7)
-
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot7"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="2DCardRoot8" type="Node2D" parent="HandDock/Hand"]
-position = Vector2(925, -7)
-
-[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot8"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+[node name="CardPrototype6" parent="HandDock/Hand" instance=ExtResource("16_335dc")]
+position = Vector2(1092, 133)
 
 [node name="KaijuMain" type="Control" parent="."]
 custom_minimum_size = Vector2(150, 150)
@@ -192,27 +124,6 @@ theme = SubResource("Theme_igp6n")
 theme_override_font_sizes/normal_font_size = 30
 bbcode_enabled = true
 text = "[center]?[/center]"
-
-[node name="InspectCard" type="Node2D" parent="."]
-visible = false
-position = Vector2(1546, 262)
-
-[node name="TextureRect" type="TextureRect" parent="InspectCard"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(1.3, 1.3)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="InspectCard/TextureRect"]
-offset_left = 24.0
-offset_top = 234.615
-offset_right = 272.0
-offset_bottom = 360.615
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 14
-text = "Whenever one or more +1/+1 counters are put on Dusk Legion Duelist, draw a card. This ability triggers only once each turn."
 
 [node name="PlayArea" type="Node2D" parent="."]
 
@@ -453,62 +364,27 @@ texture = ExtResource("2_qdhl2")
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
-position = Vector2(117, 0)
+position = Vector2(387, 605)
 
-[node name="2DCardRoot17" type="Node2D" parent="PlayArea/PlayerInPlay"]
-position = Vector2(1011, 507)
+[node name="CardPrototype1" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_02kyj")]
+position = Vector2(65, 94)
+scale = Vector2(0.8, 0.8)
 
-[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot17"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+[node name="CardPrototype2" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_02kyj")]
+position = Vector2(309, 94)
+scale = Vector2(0.8, 0.8)
 
-[node name="2DCardRoot18" type="Node2D" parent="PlayArea/PlayerInPlay"]
-position = Vector2(1255, 507)
+[node name="CardPrototype3" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_02kyj")]
+position = Vector2(552, 94)
+scale = Vector2(0.8, 0.8)
 
-[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot18"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+[node name="CardPrototype4" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_02kyj")]
+position = Vector2(805, 94)
+scale = Vector2(0.8, 0.8)
 
-[node name="2DCardRoot16" type="Node2D" parent="PlayArea/PlayerInPlay"]
-position = Vector2(752, 507)
-
-[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot16"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="2DCardRoot15" type="Node2D" parent="PlayArea/PlayerInPlay"]
-position = Vector2(507, 507)
-
-[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot15"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
-
-[node name="2DCardRoot9" type="Node2D" parent="PlayArea/PlayerInPlay"]
-position = Vector2(258, 507)
-
-[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot9"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+[node name="CardPrototype5" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_02kyj")]
+position = Vector2(1037, 94)
+scale = Vector2(0.8, 0.8)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 49.0
@@ -617,3 +493,8 @@ offset_top = 1.0
 offset_right = 1910.0
 offset_bottom = 65.0
 icon = ExtResource("15_k8sqd")
+
+[node name="InspectCard" parent="." instance=ExtResource("16_335dc")]
+visible = false
+position = Vector2(1718, 461)
+scale = Vector2(1.5, 1.5)
