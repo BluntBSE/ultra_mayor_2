@@ -1,0 +1,12 @@
+func get_child_shapes():
+	var array = []
+	for child in get_children():
+		if child is CollisionShape2D:
+			array.append(child)
+	return array
+
+
+func _draw():
+	for child in get_child_shapes():
+		draw_set_transform_matrix(child.transform)
+		child.shape.draw(get_canvas_item(), Color.white)```

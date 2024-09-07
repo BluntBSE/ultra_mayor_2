@@ -1,0 +1,601 @@
+[gd_scene load_steps=17 format=3 uid="uid://cuwol88gxc3r6"]
+
+[ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_x8hwe"]
+[ext_resource type="Texture2D" uid="uid://s8a67sim01dx" path="res://engine/card_game/assets/placeholder_card_border.png" id="2_qdhl2"]
+[ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg" id="3_ayg22"]
+[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_cnlrj"]
+[ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_bnn35"]
+[ext_resource type="Texture2D" uid="uid://cpmm0rufkxnou" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-27.png" id="6_p7fua"]
+[ext_resource type="Texture2D" uid="uid://dngfyee54c1f0" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-31.png" id="7_5mu8o"]
+[ext_resource type="Texture2D" uid="uid://dwfx2xdqio2x6" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-38.png" id="8_qa3ly"]
+[ext_resource type="Texture2D" uid="uid://ci5ssld6d3o8a" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-26.png" id="9_u7bom"]
+[ext_resource type="Texture2D" uid="uid://kfm4thdg06tr" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_head.jpg" id="10_d2w54"]
+[ext_resource type="Texture2D" uid="uid://fjrnp1we3jil" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_arm.jpg" id="11_mm8r6"]
+[ext_resource type="Texture2D" uid="uid://clyo3ft2o1ypx" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_spikes.jpg" id="12_g2vwm"]
+[ext_resource type="Texture2D" uid="uid://bv2jrk87ueibm" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_leg.jpg" id="13_qifni"]
+[ext_resource type="Texture2D" uid="uid://cqr10pn8tkje1" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_tail.jpg" id="14_ihjxh"]
+[ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="15_k8sqd"]
+
+[sub_resource type="Theme" id="Theme_igp6n"]
+
+[node name="BattleInterface" type="Node2D"]
+
+[node name="BGTexture" type="TextureRect" parent="."]
+self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
+offset_right = 1911.0
+offset_bottom = 1075.0
+texture = ExtResource("1_x8hwe")
+
+[node name="HandDock" type="ColorRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.388235)
+offset_left = -8.0
+offset_top = 938.0
+offset_right = 1917.0
+offset_bottom = 1076.0
+color = Color(0, 0, 0, 1)
+
+[node name="Hand" type="Node2D" parent="HandDock"]
+position = Vector2(383, 2)
+
+[node name="2DCardRoot" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(118, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot2" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(237, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot2"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot3" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(354, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot3"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot4" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(475, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot4"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot5" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(596, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot5"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot6" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(709, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot6"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot7" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(815, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot7"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot8" type="Node2D" parent="HandDock/Hand"]
+position = Vector2(925, -7)
+
+[node name="TextureRect" type="TextureRect" parent="HandDock/Hand/2DCardRoot8"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="KaijuMain" type="Control" parent="."]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 66.0
+offset_top = 137.0
+offset_right = 216.0
+offset_bottom = 287.0
+
+[node name="Sprite2D" type="Sprite2D" parent="KaijuMain"]
+position = Vector2(114, 92)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_ayg22")
+
+[node name="EnergyDisplay" type="Control" parent="."]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 88.0
+offset_top = 731.0
+offset_right = 238.0
+offset_bottom = 881.0
+
+[node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay"]
+position = Vector2(66, 215)
+color = Color(0.866667, 0.670588, 0.211765, 1)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="TextEdit" type="RichTextLabel" parent="EnergyDisplay/Polygon2D"]
+offset_left = -61.0
+offset_top = -28.0
+offset_right = 63.0
+offset_bottom = 45.0
+theme = SubResource("Theme_igp6n")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]7 / 10[/center]"
+
+[node name="EnergyDisplay2" type="Control" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1810.0
+offset_top = 806.0
+offset_right = 1960.0
+offset_bottom = 956.0
+
+[node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay2"]
+position = Vector2(66, 63)
+color = Color(0.141176, 0.117647, 0.105882, 0.803922)
+polygon = PackedVector2Array(20, 0, 10, 17.3205, -10, 17.3205, -20, 2.44921e-15, -10, -17.3205, 10, -17.3205, 20, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 20.0
+
+[node name="TextEdit" type="RichTextLabel" parent="EnergyDisplay2/Polygon2D"]
+offset_left = -61.0
+offset_top = -23.0
+offset_right = 63.0
+offset_bottom = 71.0
+theme = SubResource("Theme_igp6n")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]?[/center]"
+
+[node name="InspectCard" type="Node2D" parent="."]
+position = Vector2(1546, 262)
+
+[node name="TextureRect" type="TextureRect" parent="InspectCard"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="InspectCard/TextureRect"]
+offset_left = 24.0
+offset_top = 234.615
+offset_right = 272.0
+offset_bottom = 360.615
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 14
+text = "Whenever one or more +1/+1 counters are put on Dusk Legion Duelist, draw a card. This ability triggers only once each turn."
+
+[node name="PlayArea" type="Node2D" parent="."]
+
+[node name="PilotButtons" type="Node2D" parent="PlayArea"]
+position = Vector2(369, 742)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayArea/PilotButtons"]
+custom_minimum_size = Vector2(1000, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 100
+
+[node name="PilotButton" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_bnn35")
+
+[node name="PilotButton2" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("6_p7fua")
+
+[node name="PilotButton3" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("7_5mu8o")
+
+[node name="PilotButton4" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("8_qa3ly")
+
+[node name="PilotButton5" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton5"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton5/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("9_u7bom")
+
+[node name="KaijuButtons" type="Node2D" parent="PlayArea"]
+position = Vector2(363, 43)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayArea/KaijuButtons"]
+custom_minimum_size = Vector2(1000, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 100
+
+[node name="PilotButton6" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton6"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton6/Polygon2D"]
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("10_d2w54")
+
+[node name="PilotButton2" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton2"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton2/Polygon2D"]
+scale = Vector2(0.13, 0.13)
+texture = ExtResource("11_mm8r6")
+
+[node name="PilotButton3" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton3"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton3/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("12_g2vwm")
+
+[node name="PilotButton4" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton4"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton4/Polygon2D"]
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("13_qifni")
+
+[node name="PilotButton5" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton5"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_cnlrj")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton5/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("14_ihjxh")
+
+[node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
+position = Vector2(114, 0)
+
+[node name="2DCardRoot14" type="Node2D" parent="PlayArea/KaijuInPlay"]
+position = Vector2(1397, 399)
+rotation = -3.14159
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot14"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+
+[node name="2DCardRoot13" type="Node2D" parent="PlayArea/KaijuInPlay"]
+position = Vector2(1145, 399)
+rotation = -3.14159
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot13"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+
+[node name="2DCardRoot12" type="Node2D" parent="PlayArea/KaijuInPlay"]
+position = Vector2(889, 399)
+rotation = -3.14159
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot12"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+
+[node name="2DCardRoot11" type="Node2D" parent="PlayArea/KaijuInPlay"]
+position = Vector2(633, 399)
+rotation = -3.14159
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot11"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+
+[node name="2DCardRoot10" type="Node2D" parent="PlayArea/KaijuInPlay"]
+position = Vector2(387, 399)
+rotation = -3.14159
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot10"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
+position = Vector2(117, 0)
+
+[node name="2DCardRoot17" type="Node2D" parent="PlayArea/PlayerInPlay"]
+position = Vector2(1011, 507)
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot17"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot18" type="Node2D" parent="PlayArea/PlayerInPlay"]
+position = Vector2(1255, 507)
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot18"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot16" type="Node2D" parent="PlayArea/PlayerInPlay"]
+position = Vector2(752, 507)
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot16"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot15" type="Node2D" parent="PlayArea/PlayerInPlay"]
+position = Vector2(507, 507)
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot15"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="2DCardRoot9" type="Node2D" parent="PlayArea/PlayerInPlay"]
+position = Vector2(258, 507)
+
+[node name="TextureRect" type="TextureRect" parent="PlayArea/PlayerInPlay/2DCardRoot9"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qdhl2")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 1628.0
+offset_top = 899.0
+offset_right = 1893.0
+offset_bottom = 939.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]ENERGIZED[/center]"
+fit_content = true
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 416.0
+offset_right = 314.0
+offset_bottom = 456.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect4"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]ORGANIC[/center]"
+fit_content = true
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 465.0
+offset_right = 314.0
+offset_bottom = 505.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]FIRE[/center]"
+fit_content = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1628.0
+offset_top = 948.0
+offset_right = 1893.0
+offset_bottom = 988.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]WATER[/center]"
+fit_content = true
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 1628.0
+offset_top = 996.0
+offset_right = 1893.0
+offset_bottom = 1036.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect3"]
+layout_mode = 0
+offset_top = 7.0
+offset_right = 264.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]POPULATION: 10,132[/center]"
+fit_content = true
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1845.0
+offset_top = 1.0
+offset_right = 1910.0
+offset_bottom = 65.0
+icon = ExtResource("15_k8sqd")
