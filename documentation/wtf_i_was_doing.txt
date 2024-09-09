@@ -3,7 +3,7 @@ REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
 TODO:
-	-Fix neighbor_finding algorithm
+	-When entering battle mode...Hide tilemain? Don't save/reload?
 	-Some cleanup logic for context menus is living in TileMain. Probably shouldn't be.
 
 

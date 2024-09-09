@@ -6,6 +6,7 @@ var reachable_path:Array = []
 var full_path:Array = []
 var target_type:String
 var target:LogicalTile
+var battling:Array = []
 
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:

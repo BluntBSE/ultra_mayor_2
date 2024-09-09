@@ -11,6 +11,8 @@ func unpack(actions: Array, pilot: LogicalPilot, l_target: LogicalTile, r_target
 		if action == PilotActions.ACTIONS.BATTLE:
 			action_btn.text = "Battle"
 			%action_container.add_child(action_btn)
+			action_btn.connect("button_up", battle_assign.bind(pilot, l_target.occupant))#If it's a kaiju....Do we need to check earlier?
+
 
 		if action == PilotActions.ACTIONS.SHOVE:
 			action_btn.text = "BULLY"
@@ -22,6 +24,10 @@ func unpack(actions: Array, pilot: LogicalPilot, l_target: LogicalTile, r_target
 			#shove_rt.active_highlights.append("OPPOSITE")
 			#shove_rt.apply_highlights()
 	pass
+
+func battle_assign(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
+	pilot.assign_to_battle(pilot,kaiju)
+	print("Arrow should be drawn from battle assignment!")
 
 
 func do_shove(pilot:LogicalPilot, l_origin:LogicalTile, l_end:LogicalTile)->void:

@@ -198,7 +198,43 @@ func target_context(x:int, y:int)->void:
 	var new_menu:PilotTargetContext = load("res://engine/tile_level/p_scenes/map_UI/pilot_target_context.tscn").instantiate()
 	new_menu.unpack(actions, self, target_lt, target_rt)
 	target_rt.add_child(new_menu)
+	print("TARGET CONTEXT FIRED FOR SURE")
 
 
 
+	pass
+
+func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
+	kaiju.battling.append(pilot)
+	#Draw a line...s
+	var arrow:IndicateArrow = IndicateArrow.new()
+	var p_rt:RenderedTile = pilot.rendered_grid[pilot.x][pilot.y]
+	var k_rt:RenderedTile = kaiju.rendered_grid[kaiju.x][kaiju.y]
+	var TileMain:Node2D = pilot.map.get_parent()
+	#arrow.z_index = 4200
+	print("ANY PARENT ON ARROW?")
+	print(arrow.get_parent())
+	pilot.map.get_node("arrows").add_child(arrow)#?
+	print("AND NOW?")
+	print(arrow.get_parent())
+	var start_point:Vector2 = MapHelpers.get_tile_midpoint_global(p_rt)
+	print("START POINT, ", start_point)
+	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)
+	print("END POINT: ", end_point)
+	arrow.unpack(start_point, end_point, Color.RED, 5)
+	var camera:Camera2D = TileMain.get_node("MapCamera")
+	camera.position = end_point
+
+	##Not necessarily within this function but:
+	#For each Kaiju, see if there is anything in the 'battling' property.
+	#If so, create a BattleObject containing {"kaiju":the_kaiju, "pilots": [all_the_pilots], "modifiers": build_terrain_mods + modifiers on terrain
+	#Assign this battle object to an array of battle objects held by the singleton (or tile_main, idk)
+	#On turn end, if there is a battle, pop the first one off
+	#Hide the map and all.
+	#Create a battle_instance with the battle object data. Shuffle the pilot decks. Not the kaiju ones.
+	#...When battle finishes...
+	#Create an BattleOutcomes object containing..
+	#Deck (and order) remaining on Kaiju
+	#See if any battles remain in the tile_level/singleton array. If yes, do that battle next. Maybe put a transition screen ... "Battle 1...Battle 2"
+	#When no battles remain, return to tile level. Apply
 	pass

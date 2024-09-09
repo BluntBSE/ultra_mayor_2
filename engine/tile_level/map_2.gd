@@ -82,7 +82,6 @@ func process_rt_signal(args: RTSigObj) -> void:
 			selection_primary = null
 			selection_secondary = null
 
-
 		if selection_primary == null:
 			if lt.occupant != null:
 				if lt.occupant.id in PilotLib.lib:
@@ -94,8 +93,7 @@ func process_rt_signal(args: RTSigObj) -> void:
 				#Move a pilot selection to the target point if possible
 				if lt.occupant == null:
 					pilot.p_move(args.x, args.y)
-					selection_primary = null
-					#Kaiju redraw paths too
+					unselect_all()
 					draw_kaiju_paths()
 				if lt.occupant != null:
 					if lt.occupant.id in KaijuLib.lib:
@@ -128,17 +126,6 @@ func set_mode(mode: int) -> void:
 	print("Emitting mode signals. Received: ", mode)
 	map_mode = mode
 
-
-func process_clear_all() -> void:
-	if selection_primary != null:
-		var rt_p: RenderedTile = rendered_grid[selection_primary.x][selection_primary.y]
-		rt_p.handle_input({"event": RTInputs.CLEAR})
-	if selection_secondary != null:
-		var rt_s: RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
-		rt_s.handle_input({"event": RTInputs.CLEAR})
-
-	selection_primary = null
-	selection_secondary = null
 
 
 func add_pilot(id: String, lt: LogicalTile) -> void:
@@ -191,10 +178,10 @@ func pass_turn() -> void:
 	#Move kaiju
 
 	#Restore moves remaining
-	for pilot: LogicalPilot in pilots:
-		pilot.moves_remaining = pilot.move_points
-	for kaiju: LogicalKaiju in kaijus:
-		kaiju.moves_remaining = kaiju.move_points
+	for _pilot: LogicalPilot in pilots:
+		_pilot.moves_remaining = _pilot.move_points
+	for _kaiju: LogicalKaiju in kaijus:
+		_kaiju.moves_remaining = _kaiju.move_points
 
 	pass
 

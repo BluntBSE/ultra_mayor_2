@@ -120,7 +120,7 @@ static func draw_occupants(rendered_grid: Array, tile: LogicalTile) -> void:
 			var rp: RenderedKaiju = load("res://engine/tile_level/p_scenes/rendered_kaiju/rendered_kaiju.tscn").instantiate()
 			rendered_tile.add_child(rp)
 			rendered_tile.rendered_occupant = rp
-			rp.z_index = 4000
+			rp.z_index = 4000 #TODO: Check on this
 			#Could use local position, idc
 			var vector_midpoint: Vector2 = get_tile_midpoint_global(rendered_tile)
 			rp.global_position = vector_midpoint
