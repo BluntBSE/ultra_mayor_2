@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://cuwol88gxc3r6"]
+[gd_scene load_steps=20 format=3 uid="uid://cuwol88gxc3r6"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_x8hwe"]
-[ext_resource type="Texture2D" uid="uid://s8a67sim01dx" path="res://engine/card_game/assets/placeholder_card_border.png" id="2_qdhl2"]
 [ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg" id="3_ayg22"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_cnlrj"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_bnn35"]
@@ -14,9 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://clyo3ft2o1ypx" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_spikes.jpg" id="12_g2vwm"]
 [ext_resource type="Texture2D" uid="uid://bv2jrk87ueibm" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_leg.jpg" id="13_qifni"]
 [ext_resource type="Texture2D" uid="uid://cqr10pn8tkje1" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_tail.jpg" id="14_ihjxh"]
+[ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://documentation/kaiju_stub_prototype_1.tscn" id="15_cc2qp"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="15_k8sqd"]
 [ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://documentation/card_stub_prototype_1.tscn" id="16_02kyj"]
 [ext_resource type="PackedScene" uid="uid://b3v4y63kb2gyo" path="res://documentation/card_prototype_1.tscn" id="16_335dc"]
+[ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_x316d"]
 
 [sub_resource type="Theme" id="Theme_igp6n"]
 
@@ -151,6 +152,21 @@ radius = 75.0
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton/Polygon2D"]
 scale = Vector2(0.17, 0.17)
 texture = ExtResource("5_bnn35")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
 
 [node name="PilotButton2" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
@@ -306,62 +322,27 @@ scale = Vector2(0.17, 0.17)
 texture = ExtResource("14_ihjxh")
 
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
-position = Vector2(114, 0)
+position = Vector2(368, 217)
 
-[node name="2DCardRoot14" type="Node2D" parent="PlayArea/KaijuInPlay"]
-position = Vector2(1397, 399)
-rotation = -3.14159
+[node name="CardPrototype1" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_cc2qp")]
+position = Vector2(81, 125)
+scale = Vector2(0.8, 0.8)
 
-[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot14"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
+[node name="CardPrototype2" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_cc2qp")]
+position = Vector2(330, 125)
+scale = Vector2(0.8, 0.8)
 
-[node name="2DCardRoot13" type="Node2D" parent="PlayArea/KaijuInPlay"]
-position = Vector2(1145, 399)
-rotation = -3.14159
+[node name="CardPrototype3" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_cc2qp")]
+position = Vector2(573, 125)
+scale = Vector2(0.8, 0.8)
 
-[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot13"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
+[node name="CardPrototype4" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_cc2qp")]
+position = Vector2(822, 125)
+scale = Vector2(0.8, 0.8)
 
-[node name="2DCardRoot12" type="Node2D" parent="PlayArea/KaijuInPlay"]
-position = Vector2(889, 399)
-rotation = -3.14159
-
-[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot12"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-
-[node name="2DCardRoot11" type="Node2D" parent="PlayArea/KaijuInPlay"]
-position = Vector2(633, 399)
-rotation = -3.14159
-
-[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot11"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
-
-[node name="2DCardRoot10" type="Node2D" parent="PlayArea/KaijuInPlay"]
-position = Vector2(387, 399)
-rotation = -3.14159
-
-[node name="TextureRect" type="TextureRect" parent="PlayArea/KaijuInPlay/2DCardRoot10"]
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qdhl2")
-metadata/_edit_use_anchors_ = true
+[node name="CardPrototype5" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_cc2qp")]
+position = Vector2(1060, 125)
+scale = Vector2(0.8, 0.8)
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
 position = Vector2(387, 605)
@@ -498,3 +479,7 @@ icon = ExtResource("15_k8sqd")
 visible = false
 position = Vector2(1718, 461)
 scale = Vector2(1.5, 1.5)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(979, 469)
+script = ExtResource("18_x316d")
