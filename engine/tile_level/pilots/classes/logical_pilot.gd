@@ -210,8 +210,8 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var arrow:IndicateArrow = IndicateArrow.new()
 	var p_rt:RenderedTile = pilot.rendered_grid[pilot.x][pilot.y]
 	var k_rt:RenderedTile = kaiju.rendered_grid[kaiju.x][kaiju.y]
-	var TileMain:Node2D = pilot.map.get_parent()
-	#arrow.z_index = 4200
+	var GameMain:Node2D = pilot.map.get_parent()
+	arrow.z_index = 4000
 	print("ANY PARENT ON ARROW?")
 	print(arrow.get_parent())
 	pilot.map.get_node("arrows").add_child(arrow)#?
@@ -222,13 +222,13 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)
 	print("END POINT: ", end_point)
 	arrow.unpack(start_point, end_point, Color.RED, 5)
-	var camera:Camera2D = TileMain.get_node("MapCamera")
+	var camera:Camera2D = GameMain.get_node("MapCamera")
 	camera.position = end_point
 
 	##Not necessarily within this function but:
 	#For each Kaiju, see if there is anything in the 'battling' property.
 	#If so, create a BattleObject containing {"kaiju":the_kaiju, "pilots": [all_the_pilots], "modifiers": build_terrain_mods + modifiers on terrain
-	#Assign this battle object to an array of battle objects held by the singleton (or tile_main, idk)
+	#Assign this battle object to an array of battle objects held by the singleton (or game_main, idk)
 	#On turn end, if there is a battle, pop the first one off
 	#Hide the map and all.
 	#Create a battle_instance with the battle object data. Shuffle the pilot decks. Not the kaiju ones.

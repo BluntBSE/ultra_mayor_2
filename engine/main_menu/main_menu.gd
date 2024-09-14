@@ -14,8 +14,8 @@ func _process(delta:float) -> void:
 
 
 func _on_start_game_btn_button_up() -> void:
-	var tile_main:Node = load("res://engine/tile_level/tile_main.tscn").instantiate()
-	main.add_child(tile_main)
+	var game_main:Node = load("res://engine/tile_level/game_main.tscn").instantiate()
+	main.add_child(game_main)
 	self.queue_free()
 	#TODO: Replace this with a choose-slot menu. Once we know what it is we need to save...
 

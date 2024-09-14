@@ -128,7 +128,7 @@ func handle_input(args:Dictionary)->void:
 
 	if args.event == RTInputs.REVERT:
 		return
-	#This is typically triggered by TileMain up above
+	#This is typically triggered by GameMain up above
 	#It might seem goofy to emit a signal from this tile, send it to main, then send instructions back
 	#But we have state on both the main and this particular tile and the outcomes are dependent on both.
 

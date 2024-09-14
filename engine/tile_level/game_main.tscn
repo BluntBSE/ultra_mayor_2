@@ -1,32 +1,33 @@
 [gd_scene load_steps=11 format=3 uid="uid://cqgi8y4fqpc4g"]
 
-[ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_ar066"]
-[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="2_22q1o"]
-[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nk7ha"]
-[ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_3g8ow"]
-[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="3_qpeak"]
-[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_8227k"]
-[ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="4_aw21a"]
-[ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="6_4y67y"]
-[ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_640ry"]
+[ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_fehrg"]
+[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_w16tx"]
+[ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_8fpju"]
+[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_ido7v"]
+[ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="5_is4au"]
+[ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_wnb1o"]
+[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="7_v4yyt"]
+[ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="8_g4pad"]
+[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="9_tt11t"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
-[node name="TileMain" type="Node2D"]
-script = ExtResource("1_ar066")
+[node name="GameMain" type="Node2D"]
+script = ExtResource("1_fehrg")
 
 [node name="Map" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_nk7ha")
+script = ExtResource("2_w16tx")
 x_offset = 185
 
 [node name="test_arrow" type="Node2D" parent="Map"]
 visible = false
-script = ExtResource("3_3g8ow")
+script = ExtResource("3_8fpju")
 
 [node name="arrows" type="Node2D" parent="Map"]
 
 [node name="TileMap" type="TileMap" parent="."]
+visible = false
 format = 2
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
@@ -47,7 +48,7 @@ offset_right = 1921.0
 offset_bottom = 1081.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
-script = ExtResource("4_8227k")
+script = ExtResource("4_ido7v")
 
 [node name="OccupantPort" type="TextureRect" parent="UICanvas/SideBar"]
 unique_name_in_owner = true
@@ -57,7 +58,7 @@ offset_top = 47.0
 offset_right = 1136.0
 offset_bottom = 1531.0
 scale = Vector2(0.188198, 0.188198)
-texture = ExtResource("4_aw21a")
+texture = ExtResource("5_is4au")
 expand_mode = 1
 stretch_mode = 5
 
@@ -77,7 +78,7 @@ offset_top = 353.0
 offset_right = 1106.0
 offset_bottom = 1203.0
 scale = Vector2(0.188198, 0.188198)
-texture = ExtResource("6_640ry")
+texture = ExtResource("6_wnb1o")
 expand_mode = 1
 
 [node name="TerrainData" type="VBoxContainer" parent="UICanvas/SideBar"]
@@ -190,7 +191,7 @@ offset_right = 1920.0
 offset_bottom = 66.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
-script = ExtResource("3_qpeak")
+script = ExtResource("7_v4yyt")
 
 [node name="debug_builder_button" type="Button" parent="UICanvas/HeaderBar"]
 layout_mode = 0
@@ -222,13 +223,13 @@ offset_left = 1860.0
 offset_top = 5.0
 offset_right = 1916.0
 offset_bottom = 61.0
-texture_normal = ExtResource("6_4y67y")
+texture_normal = ExtResource("8_g4pad")
 
 [node name="MapCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(948, 540)
 zoom = Vector2(0.75, 0.75)
-script = ExtResource("2_22q1o")
+script = ExtResource("9_tt11t")
 
 [connection signal="button_up" from="UICanvas/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
 [connection signal="button_up" from="UICanvas/HeaderBar/debug_builder_button" to="Map" method="set_mode" binds= [0]]

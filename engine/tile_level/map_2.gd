@@ -12,6 +12,7 @@ var pilots: Array = []
 var kaiju: Array = []
 var kaiju_blocks: Array = []
 var turn_counter: int = 0
+var camera:Camera2D
 enum { CITY_BUILDER, BATTLE_MODE }
 
 #REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED  A REAL STATE MACHINE?
@@ -152,6 +153,7 @@ func add_test_elements() -> void:
 func pass_turn() -> void:
 	var pilots: Array = []
 	var kaijus: Array = []
+	var battles:Array = []
 	for column: Array in logical_grid:
 		for tile: LogicalTile in column:
 			if tile.occupant != null:
@@ -160,10 +162,43 @@ func pass_turn() -> void:
 					pilots.append(tile.occupant)
 				if tile.occupant.id in KaijuLib.lib:
 					kaijus.append(tile.occupant)
-	print("PILOTS ARE", pilots)
-	print("KAIJU ARE", kaijus)
+
+
+	#
+	for _kaiju:LogicalKaiju in kaijus:
+		if _kaiju.battling.size() > 0:
+			var battle_object:BattleObject = BattleObject.new()
+			battle_object.kaiju = _kaiju
+			battle_object.pilots = _kaiju.battling #Array of LogicalPilots engaged in the battle
+			var lt:LogicalTile = _kaiju.logical_grid[_kaiju.x][_kaiju.y]
+			battle_object.terrain = lt.terrain
+			battle_object.modifiers = lt.modifiers
+			battles.append(battle_object)
+		else:
+			pass
+
+	if battles.size()>0:
+		print("A battle should break out!")
+		#Fade to transition screen?
+		#battle_scene.instatiate...()
+		var battle_scene:Node2D = load("res://documentation/battle_interface_prototype_1.tscn").instantiate()
+		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
+		parent_node.add_child(battle_scene)
+		visible = false
+		#set hide GameMain.
+		#Move camera to instantiated scene and limit camera movement?
+		print("CAMERA IS", camera)
+		camera.position = battle_scene.global_position
+	if battles.size()==0:
+		print("No battles should occur. Pass to end of turn.")
+
+
+
+		pass
+
 
 	#TODO: Make function part of logicalKaiju instead?
+	"""
 	for _kaiju: LogicalKaiju in kaijus:
 		if _kaiju.reachable_path.size() > 0:
 			var destination: Dictionary = _kaiju.reachable_path[-1]
@@ -171,6 +206,7 @@ func pass_turn() -> void:
 			#Reset move points
 			_kaiju.moves_remaining = _kaiju.move_points
 	draw_kaiju_paths()
+	"""
 	#Start a battle, if any is happening
 
 	#End Battle
@@ -188,6 +224,7 @@ func pass_turn() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	camera = get_parent().get_node("MapCamera")
 	var terrain: Array = MapHelpers.generate_logical_terrain_map(grid_width, grid_height)
 	logical_grid = MapHelpers.generate_logical_grid(grid_width, grid_height, self)
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
