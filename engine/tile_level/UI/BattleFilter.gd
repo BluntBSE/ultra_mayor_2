@@ -14,9 +14,9 @@ func unpack(battles:Array)->void:
 	#Assign_battle
 	pass
 
-#func assign_battle()-void:
-#Populate the various icons and stuff out of the battle object.
-#pass
+func assign_battle(idx:int)->void:
+	active_battle = battles[idx]
+	pass
 
 func start_battle()->void:
 	#TODO:

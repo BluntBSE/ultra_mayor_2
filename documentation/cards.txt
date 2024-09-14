@@ -1,0 +1,32 @@
+Cards have:
+	Origin: Player/Kaiju
+
+	Instant Effects: --These occur as soon as a card is played, but before resolution
+		Targets (0-5)
+		Instant Effects (See list)
+		Instant Effect Secondary Target (Redirect)
+		Instant Effect value
+
+	Resolve Effects: -- These only occur after "resolve"
+		Targets (0-5)
+		Effects
+		Resolve Effect
+		Resolve Effect Secondary Target <Maybe not?>
+		Resolve Effect value
+
+	Types (Physical, electrical, etc.)
+	Affinities (Affected by terrain)
+
+Things we'll need:
+	Instant Stack:
+		Unseen stack for all instant modifiers.
+	Stack:
+		Player cards resolve left to right.
+	Energy Counter:
+		Based on how many pilots there are. Reduced/restored as cards are played/removed, and on turn end.
+
+	redraw_effects() - recalculate everything based on the current instant stacks. Done after any assigning of targets/playing of cards.
+	do_instant_effect() - done when card is played
+	undo_instant_effect() -- Primarily this means remembering Kaiju's & Players old targets.
+	--Should we model instant effectsa as a stack of their own against Kaiju & Player? Probably!--
+

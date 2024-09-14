@@ -14,8 +14,8 @@
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="10_bkjcq"]
 [ext_resource type="Script" path="res://engine/tile_level/UI/BattleFilter.gd" id="10_tf7nj"]
 [ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg" id="11_dffto"]
-[ext_resource type="Texture2D" uid="uid://cpmm0rufkxnou" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-27.png" id="11_sd35j"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="14_bwyri"]
+[ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="14_gp7qb"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
@@ -235,7 +235,6 @@ offset_bottom = 61.0
 texture_normal = ExtResource("8_g4pad")
 
 [node name="ScreenFilters" type="Control" parent="UICanvas"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -301,13 +300,35 @@ offset_top = 554.0
 offset_right = 559.0
 offset_bottom = 594.0
 
-[node name="PilotButton2" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
+[node name="PilotButton" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
 offset_top = -167.0
 offset_right = 150.0
 offset_bottom = -17.0
+
+[node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("10_bkjcq")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("14_gp7qb")
+
+[node name="PilotButton2" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 120.0
+offset_top = -91.0
+offset_right = 270.0
+offset_bottom = 59.0
 
 [node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton2"]
 clip_children = 1
@@ -318,15 +339,17 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton2/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("11_sd35j")
+texture = ExtResource("14_gp7qb")
 
 [node name="PilotButton3" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
+offset_left = -6.0
 offset_top = -27.0
-offset_right = 150.0
+offset_right = 144.0
 offset_bottom = 123.0
 
 [node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton3"]
@@ -338,16 +361,18 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton3/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("11_sd35j")
+texture = ExtResource("14_gp7qb")
 
 [node name="PilotButton4" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
-offset_top = 114.0
-offset_right = 150.0
-offset_bottom = 264.0
+offset_left = -6.0
+offset_top = 118.0
+offset_right = 144.0
+offset_bottom = 268.0
 
 [node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton4"]
 clip_children = 1
@@ -358,17 +383,18 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton4/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("11_sd35j")
+texture = ExtResource("14_gp7qb")
 
 [node name="PilotButton5" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
-offset_left = 125.0
-offset_top = -99.0
-offset_right = 275.0
-offset_bottom = 51.0
+offset_left = -127.0
+offset_top = 46.0
+offset_right = 23.0
+offset_bottom = 196.0
 
 [node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton5"]
 clip_children = 1
@@ -379,29 +405,9 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton5/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("11_sd35j")
-
-[node name="PilotButton6" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 3
-anchors_preset = 0
-offset_left = -123.0
-offset_top = 41.0
-offset_right = 27.0
-offset_bottom = 191.0
-
-[node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton6"]
-clip_children = 1
-position = Vector2(75, 73)
-polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("10_bkjcq")
-sides = 6
-radius = 75.0
-
-[node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton6/Polygon2D"]
-scale = Vector2(0.17, 0.17)
-texture = ExtResource("11_sd35j")
+texture = ExtResource("14_gp7qb")
 
 [node name="Button" type="Button" parent="UICanvas/ScreenFilters/Battle"]
 layout_mode = 0
