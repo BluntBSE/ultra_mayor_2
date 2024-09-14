@@ -222,7 +222,7 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)
 	print("END POINT: ", end_point)
 	arrow.unpack(start_point, end_point, Color.RED, 5)
-	var camera:Camera2D = GameMain.get_node("MapCamera")
+	var camera:Camera2D = GameMain.get_node("MainCamera")
 	camera.position = end_point
 
 	##Not necessarily within this function but:

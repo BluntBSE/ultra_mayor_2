@@ -1,11 +1,15 @@
 extends Camera2D
 
 var cam_speed:int = 30
+var last_position:Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
+func go_to_point_zoom(point:Vector2, _zoom:Vector2)->void:
+	position = point
+	zoom = _zoom
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) ->void:

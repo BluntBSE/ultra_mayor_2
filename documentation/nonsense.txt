@@ -10,3 +10,20 @@ func _draw():
 	for child in get_child_shapes():
 		draw_set_transform_matrix(child.transform)
 		child.shape.draw(get_canvas_item(), Color.white)```
+
+
+""""
+var tween := Tween.new()
+add_child(tween)
+
+# Modulate from original color to alpha transparency over 2 seconds.
+tween.interpolate_property(self, "modulate", Color(1,1,1,1), Color(1,1,1,0), 2)
+
+tween.set_active(true)
+
+# Wait until tween ends, if necessary.
+yield(tween, "tween_completed")
+
+tween.queue_free()
+
+""""

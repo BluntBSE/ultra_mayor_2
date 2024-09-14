@@ -184,11 +184,16 @@ func pass_turn() -> void:
 		var battle_scene:Node2D = load("res://documentation/battle_interface_prototype_1.tscn").instantiate()
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
-		visible = false
+
 		#set hide GameMain.
 		#Move camera to instantiated scene and limit camera movement?
-		print("CAMERA IS", camera)
+		var filters:ScreenFilters =  parent_node.get_node("UICanvas/ScreenFilters")
+		filters.fade_in("Battle", [battles])
+		await filters.finished
+		self.visible = false
 		camera.position = battle_scene.global_position
+		camera.position += Vector2(1923.0/2, 1075.0/2)
+		camera.zoom = Vector2(1.0,1.0)
 	if battles.size()==0:
 		print("No battles should occur. Pass to end of turn.")
 
@@ -224,7 +229,7 @@ func pass_turn() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	camera = get_parent().get_node("MapCamera")
+	camera = get_parent().get_node("MainCamera")
 	var terrain: Array = MapHelpers.generate_logical_terrain_map(grid_width, grid_height)
 	logical_grid = MapHelpers.generate_logical_grid(grid_width, grid_height, self)
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
