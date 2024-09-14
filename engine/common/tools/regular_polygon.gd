@@ -1,5 +1,6 @@
 @tool
 extends Polygon2D
+class_name RegularPolygon
 
 # Number of sides for the polygon
 @export var sides: int = 3:

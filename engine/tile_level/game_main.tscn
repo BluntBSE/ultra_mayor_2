@@ -235,6 +235,7 @@ offset_bottom = 61.0
 texture_normal = ExtResource("8_g4pad")
 
 [node name="ScreenFilters" type="Control" parent="UICanvas"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
