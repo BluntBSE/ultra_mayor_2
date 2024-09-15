@@ -51,6 +51,7 @@ offset_bottom = 40.0
 
 [node name="SideBar" type="ColorRect" parent="UICanvas/BattleUI"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 1641.0
 offset_top = 66.0
 offset_right = 1921.0
@@ -196,6 +197,7 @@ text = "RESET"
 
 [node name="HeaderBar" type="ColorRect" parent="UICanvas/BattleUI"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 66.0
 theme = SubResource("Theme_nfc0e")

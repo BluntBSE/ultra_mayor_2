@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0qt2c8wb5gie"
-path="res://.godot/imported/SFCP 1-13.png-319d351bf8a8ade037c79a0086fcad17.ctex"
+uid="uid://c55rnhs1dblxr"
+path="res://.godot/imported/demo_mech_2.png-61af4459f29a4f5421dd15d4cc8c4303.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/SFCP 1-13.png"
-dest_files=["res://.godot/imported/SFCP 1-13.png-319d351bf8a8ade037c79a0086fcad17.ctex"]
+source_file="res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/demo_mech_2.png"
+dest_files=["res://.godot/imported/demo_mech_2.png-61af4459f29a4f5421dd15d4cc8c4303.ctex"]
 
 [params]
 

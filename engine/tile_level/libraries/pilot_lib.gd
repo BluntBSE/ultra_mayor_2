@@ -9,7 +9,17 @@ static var lib:Dictionary = {
 		"move_points": 4,
 		"moves_remaining": 4,
 		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1})
+	}),
+		"demo_pilot_2": LogicalPilot.new({
+		"id": "demo_pilot_2",
+		"display_name": "Demo Pilot",
+		"sprite":"res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/demo_mech_2.png",
+		"portrait": "res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/mustache.png",
+		"move_points": 4,
+		"moves_remaining": 4,
+		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1})
 	})
+
 
 }
 #Tech tree improvements go in _init as an instructor callable...

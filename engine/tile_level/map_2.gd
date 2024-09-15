@@ -140,10 +140,12 @@ func add_test_elements() -> void:
 	var tt_1: LogicalTile = logical_grid[10][10]
 	var tt_2: LogicalTile = logical_grid[23][12]
 	var tt_3: LogicalTile = logical_grid[24][13]
+	var tt_4: LogicalTile = logical_grid[20][20]
 	tt_1.building = BuildingsLib.lib["coal_plant"]
 
 	#Tile 2
 	add_pilot("demo_pilot", tt_2)
+	add_pilot("demo_pilot_2", tt_4)
 
 	#Tile 3
 	tt_3.occupant = KaijuLib.lib["dragon"]
@@ -181,7 +183,7 @@ func pass_turn() -> void:
 		print("A battle should break out!")
 		#Fade to transition screen?
 		#battle_scene.instatiate...()
-		var battle_scene:Node2D = load("res://documentation/battle_interface_prototype_1.tscn").instantiate()
+		var battle_scene:Node2D = load("res://engine/card_game/card_battle_interface.tscn").instantiate()
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
 
@@ -196,7 +198,13 @@ func pass_turn() -> void:
 		camera.zoom = Vector2(1.0,1.0)
 	if battles.size()==0:
 		print("No battles should occur. Pass to end of turn.")
-
+		for _kaiju: LogicalKaiju in kaijus:
+			if _kaiju.reachable_path.size() > 0:
+				var destination: Dictionary = _kaiju.reachable_path[-1]
+				_kaiju.k_move(self, destination.x, destination.y)
+				#Reset move points
+				_kaiju.moves_remaining = _kaiju.move_points
+				draw_kaiju_paths()
 
 
 		pass

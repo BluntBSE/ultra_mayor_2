@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c55rnhs1dblxr"
-path="res://.godot/imported/GMS EVEREST SP-2.png-8905b4cd4ded864b751506b4c1b53025.ctex"
+uid="uid://d0qt2c8wb5gie"
+path="res://.godot/imported/mustache.png-388c02bcd0c3972bba3089a8118fcc57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/GMS EVEREST SP-2.png"
-dest_files=["res://.godot/imported/GMS EVEREST SP-2.png-8905b4cd4ded864b751506b4c1b53025.ctex"]
+source_file="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/mustache.png"
+dest_files=["res://.godot/imported/mustache.png-388c02bcd0c3972bba3089a8118fcc57.ctex"]
 
 [params]
 
