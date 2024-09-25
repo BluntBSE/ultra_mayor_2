@@ -6,7 +6,6 @@ var y: int
 var sprite:String
 var display_name:String
 var portrait:String
-var deck:Object
 var speed_chart:SpeedChart
 var move_points:int
 var moves_remaining:int

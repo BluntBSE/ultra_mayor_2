@@ -43,13 +43,13 @@ offset_bottom = 1080.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.85098)
 
-[node name="BattleUI" type="Control" parent="UICanvas"]
+[node name="OverworldBattleUI" type="Control" parent="UICanvas"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="SideBar" type="ColorRect" parent="UICanvas/BattleUI"]
+[node name="SideBar" type="ColorRect" parent="UICanvas/OverworldBattleUI"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 1641.0
@@ -60,7 +60,7 @@ theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
 script = ExtResource("4_ido7v")
 
-[node name="OccupantPort" type="TextureRect" parent="UICanvas/BattleUI/SideBar"]
+[node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 41.0
@@ -72,7 +72,7 @@ texture = ExtResource("5_is4au")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ColorRect" type="ColorRect" parent="UICanvas/BattleUI/SideBar/OccupantPort"]
+[node name="ColorRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantPort"]
 layout_mode = 0
 offset_left = -5.0
 offset_top = 1164.0
@@ -80,7 +80,7 @@ offset_right = 1110.0
 offset_bottom = 1499.0
 color = Color(0, 0, 0, 0.658824)
 
-[node name="BuildingPort" type="TextureRect" parent="UICanvas/BattleUI/SideBar"]
+[node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 43.0
@@ -91,7 +91,7 @@ scale = Vector2(0.188198, 0.188198)
 texture = ExtResource("6_wnb1o")
 expand_mode = 1
 
-[node name="TerrainData" type="VBoxContainer" parent="UICanvas/BattleUI/SideBar"]
+[node name="TerrainData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 38.0
@@ -99,63 +99,63 @@ offset_top = 540.0
 offset_right = 256.0
 offset_bottom = 752.0
 
-[node name="BuildingName" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Building: Coal Plantx"
 fit_content = true
 
-[node name="TerrainName" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Terrain: Default"
 fit_content = true
 
-[node name="Population" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="Population" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Population: 696,696"
 fit_content = true
 
-[node name="Development" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="Development" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Development: X"
 fit_content = true
 
-[node name="Power" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="Power" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Power: 9"
 fit_content = true
 
-[node name="Services" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="Services" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Services: 9"
 fit_content = true
 
-[node name="Resilience" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="Resilience" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Resilience: 9"
 fit_content = true
 
-[node name="Modifiers" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/TerrainData"]
+[node name="Modifiers" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Modifiers: None"
 fit_content = true
 
-[node name="OccupantData" type="VBoxContainer" parent="UICanvas/BattleUI/SideBar"]
+[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 42.0
@@ -163,7 +163,7 @@ offset_top = 277.0
 offset_right = 260.0
 offset_bottom = 325.0
 
-[node name="OccupantName" type="RichTextLabel" parent="UICanvas/BattleUI/SideBar/OccupantData"]
+[node name="OccupantName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
@@ -171,7 +171,7 @@ text = "Alicia June
 (Public Works)"
 fit_content = true
 
-[node name="EndTurnBtn" type="Button" parent="UICanvas/BattleUI/SideBar"]
+[node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 876.0
@@ -179,7 +179,7 @@ offset_right = 178.0
 offset_bottom = 907.0
 text = "END TURN"
 
-[node name="GoBtn" type="Button" parent="UICanvas/BattleUI/SideBar"]
+[node name="GoBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 831.0
@@ -187,7 +187,7 @@ offset_right = 178.0
 offset_bottom = 862.0
 text = "GO"
 
-[node name="ResetBtn" type="Button" parent="UICanvas/BattleUI/SideBar"]
+[node name="ResetBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 790.0
@@ -195,7 +195,7 @@ offset_right = 178.0
 offset_bottom = 821.0
 text = "RESET"
 
-[node name="HeaderBar" type="ColorRect" parent="UICanvas/BattleUI"]
+[node name="HeaderBar" type="ColorRect" parent="UICanvas/OverworldBattleUI"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 1920.0
@@ -204,7 +204,7 @@ theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
 script = ExtResource("7_v4yyt")
 
-[node name="debug_builder_button" type="Button" parent="UICanvas/BattleUI/HeaderBar"]
+[node name="debug_builder_button" type="Button" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 layout_mode = 0
 offset_left = 29.0
 offset_top = 12.0
@@ -212,7 +212,7 @@ offset_right = 157.0
 offset_bottom = 43.0
 text = "BUILDER MODE"
 
-[node name="debug_battle_mode" type="Button" parent="UICanvas/BattleUI/HeaderBar"]
+[node name="debug_battle_mode" type="Button" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 layout_mode = 0
 offset_left = 196.0
 offset_top = 12.0
@@ -220,7 +220,7 @@ offset_right = 324.0
 offset_bottom = 43.0
 text = "BATTLE MODE"
 
-[node name="mode_label" type="RichTextLabel" parent="UICanvas/BattleUI/HeaderBar"]
+[node name="mode_label" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 layout_mode = 0
 offset_left = 694.0
 offset_top = 12.0
@@ -228,7 +228,7 @@ offset_right = 964.0
 offset_bottom = 48.0
 text = "CURRENT MODE: BATTLE MODE"
 
-[node name="TextureButton" type="TextureButton" parent="UICanvas/BattleUI/HeaderBar"]
+[node name="TextureButton" type="TextureButton" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 layout_mode = 0
 offset_left = 1860.0
 offset_top = 5.0
@@ -444,8 +444,8 @@ position = Vector2(948, 540)
 zoom = Vector2(0.75, 0.75)
 script = ExtResource("9_tt11t")
 
-[connection signal="button_up" from="UICanvas/BattleUI/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
-[connection signal="button_up" from="UICanvas/BattleUI/HeaderBar/debug_builder_button" to="Map" method="set_mode" binds= [0]]
-[connection signal="button_up" from="UICanvas/BattleUI/HeaderBar/debug_battle_mode" to="Map" method="set_mode" binds= [1]]
-[connection signal="button_up" from="UICanvas/BattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_builder_button" to="Map" method="set_mode" binds= [0]]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_battle_mode" to="Map" method="set_mode" binds= [1]]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]

@@ -8,7 +8,8 @@ static var lib:Dictionary = {
 		"portrait": "res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/alicia.png",
 		"move_points": 4,
 		"moves_remaining": 4,
-		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1})
+		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1}),
+		"default_deck": ["flamethrower", "jiu_jitsu","flamethrower", "jiu_jitsu"]
 	}),
 		"demo_pilot_2": LogicalPilot.new({
 		"id": "demo_pilot_2",
@@ -17,7 +18,8 @@ static var lib:Dictionary = {
 		"portrait": "res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/mustache.png",
 		"move_points": 4,
 		"moves_remaining": 4,
-		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1})
+		"speed_chart": SpeedChart.new({"mountain": 1, "water": 1}),
+		"default_deck": ["flamethrower", "jiu_jitsu","flamethrower", "jiu_jitsu"]
 	})
 
 

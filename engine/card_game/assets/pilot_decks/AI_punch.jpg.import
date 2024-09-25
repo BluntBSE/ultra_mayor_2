@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfcl7m3xopj04"
-path="res://.godot/imported/AI_jiu_jitsu.jpg-425222fc82f932d6c0979859dbd23d19.ctex"
+uid="uid://by8c6sn0q8r7n"
+path="res://.godot/imported/AI_punch.jpg-a6b193c47492405bd58921d943a48480.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/card_game/assets/pilot_decks/AI_jiu_jitsu.jpg"
-dest_files=["res://.godot/imported/AI_jiu_jitsu.jpg-425222fc82f932d6c0979859dbd23d19.ctex"]
+source_file="res://engine/card_game/assets/pilot_decks/AI_punch.jpg"
+dest_files=["res://.godot/imported/AI_punch.jpg-a6b193c47492405bd58921d943a48480.ctex"]
 
 [params]
 

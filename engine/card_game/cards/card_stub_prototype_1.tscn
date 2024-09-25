@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://4042qebjvnsi"]
 
-[ext_resource type="Texture2D" uid="uid://dfcl7m3xopj04" path="res://engine/card_game/assets/pilot_decks/AI_jiu_jitsu.jpg" id="1_ushp2"]
+[ext_resource type="Texture2D" uid="uid://dfcl7m3xopj04" path="res://engine/card_game/assets/pilot_decks/AI_default.jpg" id="1_ywwdv"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_g8fgr"]
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
@@ -33,7 +33,7 @@ color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 [node name="ArtImg" type="Sprite2D" parent="ImgMask"]
 position = Vector2(84.625, 86.5)
 scale = Vector2(0.176758, 0.174805)
-texture = ExtResource("1_ushp2")
+texture = ExtResource("1_ywwdv")
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
 position = Vector2(79, -143)

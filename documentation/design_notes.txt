@@ -3,15 +3,7 @@ REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 HEXAGONS:
 	We're using XY cordinates with "odd-r" (odd y) offset to the right
 
-Development / Approval = AP per turn
 
-Starts at 4, so 4 tiles = 1 AP/Turn
-
-
-On a 1920x1080 display, try to display ~24 tiles across
-
-Every RenderedTile tile has a "highlighted" state. Toggling of the states is organized at the TileMain level.
-
-Honestly, use state machine to add or remove sprites from tiles too!
-
-Need to figure out how to add building infrastructure and "buildings" together.
+BATTLES:
+	The "Battle scene" is instantiated at the moment a turn is ended
+	But is not populated with a battle object until it is given a battle from the battle filter

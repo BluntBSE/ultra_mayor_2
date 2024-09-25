@@ -1,10 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=23 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
-[ext_resource type="PackedScene" uid="uid://b3v4y63kb2gyo" path="res://documentation/card_prototype_1.tscn" id="2_h8kca"]
+[ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
+[ext_resource type="PackedScene" uid="uid://b3v4y63kb2gyo" path="res://engine/card_game/cards/card_prototype_1.tscn" id="2_h8kca"]
 [ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg" id="3_jqjyu"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_3y6xh"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_084cw"]
+[ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
 [ext_resource type="Texture2D" uid="uid://cpmm0rufkxnou" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-27.png" id="6_e6crg"]
 [ext_resource type="Texture2D" uid="uid://dngfyee54c1f0" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-31.png" id="7_ney6a"]
 [ext_resource type="Texture2D" uid="uid://dwfx2xdqio2x6" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-38.png" id="8_x0106"]
@@ -14,14 +16,16 @@
 [ext_resource type="Texture2D" uid="uid://clyo3ft2o1ypx" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_spikes.jpg" id="12_fyt1y"]
 [ext_resource type="Texture2D" uid="uid://bv2jrk87ueibm" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_leg.jpg" id="13_ffp77"]
 [ext_resource type="Texture2D" uid="uid://cqr10pn8tkje1" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_tail.jpg" id="14_bko2m"]
-[ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://documentation/kaiju_stub_prototype_1.tscn" id="15_trohj"]
-[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://documentation/card_stub_prototype_1.tscn" id="16_cyci2"]
+[ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://engine/card_game/cards/kaiju_stub_prototype_1.tscn" id="15_trohj"]
+[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_cyci2"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
+[ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
 
 [sub_resource type="Theme" id="Theme_igp6n"]
 
 [node name="BattleInterface" type="Node2D"]
+script = ExtResource("1_yimvu")
 
 [node name="BGTexture" type="TextureRect" parent="."]
 self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
@@ -137,11 +141,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/separation = 100
 
-[node name="PilotButton" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+[node name="PilotButton0" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+script = ExtResource("6_5f7kb")
 
-[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton"]
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0"]
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
@@ -149,24 +154,40 @@ script = ExtResource("4_3y6xh")
 sides = 6
 radius = 75.0
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton/Polygon2D"]
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Polygon2D"]
 scale = Vector2(0.17, 0.17)
 texture = ExtResource("5_084cw")
 
-[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton/Polygon2D"]
+[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Polygon2D"]
 offset_left = -57.0
 offset_top = 51.0
 offset_right = 53.0
 offset_bottom = 67.0
 color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton/Polygon2D/ColorRect"]
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Polygon2D/ColorRect"]
 layout_mode = 0
 offset_left = 36.0
 offset_top = -5.0
 offset_right = 100.0
 offset_bottom = 35.0
 text = "25/25"
+
+[node name="PilotButton1" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("6_e6crg")
 
 [node name="PilotButton2" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
@@ -182,7 +203,7 @@ radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Polygon2D"]
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("6_e6crg")
+texture = ExtResource("7_ney6a")
 
 [node name="PilotButton3" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
@@ -198,7 +219,7 @@ radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Polygon2D"]
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("7_ney6a")
+texture = ExtResource("8_x0106")
 
 [node name="PilotButton4" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 custom_minimum_size = Vector2(150, 150)
@@ -213,22 +234,6 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Polygon2D"]
-scale = Vector2(0.17, 0.17)
-texture = ExtResource("8_x0106")
-
-[node name="PilotButton5" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-
-[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton5"]
-clip_children = 1
-position = Vector2(75, 73)
-polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("4_3y6xh")
-sides = 6
-radius = 75.0
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton5/Polygon2D"]
 scale = Vector2(0.17, 0.17)
 texture = ExtResource("9_qa3k4")
 
@@ -322,6 +327,7 @@ scale = Vector2(0.17, 0.17)
 texture = ExtResource("14_bko2m")
 
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
+visible = false
 position = Vector2(368, 217)
 
 [node name="CardPrototype1" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
@@ -474,12 +480,14 @@ offset_top = 1.0
 offset_right = 1910.0
 offset_bottom = 65.0
 icon = ExtResource("17_yjvxi")
+script = ExtResource("18_tuknu")
 
 [node name="InspectCard" parent="." instance=ExtResource("2_h8kca")]
-visible = false
 position = Vector2(1718, 461)
 scale = Vector2(1.5, 1.5)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(979, 469)
 script = ExtResource("18_ujnq3")
+
+[connection signal="button_up" from="Button" to="Button" method="quit"]

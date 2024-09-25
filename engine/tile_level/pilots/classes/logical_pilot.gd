@@ -2,7 +2,13 @@ class_name LogicalPilot extends Occupant
 
 
 var reachable_path:Array = []
+#Deck, etc.
+var deck:Array = []
+var power:int
 signal pilot_path
+
+
+#var deck:DeckObject (array of Card Objects instead?)
 
 #Maybe it's useful to store LAST/CURRENT_POSITION and LAST_MR here? To add a fast reset?
 
@@ -13,7 +19,7 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
-	#deck = args.deck
+	deck = args.default_deck
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
 	x = _x

@@ -184,6 +184,8 @@ func pass_turn() -> void:
 		#Fade to transition screen?
 		#battle_scene.instatiate...()
 		var battle_scene:Node2D = load("res://engine/card_game/card_battle_interface.tscn").instantiate()
+		print("BATTLE INTERFACE NAME IS")
+		print(battle_scene.name)
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
 
@@ -196,6 +198,7 @@ func pass_turn() -> void:
 		camera.position = battle_scene.global_position
 		camera.position += Vector2(1923.0/2, 1075.0/2)
 		camera.zoom = Vector2(1.0,1.0)
+	#TODO Process end of battle here
 	if battles.size()==0:
 		print("No battles should occur. Pass to end of turn.")
 		for _kaiju: LogicalKaiju in kaijus:

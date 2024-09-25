@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccii28ctvgx3k"
-path="res://.godot/imported/AI_flamethrower.jpg-296b292ad6e0523a94abeb9addcf298b.ctex"
+uid="uid://d06s6eqwetojn"
+path="res://.godot/imported/Cis9a6EleiDTS4QyabDr--1--xzezu.jpg-fd003a88df92edd3e1faddb6c328cadc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/card_game/assets/kaiju_decks/AI_flamethrower.jpg"
-dest_files=["res://.godot/imported/AI_flamethrower.jpg-296b292ad6e0523a94abeb9addcf298b.ctex"]
+source_file="res://engine/card_game/assets/pilot_decks/Cis9a6EleiDTS4QyabDr--1--xzezu.jpg"
+dest_files=["res://.godot/imported/Cis9a6EleiDTS4QyabDr--1--xzezu.jpg-fd003a88df92edd3e1faddb6c328cadc.ctex"]
 
 [params]
 

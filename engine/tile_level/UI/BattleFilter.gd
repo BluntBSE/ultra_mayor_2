@@ -5,12 +5,15 @@ var active_battle:BattleObject
 var all_battles:Array
 var active_index:int = 0
 var canvas:CanvasLayer
+var battle_interface: Node2D
 var pilot_displays:Array
 
 func unpack(battles:Array)->void:
 	all_battles = battles
+	#TODO: With multiple battles, you'll need to actually choose the real index here.
 	active_battle = all_battles[0]
 	canvas = get_parent().get_parent()
+	battle_interface = get_tree().root.find_child("BattleInterface",true,false)
 	#TOOD: Do stuff with the active battle.
 	assign_battle(0)
 	pass
@@ -47,7 +50,8 @@ func assign_battle(idx:int)->void:
 func start_battle()->void:
 	#TODO:
 	print("Canvas is ", canvas)
-	canvas.get_node("BattleUI").visible = false
+	canvas.get_node("OverworldBattleUI").visible = false
+	battle_interface.unpack(active_battle)
 	var screen_filters: Control = get_parent()
 	screen_filters.fade_out("Battle")
 

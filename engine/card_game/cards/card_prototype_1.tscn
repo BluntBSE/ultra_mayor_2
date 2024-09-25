@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3v4y63kb2gyo"]
 
-[ext_resource type="Texture2D" uid="uid://dfcl7m3xopj04" path="res://engine/card_game/assets/pilot_decks/AI_jiu_jitsu.jpg" id="1_ki6io"]
+[ext_resource type="Texture2D" uid="uid://dfcl7m3xopj04" path="res://engine/card_game/assets/pilot_decks/AI_default.jpg" id="1_6lp6d"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="2_8hygy"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_b7s34"]
 
@@ -34,7 +34,7 @@ color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 [node name="ArtImg" type="Sprite2D" parent="ImgMask"]
 position = Vector2(84.625, 85.5)
 scale = Vector2(0.176758, 0.176758)
-texture = ExtResource("1_ki6io")
+texture = ExtResource("1_6lp6d")
 
 [node name="LabelRect" type="ColorRect" parent="."]
 offset_left = -99.0

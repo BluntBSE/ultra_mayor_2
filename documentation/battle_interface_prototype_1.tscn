@@ -13,10 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://clyo3ft2o1ypx" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_spikes.jpg" id="12_g2vwm"]
 [ext_resource type="Texture2D" uid="uid://bv2jrk87ueibm" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_leg.jpg" id="13_qifni"]
 [ext_resource type="Texture2D" uid="uid://cqr10pn8tkje1" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_tail.jpg" id="14_ihjxh"]
-[ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://documentation/kaiju_stub_prototype_1.tscn" id="15_cc2qp"]
+[ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://engine/card_game/cards/kaiju_stub_prototype_1.tscn" id="15_cc2qp"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="15_k8sqd"]
-[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://documentation/card_stub_prototype_1.tscn" id="16_02kyj"]
-[ext_resource type="PackedScene" uid="uid://b3v4y63kb2gyo" path="res://documentation/card_prototype_1.tscn" id="16_335dc"]
+[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_02kyj"]
+[ext_resource type="PackedScene" uid="uid://b3v4y63kb2gyo" path="res://engine/card_game/cards/card_prototype_1.tscn" id="16_335dc"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_x316d"]
 
 [sub_resource type="Theme" id="Theme_igp6n"]
