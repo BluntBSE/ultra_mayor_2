@@ -500,7 +500,7 @@ offset_bottom = 65.0
 icon = ExtResource("17_yjvxi")
 script = ExtResource("18_tuknu")
 
-[node name="InspectArea" type="Node2D" parent="."]
+[node name="InspectCard" parent="." instance=ExtResource("2_h8kca")]
 position = Vector2(1718, 461)
 scale = Vector2(1.5, 1.5)
 

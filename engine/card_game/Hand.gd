@@ -1,11 +1,13 @@
 extends Node2D
+class_name CardHand
+var x_offset:float = 250.0 #TODO: Make tied to card size?
+var y_offset:float = 150.0
+var cards_in_hand:Array = []
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func reorganize()->void:
+	var idx:int = 0
+	for card:RenderedCard in cards_in_hand:
+		card.position = Vector2((x_offset*idx)+x_offset,y_offset)
+		idx += 1
+		z_index += 1
 	pass

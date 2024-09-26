@@ -1,5 +1,8 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+
+REVERT on state machines was added to generically highlight UI elements and have them "go back to whatever they were before"
+
 HEXAGONS:
 	We're using XY cordinates with "odd-r" (odd y) offset to the right
 

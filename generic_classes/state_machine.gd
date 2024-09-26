@@ -2,8 +2,10 @@ extends Node
 class_name StateMachine
 
 var _stateDict:Dictionary = {}
-var _current:GenericState = GenericState.new(self, {});
-var current_state_id:String = ""
+var _current:GenericState = GenericState.new(self, {})
+var _prev_id:String
+var _prev_args:Dictionary
+var _current_state_id:String = ""
 func getCurrent() -> GenericState:
 	return _current
 func Add(state_id:String, state:GenericState) -> void:
@@ -13,11 +15,18 @@ func Remove(state_id:String) -> void:
 func Clear() -> void:
 	_stateDict = {}
 func Change(state_id:String, args:Dictionary) -> void:
+	_prev_args = args
+	_prev_id = _current_state_id
 	_current.stateExit()
 	var next:GenericState = _stateDict[state_id]
 	next.stateEnter(args)
 	_current = next
-	current_state_id = state_id
+	_current_state_id = state_id
+func Revert()->void:
+	#TODO: Currently broken
+	var temp_id:String = _current_state_id
+	Change(_prev_id, _prev_args)
+
 
 #To call any parent functionality (presently none), call super()
 
