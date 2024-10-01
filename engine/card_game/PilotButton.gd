@@ -26,14 +26,19 @@ func update_count()->void:
 #TODO: Put draw_card in the interactive state.
 func draw_card()->void:
 	var logical_card:LogicalCard = deck.pop_front()
-	cards_left -= 1
-	update_count()
-	var card:RenderedCard = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
-	remove_child(card)
-	hand.add_child(card)
-	card.unpack(logical_card)
-	hand.cards_in_hand.append(card)
-	hand.reorganize()
+	if cards_left > 0:
+		cards_left -= 1
+		update_count()
+		var card:RenderedCard = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
+		remove_child(card)
+		hand.add_child(card)
+		card.position=Vector2(0.0,0.0)
+		card.unpack(logical_card)
+		hand.cards_in_hand.append(card)
+		#hand.reorganize()
+		hand.organize_cards()
+
+		#The way this SHOULD work is by reorganizing the hand subtly first (if there are any cards), and then by using slide_to_point to move the new card from the player_button to the hand
 
 
 
@@ -53,7 +58,6 @@ func unpack(pilot: LogicalPilot) -> void:
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
 
-	print("Deck currently is: ", deck)
 
 
 func _ready()->void:

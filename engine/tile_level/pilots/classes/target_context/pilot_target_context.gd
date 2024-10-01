@@ -27,7 +27,7 @@ func unpack(actions: Array, pilot: LogicalPilot, l_target: LogicalTile, r_target
 
 func battle_assign(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	pilot.assign_to_battle(pilot,kaiju)
-	print("Arrow should be drawn from battle assignment!")
+
 
 
 func do_shove(pilot:LogicalPilot, l_origin:LogicalTile, l_end:LogicalTile)->void:
@@ -57,7 +57,6 @@ func do_shove(pilot:LogicalPilot, l_origin:LogicalTile, l_end:LogicalTile)->void
 	self.x = x
 	self.y = y
 	"""
-	#print("END OCCUPANT IS: ", r_end.occupant)
 	l_origin.map.unselect_all()
 	self.queue_free()
 	pass

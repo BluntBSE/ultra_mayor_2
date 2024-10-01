@@ -1,4 +1,5 @@
 extends Node2D
+var active_turn:int = TURN_STATES.PAUSE
 var kaiju:LogicalKaiju
 var pilots:Array = []
 var terrain:String = "" #Or enum?
@@ -27,7 +28,13 @@ This state might primarily be used to update the state machines of child nodes. 
 """
 
 # Called when the node enters the scene tree for the first time.
-
+enum TURN_STATES {
+	PAUSE,
+	PLAYER,
+	ASSIGNING,
+	KAIJU,
+	RESOLVING
+}
 
 
 func unpack(_battle_object:BattleObject)->void:
@@ -38,9 +45,8 @@ func unpack(_battle_object:BattleObject)->void:
 	var pilot_buttons:Node2D = get_node("PlayArea/PilotButtons")
 	var p_button_idx:int = 0
 	var p_button_list:Array = pilot_buttons.get_node("HBoxContainer").get_children()
-	print("THE CHILDREN ARE", p_button_list)
 	for pilot:LogicalPilot in pilots:
-		var matching_button: PilotButton =  p_button_list[0]
+		var matching_button: PilotButton =  p_button_list[pilot_idx]
 		#Make the matching_button enter an "active/interactable" state
 
 		matching_button.unpack(pilot)

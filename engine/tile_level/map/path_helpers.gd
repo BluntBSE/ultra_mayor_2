@@ -192,6 +192,6 @@ static func find_path_basic(grid:Array, origin:Dictionary, target:Dictionary)->v
 		path.push_front(previous)
 		previous = came_from[previous]
 
-	print("THE END PATH IS", path)
+
 
 

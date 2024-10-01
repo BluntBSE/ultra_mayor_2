@@ -159,7 +159,6 @@ func pass_turn() -> void:
 	for column: Array in logical_grid:
 		for tile: LogicalTile in column:
 			if tile.occupant != null:
-				print(" IT'S A ", tile.occupant.id)
 				if tile.occupant.id in PilotLib.lib:
 					pilots.append(tile.occupant)
 				if tile.occupant.id in KaijuLib.lib:
@@ -180,11 +179,11 @@ func pass_turn() -> void:
 			pass
 
 	if battles.size()>0:
-		print("A battle should break out!")
+
 		#Fade to transition screen?
 		#battle_scene.instatiate...()
 		var battle_scene:Node2D = load("res://engine/card_game/card_battle_interface.tscn").instantiate()
-		print("BATTLE INTERFACE NAME IS")
+
 		print(battle_scene.name)
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
@@ -200,7 +199,7 @@ func pass_turn() -> void:
 		camera.zoom = Vector2(1.0,1.0)
 	#TODO Process end of battle here
 	if battles.size()==0:
-		print("No battles should occur. Pass to end of turn.")
+
 		for _kaiju: LogicalKaiju in kaijus:
 			if _kaiju.reachable_path.size() > 0:
 				var destination: Dictionary = _kaiju.reachable_path[-1]

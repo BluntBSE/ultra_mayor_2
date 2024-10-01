@@ -1,5 +1,5 @@
 extends GenericState
-class_name CardButtonHover
+class_name InteractiveCard
 
 var highlight: Polygon2D
 
@@ -16,6 +16,7 @@ func _input(event: InputEvent) -> void:
 
 
 func stateUpdate(delta: float) -> void:
+	#print("BEEP")
 	if is_left_mouse_released():
 		stateHandleInput({"event": "l_click"})
 

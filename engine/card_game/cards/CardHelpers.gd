@@ -1,5 +1,14 @@
-extends Node
 class_name CardHelpers
+
+static func slide_to_point(node:Node, point:Vector2, duration:float)->void:
+	var tween:Tween = node.create_tween()
+	tween.tween_property(node, "position", point, duration)
+
+
+
+static func hover_inspect(card:RenderedCard)->void:
+	var initial:Vector2
+	var final:Vector2
 
 
 static func card_by_id(id:String, origin:String)->LogicalCard:

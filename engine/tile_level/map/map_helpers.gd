@@ -73,7 +73,6 @@ static func axial_to_cube(axial: Dictionary) -> Dictionary:
 	var r: int = axial.r
 	var s: int = -q - r
 	var cube: Dictionary = {"q": q, "r": r, "s": s}
-	print("cube is ", cube)
 	return cube
 
 

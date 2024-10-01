@@ -24,7 +24,6 @@ func _init(args:Dictionary)->void:
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
 	x = _x
 	y = _y
-	#print("LOGICAL GRID", _logical_grid)
 	map = _map
 	logical_grid=_logical_grid
 	rendered_grid=_rendered_grid
@@ -204,7 +203,6 @@ func target_context(x:int, y:int)->void:
 	var new_menu:PilotTargetContext = load("res://engine/tile_level/p_scenes/map_UI/pilot_target_context.tscn").instantiate()
 	new_menu.unpack(actions, self, target_lt, target_rt)
 	target_rt.add_child(new_menu)
-	print("TARGET CONTEXT FIRED FOR SURE")
 
 
 
@@ -218,15 +216,15 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var k_rt:RenderedTile = kaiju.rendered_grid[kaiju.x][kaiju.y]
 	var GameMain:Node2D = pilot.map.get_parent()
 	arrow.z_index = 4000
-	print("ANY PARENT ON ARROW?")
+
 	print(arrow.get_parent())
 	pilot.map.get_node("arrows").add_child(arrow)#?
-	print("AND NOW?")
+
 	print(arrow.get_parent())
 	var start_point:Vector2 = MapHelpers.get_tile_midpoint_global(p_rt)
-	print("START POINT, ", start_point)
+
 	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)
-	print("END POINT: ", end_point)
+
 	arrow.unpack(start_point, end_point, Color.RED, 5)
 	var camera:Camera2D = GameMain.get_node("MainCamera")
 	camera.position = end_point
