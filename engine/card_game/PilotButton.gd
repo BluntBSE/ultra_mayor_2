@@ -32,7 +32,9 @@ func draw_card()->void:
 		var card:RenderedCard = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
 		remove_child(card)
 		hand.add_child(card)
-		card.position=Vector2(0.0,0.0)
+		card.global_position = self.global_position
+		card.scale = Vector2(0.25,0.25)
+		#card.position=Vector2(0.0,0.0)
 		card.unpack(logical_card)
 		hand.cards_in_hand.append(card)
 		#hand.reorganize()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=22 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -18,9 +18,19 @@
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
 
-[sub_resource type="Curve" id="Curve_ffu72"]
+[sub_resource type="Curve" id="Curve_8g8yf"]
 min_value = -1.0
 _data = [Vector2(0, -1), 0.0, 2.0, 0, 1, Vector2(1, 1), 2.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_qmo2a"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, -2.0, 0, 1, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.0, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_kh4u1"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Theme" id="Theme_igp6n"]
@@ -45,7 +55,9 @@ color = Color(0, 0, 0, 1)
 [node name="Hand" type="Node2D" parent="HandDock"]
 position = Vector2(961, 29)
 script = ExtResource("3_66mb1")
-curve = SubResource("Curve_ffu72")
+width_curve = SubResource("Curve_8g8yf")
+height_curve = SubResource("Curve_qmo2a")
+rot_curve = SubResource("Curve_kh4u1")
 
 [node name="KaijuMain" type="Control" parent="."]
 custom_minimum_size = Vector2(150, 150)
