@@ -1,7 +1,7 @@
-extends GenericState
 class_name InteractiveCard
+extends GenericState
 
-var highlight: Polygon2D
+var highlight: ColorRect
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,16 +22,14 @@ func stateUpdate(delta: float) -> void:
 
 
 func stateEnter(args: Dictionary) -> void:
-	highlight = _reference.get_node("HoverPoly")
-	highlight.visible = true
+	pass
 
 
 func stateHandleInput(args: Dictionary) -> void:
-	if args.event == "exit":
-		_reference.state_machine.Revert()
+	if args.event == "hover":
+		_reference.state_machine.Change("hovered_player", {})
 		#_reference.state_machine.Change("normal", {})
-	if args.event == "l_click":
-		_reference.draw_card()
+	pass
 
 
 func is_left_mouse_released() -> bool:
@@ -39,4 +37,4 @@ func is_left_mouse_released() -> bool:
 
 
 func stateExit() -> void:
-	highlight.visible = false
+	pass

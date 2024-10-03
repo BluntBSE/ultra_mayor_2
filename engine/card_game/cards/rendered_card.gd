@@ -42,25 +42,24 @@ func unpack(lc: LogicalCard) -> void:
 	pass
 
 
-func project_inspection() -> void:
-	#inspect_area = get_tree().root.find_child("InspectArea")
-
-	inspection_copy = duplicate()
-	#inspection_copy.global_position = self.global_position + Vector2(200.0,200.0)
-	inspection_copy.scale = Vector2(1.25, 1.25)
-	inspect_area.add_child(inspection_copy)
-	inspection_copy.position = Vector2(-200.0, 0.0)
-
-	pass
-
-
-func remove_inspection() -> void:
-	inspection_copy.queue_free()
-	inspection_copy = null
 
 
 func _ready() -> void:
 	state_machine.Add("interactive", InteractiveCard.new(self, {}))
-	#state_machine.Add("hovered_player", HoveredPlayerCardState.new())
-	#state_machine.Add()
+	state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
+	state_machine.Change("interactive", {})
 	pass
+
+func do_input(event:InputEvent)->void:
+	pass
+
+
+func _on_mouse_area_mouse_entered()->void:
+	state_machine.handleInput({"event":"hover"})
+	pass # Replace with function body.
+
+func _on_mouse_area_exited()->void:
+	state_machine.handleInput({"event":"exit"})
+	pass
+
+

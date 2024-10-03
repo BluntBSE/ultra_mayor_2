@@ -10,3 +10,10 @@ HEXAGONS:
 BATTLES:
 	The "Battle scene" is instantiated at the moment a turn is ended
 	But is not populated with a battle object until it is given a battle from the battle filter
+
+
+IDEAL POSSIBLE ACTIONS:
+	"hover"
+	"exit"
+	"left_click"
+	"right_click"

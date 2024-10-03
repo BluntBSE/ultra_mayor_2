@@ -5,6 +5,7 @@ BUG: IF A PILOT IS ON THE TARGET, KAIJU CAN'T PATH TO IT, CAUSING A CRASH
 
 
 TODO:
+	-Consider consolidating your string events into a global enum
 	-When entering battle mode...Hide tilemain? Don't save/reload?
 	-Some cleanup logic for context menus is living in TileMain. Probably shouldn't be.
 
