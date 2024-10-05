@@ -47,6 +47,7 @@ func unpack(lc: LogicalCard) -> void:
 func _ready() -> void:
 	state_machine.Add("interactive", InteractiveCard.new(self, {}))
 	state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
+	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Change("interactive", {})
 	pass
 

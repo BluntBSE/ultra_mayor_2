@@ -61,6 +61,11 @@ func unpack(_battle_object:BattleObject)->void:
 
 
 		#energy += pilot.energy
+	#start countdown to trigger kaiju turn
+	var timer:SceneTreeTimer = get_tree().create_timer(2.0)
+	await timer.timeout
+	active_turn = TURN_STATES.KAIJU
+
 	pass
 
 

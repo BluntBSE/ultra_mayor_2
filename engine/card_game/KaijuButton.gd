@@ -1,5 +1,5 @@
 extends Control
-class_name PilotButton
+class_name KaijuButton
 
 var state_machine:StateMachine
 var deck: Array = []

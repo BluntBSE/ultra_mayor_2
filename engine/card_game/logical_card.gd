@@ -26,6 +26,8 @@ var affinities: Array
 var affinity_effects:Array
 var description:String
 
+var requirements:String
+
 func _init(args: Dictionary) -> void:
 	id = args.get("id", "DEFAULT_ID")
 	display_name = args.get("display_name", "DEFAULT DISPLAY")
@@ -48,3 +50,4 @@ func _init(args: Dictionary) -> void:
 	affinities = args.get("affinities", [])
 	affinity_effects = args.get("affinity_effects", [])
 	description = args.get("description", "")
+	requirements = args.get("requirements", "")

@@ -1,17 +1,14 @@
-[gd_scene load_steps=22 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=19 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
 [ext_resource type="Script" path="res://engine/card_game/Hand.gd" id="3_66mb1"]
 [ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg" id="3_jqjyu"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_3y6xh"]
+[ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="4_mynaa"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_084cw"]
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
-[ext_resource type="Texture2D" uid="uid://kfm4thdg06tr" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_head.jpg" id="10_y58qg"]
-[ext_resource type="Texture2D" uid="uid://fjrnp1we3jil" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_arm.jpg" id="11_6n001"]
-[ext_resource type="Texture2D" uid="uid://clyo3ft2o1ypx" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_spikes.jpg" id="12_fyt1y"]
-[ext_resource type="Texture2D" uid="uid://bv2jrk87ueibm" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_leg.jpg" id="13_ffp77"]
-[ext_resource type="Texture2D" uid="uid://cqr10pn8tkje1" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_tail.jpg" id="14_bko2m"]
+[ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
 [ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://engine/card_game/cards/kaiju_stub_prototype_1.tscn" id="15_trohj"]
 [ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_cyci2"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
@@ -67,6 +64,7 @@ offset_left = 66.0
 offset_top = 137.0
 offset_right = 216.0
 offset_bottom = 287.0
+script = ExtResource("4_mynaa")
 
 [node name="Sprite2D" type="Sprite2D" parent="KaijuMain"]
 position = Vector2(114, 92)
@@ -354,19 +352,31 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="KaijuButtons" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
 position = Vector2(363, 43)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayArea/KaijuButtons"]
+[node name="KaijuBox" type="HBoxContainer" parent="PlayArea/KaijuButtons"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(1000, 100)
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/separation = 100
 
-[node name="PilotButton6" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
+[node name="KaijuButton0" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+script = ExtResource("9_jo1m0")
 
-[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton6"]
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
@@ -374,47 +384,41 @@ script = ExtResource("4_3y6xh")
 sides = 6
 radius = 75.0
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton6/Polygon2D"]
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("10_y58qg")
-
-[node name="PilotButton2" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-
-[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton2"]
-clip_children = 1
-position = Vector2(75, 73)
-polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("4_3y6xh")
-sides = 6
-radius = 75.0
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton2/Polygon2D"]
-scale = Vector2(0.13, 0.13)
-texture = ExtResource("11_6n001")
-
-[node name="PilotButton3" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-
-[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton3"]
-clip_children = 1
-position = Vector2(75, 73)
-polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("4_3y6xh")
-sides = 6
-radius = 75.0
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton3/Polygon2D"]
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D"]
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("12_fyt1y")
+texture = ExtResource("5_084cw")
 
-[node name="PilotButton4" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton1" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 
-[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton4"]
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
@@ -422,25 +426,152 @@ script = ExtResource("4_3y6xh")
 sides = 6
 radius = 75.0
 
-[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton4/Polygon2D"]
-scale = Vector2(0.14, 0.14)
-texture = ExtResource("13_ffp77")
-
-[node name="PilotButton5" type="Control" parent="PlayArea/KaijuButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-
-[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton5"]
-clip_children = 1
-position = Vector2(75, 73)
-polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("4_3y6xh")
-sides = 6
-radius = 75.0
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/HBoxContainer/PilotButton5/Polygon2D"]
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D"]
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("14_bko2m")
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton2" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton3" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton4" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
 
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
 visible = false

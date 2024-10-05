@@ -7,6 +7,99 @@ var full_path:Array = []
 var target_type:String
 var target:LogicalTile
 var battling:Array = []
+var deck:Array = []
+var tier:int
+var types:Array
+var limbs:Dictionary
+var health_factor:float
+"""
+The limbs dictionary takes in a list of string names from the kaiju definition
+Then randomly distributes tiers and types to the limbs.
+a limb is therefore something like " {"arm":{"types":["electric", "physical"], "tier":4, "deck":[]}
+"""
+func generate_limbs(limb_arr:Array)->void:
+	for limb:String in limb_arr:
+		limbs[limb] = {}
+
+	assign_limb_tiers(tier, limbs)
+	assign_limb_types(types, limbs)
+
+	for limb:String in limb_arr:
+		build_limb_decklist(limb, health_factor)
+
+	pass
+
+func assign_limb_tiers(kaiju_tier: int, limbs: Dictionary) -> void:
+	# Ensure at least two limbs are equal to the kaiju tier
+	var limb_keys: Array = limbs.keys()
+	var num_limbs:int = limbs.keys().size()
+	var num_tier_kaiju:int = min(2, num_limbs)  # At least 2 limbs should be of kaiju tier
+	var remaining_limbs:int = num_limbs - num_tier_kaiju
+
+	# Assign kaiju tier to at least two limbs
+	for i in range(num_tier_kaiju):
+		var limb_key:String = limb_keys[i]
+		limbs[limb_key]["tier"] = kaiju_tier
+
+	# Assign remaining limbs either kaiju tier or one level lower
+	for i in range(num_tier_kaiju, num_limbs):
+		var limb_key:String = limb_keys[i]
+		limbs[limb_key]["tier"] = kaiju_tier if randi() % 2 == 0 else kaiju_tier - 1
+
+	#Don't allow for "tier 0" limbs
+	for i in range(num_limbs):
+		var limb_key:String = limb_keys[i]
+		if limbs[limb_key].tier == 0:
+			limbs[limb_key].tier = 1
+
+
+func assign_limb_types(types: Array, limbs: Dictionary) -> void:
+	var limb_keys:Array = limbs.keys()
+	for limb_key:String in limb_keys:
+		var limb_types:Array = []
+		for type:String in types:
+			if randi() % 2 == 0:
+				limb_types.append(type)
+
+		# Ensure each limb has at least one type.
+		#	This type will always be the first in the array
+		if limb_types.size() == 0:
+			limb_types.append(types[0])
+		limbs[limb_key]["types"] = limb_types
+
+
+func build_limb_decklist(limb:String,  factor:float)->void:
+	#A given deck's size is equal to its tier, * the factor * 10 + 40
+	var deck_size:int = roundi(limbs[limb].tier * factor) + 40
+	var valid_cards:Array = []
+	var decklist:Array = []
+	var decklist_path:String = "res://engine/card_game/decklists_kaiju/"
+	var body_path:String = decklist_path + limb
+	var file_path:String = body_path + "/" + limb + "_tier_" + str(limbs[limb].tier) + ".gd"
+	var file:Script = load(file_path)
+	var lib:Dictionary = file.lib
+	var file_keys:Array = file.lib.keys()
+	#res://engine/card_game/decklists_kaiju/head/head_tier_1.gd
+	#res://engine/card_game/decklists_kaiju//head/head_tier_1.gd
+	for card_key:String in file_keys:
+		var card:LogicalCard = lib[card_key]
+		for type:String in card.types:
+			if type in types:
+				valid_cards.append(card)
+				break
+
+	while decklist.size() < deck_size:
+		var idx:int = randi() % valid_cards.size()
+		decklist.append(valid_cards[idx])
+
+	var card_names:Array
+	for card:LogicalCard in decklist:
+		card_names.append(card.id)
+	print (card_names)
+
+
+
+	pass
 
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:
@@ -194,6 +287,11 @@ func refresh_paths()->void:
 		path_to_target()
 		show_movement()
 
+
+func regenerate_kaiju()->void:
+	#Get new limb and deck assignments for the template.
+	pass
+
 func _init(args:Dictionary)->void:
 	sprite = args.sprite
 	id = args.id
@@ -203,3 +301,7 @@ func _init(args:Dictionary)->void:
 	moves_remaining = args.moves_remaining
 	#deck = args.deck
 	speed_chart = args.speed_chart
+	health_factor = args.health_factor
+	tier = 1 #TODO: Replace tier with a function based on game length/difficulty
+	types = args.types
+	generate_limbs(args.limbs)
