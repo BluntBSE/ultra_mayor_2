@@ -141,16 +141,21 @@ func add_test_elements() -> void:
 	var tt_2: LogicalTile = logical_grid[23][12]
 	var tt_3: LogicalTile = logical_grid[24][13]
 	var tt_4: LogicalTile = logical_grid[20][20]
+	var tt_5: LogicalTile = logical_grid[24][12]
+	var tt_6: LogicalTile = logical_grid[24][11]
 	tt_1.building = BuildingsLib.lib["coal_plant"]
 
-	#Tile 2
+
 	add_pilot("demo_pilot", tt_2)
 	add_pilot("demo_pilot_2", tt_4)
 
-	#Tile 3
+
 	tt_3.occupant = KaijuLib.lib["raiju"]
 	tt_3.occupant.unpack(self, tt_3.x, tt_3.y, logical_grid, rendered_grid)
-
+	tt_5.occupant = KaijuLib.lib["dragon"]
+	tt_5.occupant.unpack(self, tt_5.x, tt_5.y, logical_grid, rendered_grid)
+	tt_6.occupant = KaijuLib.lib["bird"]
+	tt_6.occupant.unpack(self, tt_6.x, tt_6.y, logical_grid, rendered_grid)
 
 func pass_turn() -> void:
 	var pilots: Array = []

@@ -1,5 +1,6 @@
 class_name KaijuLib
 
+#TODO: Make portrait and sprite fetchers pull from a global path
 static var lib: Dictionary = {
 	"raiju":
 	(
@@ -16,6 +17,7 @@ static var lib: Dictionary = {
 				"limbs": ["head", "claws", "claws", "tail"],
 				"types": ["physical", "electric"],
 				"health_factor": 0.75,
+				"art_pack": ArtPacks.lib["raiju"]
 			}
 		)
 	),
@@ -31,7 +33,8 @@ static var lib: Dictionary = {
 			"speed_chart": SpeedChart.new({"mountain": 1, "water": 1}),
 			"limbs": ["head", "wings", "claws", "legs", "tail"],
 			"health_factor": 1.25,
-			"types": ["physical", "fire"]
+			"types": ["physical", "fire"],
+			"art_pack": ArtPacks.lib["dragon"]
 		}
 	),
 	"bird":
@@ -46,7 +49,8 @@ static var lib: Dictionary = {
 			"speed_chart": SpeedChart.new({"mountain": 1, "water": 1}),
 			"limbs": ["head", "wings", "legs"],
 			"health_factor": 1.0,
-			"types": ["physical"]
+			"types": ["physical"],
+			"art_pack": ArtPacks.lib["bird"]
 		}
 	)
 }

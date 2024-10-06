@@ -34,6 +34,7 @@ enum TURN_STATES { PAUSE, PLAYER, ASSIGNING, KAIJU, RESOLVING }
 func unpack(_battle_object: BattleObject) -> void:
 	unpack_pilot_buttons(_battle_object)
 	unpack_kaiju_buttons(_battle_object)
+	get_node("KaijuMain/Sprite2D").texture = load(_battle_object.kaiju.portrait)
 
 	#energy += pilot.energy
 	#start countdown to trigger kaiju turn
@@ -76,8 +77,9 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 		k_button_idx += 1
 	#Gray out unused limbs
 	for i: int in range(k_button_idx, 5):
-		var btn:Control = k_button_list[1]
+		var btn:Control = k_button_list[i]
 		var sprite: Sprite2D = btn.get_node("Polygon2D/Sprite2D")
+		sprite.texture = load("res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png")
 		sprite.self_modulate = Color(0.2, 0.1, 0.2, 1)
 
 

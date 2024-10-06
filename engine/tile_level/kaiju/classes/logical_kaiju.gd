@@ -12,6 +12,7 @@ var tier:int
 var types:Array
 var limbs:Array
 var health_factor:float
+var art_pack:ArtPack
 """
 The limbs dictionary takes in a list of string names from the kaiju definition
 Then randomly distributes tiers and types to the limbs.
@@ -300,4 +301,5 @@ func _init(args:Dictionary)->void:
 	health_factor = args.health_factor
 	tier = 1 #TODO: Replace tier with a function based on game length/difficulty
 	types = args.types
+	art_pack = args.art_pack
 	generate_limbs(args.limbs)

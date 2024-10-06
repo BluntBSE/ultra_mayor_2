@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
 [ext_resource type="Script" path="res://engine/card_game/Hand.gd" id="3_66mb1"]
-[ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg" id="3_jqjyu"]
+[ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/art_packs/zilla/AI_Zilla.jpg" id="3_jqjyu"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_3y6xh"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="4_mynaa"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_084cw"]

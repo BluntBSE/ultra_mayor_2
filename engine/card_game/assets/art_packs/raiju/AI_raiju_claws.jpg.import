@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clyo3ft2o1ypx"
-path="res://.godot/imported/AI_zilla_spikes.jpg-0e285c2f25885b200135f9459e10e407.ctex"
+uid="uid://cm1quwtmpxnf8"
+path="res://.godot/imported/AI_raiju_claws.jpg-c3e75f4ef761499891dc0023070145ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_spikes.jpg"
-dest_files=["res://.godot/imported/AI_zilla_spikes.jpg-0e285c2f25885b200135f9459e10e407.ctex"]
+source_file="res://engine/card_game/assets/art_packs/raiju/AI_raiju_claws.jpg"
+dest_files=["res://.godot/imported/AI_raiju_claws.jpg-c3e75f4ef761499891dc0023070145ee.ctex"]
 
 [params]
 

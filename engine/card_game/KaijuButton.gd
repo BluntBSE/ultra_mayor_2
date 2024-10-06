@@ -52,7 +52,7 @@ func draw_card()->void:
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
-	sprite.texture = load(KaijuLib.lib[kaiju.id].portrait) #Update to limb.art
+	sprite.texture = load(KaijuLib.lib[kaiju.id].art_pack[_limb.id]) #Update to limb.art
 	sprite.self_modulate = Color(1, 1, 1, 1)
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	limb = _limb

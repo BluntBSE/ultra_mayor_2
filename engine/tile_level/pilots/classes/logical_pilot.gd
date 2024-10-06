@@ -19,7 +19,11 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
-	deck = args.default_deck
+	var default_strings:Array  = args.default_deck
+	var deck_arr:Array = []
+	for card_name:String in default_strings:
+		deck_arr.append(CardHelpers.card_by_id(card_name, "pilot"))
+	deck = deck_arr
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
 	x = _x
