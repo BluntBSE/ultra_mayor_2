@@ -10,7 +10,7 @@ var battling:Array = []
 var deck:Array = []
 var tier:int
 var types:Array
-var limbs:Dictionary
+var limbs:Array
 var health_factor:float
 """
 The limbs dictionary takes in a list of string names from the kaiju definition
@@ -18,43 +18,43 @@ Then randomly distributes tiers and types to the limbs.
 a limb is therefore something like " {"arm":{"types":["electric", "physical"], "tier":4, "deck":[], "art":"path"}
 """
 func generate_limbs(limb_arr:Array)->void:
-	for limb:String in limb_arr:
-		limbs[limb] = Limb.new()
+	for limb_name:String in limb_arr:
+		var _limb:Limb = Limb.new()
+		_limb.label = limb_name.capitalize()
+		_limb.id = limb_name
+		limbs.append(_limb)
 
 	assign_limb_tiers(tier, limbs)
 	assign_limb_types(types, limbs)
 
-	for limb:String in limb_arr:
+	for limb:Limb in limbs:
 		build_limb_decklist(limb, health_factor)
 
 
-func assign_limb_tiers(kaiju_tier: int, limbs: Dictionary) -> void:
+
+func assign_limb_tiers(kaiju_tier: int, _limbs: Array) -> void:
 	# Ensure at least two limbs are equal to the kaiju tier
-	var limb_keys: Array = limbs.keys()
-	var num_limbs:int = limbs.keys().size()
+	var num_limbs:int = _limbs.size()
 	var num_tier_kaiju:int = min(2, num_limbs)  # At least 2 limbs should be of kaiju tier
 	var remaining_limbs:int = num_limbs - num_tier_kaiju
 
-	# Assign kaiju tier to at least two limbs
-	for i in range(num_tier_kaiju):
-		var limb_key:String = limb_keys[i]
-		limbs[limb_key].tier = kaiju_tier
-
-	# Assign remaining limbs either kaiju tier or one level lower
+	# Assign limbs either kaiju tier or one level lower
 	for i in range(num_tier_kaiju, num_limbs):
-		var limb_key:String = limb_keys[i]
-		limbs[limb_key].tier = kaiju_tier if randi() % 2 == 0 else kaiju_tier - 1
+		limbs[i].tier = kaiju_tier if randi() % 2 == 0 else kaiju_tier - 1
+
+	# Assign kaiju tier to at least two limbs
+	for i in range(2): #0, 1
+		var rand:int = randi() % limbs.size()
+		limbs[rand].tier = kaiju_tier
 
 	#Don't allow for "tier 0" limbs
 	for i in range(num_limbs):
-		var limb_key:String = limb_keys[i]
-		if limbs[limb_key].tier == 0:
-			limbs[limb_key].tier = 1
+		if limbs[i].tier == 0:
+			limbs[i].tier = 1
 
 
-func assign_limb_types(types: Array, limbs: Dictionary) -> void:
-	var limb_keys:Array = limbs.keys()
-	for limb_key:String in limb_keys:
+func assign_limb_types(types: Array, _limbs: Array) -> void:
+	for limb:Limb in _limbs:
 		var limb_types:Array = []
 		for type:String in types:
 			if randi() % 2 == 0:
@@ -64,17 +64,17 @@ func assign_limb_types(types: Array, limbs: Dictionary) -> void:
 		#	This type will always be the first in the array
 		if limb_types.size() == 0:
 			limb_types.append(types[0])
-		limbs[limb_key].types = limb_types
+		limb.types = limb_types
 
 
-func build_limb_decklist(limb:String,  factor:float)->void:
+func build_limb_decklist(_limb:Limb,  factor:float)->void:
 	#A given deck's size is equal to its tier, * the factor * 10 + 40
-	var deck_size:int = roundi(limbs[limb].tier * factor) + 40
+	var deck_size:int = roundi(_limb.tier * factor) + 40
 	var valid_cards:Array = []
 	var decklist:Array = []
 	var decklist_path:String = "res://engine/card_game/decklists_kaiju/"
-	var body_path:String = decklist_path + limb
-	var file_path:String = body_path + "/" + limb + "_tier_" + str(limbs[limb].tier) + ".gd"
+	var body_path:String = decklist_path + _limb.id
+	var file_path:String = body_path + "/" + _limb.id + "_tier_" + str(_limb.tier) + ".gd"
 	var file:Script = load(file_path)
 	var lib:Dictionary = file.lib
 	var file_keys:Array = file.lib.keys()
@@ -94,6 +94,8 @@ func build_limb_decklist(limb:String,  factor:float)->void:
 		card_names.append(card.id)
 
 	decklist = CardHelpers.shuffle_array(decklist)
+	_limb.deck = decklist
+	print("DECKLIST FOR, ", _limb.id, decklist)
 
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:

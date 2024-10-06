@@ -2,7 +2,7 @@ extends Control
 class_name KaijuButton
 
 var state_machine:StateMachine
-var limb:String
+var limb:Limb
 var types:Array = []
 var deck: Array = []
 var card_count: RichTextLabel
@@ -12,6 +12,8 @@ var hand:CardHand
 
 
 func get_card_objects(deck: Array) -> Array:
+	#Kaiju doesn't really use this because its decks are constructed by logicalcards
+	#Pilots use strings because it's easier to debug and make new decks for now.
 	var deck_out: Array = []
 	for id: String in deck:
 		deck_out.append(CardHelpers.card_by_id(id, "pilot"))
@@ -48,17 +50,13 @@ func draw_card()->void:
 
 	pass
 
-func unpack(kaiju: LogicalKaiju, limb_name:String) -> void:
-	#TODO: Consider moving sprite assignment to the button's unpack.
-	print("UNPACKING WITH, ", kaiju.id, limb_name)
-	print("BUTTON SEES DECK AS ", kaiju.limbs[limb_name].deck)
+func unpack(kaiju: LogicalKaiju, _limb:Limb) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
-	sprite.texture = load(KaijuLib.lib[kaiju.id].portrait)
+	sprite.texture = load(KaijuLib.lib[kaiju.id].portrait) #Update to limb.art
 	sprite.self_modulate = Color(1, 1, 1, 1)
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
-	hand = get_tree().root.find_child("Hand", true, false)
-	limb = limb_name
-	deck = get_card_objects(kaiju.limbs[limb_name].deck)
+	limb = _limb
+	deck = limb.deck
 	#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
 	cards_starting = deck.size()
 	cards_left = cards_starting

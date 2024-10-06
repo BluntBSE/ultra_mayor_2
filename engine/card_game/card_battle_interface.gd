@@ -68,13 +68,11 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 	var k_button_idx:int = 0
 	var k_button_list: Array = k_button_node.get_node("KaijuBox").get_children()
 	kaiju_buttons = k_button_list
-	var limbs:Dictionary = _battle_object.kaiju.limbs
-	var limb_names:Array = limbs.keys() #TODO: Used for labeling & tooltips
-	print("LIMB NAMES ARE, ", limb_names)
-	for limb_name:String in limb_names:
+	var limbs:Array = _battle_object.kaiju.limbs
+	for limb:Limb in limbs:
 		var matching_button:KaijuButton = kaiju_buttons[k_button_idx]
 		print("MATCHING BUTTON: ", matching_button)
-		matching_button.unpack(_battle_object.kaiju, limb_name)
+		matching_button.unpack(_battle_object.kaiju, limb)
 		k_button_idx += 1
 	#Gray out unused limbs
 	for i: int in range(k_button_idx, 5):

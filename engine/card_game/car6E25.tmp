@@ -1,0 +1,755 @@
+[gd_scene load_steps=19 format=3 uid="uid://daoer3necfaqq"]
+
+[ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
+[ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
+[ext_resource type="Script" path="res://engine/card_game/Hand.gd" id="3_66mb1"]
+[ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg" id="3_jqjyu"]
+[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_3y6xh"]
+[ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="4_mynaa"]
+[ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_084cw"]
+[ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
+[ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
+[ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://engine/card_game/cards/kaiju_stub_prototype_1.tscn" id="15_trohj"]
+[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_cyci2"]
+[ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
+[ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
+[ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
+
+[sub_resource type="Curve" id="Curve_8g8yf"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 2.0, 0, 1, Vector2(1, 1), 2.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_qmo2a"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, -2.0, 0, 1, Vector2(0.5, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.0, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_kh4u1"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Theme" id="Theme_igp6n"]
+
+[node name="BattleInterface" type="Node2D"]
+script = ExtResource("1_yimvu")
+
+[node name="BGTexture" type="TextureRect" parent="."]
+self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
+offset_right = 1923.0
+offset_bottom = 1075.0
+texture = ExtResource("1_5byun")
+
+[node name="HandDock" type="ColorRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.388235)
+offset_left = -8.0
+offset_top = 938.0
+offset_right = 1917.0
+offset_bottom = 1076.0
+color = Color(0, 0, 0, 1)
+
+[node name="Hand" type="Node2D" parent="HandDock"]
+position = Vector2(961, 29)
+script = ExtResource("3_66mb1")
+width_curve = SubResource("Curve_8g8yf")
+height_curve = SubResource("Curve_qmo2a")
+rot_curve = SubResource("Curve_kh4u1")
+
+[node name="KaijuMain" type="Control" parent="."]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 66.0
+offset_top = 137.0
+offset_right = 216.0
+offset_bottom = 287.0
+script = ExtResource("4_mynaa")
+
+[node name="Sprite2D" type="Sprite2D" parent="KaijuMain"]
+position = Vector2(114, 92)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_jqjyu")
+
+[node name="EnergyDisplay" type="Control" parent="."]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1665.0
+offset_top = 605.0
+offset_right = 1815.0
+offset_bottom = 755.0
+
+[node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay"]
+position = Vector2(66, 215)
+color = Color(0.866667, 0.670588, 0.211765, 1)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="TextEdit" type="RichTextLabel" parent="EnergyDisplay/Polygon2D"]
+offset_left = -61.0
+offset_top = -28.0
+offset_right = 63.0
+offset_bottom = 45.0
+theme = SubResource("Theme_igp6n")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]7 / 10[/center]"
+
+[node name="EnergyDisplay2" type="Control" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 231.0
+offset_top = 806.0
+offset_right = 381.0
+offset_bottom = 956.0
+
+[node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay2"]
+position = Vector2(66, 63)
+color = Color(0.141176, 0.117647, 0.105882, 0.803922)
+polygon = PackedVector2Array(20, 0, 10, 17.3205, -10, 17.3205, -20, 2.44921e-15, -10, -17.3205, 10, -17.3205, 20, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 20.0
+
+[node name="TextEdit" type="RichTextLabel" parent="EnergyDisplay2/Polygon2D"]
+offset_left = -61.0
+offset_top = -23.0
+offset_right = 63.0
+offset_bottom = 71.0
+theme = SubResource("Theme_igp6n")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "[center]?[/center]"
+
+[node name="PlayArea" type="Node2D" parent="."]
+
+[node name="PilotButtons" type="Node2D" parent="PlayArea"]
+position = Vector2(369, 742)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayArea/PilotButtons"]
+custom_minimum_size = Vector2(1000, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 100
+
+[node name="PilotButton0" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("6_5f7kb")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="PilotButton1" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("6_5f7kb")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="PilotButton2" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("6_5f7kb")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="PilotButton3" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("6_5f7kb")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="PilotButton4" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("6_5f7kb")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButtons" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
+position = Vector2(363, 43)
+
+[node name="KaijuBox" type="HBoxContainer" parent="PlayArea/KaijuButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(1000, 100)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 100
+
+[node name="KaijuButton0" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("9_jo1m0")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton1" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("9_jo1m0")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton2" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("9_jo1m0")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton3" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("9_jo1m0")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuButton4" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+script = ExtResource("9_jo1m0")
+
+[node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
+visible = false
+position = Vector2(75, 73)
+color = Color(0.870588, 0.647059, 0, 1)
+polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 80.0
+
+[node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("4_3y6xh")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D"]
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_084cw")
+
+[node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D"]
+offset_left = -57.0
+offset_top = 51.0
+offset_right = 53.0
+offset_bottom = 67.0
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardCount" type="RichTextLabel" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D/ColorRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = -5.0
+offset_right = 100.0
+offset_bottom = 35.0
+text = "25/25"
+metadata/_edit_use_anchors_ = true
+
+[node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
+visible = false
+position = Vector2(368, 217)
+
+[node name="CardPrototype1" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
+position = Vector2(81, 125)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype2" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
+position = Vector2(330, 125)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype3" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
+position = Vector2(573, 125)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype4" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
+position = Vector2(822, 125)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype5" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
+position = Vector2(1060, 125)
+scale = Vector2(0.8, 0.8)
+
+[node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
+visible = false
+position = Vector2(387, 605)
+
+[node name="CardPrototype1" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
+position = Vector2(65, 94)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype2" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
+position = Vector2(309, 94)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype3" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
+position = Vector2(552, 94)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype4" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
+position = Vector2(805, 94)
+scale = Vector2(0.8, 0.8)
+
+[node name="CardPrototype5" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
+position = Vector2(1037, 94)
+scale = Vector2(0.8, 0.8)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 899.0
+offset_right = 314.0
+offset_bottom = 939.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]ENERGIZED[/center]"
+fit_content = true
+
+[node name="ColorRect6" type="ColorRect" parent="."]
+offset_left = 1601.0
+offset_top = 899.0
+offset_right = 1866.0
+offset_bottom = 939.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect6"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]Next Turn[/center]"
+fit_content = true
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 416.0
+offset_right = 314.0
+offset_bottom = 456.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect4"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]ORGANIC[/center]"
+fit_content = true
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 465.0
+offset_right = 314.0
+offset_bottom = 505.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]FIRE[/center]"
+fit_content = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 948.0
+offset_right = 314.0
+offset_bottom = 988.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect2"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 7.0
+offset_right = 265.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]WATER[/center]"
+fit_content = true
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 996.0
+offset_right = 314.0
+offset_bottom = 1036.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect3"]
+layout_mode = 0
+offset_top = 7.0
+offset_right = 264.0
+offset_bottom = 35.0
+bbcode_enabled = true
+text = "[center]POPULATION: 10,132[/center]"
+fit_content = true
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1845.0
+offset_top = 1.0
+offset_right = 1910.0
+offset_bottom = 65.0
+icon = ExtResource("17_yjvxi")
+script = ExtResource("18_tuknu")
+
+[node name="InspectArea" type="Node2D" parent="."]
+position = Vector2(1718, 461)
+scale = Vector2(1.5, 1.5)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(979, 469)
+script = ExtResource("18_ujnq3")
+
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton2" to="PlayArea/PilotButtons/HBoxContainer/PilotButton2" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton2" to="PlayArea/PilotButtons/HBoxContainer/PilotButton2" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton3" to="PlayArea/PilotButtons/HBoxContainer/PilotButton3" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton3" to="PlayArea/PilotButtons/HBoxContainer/PilotButton3" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_exit"]
+[connection signal="button_up" from="Button" to="Button" method="quit"]
