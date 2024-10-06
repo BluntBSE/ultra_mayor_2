@@ -2,6 +2,8 @@ extends Control
 class_name KaijuButton
 
 var state_machine:StateMachine
+var limb:String
+var types:Array = []
 var deck: Array = []
 var card_count: RichTextLabel
 var cards_left: int
@@ -46,16 +48,18 @@ func draw_card()->void:
 
 	pass
 
-func unpack(pilot: LogicalPilot) -> void:
+func unpack(kaiju: LogicalKaiju, limb_name:String) -> void:
 	#TODO: Consider moving sprite assignment to the button's unpack.
+	print("UNPACKING WITH, ", kaiju.id, limb_name)
+	print("BUTTON SEES DECK AS ", kaiju.limbs[limb_name].deck)
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
-	sprite.texture = load(PilotLib.lib[pilot.id].portrait)
+	sprite.texture = load(KaijuLib.lib[kaiju.id].portrait)
 	sprite.self_modulate = Color(1, 1, 1, 1)
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	hand = get_tree().root.find_child("Hand", true, false)
-
-	deck = get_card_objects(pilot.deck)
-	deck = CardHelpers.shuffle_array(deck)
+	limb = limb_name
+	deck = get_card_objects(kaiju.limbs[limb_name].deck)
+	#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)

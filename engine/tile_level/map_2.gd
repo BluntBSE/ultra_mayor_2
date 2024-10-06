@@ -148,7 +148,7 @@ func add_test_elements() -> void:
 	add_pilot("demo_pilot_2", tt_4)
 
 	#Tile 3
-	tt_3.occupant = KaijuLib.lib["dragon"]
+	tt_3.occupant = KaijuLib.lib["raiju"]
 	tt_3.occupant.unpack(self, tt_3.x, tt_3.y, logical_grid, rendered_grid)
 
 

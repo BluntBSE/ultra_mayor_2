@@ -1,5 +1,6 @@
 class_name CardHelpers
 
+
 static func slide_to_point(node:Node, point:Vector2, duration:float)->void:
 	var tween:Tween = node.create_tween()
 	tween.tween_property(node, "position", point, duration)

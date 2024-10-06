@@ -408,6 +408,7 @@ metadata/_edit_use_anchors_ = true
 [node name="KaijuButton1" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
 visible = false
@@ -450,6 +451,7 @@ metadata/_edit_use_anchors_ = true
 [node name="KaijuButton2" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
 visible = false
@@ -492,6 +494,7 @@ metadata/_edit_use_anchors_ = true
 [node name="KaijuButton3" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
 visible = false
@@ -534,6 +537,7 @@ metadata/_edit_use_anchors_ = true
 [node name="KaijuButton4" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
 visible = false
