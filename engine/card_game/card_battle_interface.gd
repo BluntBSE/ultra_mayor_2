@@ -1,4 +1,6 @@
 extends Node2D
+class_name BattleInterface
+
 var active_turn: int = TURN_STATES.PAUSE
 var kaiju: LogicalKaiju
 var pilots: Array = []
@@ -29,18 +31,9 @@ This state might primarily be used to update the state machines of child nodes. 
 
 # Called when the node enters the scene tree for the first time.
 enum TURN_STATES { PAUSE, PLAYER, ASSIGNING, KAIJU, RESOLVING }
+signal turn_signal
 
 
-func unpack(_battle_object: BattleObject) -> void:
-	unpack_pilot_buttons(_battle_object)
-	unpack_kaiju_buttons(_battle_object)
-	get_node("KaijuMain/Sprite2D").texture = load(_battle_object.kaiju.portrait)
-
-	#energy += pilot.energy
-	#start countdown to trigger kaiju turn
-	var timer: SceneTreeTimer = get_tree().create_timer(2.0)
-	await timer.timeout
-	active_turn = TURN_STATES.KAIJU
 
 
 func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
@@ -49,7 +42,6 @@ func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 	var pilot_idx: int = 0
 	#Set energy
 	var p_button_node: Node2D = get_node("PlayArea/PilotButtons")
-	var p_button_idx: int = 0
 	var p_button_list: Array = pilot_button_node.get_node("HBoxContainer").get_children()
 	pilot_buttons = p_button_list
 	for pilot: LogicalPilot in pilots:
@@ -86,10 +78,35 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 
 	pass
 
+func switch_turn(state:int)->void:
+	if state == TURN_STATES.KAIJU:
+		print("Switched to Kaiju turn")
+		active_turn = TURN_STATES.KAIJU
+		turn_signal.emit(TURN_STATES.KAIJU)
+
+	if state == TURN_STATES.PLAYER:
+		print("Switched to player turn")
+		active_turn = TURN_STATES.PLAYER
+		turn_signal.emit(TURN_STATES.PLAYER)
+
 func _ready() -> void:
 	pass  # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
+
+
+
+func unpack(_battle_object: BattleObject) -> void:
+	unpack_pilot_buttons(_battle_object)
+	unpack_kaiju_buttons(_battle_object)
+	get_node("KaijuMain/Polygon2D/Sprite2D").texture = load(_battle_object.kaiju.portrait)
+
+	#energy += pilot.energy
+	#start countdown to trigger kaiju turn
+	var timer: SceneTreeTimer = get_tree().create_timer(2.0)
+	await timer.timeout
+	active_turn = TURN_STATES.KAIJU
+	turn_signal.emit(active_turn)

@@ -66,10 +66,11 @@ func _ready()->void:
 
 
 func on_hover()->void:
+	print("Hovered fired")
 	state_machine._current.stateHandleInput({"event": "hover"})
 
 func on_exit()->void:
 	state_machine._current.stateHandleInput({"event": "exit"})
 
-func _process(delta:float)->void:
-	state_machine.stateUpdate(delta)
+func _process(_delta:float)->void:
+	state_machine.stateUpdate(_delta)

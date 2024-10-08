@@ -21,6 +21,8 @@ Constants="*res://engine/common/autoload/constants.gd"
 
 [debug]
 
+gdscript/warnings/unused_variable=0
+gdscript/warnings/shadowed_variable=0
 gdscript/warnings/untyped_declaration=2
 
 [display]

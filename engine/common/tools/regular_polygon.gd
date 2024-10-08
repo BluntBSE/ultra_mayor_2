@@ -35,5 +35,5 @@ func on_setting_update() -> void:
 func _ready() -> void:
 	on_setting_update()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

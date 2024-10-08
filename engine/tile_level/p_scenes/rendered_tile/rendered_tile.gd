@@ -23,8 +23,8 @@ var TO_MODULATE:Array = ["bg_sprite", "infra_sprite", "building_sprite"]#List of
 
 func do_modulate(color:Color)->void:
 	var list:Array = []
-	for name:String in TO_MODULATE:
-		list.append(get_node(name))
+	for _name:String in TO_MODULATE:
+		list.append(get_node(_name))
 	for node:Node2D in list:
 		node.set_modulate(color)
 
@@ -137,8 +137,8 @@ func handle_input(args:Dictionary)->void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta:float) -> void:
-	state_machine._current.stateUpdate(delta)
+func _process(_delta:float) -> void:
+	state_machine._current.stateUpdate(_delta)
 
 
 
@@ -155,7 +155,7 @@ func custom_hover_enter()  -> void:
 	rt_signal.emit(rt_sig_obj)
 
 
-func _on_hover_area_input_event(viewport:Node, event:InputEvent, shape_idx:int) ->void:
+func _on_hover_area_input_event(_viewport:Node, event:InputEvent, shape_idx:int) ->void:
 	var event_str:String = ""
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 		event_str  = "left_click"

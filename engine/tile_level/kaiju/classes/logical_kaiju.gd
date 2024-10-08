@@ -37,7 +37,7 @@ func assign_limb_tiers(kaiju_tier: int, _limbs: Array) -> void:
 	# Ensure at least two limbs are equal to the kaiju tier
 	var num_limbs:int = _limbs.size()
 	var num_tier_kaiju:int = min(2, num_limbs)  # At least 2 limbs should be of kaiju tier
-	var remaining_limbs:int = num_limbs - num_tier_kaiju
+	#var remaining_limbs:int = num_limbs - num_tier_kaiju
 
 	# Assign limbs either kaiju tier or one level lower
 	for i in range(num_tier_kaiju, num_limbs):
@@ -138,7 +138,7 @@ func find_path()->Dictionary:
 	#TODO: Can move THROUGH pilots. Cannot move through Kaiju. Cannot end turn in either.
 	var origin:Dictionary = {"x": x, "y": y}
 	var destination:Dictionary# = {"x": target.x, "y": target.y} - But don't allow kaiju
-	var moves_remaining:int = moves_remaining
+	#var _moves_remaining:int = moves_remaining
 	var frontier:Array = []
 	var came_from:Dictionary = {}
 	came_from[origin] = {}
@@ -257,13 +257,13 @@ func sync(_x:int,_y:int)->void:
 	#clear_path()
 
 
-func k_move(map:Map_2, x:int, y:int)->void:
-	var rt_target:RenderedTile = rendered_grid[x][y]
-	var lg_target:LogicalTile = logical_grid[x][y]
+func k_move(_map:Map_2, x:int, y:int)->void:
+	#var rt_target:RenderedTile = rendered_grid[x][y]
+	#var lg_target:LogicalTile = logical_grid[x][y]
 	var l_kaiju:LogicalKaiju = self
 	var r_kaiju:RenderedKaiju = rendered_grid[l_kaiju.x][l_kaiju.y].rendered_occupant
-	var lt_kaiju:LogicalTile = logical_grid[l_kaiju.x][l_kaiju.y]
-	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":map})
+	#var lt_kaiju:LogicalTile = logical_grid[l_kaiju.x][l_kaiju.y]
+	r_kaiju.state_machine.Change("moving", {"path": l_kaiju.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":l_kaiju.x, "y": l_kaiju.y},"map":_map})
 	#var move_cost:int = l_kaiju.reachable_path[-1].reach_cost
 	#l_kaiju.moves_remaining -= move_cost
 	logical_grid[self.x][self.y].occupant = null

@@ -7,10 +7,10 @@ static func slide_to_point(node:Node, point:Vector2, duration:float)->void:
 
 
 
-static func hover_inspect(card:RenderedCard)->void:
-	var initial:Vector2
-	var final:Vector2
-
+static func hover_inspect(_card:RenderedCard)->void:
+	#var initial:Vector2
+	#var final:Vector2
+	pass
 
 static func card_by_id(id:String, origin:String)->LogicalCard:
 	if origin == "pilot":

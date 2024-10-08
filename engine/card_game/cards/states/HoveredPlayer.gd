@@ -17,7 +17,7 @@ func find_bottom(card:RenderedCard)->Vector2:
 	var viewport:Viewport = _reference.get_viewport()
 	var view_size:Vector2 = viewport.get_visible_rect().size
 	var bottom_y:float = centerpoint.y + (view_size.y / 2)# Bottom of screen
-	bottom_y = bottom_y - float( (current_height/2)) # shift up, recalling that cards are positioned by midpoint
+	bottom_y = bottom_y - float( (current_height/float(2))) # shift up, recalling that cards are positioned by midpoint
 
 	return Vector2(current_position.x, bottom_y)
 
@@ -34,12 +34,12 @@ func _input(event: InputEvent) -> void:
 		stateHandleInput({"event": "l_click"})
 
 
-func stateUpdate(delta: float) -> void:
+func stateUpdate(_delta: float) -> void:
 	if is_left_mouse_released():
 		stateHandleInput({"event": "l_click"})
 
 
-func stateEnter(args: Dictionary) -> void:
+func stateEnter(_args: Dictionary) -> void:
 	print("Entered hovered state")
 	original_position = _reference.global_position
 	original_rotation = _reference.rotation

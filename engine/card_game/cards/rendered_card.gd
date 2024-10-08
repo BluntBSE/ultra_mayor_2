@@ -51,7 +51,7 @@ func _ready() -> void:
 	state_machine.Change("interactive", {})
 	pass
 
-func do_input(event:InputEvent)->void:
+func do_input(_event:InputEvent)->void:
 	pass
 
 

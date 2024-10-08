@@ -8,16 +8,7 @@ var deck: Array = []
 var card_count: RichTextLabel
 var cards_left: int
 var cards_starting: int
-var hand:CardHand
-
-
-func get_card_objects(deck: Array) -> Array:
-	#Kaiju doesn't really use this because its decks are constructed by logicalcards
-	#Pilots use strings because it's easier to debug and make new decks for now.
-	var deck_out: Array = []
-	for id: String in deck:
-		deck_out.append(CardHelpers.card_by_id(id, "pilot"))
-	return deck_out
+var in_play: Node2D
 
 
 func count_string(left: int, starting: int) -> String:
@@ -33,16 +24,21 @@ func draw_card()->void:
 	if cards_left > 0:
 		cards_left -= 1
 		update_count()
-		var card:RenderedCard = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
-		#remove_child(card)
-		hand.add_child(card)
+		var card:CardStub = load("res://engine/card_game/cards/card_stub_prototype_1.tscn").instantiate()
+		remove_child(card)
+		card.unpack(logical_card)
+		in_play.add_child(card)
 		card.global_position = self.global_position
 		card.scale = Vector2(0.25,0.25)
-		#card.position=Vector2(0.0,0.0)
-		card.unpack(logical_card)
-		hand.cards_in_hand.append(card)
-		#hand.reorganize()
-		hand.organize_cards()
+
+		#Put the stub directly below the button drawing it
+		var tween:Tween = create_tween()
+		var destination:Vector2 = self.global_position + Vector2(0.0,200.0)
+		tween.parallel().tween_property(card, "global_position", destination, 0.25)
+		tween.parallel().tween_property(card, "scale", Vector2(0.8,0.8), 0.25)
+
+
+
 
 		#The way this SHOULD work is by reorganizing the hand subtly first (if there are any cards), and then by using slide_to_point to move the new card from the player_button to the hand
 
@@ -53,14 +49,16 @@ func draw_card()->void:
 func unpack(kaiju: LogicalKaiju, _limb:Limb) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
 	sprite.texture = load(KaijuLib.lib[kaiju.id].art_pack[_limb.id]) #Update to limb.art
-	sprite.self_modulate = Color(1, 1, 1, 1)
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
+	sprite.self_modulate = Color(1, 1, 1, 1)
 	limb = _limb
 	deck = limb.deck
 	#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
+	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
+	print("IN PLAY IS ", in_play)
 
 
 
@@ -78,5 +76,5 @@ func on_hover()->void:
 func on_exit()->void:
 	state_machine._current.stateHandleInput({"event": "exit"})
 
-func _process(delta:float)->void:
-	state_machine.stateUpdate(delta)
+func _process(_delta:float)->void:
+	state_machine.stateUpdate(_delta)

@@ -158,7 +158,7 @@ func add_test_elements() -> void:
 	tt_6.occupant.unpack(self, tt_6.x, tt_6.y, logical_grid, rendered_grid)
 
 func pass_turn() -> void:
-	var pilots: Array = []
+	#var pilots: Array = []
 	var kaijus: Array = []
 	var battles:Array = []
 	for column: Array in logical_grid:
@@ -261,9 +261,9 @@ func _ready() -> void:
 
 func draw_kaiju_paths() -> void:
 	var kaijus: Array = get_kaiju()
-	for kaiju: LogicalKaiju in kaijus:
-		kaiju.clear_path()
-		kaiju.find_target("power")  #TODO: Fix hardcode
-		kaiju.path_to_target()
-		kaiju.show_movement()
+	for _kaiju: LogicalKaiju in kaijus:
+		_kaiju.clear_path()
+		_kaiju.find_target("power")  #TODO: Fix hardcode
+		_kaiju.path_to_target()
+		_kaiju.show_movement()
 	pass

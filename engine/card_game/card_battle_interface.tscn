@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=18 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_084cw"]
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
-[ext_resource type="PackedScene" uid="uid://c34o5qhw84gg6" path="res://engine/card_game/cards/kaiju_stub_prototype_1.tscn" id="15_trohj"]
 [ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_cyci2"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
@@ -66,8 +65,17 @@ offset_right = 216.0
 offset_bottom = 287.0
 script = ExtResource("4_mynaa")
 
-[node name="Sprite2D" type="Sprite2D" parent="KaijuMain"]
-position = Vector2(114, 92)
+[node name="Polygon2D" type="Polygon2D" parent="KaijuMain"]
+clip_children = 1
+position = Vector2(112, 50)
+rotation = 0.785398
+polygon = PackedVector2Array(200, 0, 1.22461e-14, 200, -200, 2.44921e-14, -3.67382e-14, -200, 200, 0)
+script = ExtResource("4_3y6xh")
+sides = 4
+radius = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="KaijuMain/Polygon2D"]
+rotation = -0.785398
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_jqjyu")
 
@@ -128,22 +136,21 @@ text = "[center]?[/center]"
 [node name="PlayArea" type="Node2D" parent="."]
 
 [node name="PilotButtons" type="Node2D" parent="PlayArea"]
-position = Vector2(369, 742)
+position = Vector2(466, 822)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayArea/PilotButtons"]
 custom_minimum_size = Vector2(1000, 100)
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 100
+theme_override_constants/separation = 250
+metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton0" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -152,7 +159,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -180,13 +186,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton1" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -195,7 +199,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -223,13 +226,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton2" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -238,7 +239,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -266,13 +266,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton3" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -281,7 +279,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -309,13 +306,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton4" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -324,7 +319,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -353,23 +347,23 @@ metadata/_edit_use_anchors_ = true
 
 [node name="KaijuButtons" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
-position = Vector2(363, 43)
+position = Vector2(393, 43)
 
 [node name="KaijuBox" type="HBoxContainer" parent="PlayArea/KaijuButtons"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1000, 100)
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 100
+custom_minimum_size = Vector2(1000, 0)
+offset_left = 73.0
+offset_top = 79.0
+offset_right = 1073.0
+offset_bottom = 119.0
+theme_override_constants/separation = 250
 
 [node name="KaijuButton0" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -378,7 +372,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -406,13 +399,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="KaijuButton1" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -421,7 +412,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -449,13 +439,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="KaijuButton2" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -464,7 +452,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -492,13 +479,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="KaijuButton3" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -507,7 +492,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -535,13 +519,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="KaijuButton4" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
-custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 script = ExtResource("9_jo1m0")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
 visible = false
-position = Vector2(75, 73)
 color = Color(0.870588, 0.647059, 0, 1)
 polygon = PackedVector2Array(80, 0, 40, 69.282, -40, 69.282, -80, 9.79685e-15, -40, -69.282, 40, -69.282, 80, 0)
 script = ExtResource("4_3y6xh")
@@ -550,7 +532,6 @@ radius = 80.0
 
 [node name="Polygon2D" type="Polygon2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
 clip_children = 1
-position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
@@ -578,28 +559,7 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
-visible = false
 position = Vector2(368, 217)
-
-[node name="CardPrototype1" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
-position = Vector2(81, 125)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype2" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
-position = Vector2(330, 125)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype3" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
-position = Vector2(573, 125)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype4" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
-position = Vector2(822, 125)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype5" parent="PlayArea/KaijuInPlay" instance=ExtResource("15_trohj")]
-position = Vector2(1060, 125)
-scale = Vector2(0.8, 0.8)
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
 visible = false
@@ -661,9 +621,9 @@ fit_content = true
 
 [node name="ColorRect4" type="ColorRect" parent="."]
 offset_left = 49.0
-offset_top = 416.0
+offset_top = 352.0
 offset_right = 314.0
-offset_bottom = 456.0
+offset_bottom = 392.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ColorRect4"]
@@ -678,9 +638,9 @@ fit_content = true
 
 [node name="ColorRect5" type="ColorRect" parent="."]
 offset_left = 49.0
-offset_top = 465.0
+offset_top = 401.0
 offset_right = 314.0
-offset_bottom = 505.0
+offset_bottom = 441.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ColorRect5"]

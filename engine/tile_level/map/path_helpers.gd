@@ -8,11 +8,11 @@ class PathDict:
 	var y:int
 
 	# Constructor to initialize properties
-	func _init(tile:LogicalTile, reach_cost:int, x:int, y:int)->void:
-		self.tile = tile
-		self.reach_cost = reach_cost
-		self.x = x
-		self.y = y
+	func _init(_tile:LogicalTile, _reach_cost:int, _x:int, _y:int)->void:
+		self.tile = _tile
+		self.reach_cost = _reach_cost
+		self.x = _x
+		self.y = _y
 # Called when the node enters the scene tree for the first time.
 static func find_neighbors_old(origin:Dictionary, grid:Array)->Array:
 	var x:int = origin.x
@@ -21,7 +21,7 @@ static func find_neighbors_old(origin:Dictionary, grid:Array)->Array:
 	var max_y:int = grid[0].size()
 	var neighbors:Array = []
 	var potential_neighbors:Array=[]
-	var logical_neighbors: Array = []
+	#var logical_neighbors: Array = []
 	#If X is odd, neighbors are different than if X is even
 	"""
 	For a cell (X,Y) where Y is even, the neighbors are: (X,Y-1),(X+1,Y-1),(X-1,Y),(X+1,Y),(X,Y+1),(X+1,Y+1)
@@ -64,7 +64,7 @@ static func find_neighbors(origin:Dictionary, grid:Array)->Array:
 	var max_y:int = grid[0].size()
 	var neighbors:Array = []
 	var potential_neighbors:Array=[]
-	var logical_neighbors: Array = []
+	#var logical_neighbors: Array = []
 	#If X is odd, neighbors are different than if X is even
 	"""
 	From direct left clockwise. Sample: 8,7.

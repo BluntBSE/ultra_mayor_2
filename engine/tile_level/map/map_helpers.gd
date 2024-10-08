@@ -12,7 +12,7 @@ static func generate_logical_grid(grid_x: int, grid_y: int, _map: Map_2) -> Arra
 	return grid
 
 
-static func generate_rendered_grid(map: Node, logical_grid: Array, rendered_grid: Array, x_offset: int, y_offset: int) -> Array:
+static func generate_rendered_grid(map: Node, logical_grid: Array, _rendered_grid: Array, _x_offset: int, _y_offset: int) -> Array:
 	var output_rg: Array = []
 	for x: int in logical_grid.size():
 		output_rg.append([])
