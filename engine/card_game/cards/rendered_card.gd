@@ -1,10 +1,11 @@
 extends Node2D
 class_name RenderedCard
 
+
 var hand_position: Vector2
 var hand_rotation: float
 
-var _lc: LogicalCard
+var lc: LogicalCard
 var art: Sprite2D
 var display_name: RichTextLabel
 var border: ColorRect
@@ -13,14 +14,19 @@ var cost_label_poly: Polygon2D
 var value_label: RichTextLabel
 
 var state_machine: StateMachine = StateMachine.new()
+
+var mouse_area:ReferenceRect
 #Wherever hovering over this actually displays the card
 var inspect_area: Node
 var inspection_copy: RenderedCard
 var is_inspection_copy: bool
 
+signal hand_hovered
+signal hand_exited
 
-func unpack(lc: LogicalCard) -> void:
-	_lc = lc
+
+func unpack(_lc: LogicalCard) -> void:
+	lc = _lc
 	art = find_child("ArtImg")
 	art.texture = load(lc.art)
 
@@ -38,6 +44,8 @@ func unpack(lc: LogicalCard) -> void:
 
 	inspect_area = get_tree().root.find_child("InspectArea", true, false)
 	is_inspection_copy = false
+
+	mouse_area = get_node("MouseArea")
 
 	pass
 
@@ -62,5 +70,8 @@ func _on_mouse_area_mouse_entered()->void:
 func _on_mouse_area_exited()->void:
 	state_machine.handleInput({"event":"exit"})
 	pass
+
+func back_in_place()->void:
+	hand_exited.emit()
 
 

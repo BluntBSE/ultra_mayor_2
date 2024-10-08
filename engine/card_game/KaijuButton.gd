@@ -35,7 +35,7 @@ func draw_card()->void:
 		var tween:Tween = create_tween()
 		var destination:Vector2 = self.global_position + Vector2(0.0,200.0)
 		tween.parallel().tween_property(card, "global_position", destination, 0.25)
-		tween.parallel().tween_property(card, "scale", Vector2(0.8,0.8), 0.25)
+		tween.parallel().tween_property(card, "scale", Vector2(1.0,1.0), 0.25)
 
 
 

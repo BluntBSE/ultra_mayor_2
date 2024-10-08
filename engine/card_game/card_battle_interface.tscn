@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=20 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="4_mynaa"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_084cw"]
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
+[ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="9_ic2nq"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
 [ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_cyci2"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
@@ -30,6 +31,9 @@ _data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Theme" id="Theme_igp6n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y7vs5"]
+radius = 73.0616
 
 [node name="BattleInterface" type="Node2D"]
 script = ExtResource("1_yimvu")
@@ -142,11 +146,13 @@ position = Vector2(466, 822)
 custom_minimum_size = Vector2(1000, 100)
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme_override_constants/separation = 250
 metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton0" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0"]
@@ -173,6 +179,7 @@ offset_left = -57.0
 offset_top = 51.0
 offset_right = 53.0
 offset_bottom = 67.0
+mouse_filter = 2
 color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -184,6 +191,13 @@ offset_right = 100.0
 offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="PilotButton1" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 layout_mode = 2
@@ -702,8 +716,8 @@ scale = Vector2(1.5, 1.5)
 position = Vector2(979, 469)
 script = ExtResource("18_ujnq3")
 
-[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_hover"]
-[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_exit"]
 [connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_hover"]
 [connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_exit"]
 [connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton2" to="PlayArea/PilotButtons/HBoxContainer/PilotButton2" method="on_hover"]
