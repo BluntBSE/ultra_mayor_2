@@ -1,7 +1,10 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
-BUG: IF A PILOT IS ON THE TARGET, KAIJU CAN'T PATH TO IT, CAUSING A CRASH
+There are two distinct issues right now.
+
+1) The Area2D on the pilotbuttons competes with the mousearea on the cards
+2) If you wiggle back and forth really fast you can get the cards to inch upwards
 
 
 TODO:

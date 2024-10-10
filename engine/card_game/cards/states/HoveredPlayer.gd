@@ -62,9 +62,18 @@ func stateHandleInput(args: Dictionary) -> void:
 
 	if args.event == "exit":
 		print("Received an exit event inside of Hover")
-		_reference.state_machine.Change("interactive", {})
+	var tween:Tween = _reference.create_tween()
+	var t_args:Dictionary = {
+		"global_position": original_position,
+		"rotation": original_rotation,
+		"scale": original_scale,
+		"time": 0.10,
+		"z_index": original_z
+	}
+	_reference.do_transit(t_args)
+
 	if args.event == "l_click":
-		_reference.draw_card()
+		_reference.draw_card() #TODO: Remove?
 
 
 func is_left_mouse_released() -> bool:
@@ -78,14 +87,6 @@ func stateExit() -> void:
 	print("Attempted exit from hover")
 	highlight.visible = false
 	#TODO: Need to make the card not interactive when tweening back to original position.
-	var tween:Tween = _reference.create_tween()
-	tween.set_trans(Tween.TRANS_SINE)
 
-
-
-	tween.parallel().tween_property(_reference, "global_position", original_position, 0.10)
-	tween.parallel().tween_property(_reference, "rotation", original_rotation, 0.10)
-	tween.parallel().tween_property(_reference, "scale", original_scale, 0.10)
-	_reference.z_index = original_z
-	tween.tween_callback(_reference.back_in_place)
+	#tween.tween_callback(_reference.back_in_place)
 

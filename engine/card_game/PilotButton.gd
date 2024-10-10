@@ -30,8 +30,8 @@ func draw_card()->void:
 		card.global_position = self.global_position
 		card.scale = Vector2(0.25,0.25)
 		#card.position=Vector2(0.0,0.0)
-		card.unpack(logical_card)
-		card.hand_exited.connect(hand.organize_cards)
+		card.unpack(logical_card,  hand)
+		#card.hand_exited.connect(hand.organize_cards)
 		hand.cards_in_hand.append(card)
 		#hand.reorganize()
 		hand.organize_cards()

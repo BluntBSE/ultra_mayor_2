@@ -1,7 +1,7 @@
 extends Node2D
 class_name RenderedCard
 
-
+var hand:CardHand
 var hand_position: Vector2
 var hand_rotation: float
 
@@ -25,7 +25,8 @@ signal hand_hovered
 signal hand_exited
 
 
-func unpack(_lc: LogicalCard) -> void:
+func unpack(_lc: LogicalCard, _hand:CardHand) -> void:
+	hand = _hand
 	lc = _lc
 	art = find_child("ArtImg")
 	art.texture = load(lc.art)
@@ -55,6 +56,7 @@ func unpack(_lc: LogicalCard) -> void:
 func _ready() -> void:
 	state_machine.Add("interactive", InteractiveCard.new(self, {}))
 	state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
+	state_machine.Add("transit", TransitCardState.new(self,{}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Change("interactive", {})
 	pass
@@ -63,7 +65,16 @@ func do_input(_event:InputEvent)->void:
 	pass
 
 
+func do_transit(args:Dictionary)->void:
+	state_machine.Change("transit", args)
+
+
+func do_interactive()->void:
+	state_machine.Change("interactive", {})
+
+
 func _on_mouse_area_mouse_entered()->void:
+	print("HOVERED! My state is", state_machine.getCurrent())
 	state_machine.handleInput({"event":"hover"})
 	pass # Replace with function body.
 
