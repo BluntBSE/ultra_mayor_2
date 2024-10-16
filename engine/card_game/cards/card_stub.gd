@@ -16,6 +16,25 @@ var cost_label:RichTextLabel
 
 var state_machine: StateMachine = StateMachine.new()
 
+#Origin
+var played_from:KaijuButton
+
+#Card Stuff
+var instant_targets:Array = []
+var instant_value:int = 0
+var instant_target_type:String = "none"
+var instant_effect:String = "debug_instant_effect"
+var resolve_secondary_targets:Array = []
+#var resolve_seconary_ttype --- Kaiju assign their targets pseudo at random, so this might not be necessary
+#Likely secondary_targets will be any single pilot or the origin of this card since this is kaiju
+var resolve_effect:String = "debug_resolve_effect"
+var resolve_targets:Array = []
+var resolve_min:int = 0
+var resolve_max:int = 99
+var types:Array = []
+var affinities:Array = []
+var affinity_effects:Array = []
+
 
 
 func unpack(lc: LogicalCard) -> void:

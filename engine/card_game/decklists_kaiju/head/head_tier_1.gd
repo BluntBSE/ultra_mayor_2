@@ -1,5 +1,5 @@
-class_name HeadTier1
 
+class_name HeadTier1
 static var lib: Dictionary = {
 	"chomp":
 	LogicalCard.new(

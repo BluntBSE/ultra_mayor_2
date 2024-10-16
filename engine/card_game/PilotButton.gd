@@ -7,7 +7,7 @@ var card_count: RichTextLabel
 var cards_left: int
 var cards_starting: int
 var hand:CardHand
-
+var active:bool
 
 
 
@@ -55,7 +55,7 @@ func unpack(pilot: LogicalPilot) -> void:
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
-
+	active = true
 
 
 func _ready()->void:

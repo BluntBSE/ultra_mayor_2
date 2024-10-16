@@ -19,7 +19,7 @@ func update_count()->void:
 
 
 #TODO: Put draw_card in the interactive state.
-func draw_card()->void:
+func draw_card()->CardStub:
 	var logical_card:LogicalCard = deck.pop_front()
 	if cards_left > 0:
 		cards_left -= 1
@@ -36,13 +36,12 @@ func draw_card()->void:
 		var destination:Vector2 = self.global_position + Vector2(0.0,200.0)
 		tween.parallel().tween_property(card, "global_position", destination, 0.25)
 		tween.parallel().tween_property(card, "scale", Vector2(1.0,1.0), 0.25)
+		return card
 
+	return null
 
-
-
-		#The way this SHOULD work is by reorganizing the hand subtly first (if there are any cards), and then by using slide_to_point to move the new card from the player_button to the hand
-
-
+func draw_and_assign(target:PilotButton)->void:
+	var card:CardStub = draw_card()
 
 	pass
 
