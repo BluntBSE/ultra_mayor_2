@@ -13,6 +13,7 @@ static func hover_inspect(_card:RenderedCard)->void:
 	pass
 
 static func card_by_id(id:String, origin:String)->LogicalCard:
+	print("Pilotlib", PilotCardLib.test)
 	if origin == "pilot":
 		return PilotCardLib.lib[id]
 	if origin == "kaiju":
@@ -30,3 +31,11 @@ static func shuffle_array(arr: Array) -> Array:
 		shuffled_array[i] = temp
 
 	return shuffled_array
+
+static func arrow_to_target_k(origin:KaijuCardStub, target:PilotButton)->void:
+	#TODO: Add color and/or texture as arguments
+	var arrow:TargetArrow = load("res://engine/common/ui_scenes/target_arrow.tscn").instantiate()
+	origin.add_child(arrow)
+	arrow.unpack(origin.global_position, target.global_position)
+
+	pass

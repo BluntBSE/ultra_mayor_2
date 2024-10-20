@@ -19,14 +19,14 @@ func update_count()->void:
 
 
 #TODO: Put draw_card in the interactive state.
-func draw_card()->CardStub:
+func draw_card()->KaijuCardStub:
 	var logical_card:LogicalCard = deck.pop_front()
 	if cards_left > 0:
 		cards_left -= 1
 		update_count()
-		var card:CardStub = load("res://engine/card_game/cards/card_stub_prototype_1.tscn").instantiate()
+		var card:KaijuCardStub = load("res://engine/card_game/cards/card_stub_prototype_1.tscn").instantiate()
 		remove_child(card)
-		card.unpack(logical_card)
+		card.unpack(logical_card, self)
 		in_play.add_child(card)
 		card.global_position = self.global_position
 		card.scale = Vector2(0.25,0.25)
@@ -41,7 +41,8 @@ func draw_card()->CardStub:
 	return null
 
 func draw_and_assign(target:PilotButton)->void:
-	var card:CardStub = draw_card()
+	var card:KaijuCardStub = draw_card()
+	CardHelpers.arrow_to_target_k(card, target)
 
 	pass
 

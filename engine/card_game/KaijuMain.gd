@@ -28,7 +28,8 @@ func do_kaiju_turn() -> void:
 		var kaiju_button: KaijuButton = kaiju_buttons[i]
 		var interval: float = i * time
 		var timer: SceneTreeTimer = get_tree().create_timer(interval)
-		timer.connect("timeout", kaiju_button.draw_card) #kaiju_button.draw_and_assign
+		timer.connect("timeout", kaiju_button.draw_and_assign) #kaiju_button.draw_and_assign
+		#TODO: Fetch the number of valid targets from the card's data before assigning.
 		#assign to a random target
 		var pilots:Array = get_tree().root.find_child("PlayArea", true, false).get_node("PilotButtons/HBoxContainer").get_children()
 		var active_pilots:Array = []
@@ -36,6 +37,8 @@ func do_kaiju_turn() -> void:
 			if pilot.active == true:
 				active_pilots.append(pilot)
 		var target:int = randi() % active_pilots.size()
+		#PLACEHOLDER FOR ARROW DEMO
+
 
 	var timer: SceneTreeTimer = get_tree().create_timer(kaiju_buttons.size() * time)
 	await timer.timeout

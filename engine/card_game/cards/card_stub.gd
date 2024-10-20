@@ -1,13 +1,14 @@
 extends Node2D
-class_name CardStub
+class_name KaijuCardStub
 
 
 
-var _lc: LogicalCard
+var lc: LogicalCard
 var art: Sprite2D
 var value_min:int
 var value_max:int
 var energy_cost:int
+var origin:KaijuCardStub
 
 #Displays
 var value_label:RichTextLabel
@@ -37,8 +38,16 @@ var affinity_effects:Array = []
 
 
 
-func unpack(lc: LogicalCard) -> void:
-	_lc = lc
+func show_resolve_targets()->void:
+	for target:PilotButton in resolve_targets:
+		CardHelpers.arrow_to_target_k(origin, target)
+	pass
+
+
+
+func unpack(_lc: LogicalCard, _played_from:KaijuButton) -> void:
+	played_from = _played_from
+	lc = _lc
 	art = find_child("ArtImg")
 	art.texture = load(lc.art)
 
