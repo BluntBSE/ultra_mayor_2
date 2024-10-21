@@ -25,7 +25,7 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.state_machine.Change("basic", {})
 
 
-func stateUpdate(delta:float) -> void:
+func stateUpdate(_delta:float) -> void:
 	pass
 
 func stateExit()->void:

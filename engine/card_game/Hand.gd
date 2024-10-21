@@ -20,11 +20,13 @@ func reorganize() -> void:
 
 
 func organize_cards() -> void:
+	print("Called organize_cards!")
 	var HARD_MAX: float = 700.0
 	var num_cards: int = cards_in_hand.size()
 	if num_cards == 0:
 		return
 
+	var idx:int = 1
 	for card: RenderedCard in cards_in_hand:
 		var new_max: float = cards_in_hand.size() * 40.0
 		var hand_weight: float = 0.5
@@ -40,11 +42,17 @@ func organize_cards() -> void:
 
 		destination.y += (height_curve.sample(hand_weight) * 60.0) + 100
 
+		var dest_args:Dictionary = {
+			"global_position":destination,
+			"scale": Vector2(1.0,1.0),
+			"rotation": rot_curve.sample(hand_weight) * 0.2,
+			"time": 0.25,
+			"fin_z": idx
+		}
 
-		var tween: Tween = create_tween()
-		tween.parallel().tween_property(card, "global_position", destination, 0.25).from_current()
-		tween.parallel().tween_property(card, "scale", Vector2(1.0, 1.0), 0.25).from_current()
-		tween.parallel().tween_property(card, "rotation", rot_curve.sample(hand_weight) * 0.2, 0.25).from_current()
+		card.do_transit(dest_args)
+		idx += 1
+
 		#card.global_position.y = destination.y
 		#card.rotation = rot_curve.sample(hand_weight) * 0.2
 

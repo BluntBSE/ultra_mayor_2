@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvjf76l6i8hyx"
-path="res://.godot/imported/AI_zilla_wing.jpg-86f9e1d097fcad59d4273ba498e066a3.ctex"
+uid="uid://cn62hln1ua0gp"
+path="res://.godot/imported/AI_dragon_claws.jpg-4ee3b343e96c138de0701e1cd524eeb1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_wing.jpg"
-dest_files=["res://.godot/imported/AI_zilla_wing.jpg-86f9e1d097fcad59d4273ba498e066a3.ctex"]
+source_file="res://engine/card_game/assets/art_packs/dragon/AI_dragon_claws.jpg"
+dest_files=["res://.godot/imported/AI_dragon_claws.jpg-4ee3b343e96c138de0701e1cd524eeb1.ctex"]
 
 [params]
 

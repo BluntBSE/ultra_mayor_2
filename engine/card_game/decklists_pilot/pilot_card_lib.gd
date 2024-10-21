@@ -1,5 +1,6 @@
 class_name PilotCardLib
 
+static var test:bool = false
 
 static var lib:Dictionary = {
 	"jiu_jitsu": LogicalCard.new({

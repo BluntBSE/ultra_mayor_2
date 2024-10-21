@@ -15,12 +15,10 @@ run/main_scene="res://engine/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-Constants="*res://engine/common/autoload/constants.gd"
-
 [debug]
 
+gdscript/warnings/unused_variable=0
+gdscript/warnings/shadowed_variable=0
 gdscript/warnings/untyped_declaration=2
 
 [display]

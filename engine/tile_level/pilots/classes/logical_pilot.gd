@@ -19,7 +19,11 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
-	deck = args.default_deck
+	var default_strings:Array  = args.default_deck
+	var deck_arr:Array = []
+	for card_name:String in default_strings:
+		deck_arr.append(CardHelpers.card_by_id(card_name, "pilot"))
+	deck = deck_arr
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
 	x = _x
@@ -86,7 +90,7 @@ func find_path(target:LogicalTile)->void:
 	#TODO: Can move THROUGH pilots. Cannot move through Kaiju. Cannot end turn in either.
 	var origin:Dictionary = {"x": x, "y": y}
 	var destination:Dictionary# = {"x": target.x, "y": target.y} - But don't allow kaiju
-	var moves_remaining:int = moves_remaining
+	#var moves_remaining:int = moves_remaining
 	var frontier:Array = []
 	var came_from:Dictionary = {}
 	came_from[origin] = {}
@@ -107,7 +111,7 @@ func find_path(target:LogicalTile)->void:
 	frontier.push_back(origin)
 
 	#Terrible sorting function that should be replaced with a priority queue implementation
-	var ez_sort:Variant = func sort_path(a:Dictionary, b:Dictionary)->bool:
+	var _ez_sort:Variant = func sort_path(a:Dictionary, b:Dictionary)->bool:
 		if cost_so_far[b] > cost_so_far[a]:
 			return true
 		else:
@@ -165,37 +169,37 @@ func find_path(target:LogicalTile)->void:
 	reachable_path = _reachable_path
 	preview_highlight(reachable_path)
 
-func tile_is_in_reachable_path(x:int, y:int)->bool:
+func tile_is_in_reachable_path(_x:int, _y:int)->bool:
 	for path_item:Dictionary in reachable_path:
-		if (path_item.x ==x) and (path_item.y == y):
+		if (path_item.x ==_x) and (path_item.y == _y):
 			return true
 	return false
 
-func p_move(x:int, y:int)->void:
-	print("p_move called! x is currently", self.x, "y is currently", self.y)
+func p_move(_x:int, _y:int)->void:
+	#print("p_move called! x is currently", self.x, "y is currently", self.y)
 	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
 	rendered_grid[self.x][self.y].apply_highlights()
 	#First off, check if this X_Y is even in the active path!
-	if tile_is_in_reachable_path(x, y):
-		var rt_target:RenderedTile = rendered_grid[x][y]
-		var lg_target:LogicalTile = logical_grid[x][y]
+	if tile_is_in_reachable_path(_x, _y):
+		#var rt_target:RenderedTile = rendered_grid[x][y]
+		#var lg_target:LogicalTile = logical_grid[x][y]
 		var r_pilot:RenderedPilot = rendered_grid[self.x][self.y].rendered_occupant
-		var lt_pilot:LogicalTile = logical_grid[self.x][self.y]
-		r_pilot.state_machine.Change("moving", {"path": self.reachable_path, "target": {"x": x, "y": y}, "origin": {"x":self.x, "y": self.y},"map":map})
+		#var lt_pilot:LogicalTile = logical_grid[self.x][self.y]
+		r_pilot.state_machine.Change("moving", {"path": self.reachable_path, "target": {"x": _x, "y": _y}, "origin": {"x":self.x, "y": self.y},"map":map})
 		logical_grid[self.x][self.y].occupant = null
 		logical_grid[x][y].occupant = self
 		#rendered_grid[self.x][self.y].apply_highlights()
 		rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
 		rendered_grid[x][y].rendered_occupant = r_pilot
-		self.x = x
-		self.y = y
+		self.x = _x
+		self.y = _y
 		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
 
 	clear_path()
 
-func target_context(x:int, y:int)->void:
-	var target_lt:LogicalTile = logical_grid[x][y]
-	var target_rt:RenderedTile = rendered_grid[x][y]
+func target_context(_x:int, _y:int)->void:
+	var target_lt:LogicalTile = logical_grid[_x][_y]
+	var target_rt:RenderedTile = rendered_grid[_x][_y]
 	#TODO: Get pilot options from the pilot definition, as these might change with tech tree...Should probably be a global enum
 	var actions:Array = [PilotActions.ACTIONS.BATTLE, PilotActions.ACTIONS.SHOVE]
 	#For action in actions

@@ -135,6 +135,7 @@ offset_left = -119.0
 offset_top = -175.0
 offset_right = 118.0
 offset_bottom = 173.0
+mouse_filter = 1
 border_color = Color(0.85098, 0, 0, 0)
 border_width = 20.0
 editor_only = false

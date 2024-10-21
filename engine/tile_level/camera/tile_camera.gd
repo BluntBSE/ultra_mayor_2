@@ -12,7 +12,7 @@ func go_to_point_zoom(point:Vector2, _zoom:Vector2)->void:
 	zoom = _zoom
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) ->void:
+func _process(_delta: float) ->void:
 	if Input.is_key_label_pressed(KEY_W):
 		position.y -= cam_speed
 	if Input.is_key_label_pressed(KEY_S):

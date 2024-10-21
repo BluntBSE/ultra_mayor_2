@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv2jrk87ueibm"
-path="res://.godot/imported/AI_zilla_leg.jpg-f9fe230ce0b2bb0a6585e79181a68a51.ctex"
+uid="uid://ubcnqyn1gds7"
+path="res://.godot/imported/AI_bird_legs.jpg-0e99937e49842c6924701edc08c1f8f3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_leg.jpg"
-dest_files=["res://.godot/imported/AI_zilla_leg.jpg-f9fe230ce0b2bb0a6585e79181a68a51.ctex"]
+source_file="res://engine/card_game/assets/art_packs/bird/AI_bird_legs.jpg"
+dest_files=["res://.godot/imported/AI_bird_legs.jpg-0e99937e49842c6924701edc08c1f8f3.ctex"]
 
 [params]
 

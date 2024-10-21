@@ -7,13 +7,8 @@ var card_count: RichTextLabel
 var cards_left: int
 var cards_starting: int
 var hand:CardHand
+var active:bool
 
-
-func get_card_objects(deck: Array) -> Array:
-	var deck_out: Array = []
-	for id: String in deck:
-		deck_out.append(CardHelpers.card_by_id(id, "pilot"))
-	return deck_out
 
 
 func count_string(left: int, starting: int) -> String:
@@ -30,12 +25,13 @@ func draw_card()->void:
 		cards_left -= 1
 		update_count()
 		var card:RenderedCard = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
-		remove_child(card)
+		#remove_child(card)
 		hand.add_child(card)
 		card.global_position = self.global_position
 		card.scale = Vector2(0.25,0.25)
 		#card.position=Vector2(0.0,0.0)
-		card.unpack(logical_card)
+		card.unpack(logical_card,  hand)
+		#card.hand_exited.connect(hand.organize_cards)
 		hand.cards_in_hand.append(card)
 		#hand.reorganize()
 		hand.organize_cards()
@@ -54,12 +50,12 @@ func unpack(pilot: LogicalPilot) -> void:
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	hand = get_tree().root.find_child("Hand", true, false)
 
-	deck = get_card_objects(pilot.deck)
+	deck = pilot.deck
 	deck = CardHelpers.shuffle_array(deck)
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
-
+	active = true
 
 
 func _ready()->void:
@@ -71,10 +67,12 @@ func _ready()->void:
 
 
 func on_hover()->void:
+	print("Hovered fired")
+	get_viewport().set_input_as_handled() #TODO: Is this really the way?
 	state_machine._current.stateHandleInput({"event": "hover"})
 
 func on_exit()->void:
 	state_machine._current.stateHandleInput({"event": "exit"})
 
-func _process(delta:float)->void:
-	state_machine.stateUpdate(delta)
+func _process(_delta:float)->void:
+	state_machine.stateUpdate(_delta)

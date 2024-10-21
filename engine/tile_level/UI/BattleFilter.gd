@@ -20,7 +20,7 @@ func unpack(battles:Array)->void:
 
 func assign_battle(idx:int)->void:
 	active_battle = all_battles[idx]
-	var idx_display:String = str(idx+1)
+	#var idx_display:String = str(idx+1)
 	pilot_displays = get_node("AllPilots").get_children()
 	var p_idx := 0
 	print("ACTIVE BATTLE PILOTS ARE , ", active_battle.pilots)

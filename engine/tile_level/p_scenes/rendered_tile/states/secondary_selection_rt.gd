@@ -3,7 +3,7 @@ class_name SecondarySelectionRT
 
 var sprite: Sprite2D
 
-func unpack(args:Dictionary)->void:
+func unpack(_args:Dictionary)->void:
 	sprite = _reference.bg_sprite
 # Called when the node enters the scene tree for the first time.
 func stateEnter(args:Dictionary)->void:
@@ -12,7 +12,7 @@ func stateEnter(args:Dictionary)->void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta:float )->void:
+func _process(_delta:float )->void:
 	pass
 
 func stateHandleInput(args:Dictionary)->void:

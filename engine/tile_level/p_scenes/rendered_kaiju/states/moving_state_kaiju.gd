@@ -37,12 +37,12 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.state_machine.Change("move_preview", {})
 
 
-func stateUpdate(delta: float) -> void:
+func stateUpdate(_delta: float) -> void:
 	if next_coord == {}:
 		if path != []:
 			next_coord = path.pop_front()
 	if next_coord != {}:
-		t += delta * 0.4
+		t += _delta * 0.4
 		#print("SHOULD BE MOVING TOWARDS NEXT COORD")
 		var next_tile: RenderedTile = map.rendered_grid[next_coord.x][next_coord.y]
 		var next_point: Vector2 = MapHelpers.get_tile_midpoint_global(next_tile)

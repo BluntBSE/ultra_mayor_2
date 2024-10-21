@@ -64,7 +64,7 @@ func handle_input(args:Dictionary)->void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta:float) -> void:
+func _process(_delta:float) -> void:
 	state_machine._current.stateUpdate(delta)
 
 #Connected via inspector to hover_area

@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtvqvhf85rxuc"]
+
+[ext_resource type="Script" path="res://engine/common/ui_scenes/target_arrow.gd" id="1_3bwop"]
+[ext_resource type="Texture2D" uid="uid://v7pxao4v7fdb" path="res://engine/common/ui_assets/dot_2.png" id="2_hrevd"]
+[ext_resource type="Texture2D" uid="uid://bgua41joyp32p" path="res://engine/common/ui_assets/arrow.png" id="3_g77g0"]
+
+[sub_resource type="Curve2D" id="Curve2D_qw6su"]
+
+[node name="TargetPath" type="Path2D"]
+curve = SubResource("Curve2D_qw6su")
+script = ExtResource("1_3bwop")
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+texture_repeat = 2
+points = PackedVector2Array(125, 106)
+texture = ExtResource("2_hrevd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_g77g0")

@@ -15,12 +15,12 @@ func _input(event: InputEvent) -> void:
 		stateHandleInput({"event": "l_click"})
 
 
-func stateUpdate(delta: float) -> void:
+func stateUpdate(_delta: float) -> void:
 	if is_left_mouse_released():
 		stateHandleInput({"event": "l_click"})
 
 
-func stateEnter(args: Dictionary) -> void:
+func stateEnter(_args: Dictionary) -> void:
 	highlight = _reference.get_node("HoverPoly")
 	highlight.visible = true
 

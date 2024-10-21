@@ -28,7 +28,7 @@ func stateHandleInput(args:Dictionary)->void:
 
 
 
-func stateUpdate(delta:float) -> void:
+func stateUpdate(_delta:float) -> void:
 	pass
 
 

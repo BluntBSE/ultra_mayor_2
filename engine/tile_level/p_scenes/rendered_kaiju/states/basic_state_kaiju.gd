@@ -3,7 +3,7 @@ class_name BasicStateKaiju
 
 
 # Called when the node enters the scene tree for the first time.
-func stateEnter(args:Dictionary) ->void:
+func stateEnter(_args:Dictionary) ->void:
 	print("ENTERED BASIC PILOT STATE")
 	pass
 

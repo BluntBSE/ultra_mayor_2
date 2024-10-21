@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgfgjaxd3ujus"
-path="res://.godot/imported/AI_Zilla.jpg-b4bf35d3b759fc2b553548f3972e8501.ctex"
+uid="uid://v7pxao4v7fdb"
+path="res://.godot/imported/dot_2.png-df37e206db1ca733b7aeeb6a1e260735.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/card_game/assets/anatomy/AI_zilla/AI_Zilla.jpg"
-dest_files=["res://.godot/imported/AI_Zilla.jpg-b4bf35d3b759fc2b553548f3972e8501.ctex"]
+source_file="res://engine/common/ui_assets/dot_2.png"
+dest_files=["res://.godot/imported/dot_2.png-df37e206db1ca733b7aeeb6a1e260735.ctex"]
 
 [params]
 

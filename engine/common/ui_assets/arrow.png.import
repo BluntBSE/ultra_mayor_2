@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clyo3ft2o1ypx"
-path="res://.godot/imported/AI_zilla_spikes.jpg-0e285c2f25885b200135f9459e10e407.ctex"
+uid="uid://bgua41joyp32p"
+path="res://.godot/imported/arrow.png-27f4b442063812e97357e2fb1c97e964.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://engine/card_game/assets/anatomy/AI_zilla/AI_zilla_spikes.jpg"
-dest_files=["res://.godot/imported/AI_zilla_spikes.jpg-0e285c2f25885b200135f9459e10e407.ctex"]
+source_file="res://engine/common/ui_assets/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-27f4b442063812e97357e2fb1c97e964.ctex"]
 
 [params]
 

@@ -17,7 +17,7 @@ func find_bottom(card:RenderedCard)->Vector2:
 	var viewport:Viewport = _reference.get_viewport()
 	var view_size:Vector2 = viewport.get_visible_rect().size
 	var bottom_y:float = centerpoint.y + (view_size.y / 2)# Bottom of screen
-	bottom_y = bottom_y - float( (current_height/2)) # shift up, recalling that cards are positioned by midpoint
+	bottom_y = bottom_y - float( (current_height/float(2))) # shift up, recalling that cards are positioned by midpoint
 
 	return Vector2(current_position.x, bottom_y)
 
@@ -34,12 +34,12 @@ func _input(event: InputEvent) -> void:
 		stateHandleInput({"event": "l_click"})
 
 
-func stateUpdate(delta: float) -> void:
+func stateUpdate(_delta: float) -> void:
 	if is_left_mouse_released():
 		stateHandleInput({"event": "l_click"})
 
 
-func stateEnter(args: Dictionary) -> void:
+func stateEnter(_args: Dictionary) -> void:
 	print("Entered hovered state")
 	original_position = _reference.global_position
 	original_rotation = _reference.rotation
@@ -62,9 +62,18 @@ func stateHandleInput(args: Dictionary) -> void:
 
 	if args.event == "exit":
 		print("Received an exit event inside of Hover")
-		_reference.state_machine.Change("interactive", {})
+	var tween:Tween = _reference.create_tween()
+	var t_args:Dictionary = {
+		"global_position": original_position,
+		"rotation": original_rotation,
+		"scale": original_scale,
+		"time": 0.10,
+		"z_index": original_z
+	}
+	_reference.do_transit(t_args)
+
 	if args.event == "l_click":
-		_reference.draw_card()
+		_reference.draw_card() #TODO: Remove?
 
 
 func is_left_mouse_released() -> bool:
@@ -77,9 +86,7 @@ func is_right_mouse_released() -> bool:
 func stateExit() -> void:
 	print("Attempted exit from hover")
 	highlight.visible = false
-	var tween:Tween = _reference.create_tween()
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.parallel().tween_property(_reference, "global_position", original_position, 0.10)
-	tween.parallel().tween_property(_reference, "rotation", original_rotation, 0.10)
-	tween.parallel().tween_property(_reference, "scale", original_scale, 0.10)
-	_reference.z_index = original_z
+	#TODO: Need to make the card not interactive when tweening back to original position.
+
+	#tween.tween_callback(_reference.back_in_place)
+
