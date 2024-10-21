@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Fonstars-4Bo0p.otf-9749ff8ca5e84f08e8d517f3cb
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

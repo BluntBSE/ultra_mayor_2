@@ -2,6 +2,9 @@ extends Node2D
 
 var main: Node2D
 
+#TODO: Remove this debug pilot lib instantiation
+var _dummy:PilotCardLib
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	main = get_tree().get_root().get_node("Main")

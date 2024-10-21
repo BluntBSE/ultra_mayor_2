@@ -1,32 +1,33 @@
 class_name LogicalCard
+extends Resource
 
-var id:String
-var display_name:String
-var art:String
-var border:Color
+@export var id:String
+@export var display_name:String
+@export var art:String
+@export var border:Color
 
-var energy_cost:int
-var instant_effect: String
-var instant_targets: int
-var instant_value: int
-var instant_target_type: String
+@export var energy_cost:int
+@export var instant_effect: String
+@export var instant_targets: int
+@export var instant_value: int
+@export var instant_target_type: String
 
 # Resolve effects take place after the "resolve" button is hit.
 # Player cards resolve first, from left to right. Then kaiju, from left to right.
-var resolve_effect: String
-var resolve_targets: int
-var resolve_target_type: int
-var resolve_secondary_targets: int
-var resolve_secondary_ttype:String
-var resolve_min: int
-var resolve_max: int
+@export var resolve_effect: String
+@export var resolve_targets: int
+@export var resolve_target_type: int
+@export var resolve_secondary_targets: int
+@export var resolve_secondary_ttype:String
+@export var resolve_min: int
+@export var resolve_max: int
 
-var types: Array
-var affinities: Array
-var affinity_effects:Array
-var description:String
+@export var types: Array
+@export var affinities: Array
+@export var affinity_effects:Array
+@export var description:String
 
-var requirements:String
+@export var requirements:String
 
 func _init(args: Dictionary) -> void:
 	id = args.get("id", "DEFAULT_ID")

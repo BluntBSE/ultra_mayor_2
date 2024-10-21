@@ -83,5 +83,3 @@ func _on_mouse_area_mouse_entered()->void:
 func _on_mouse_area_exited()->void:
 	state_machine.handleInput({"event":"exit"})
 	pass
-
-

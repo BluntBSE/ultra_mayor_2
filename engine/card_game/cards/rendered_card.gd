@@ -84,5 +84,3 @@ func _on_mouse_area_exited()->void:
 
 func back_in_place()->void:
 	hand_exited.emit()
-
-
