@@ -2,7 +2,6 @@ extends Node2D
 class_name CardStub
 
 
-
 var _lc: LogicalCard
 var art: Sprite2D
 var value_min:int
@@ -74,5 +73,3 @@ func _on_mouse_area_mouse_entered()->void:
 func _on_mouse_area_exited()->void:
 	state_machine.handleInput({"event":"exit"})
 	pass
-
-

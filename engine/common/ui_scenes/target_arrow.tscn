@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://08ygpcxgffdq"]
+
+[ext_resource type="Script" path="res://engine/common/ui_scenes/tarrow_path.gd" id="1_3pybg"]
+[ext_resource type="Texture2D" uid="uid://cmgl2ax5nakmb" path="res://engine/common/ui_assets/dot_2.png" id="2_4muo0"]
+
+[sub_resource type="GDScript" id="GDScript_5gtw3"]
+script/source = "extends Node2D
+class_name T
+
+var oops:bool = false
+
+func _init()->void:
+	pass
+"
+
+[sub_resource type="Curve2D" id="Curve2D_uk85f"]
+
+[node name="TargetArrow" type="Node2D"]
+script = SubResource("GDScript_5gtw3")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_uk85f")
+script = ExtResource("1_3pybg")
+
+[node name="Line2D" type="Line2D" parent="Path2D"]
+texture_repeat = 2
+texture = ExtResource("2_4muo0")
