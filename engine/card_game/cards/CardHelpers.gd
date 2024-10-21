@@ -30,3 +30,7 @@ static func shuffle_array(arr: Array) -> Array:
 		shuffled_array[i] = temp
 
 	return shuffled_array
+
+
+func arrow_to_target_k(origin:CardStub)->void:
+	pass
