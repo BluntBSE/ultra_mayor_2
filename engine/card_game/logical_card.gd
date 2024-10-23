@@ -5,6 +5,9 @@ extends Resource
 @export var display_name:String
 @export var art:String
 @export var border:Color
+@export var tier:int
+@export var limb:String = "pilot"
+@export var playable_by:String = "pilot"
 
 @export var energy_cost:int
 @export var instant_effect: String

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=2 format=3 uid="uid://b0dlpbsgnitxv"]
+
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_vt3sg"]
+
+[resource]
+script = ExtResource("1_vt3sg")
+id = "tail_swipe_1"
+display_name = "Tail Swipe 1"
+art = "res://engine/card_game/assets/kaiju_decks/AI_kaiju_fire_breath.jpg"
+border = Color(0, 1, 0, 1)
+tier = 0
+limb = "tail"
+playable_by = "kaiju"
+energy_cost = 0
+instant_effect = "debug_instant_effect"
+instant_targets = 0
+instant_value = 0
+instant_target_type = "none"
+resolve_effect = "debug_resolve_effect"
+resolve_targets = 1
+resolve_target_type = 0
+resolve_secondary_targets = 1
+resolve_secondary_ttype = "any"
+resolve_min = 1
+resolve_max = 3
+types = ["physical"]
+affinities = ["forest"]
+affinity_effects = ["half_price"]
+description = "Flamethrower Description"
+requirements = "\"\""

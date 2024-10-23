@@ -39,3 +39,12 @@ static func arrow_to_target_k(origin:KaijuCardStub, target:PilotButton)->void:
 	arrow.unpack(origin.global_position, target.global_position)
 
 	pass
+
+static func get_card_res(p_or_k:String, name:String = "default", tier:int = 0, limb:String = "none" )->void:
+	var p_decklists:String = "res://engine/card_game/decklists_pilot/"
+	var k_decklists:String = "res://engine/card_game/decklists_kaiju/"
+	if p_or_k == "kaiju":
+		pass
+	if p_or_k == "pilot":
+		pass
+	pass

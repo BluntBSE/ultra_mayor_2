@@ -73,7 +73,9 @@ func build_limb_decklist(_limb:Limb,  factor:float)->void:
 	var deck_size:int = roundi(_limb.tier * factor) + 40
 	var valid_cards:Array = []
 	var decklist:Array = []
-	var decklist_path:String = "res://engine/card_game/decklists_kaiju/"
+	#TODO: Maybe the CardService should break these up...But does that actually help me?
+	#That is, instead of searching by path specifically.
+	var decklist_path:String = "res://engine/card_game/decklists/decklists_kaiju/"
 	var body_path:String = decklist_path + _limb.id
 	var file_path:String = body_path + "/" + _limb.id + "_tier_" + str(_limb.tier) + ".gd"
 	var file:Script = load(file_path)
