@@ -29,7 +29,7 @@ func generate_limbs(limb_arr:Array)->void:
 	assign_limb_types(types, limbs)
 
 	for limb:Limb in limbs:
-		build_limb_decklist(limb, health_factor)
+		build_limb_decklist_2(limb, health_factor)
 
 
 
@@ -88,6 +88,8 @@ func build_limb_decklist(_limb:Limb,  factor:float)->void:
 				valid_cards.append(card)
 				break
 
+
+
 	while decklist.size() < deck_size:
 		var idx:int = randi() % valid_cards.size()
 		decklist.append(valid_cards[idx])
@@ -99,6 +101,14 @@ func build_limb_decklist(_limb:Limb,  factor:float)->void:
 	decklist = CardHelpers.shuffle_array(decklist)
 	_limb.deck = decklist
 	print("DECKLIST FOR, ", _limb.id, decklist)
+
+func build_limb_decklist_2(_limb:Limb, factor:float)->void:
+	var deck_size:int = roundi(_limb.tier * factor) + 40
+	var valid_cards:Array = []
+	var decklist:Array = []
+	var services:Services = get_tree().root.find_child("Services", true, false)
+	var cs:CardService = services.card_service
+	pass
 
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:
@@ -290,6 +300,10 @@ func refresh_paths()->void:
 func regenerate_kaiju()->void:
 	#Get new limb and deck assignments for the template.
 	pass
+	
+func occupant_unpack()->void:
+	generate_limbs(limbs)
+	pass
 
 func _init(args:Dictionary)->void:
 	sprite = args.sprite
@@ -298,10 +312,11 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
+	limbs = args.limbs
 	#deck = args.deck
 	speed_chart = args.speed_chart
 	health_factor = args.health_factor
 	tier = 1 #TODO: Replace tier with a function based on game length/difficulty
 	types = args.types
 	art_pack = args.art_pack
-	generate_limbs(args.limbs)
+	#generate_limbs(args.limbs)

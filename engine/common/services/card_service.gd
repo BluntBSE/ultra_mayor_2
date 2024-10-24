@@ -41,10 +41,11 @@ func generate_dictionary(paths:Array)->Dictionary:
 	return output
 
 
-func load_cards(path: String) -> Dictionary:  #Should this be static?
+func load_cards(path: String) -> void:  #Should this be static?
 	#Helper
 
 	var all_paths: Array = process_directory(path)
 	print("all paths are:", all_paths)
 	var output:Dictionary = generate_dictionary(all_paths)
-	return output
+	cards = output
+	

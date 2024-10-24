@@ -1,4 +1,5 @@
 class_name Occupant
+extends Node #Do we actually want this to be a node?
 
 var id:String
 var x:int
@@ -13,6 +14,10 @@ var map:Map_2
 var logical_grid:Array
 var rendered_grid:Array
 
+func occupant_unpack()->void:
+	print("Highest level occupant unpack called")
+	pass
+
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
 	x = _x
 	y = _y
@@ -20,5 +25,3 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 	map = _map
 	logical_grid=_logical_grid
 	rendered_grid=_rendered_grid
-
-
