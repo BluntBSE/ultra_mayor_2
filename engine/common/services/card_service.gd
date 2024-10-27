@@ -35,8 +35,8 @@ func generate_dictionary(paths:Array)->Dictionary:
 	var output:Dictionary = {}
 	for path:String in paths:
 		var key:String = path.split("/")[-1]
-		key = key.split(".")[-1]
-		output[key] = path
+		key = key.split(".")[0]
+		output[key] = load(path)
 	print("OUTPUT IS", output)
 	return output
 
@@ -48,4 +48,3 @@ func load_cards(path: String) -> void:  #Should this be static?
 	print("all paths are:", all_paths)
 	var output:Dictionary = generate_dictionary(all_paths)
 	cards = output
-	

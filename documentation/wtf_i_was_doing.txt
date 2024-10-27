@@ -1,11 +1,10 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
-There are two distinct issues right now.
+BUG: Kaiju can path through the pilot rn?
 
-1) The Area2D on the pilotbuttons competes with the mousearea on the cards
-2) If you wiggle back and forth really fast you can get the cards to inch upwards
-
+LogicalTiles currently parent themselves directly to the map. Is it worth putting them in a dummy node called LogicalTiles?
+We mostly access them through the variable on the map.
 
 TODO:
 	-Consider consolidating your string events into a global enum

@@ -10,6 +10,7 @@ var battling:Array = []
 var deck:Array = []
 var tier:int
 var types:Array
+var limb_names:Array
 var limbs:Array
 var health_factor:float
 var art_pack:ArtPack
@@ -41,6 +42,7 @@ func assign_limb_tiers(kaiju_tier: int, _limbs: Array) -> void:
 
 	# Assign limbs either kaiju tier or one level lower
 	for i in range(num_tier_kaiju, num_limbs):
+		print(limbs[i].tier)
 		limbs[i].tier = kaiju_tier if randi() % 2 == 0 else kaiju_tier - 1
 
 	# Assign kaiju tier to at least two limbs
@@ -100,7 +102,6 @@ func build_limb_decklist(_limb:Limb,  factor:float)->void:
 
 	decklist = CardHelpers.shuffle_array(decklist)
 	_limb.deck = decklist
-	print("DECKLIST FOR, ", _limb.id, decklist)
 
 func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	var deck_size:int = roundi(_limb.tier * factor) + 40
@@ -108,7 +109,18 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	var decklist:Array = []
 	var services:Services = get_tree().root.find_child("Services", true, false)
 	var cs:CardService = services.card_service
-	pass
+	print("CS IS", cs.cards)
+	for type:String in types:
+		for key:String in cs.cards.keys():
+			print("KEY WAS", key)
+			print(cs.cards[key])
+			var resource:LogicalCard = cs.cards[key] as LogicalCard
+			print(resource.id)
+			print(cs.cards[key].id)
+			print("CARD", cs.cards[key].types)
+			if type in cs.cards[key].types and cs.cards[key].tier == _limb.tier:
+				print("FOUND MATCHING CARD WITH", cs.cards[key].id)
+
 
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:
@@ -300,10 +312,12 @@ func refresh_paths()->void:
 func regenerate_kaiju()->void:
 	#Get new limb and deck assignments for the template.
 	pass
-	
+
 func occupant_unpack()->void:
-	generate_limbs(limbs)
-	pass
+	print("OCCUPANT UNPACK CALLED FROM KAIJU")
+	print("UNPACKING WITH", limb_names)
+	generate_limbs(limb_names)
+
 
 func _init(args:Dictionary)->void:
 	sprite = args.sprite
@@ -312,7 +326,7 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
-	limbs = args.limbs
+	limb_names = args.limbs
 	#deck = args.deck
 	speed_chart = args.speed_chart
 	health_factor = args.health_factor

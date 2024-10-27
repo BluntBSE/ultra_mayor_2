@@ -1,4 +1,5 @@
 class_name LogicalTile
+extends Node
 
 var sprite:String = "res://engine/tile_level/assets/Snow/Snow1.png" #shouldn't be here.
 var terrain:String = "snow"
@@ -12,8 +13,8 @@ var power:int = 0
 var services:int = 0
 var resilience: int = 0
 var modifiers:Array = []
-var map:Map_2
 var logical_grid:Array
+var map:Map_2
 
 
 func _init(_x:int,_y:int, _map:Map_2, _logical_grid:Array)->void:
@@ -22,6 +23,7 @@ func _init(_x:int,_y:int, _map:Map_2, _logical_grid:Array)->void:
 	map = _map
 	logical_grid = _logical_grid
 	map.connect("map_signal", process_map_signal)
+	_map.add_child(self)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

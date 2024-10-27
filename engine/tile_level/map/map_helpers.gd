@@ -7,7 +7,8 @@ static func generate_logical_grid(grid_x: int, grid_y: int, _map: Map_2) -> Arra
 	for x in range(0, grid_x):
 		grid.append([])
 		for y in range(0, grid_y):
-			grid[x].append(LogicalTile.new(x, y, _map, grid))
+			var new_tile:LogicalTile = LogicalTile.new(x, y, _map, grid)
+			grid[x].append(new_tile)
 
 	return grid
 

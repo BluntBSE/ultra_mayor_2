@@ -18,9 +18,13 @@ func _process(_delta:float) -> void:
 
 func _on_start_game_btn_button_up() -> void:
 	#Do load resources...
-	var game_main:Node = load("res://engine/tile_level/game_main.tscn").instantiate()
 	var cs:CardService = CardService.new()
 	cs.load_cards("res://engine/card_game/decklists/")
+	var services:Services = main.get_node("Services")
+	services.register_service(cs)
+	var game_main:Node = load("res://engine/tile_level/game_main.tscn").instantiate()
+
+
 	main.add_child(game_main)
 	self.queue_free()
 	#TODO: Replace this with a choose-slot menu. Once we know what it is we need to save...

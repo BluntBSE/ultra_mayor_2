@@ -11,6 +11,7 @@ border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["claws"]
 playable_by = "kaiju"
+pilot_types = ["all"]
 energy_cost = 0
 instant_effect = "debug_instant_effect"
 instant_targets = 0

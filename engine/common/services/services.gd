@@ -9,3 +9,6 @@ func get_card_service()->CardService:
 func register_service(service:Object)->void:
 	if service is CardService:
 		card_service = service
+
+func _process(delta:float)->void:
+	print("Processing. Card service is", card_service)
