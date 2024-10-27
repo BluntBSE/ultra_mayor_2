@@ -62,6 +62,7 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 	var k_button_list: Array = k_button_node.get_node("KaijuBox").get_children()
 	kaiju_buttons = k_button_list
 	var limbs:Array = _battle_object.kaiju.limbs
+	print("LIMBS ARE ", limbs)
 	for limb:Limb in limbs:
 		var matching_button:KaijuButton = kaiju_buttons[k_button_idx]
 		print("MATCHING BUTTON: ", matching_button)

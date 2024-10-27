@@ -89,4 +89,3 @@ func stateExit() -> void:
 	#TODO: Need to make the card not interactive when tweening back to original position.
 
 	#tween.tween_callback(_reference.back_in_place)
-

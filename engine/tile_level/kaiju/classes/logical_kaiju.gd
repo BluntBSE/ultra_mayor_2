@@ -10,6 +10,7 @@ var battling:Array = []
 var deck:Array = []
 var tier:int
 var types:Array
+var limb_names:Array
 var limbs:Array
 var health_factor:float
 var art_pack:ArtPack
@@ -29,7 +30,7 @@ func generate_limbs(limb_arr:Array)->void:
 	assign_limb_types(types, limbs)
 
 	for limb:Limb in limbs:
-		build_limb_decklist(limb, health_factor)
+		build_limb_decklist_2(limb, health_factor)
 
 
 
@@ -41,6 +42,7 @@ func assign_limb_tiers(kaiju_tier: int, _limbs: Array) -> void:
 
 	# Assign limbs either kaiju tier or one level lower
 	for i in range(num_tier_kaiju, num_limbs):
+		print(limbs[i].tier)
 		limbs[i].tier = kaiju_tier if randi() % 2 == 0 else kaiju_tier - 1
 
 	# Assign kaiju tier to at least two limbs
@@ -73,7 +75,9 @@ func build_limb_decklist(_limb:Limb,  factor:float)->void:
 	var deck_size:int = roundi(_limb.tier * factor) + 40
 	var valid_cards:Array = []
 	var decklist:Array = []
-	var decklist_path:String = "res://engine/card_game/decklists_kaiju/"
+	#TODO: Maybe the CardService should break these up...But does that actually help me?
+	#That is, instead of searching by path specifically.
+	var decklist_path:String = "res://engine/card_game/decklists/decklists_kaiju/"
 	var body_path:String = decklist_path + _limb.id
 	var file_path:String = body_path + "/" + _limb.id + "_tier_" + str(_limb.tier) + ".gd"
 	var file:Script = load(file_path)
@@ -86,6 +90,8 @@ func build_limb_decklist(_limb:Limb,  factor:float)->void:
 				valid_cards.append(card)
 				break
 
+
+
 	while decklist.size() < deck_size:
 		var idx:int = randi() % valid_cards.size()
 		decklist.append(valid_cards[idx])
@@ -96,7 +102,30 @@ func build_limb_decklist(_limb:Limb,  factor:float)->void:
 
 	decklist = CardHelpers.shuffle_array(decklist)
 	_limb.deck = decklist
-	print("DECKLIST FOR, ", _limb.id, decklist)
+
+func build_limb_decklist_2(_limb:Limb, factor:float)->void:
+	var deck_size:int = roundi(_limb.tier * factor) + 40
+	var valid_cards:Array = []
+	var decklist:Array = []
+	var services:Services = get_tree().root.find_child("Services", true, false)
+	var cs:CardService = services.card_service
+	print("CS IS", cs.cards)
+	for type:String in types:
+		for key:String in cs.cards.keys():
+			var resource:LogicalCard = cs.cards[key] as LogicalCard
+
+			if type in cs.cards[key].types and cs.cards[key].tier == _limb.tier:
+				valid_cards.append(cs.cards[key])
+
+	while decklist.size() < deck_size:
+		var idx:int = randi() % valid_cards.size()
+		decklist.append(valid_cards[idx])
+
+	decklist = CardHelpers.shuffle_array(decklist)
+	_limb.deck = decklist
+	for item:LogicalCard in decklist:
+		print(item.id)
+
 
 func draw_reachable_path()->void:
 	for coords:Dictionary in reachable_path:
@@ -289,6 +318,12 @@ func regenerate_kaiju()->void:
 	#Get new limb and deck assignments for the template.
 	pass
 
+func occupant_unpack()->void:
+	print("OCCUPANT UNPACK CALLED FROM KAIJU")
+	print("UNPACKING WITH", limb_names)
+	generate_limbs(limb_names)
+
+
 func _init(args:Dictionary)->void:
 	sprite = args.sprite
 	id = args.id
@@ -296,10 +331,11 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
+	limb_names = args.limbs
 	#deck = args.deck
 	speed_chart = args.speed_chart
 	health_factor = args.health_factor
 	tier = 1 #TODO: Replace tier with a function based on game length/difficulty
 	types = args.types
 	art_pack = args.art_pack
-	generate_limbs(args.limbs)
+	#generate_limbs(args.limbs)

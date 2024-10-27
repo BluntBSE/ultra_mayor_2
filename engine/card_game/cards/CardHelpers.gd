@@ -12,13 +12,7 @@ static func hover_inspect(_card:RenderedCard)->void:
 	#var final:Vector2
 	pass
 
-static func card_by_id(id:String, origin:String)->LogicalCard:
-	print("Pilotlib", PilotCardLib.test)
-	if origin == "pilot":
-		return PilotCardLib.lib[id]
-	if origin == "kaiju":
-		return PilotCardLib.lib[id]
-	return PilotCardLib.lib[id]
+
 
 static func shuffle_array(arr: Array) -> Array:
 	var shuffled_array:Array = arr.duplicate()
@@ -38,4 +32,13 @@ static func arrow_to_target_k(origin:KaijuCardStub, target:PilotButton)->void:
 	origin.add_child(arrow)
 	arrow.unpack(origin.global_position, target.global_position)
 
+	pass
+
+static func get_card_res(p_or_k:String, name:String = "default", tier:int = 0, limb:String = "none" )->void:
+	var p_decklists:String = "res://engine/card_game/decklists_pilot/"
+	var k_decklists:String = "res://engine/card_game/decklists_kaiju/"
+	if p_or_k == "kaiju":
+		pass
+	if p_or_k == "pilot":
+		pass
 	pass

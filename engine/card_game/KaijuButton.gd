@@ -25,7 +25,7 @@ func draw_card()->KaijuCardStub:
 		cards_left -= 1
 		update_count()
 		var card:KaijuCardStub = load("res://engine/card_game/cards/card_stub_prototype_1.tscn").instantiate()
-		remove_child(card)
+		#remove_child(card)
 		card.unpack(logical_card, self)
 		in_play.add_child(card)
 		card.global_position = self.global_position
@@ -40,9 +40,10 @@ func draw_card()->KaijuCardStub:
 
 	return null
 
-func draw_and_assign(target:PilotButton)->void:
+func draw_and_assign()->void:
+	print("CARD DRAWN, ASSIGNED")
 	var card:KaijuCardStub = draw_card()
-	CardHelpers.arrow_to_target_k(card, target)
+	#CardHelpers.arrow_to_target_k(card, target)
 
 	pass
 

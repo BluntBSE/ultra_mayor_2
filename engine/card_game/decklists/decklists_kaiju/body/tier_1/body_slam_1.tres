@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://cjhl0sv3s2xn"]
+
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_ejqya"]
+[ext_resource type="Texture2D" uid="uid://bsky1d31lgusp" path="res://engine/card_game/assets/kaiju_decks/AI_spike_rupture.jpg" id="1_om8xn"]
+
+[resource]
+script = ExtResource("1_ejqya")
+id = "body_slam_1"
+display_name = "Body Slam 1"
+art = ExtResource("1_om8xn")
+border = Color(0, 1, 0, 1)
+tier = 1
+limbs = ["body"]
+playable_by = "kaiju"
+pilot_types = ["all"]
+energy_cost = 0
+instant_effect = "debug_instant_effect"
+instant_targets = 0
+instant_value = 0
+instant_target_type = "none"
+resolve_effect = "debug_resolve_effect"
+resolve_targets = 1
+resolve_target_type = 0
+resolve_secondary_targets = 1
+resolve_secondary_ttype = "any"
+resolve_min = 1
+resolve_max = 3
+types = ["physical"]
+affinities = ["forest"]
+affinity_effects = ["half_price"]
+description = "Flamethrower Description"
+requirements = "\"\""

@@ -63,4 +63,3 @@ func stateUpdate(_delta: float) -> void:
 		pass
 
 	pass
-

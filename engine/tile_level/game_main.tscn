@@ -33,6 +33,8 @@ script = ExtResource("3_8fpju")
 
 [node name="arrows" type="Node2D" parent="Map"]
 
+[node name="LogicalTiles" type="Node" parent="Map"]
+
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="viewport_simulator" type="ColorRect" parent="UICanvas"]
