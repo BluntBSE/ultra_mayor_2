@@ -49,7 +49,7 @@ func unpack(_lc: LogicalCard, _played_from:KaijuButton) -> void:
 	played_from = _played_from
 	lc = _lc
 	art = find_child("ArtImg")
-	art.texture = load(lc.art)
+	art.texture = lc.art
 
 	cost_poly = find_child("EnergyCostPoly")
 	cost_poly.color = lc.border

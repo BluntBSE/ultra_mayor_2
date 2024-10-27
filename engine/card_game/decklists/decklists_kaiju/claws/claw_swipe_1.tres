@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="LogicalCard" load_steps=2 format=3 uid="uid://wc85n4k0iawh"]
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://wc85n4k0iawh"]
 
+[ext_resource type="Texture2D" uid="uid://bh45j72no0gf4" path="res://engine/card_game/assets/kaiju_decks/AI_kaiju_grapple.jpg" id="1_37qp7"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_ws2j6"]
 
 [resource]
 script = ExtResource("1_ws2j6")
 id = "claw_swipe_1"
 display_name = "Claw Swipe 1"
-art = "res://engine/card_game/assets/kaiju_decks/AI_kaiju_fire_breath.jpg"
+art = ExtResource("1_37qp7")
 border = Color(0, 1, 0, 1)
-tier = 0
+tier = 1
 limbs = ["claws"]
 playable_by = "kaiju"
 pilot_types = ["all"]

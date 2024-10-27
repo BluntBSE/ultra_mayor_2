@@ -29,7 +29,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand) -> void:
 	hand = _hand
 	lc = _lc
 	art = find_child("ArtImg")
-	art.texture = load(lc.art)
+	art.texture = lc.art
 
 	display_name = find_child("DisplayName")
 	display_name.text = lc.display_name

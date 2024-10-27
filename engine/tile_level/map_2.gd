@@ -131,6 +131,7 @@ func set_mode(mode: int) -> void:
 
 func add_pilot(id: String, lt: LogicalTile) -> void:
 	var pilot: LogicalPilot = PilotLib.lib[id]
+	lt.add_child(pilot)
 	lt.occupant = pilot
 	print("PREPARING TO UNPACK PILOT WITH ", lt.x, lt.y)
 	pilot.unpack(self, lt.x, lt.y, logical_grid, rendered_grid)

@@ -12,13 +12,7 @@ static func hover_inspect(_card:RenderedCard)->void:
 	#var final:Vector2
 	pass
 
-static func card_by_id(id:String, origin:String)->LogicalCard:
-	print("Pilotlib", PilotCardLib.test)
-	if origin == "pilot":
-		return PilotCardLib.lib[id]
-	if origin == "kaiju":
-		return PilotCardLib.lib[id]
-	return PilotCardLib.lib[id]
+
 
 static func shuffle_array(arr: Array) -> Array:
 	var shuffled_array:Array = arr.duplicate()

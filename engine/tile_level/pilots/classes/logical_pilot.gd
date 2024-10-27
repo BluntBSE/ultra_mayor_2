@@ -4,7 +4,9 @@ class_name LogicalPilot extends Occupant
 var reachable_path:Array = []
 #Deck, etc.
 var deck:Array = []
+var deck_strings:Array = []
 var power:int
+var services:Services
 signal pilot_path
 
 
@@ -19,11 +21,8 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
-	var default_strings:Array  = args.default_deck
-	var deck_arr:Array = []
-	for card_name:String in default_strings:
-		deck_arr.append(CardHelpers.card_by_id(card_name, "pilot"))
-	deck = deck_arr
+	deck_strings  = args.default_deck
+
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
 	x = _x
@@ -31,6 +30,16 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 	map = _map
 	logical_grid=_logical_grid
 	rendered_grid=_rendered_grid
+	print("IS OCCUPANT IN TREE? ", is_inside_tree())
+	services = get_tree().root.get_node("Main/Services")
+
+
+
+	var deck_arr:Array = []
+	var cs:CardService = services.get_card_service()
+	for card_name:String in deck_strings:
+		deck_arr.append(cs.cards[card_name])
+	deck = deck_arr
 
 func sync(_x:int,_y:int)->void:
 	#Assign self to LT at new XY

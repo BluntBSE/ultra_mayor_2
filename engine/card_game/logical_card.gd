@@ -3,7 +3,7 @@ extends Resource
 
 @export var id:String
 @export var display_name:String
-@export var art:String
+@export var art:Texture2D
 @export var border:Color
 @export var tier:int
 @export var limbs:Array = ["pilot"]
@@ -33,11 +33,11 @@ extends Resource
 
 @export var requirements:String
 
-func _init(args: Dictionary) -> void:
+func _init(args: Dictionary = {}) -> void:
 	print("HELLO FROM RESOURCE INSTANTIATION FROM PILOTLIB")
 	id = args.get("id", "DEFAULT_ID")
 	display_name = args.get("display_name", "DEFAULT DISPLAY")
-	art = args.get("art", "")#ADD DEFAULT DEBUG WARNING ART
+	art = args.get("art", null)#ADD DEFAULT DEBUG WARNING ART
 	border = args.get("border", Color.BISQUE) #Bisque is how you know its bad
 	energy_cost = args.get("energy_cost", 9)
 	instant_effect = args.get("instant_effect", "")

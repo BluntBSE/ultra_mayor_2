@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="LogicalCard" load_steps=2 format=3 uid="uid://blx8qpc7mkftf"]
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://blx8qpc7mkftf"]
 
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_eijvu"]
+[ext_resource type="Texture2D" uid="uid://bsky1d31lgusp" path="res://engine/card_game/assets/kaiju_decks/AI_spike_rupture.jpg" id="1_u3k6p"]
 
 [resource]
 script = ExtResource("1_eijvu")
 id = "regenerate_1"
 display_name = "Regenerate 1"
-art = "res://engine/card_game/assets/kaiju_decks/AI_kaiju_bite.jpg"
+art = ExtResource("1_u3k6p")
 border = Color(0, 1, 0, 1)
-tier = 0
+tier = 1
 limbs = ["body"]
 playable_by = "kaiju"
 pilot_types = ["all"]

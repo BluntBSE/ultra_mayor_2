@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="LogicalCard" load_steps=2 format=3 uid="uid://b0dlpbsgnitxv"]
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://b0dlpbsgnitxv"]
 
+[ext_resource type="Texture2D" uid="uid://dqqrimplpxwy6" path="res://engine/card_game/assets/kaiju_decks/AI_kaiju_tail.jpg" id="1_48uqp"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_vt3sg"]
 
 [resource]
 script = ExtResource("1_vt3sg")
 id = "tail_swipe_1"
 display_name = "Tail Swipe 1"
-art = "res://engine/card_game/assets/kaiju_decks/AI_kaiju_fire_breath.jpg"
+art = ExtResource("1_48uqp")
 border = Color(0, 1, 0, 1)
-tier = 0
+tier = 1
 limbs = ["tail"]
 playable_by = "kaiju"
 pilot_types = ["all"]

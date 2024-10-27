@@ -112,14 +112,19 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	print("CS IS", cs.cards)
 	for type:String in types:
 		for key:String in cs.cards.keys():
-			print("KEY WAS", key)
-			print(cs.cards[key])
 			var resource:LogicalCard = cs.cards[key] as LogicalCard
-			print(resource.id)
-			print(cs.cards[key].id)
-			print("CARD", cs.cards[key].types)
+
 			if type in cs.cards[key].types and cs.cards[key].tier == _limb.tier:
-				print("FOUND MATCHING CARD WITH", cs.cards[key].id)
+				valid_cards.append(cs.cards[key])
+
+	while decklist.size() < deck_size:
+		var idx:int = randi() % valid_cards.size()
+		decklist.append(valid_cards[idx])
+
+	decklist = CardHelpers.shuffle_array(decklist)
+	_limb.deck = decklist
+	for item:LogicalCard in decklist:
+		print(item.id)
 
 
 func draw_reachable_path()->void:

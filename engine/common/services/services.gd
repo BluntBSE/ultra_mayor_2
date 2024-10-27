@@ -11,4 +11,4 @@ func register_service(service:Object)->void:
 		card_service = service
 
 func _process(delta:float)->void:
-	print("Processing. Card service is", card_service)
+	pass

@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="LogicalCard" load_steps=2 format=3 uid="uid://bknq4t542r74d"]
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bknq4t542r74d"]
 
+[ext_resource type="Texture2D" uid="uid://b3v1mclsmyees" path="res://engine/card_game/assets/kaiju_decks/AI_kaiju_stomp.jpg" id="1_1fcxa"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_3br77"]
 
 [resource]
 script = ExtResource("1_3br77")
 id = "stomp_1"
 display_name = "Stomp 1"
-art = "res://engine/card_game/assets/kaiju_decks/AI_kaiju_fire_breath.jpg"
+art = ExtResource("1_1fcxa")
 border = Color(0, 1, 0, 1)
-tier = 0
+tier = 1
 limbs = ["legs"]
 playable_by = "kaiju"
 pilot_types = ["all"]

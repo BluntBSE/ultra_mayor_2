@@ -1,6 +1,7 @@
 class_name CardService
 
 var cards: Dictionary = {}
+#worth splitting into kaiju & player cards?
 
 
 func debug() -> void:

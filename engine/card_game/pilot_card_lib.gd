@@ -1,3 +1,5 @@
+"""
+
 class_name PilotCardLib
 
 static var test:bool = false
@@ -44,3 +46,4 @@ static var lib:Dictionary = {
 	"affinity_effects":["double_resolve_v"]
 	}),
 }
+"""

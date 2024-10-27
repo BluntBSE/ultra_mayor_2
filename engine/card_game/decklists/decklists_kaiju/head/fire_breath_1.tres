@@ -1,14 +1,15 @@
-[gd_resource type="Resource" script_class="LogicalCard" load_steps=2 format=3 uid="uid://bjbymiuvgov7d"]
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bjbymiuvgov7d"]
 
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_lwtbs"]
+[ext_resource type="Texture2D" uid="uid://2lu3w4exshy2" path="res://engine/card_game/assets/kaiju_decks/AI_kaiju_fire_breath.jpg" id="1_x0ghf"]
 
 [resource]
 script = ExtResource("1_lwtbs")
 id = "chomp_1"
 display_name = "Chomp 1"
-art = "res://engine/card_game/assets/kaiju_decks/AI_kaiju_fire_breath.jpg"
+art = ExtResource("1_x0ghf")
 border = Color(0, 1, 0, 1)
-tier = 0
+tier = 1
 limbs = ["head"]
 playable_by = "kaiju"
 pilot_types = ["all"]
