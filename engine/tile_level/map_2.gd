@@ -167,8 +167,6 @@ func pass_turn() -> void:
 				if tile.occupant.id in KaijuLib.lib:
 					kaijus.append(tile.occupant)
 
-
-	#
 	for _kaiju:LogicalKaiju in kaijus:
 		if _kaiju.battling.size() > 0:
 			var battle_object:BattleObject = BattleObject.new()
@@ -233,6 +231,7 @@ func pass_turn() -> void:
 
 	#Restore moves remaining
 	for _pilot: LogicalPilot in pilots:
+		print("Attempting to set move points from ", _pilot.moves_remaining, " to ", _pilot.move_points)
 		_pilot.moves_remaining = _pilot.move_points
 	for _kaiju: LogicalKaiju in kaijus:
 		_kaiju.moves_remaining = _kaiju.move_points

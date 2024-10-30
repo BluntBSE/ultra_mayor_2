@@ -2,6 +2,13 @@ REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
 BUG: Kaiju can path through the pilot rn?
+BUG: Can't select pilot's tile after a move?
+BUG: Pilot no longer gets its moves back?
+
+MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS?
+
+POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
+
 
 LogicalTiles currently parent themselves directly to the map. Is it worth putting them in a dummy node called LogicalTiles?
 We mostly access them through the variable on the map.
