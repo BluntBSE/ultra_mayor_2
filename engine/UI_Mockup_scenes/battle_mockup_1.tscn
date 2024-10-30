@@ -1,0 +1,453 @@
+[gd_scene load_steps=19 format=3 uid="uid://pv2ec775f16j"]
+
+[ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_3g4dm"]
+[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_tnil1"]
+[ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_gonyp"]
+[ext_resource type="Texture2D" uid="uid://ccw0yh23jc7eo" path="res://engine/UI_Mockup_scenes/mockup.png" id="4_ge50a"]
+[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_x1rss"]
+[ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="5_8l855"]
+[ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_p63yo"]
+[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="7_lkiss"]
+[ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="8_p4f6y"]
+[ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="9_vhot6"]
+[ext_resource type="Script" path="res://engine/tile_level/UI/BattleFilter.gd" id="10_xx554"]
+[ext_resource type="FontFile" uid="uid://dgwrlf53u1wv7" path="res://engine/common/fonts/fonstars-v3-font/Fonstars-4Bo0p.otf" id="11_2qlrh"]
+[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="12_82thb"]
+[ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/art_packs/zilla/AI_Zilla.jpg" id="13_waoxj"]
+[ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="14_1tivq"]
+[ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="15_n05ie"]
+[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="16_es8ql"]
+
+[sub_resource type="Theme" id="Theme_nfc0e"]
+
+[node name="GameMain" type="Node2D"]
+script = ExtResource("1_3g4dm")
+
+[node name="Map" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_tnil1")
+x_offset = 185
+
+[node name="test_arrow" type="Node2D" parent="Map"]
+visible = false
+script = ExtResource("3_gonyp")
+
+[node name="arrows" type="Node2D" parent="Map"]
+
+[node name="LogicalTiles" type="Node" parent="Map"]
+
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="viewport_simulator" type="TextureRect" parent="UICanvas"]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+texture = ExtResource("4_ge50a")
+
+[node name="OverworldBattleUI" type="Control" parent="UICanvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SideBar" type="ColorRect" parent="UICanvas/OverworldBattleUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1641.0
+offset_top = 66.0
+offset_right = 1921.0
+offset_bottom = 1081.0
+theme = SubResource("Theme_nfc0e")
+color = Color(0, 0, 0, 1)
+script = ExtResource("4_x1rss")
+
+[node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 41.0
+offset_top = 47.0
+offset_right = 1136.0
+offset_bottom = 1531.0
+scale = Vector2(0.188198, 0.188198)
+texture = ExtResource("5_8l855")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ColorRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantPort"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = 1164.0
+offset_right = 1110.0
+offset_bottom = 1499.0
+color = Color(0, 0, 0, 0.658824)
+
+[node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 43.0
+offset_top = 353.0
+offset_right = 1106.0
+offset_bottom = 1203.0
+scale = Vector2(0.188198, 0.188198)
+texture = ExtResource("6_p63yo")
+expand_mode = 1
+
+[node name="TerrainData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 38.0
+offset_top = 540.0
+offset_right = 256.0
+offset_bottom = 752.0
+
+[node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Building: Coal Plantx"
+fit_content = true
+
+[node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Terrain: Default"
+fit_content = true
+
+[node name="Population" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Population: 696,696"
+fit_content = true
+
+[node name="Development" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Development: X"
+fit_content = true
+
+[node name="Power" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Power: 9"
+fit_content = true
+
+[node name="Services" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Services: 9"
+fit_content = true
+
+[node name="Resilience" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Resilience: 9"
+fit_content = true
+
+[node name="Modifiers" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Modifiers: None"
+fit_content = true
+
+[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 42.0
+offset_top = 277.0
+offset_right = 260.0
+offset_bottom = 325.0
+
+[node name="OccupantName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Alicia June
+(Public Works)"
+fit_content = true
+
+[node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 876.0
+offset_right = 178.0
+offset_bottom = 907.0
+text = "END TURN"
+
+[node name="GoBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 831.0
+offset_right = 178.0
+offset_bottom = 862.0
+text = "GO"
+
+[node name="ResetBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 790.0
+offset_right = 178.0
+offset_bottom = 821.0
+text = "RESET"
+
+[node name="HeaderBar" type="ColorRect" parent="UICanvas/OverworldBattleUI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 66.0
+theme = SubResource("Theme_nfc0e")
+color = Color(0, 0, 0, 1)
+script = ExtResource("7_lkiss")
+
+[node name="debug_builder_button" type="Button" parent="UICanvas/OverworldBattleUI/HeaderBar"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 12.0
+offset_right = 157.0
+offset_bottom = 43.0
+text = "BUILDER MODE"
+
+[node name="debug_battle_mode" type="Button" parent="UICanvas/OverworldBattleUI/HeaderBar"]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 12.0
+offset_right = 324.0
+offset_bottom = 43.0
+text = "BATTLE MODE"
+
+[node name="mode_label" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/HeaderBar"]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 12.0
+offset_right = 964.0
+offset_bottom = 48.0
+text = "CURRENT MODE: BATTLE MODE"
+
+[node name="TextureButton" type="TextureButton" parent="UICanvas/OverworldBattleUI/HeaderBar"]
+layout_mode = 0
+offset_left = 1860.0
+offset_top = 5.0
+offset_right = 1916.0
+offset_bottom = 61.0
+texture_normal = ExtResource("8_p4f6y")
+
+[node name="ScreenFilters" type="Control" parent="UICanvas"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("9_vhot6")
+
+[node name="Battle" type="ColorRect" parent="UICanvas/ScreenFilters"]
+layout_mode = 0
+offset_right = 1919.0
+offset_bottom = 1081.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("10_xx554")
+
+[node name="Battle" type="RichTextLabel" parent="UICanvas/ScreenFilters/Battle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 586.0
+offset_top = 212.0
+offset_right = -564.0
+offset_bottom = -769.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("11_2qlrh")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]Battle ONE OF ONE[/center]"
+
+[node name="VS" type="RichTextLabel" parent="UICanvas/ScreenFilters/Battle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 832.0
+offset_top = 394.0
+offset_right = -837.0
+offset_bottom = -599.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("11_2qlrh")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]VS[/center]"
+
+[node name="KaijuPoly" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle"]
+clip_children = 1
+position = Vector2(1314, 599)
+polygon = PackedVector2Array(180, 0, 90, 155.885, -90, 155.885, -180, 2.20429e-14, -90, -155.885, 90, -155.885, 180, 0)
+script = ExtResource("12_82thb")
+sides = 6
+radius = 180.0
+
+[node name="KaijuSprite" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/KaijuPoly"]
+position = Vector2(14, 62)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_waoxj")
+
+[node name="AllPilots" type="Control" parent="UICanvas/ScreenFilters/Battle"]
+anchors_preset = 0
+offset_left = 519.0
+offset_top = 554.0
+offset_right = 559.0
+offset_bottom = 594.0
+
+[node name="PilotButton" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_top = -167.0
+offset_right = 150.0
+offset_bottom = -17.0
+
+[node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("12_82thb")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("14_1tivq")
+
+[node name="PilotButton2" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 120.0
+offset_top = -91.0
+offset_right = 270.0
+offset_bottom = 59.0
+
+[node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton2"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("12_82thb")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton2/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("14_1tivq")
+
+[node name="PilotButton3" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -6.0
+offset_top = -27.0
+offset_right = 144.0
+offset_bottom = 123.0
+
+[node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton3"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("12_82thb")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton3/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("14_1tivq")
+
+[node name="PilotButton4" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -6.0
+offset_top = 118.0
+offset_right = 144.0
+offset_bottom = 268.0
+
+[node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton4"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("12_82thb")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton4/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("14_1tivq")
+
+[node name="PilotButton5" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -127.0
+offset_top = 46.0
+offset_right = 23.0
+offset_bottom = 196.0
+
+[node name="Polygon2D" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton5"]
+clip_children = 1
+position = Vector2(75, 73)
+polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
+script = ExtResource("12_82thb")
+sides = 6
+radius = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton5/Polygon2D"]
+self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("14_1tivq")
+
+[node name="Button" type="Button" parent="UICanvas/ScreenFilters/Battle"]
+layout_mode = 0
+offset_left = 1273.0
+offset_top = 866.0
+offset_right = 1369.0
+offset_bottom = 897.0
+text = "Next Battle"
+
+[node name="BattleButton" type="Button" parent="UICanvas/ScreenFilters/Battle"]
+layout_mode = 0
+offset_left = 904.0
+offset_top = 646.0
+offset_right = 1000.0
+offset_bottom = 746.0
+theme_override_fonts/font = ExtResource("15_n05ie")
+theme_override_font_sizes/font_size = 80
+text = "GO"
+
+[node name="Button2" type="Button" parent="UICanvas/ScreenFilters/Battle"]
+layout_mode = 0
+offset_left = 538.0
+offset_top = 866.0
+offset_right = 664.0
+offset_bottom = 897.0
+text = "Previous Battle"
+
+[node name="MainCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(948, 540)
+zoom = Vector2(0.75, 0.75)
+script = ExtResource("16_es8ql")
+
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_builder_button" to="Map" method="set_mode" binds= [0]]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_battle_mode" to="Map" method="set_mode" binds= [1]]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
+[connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]
