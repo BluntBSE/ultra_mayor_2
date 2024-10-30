@@ -41,24 +41,6 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 		deck_arr.append(cs.cards[card_name])
 	deck = deck_arr
 
-func sync(_x:int,_y:int)->void:
-	#Assign self to LT at new XY
-	logical_grid[_x][_y].occupant = self
-	#Unset self from old xy
-	logical_grid[x][y].occupant = null
-
-	#Assign avatar to the appropriate parent in renderedGrid
-	var rp:RenderedPilot = rendered_grid[x][y].rendered_occupant
-	rendered_grid[_x][_y].rendered_occupant = rp
-	#Unset avatar from old xy
-	rendered_grid[x][y].rendered_occupant = null
-
-	#TODO: reparent node?
-	#Set own xy to new xy
-	x = _x
-	y = _y
-
-	clear_path()
 
 #Determine whether or not a rendered tile signal concerns this occupant.
 func process_rt_signal()->void:
@@ -90,6 +72,7 @@ func preview_highlight(path:Array)->void:
 
 func apply_kaiju_block(tile:LogicalTile)->void:
 	#Allow previewing of kaiju moves while player attempts to move
+	print("Applied kaiju block at ", tile.x, tile.y)
 	map.kaiju_blocks = []
 	map.kaiju_blocks.append(tile)
 
@@ -196,12 +179,13 @@ func p_move(_x:int, _y:int)->void:
 		#var lt_pilot:LogicalTile = logical_grid[self.x][self.y]
 		r_pilot.state_machine.Change("moving", {"path": self.reachable_path, "target": {"x": _x, "y": _y}, "origin": {"x":self.x, "y": self.y},"map":map})
 		logical_grid[self.x][self.y].occupant = null
-		logical_grid[x][y].occupant = self
+		logical_grid[_x][_y].occupant = self
 		#rendered_grid[self.x][self.y].apply_highlights()
 		rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
-		rendered_grid[x][y].rendered_occupant = r_pilot
+		rendered_grid[_x][_y].rendered_occupant = r_pilot
 		self.x = _x
 		self.y = _y
+		apply_kaiju_block(logical_grid[_x][_y])
 		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
 
 	clear_path()
