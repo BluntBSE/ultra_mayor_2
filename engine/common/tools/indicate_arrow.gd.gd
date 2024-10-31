@@ -1,7 +1,7 @@
 extends Node2D
 class_name IndicateArrow
-var starting_point: Vector2 = Vector2(10, 10)
-var ending_point: Vector2 = Vector2(100, -80)
+var starting_point: Vector2
+var ending_point: Vector2
 var color: Color
 var width: int
 
@@ -42,7 +42,7 @@ func _draw() -> void:
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
-	#unpack(Vector2(0.0,0.0),Vector2(4625.5,2202.0))
+	unpack(Vector2(0.0,0.0),Vector2(466.5,822))
 	pass
 	#update()  # Call update to trigger the _draw function
 

@@ -265,7 +265,6 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton3" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-visible = false
 layout_mode = 2
 script = ExtResource("6_5f7kb")
 
@@ -306,7 +305,6 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="PilotButton4" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
-visible = false
 layout_mode = 2
 script = ExtResource("6_5f7kb")
 
@@ -714,7 +712,9 @@ script = ExtResource("18_tuknu")
 position = Vector2(1718, 461)
 scale = Vector2(1.5, 1.5)
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="DebugIndicateArrow" type="Node2D" parent="."]
+visible = false
+z_index = 4000
 position = Vector2(979, 469)
 script = ExtResource("18_ujnq3")
 

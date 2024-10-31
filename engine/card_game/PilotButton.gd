@@ -10,7 +10,6 @@ var hand:CardHand
 var active:bool
 
 
-
 func count_string(left: int, starting: int) -> String:
 	return str(left) + "/" + str(starting)
 

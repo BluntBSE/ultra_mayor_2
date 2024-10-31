@@ -1,9 +1,7 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
-BUG: Kaiju can path through the pilot rn?
-BUG: Can't select pilot's tile after a move?
-BUG: Pilot no longer gets its moves back?
+BUG: Weird black spot under background of battle interface?
 
 MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS?
 

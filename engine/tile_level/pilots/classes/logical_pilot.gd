@@ -213,11 +213,7 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var k_rt:RenderedTile = kaiju.rendered_grid[kaiju.x][kaiju.y]
 	var GameMain:Node2D = pilot.map.get_parent()
 	arrow.z_index = 4000
-
-	print(arrow.get_parent())
 	pilot.map.get_node("arrows").add_child(arrow)#?
-
-	print(arrow.get_parent())
 	var start_point:Vector2 = MapHelpers.get_tile_midpoint_global(p_rt)
 
 	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)

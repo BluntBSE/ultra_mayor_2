@@ -38,33 +38,32 @@ func draw_card()->KaijuCardStub:
 		var destination:Vector2 = self.global_position + Vector2(0.0,200.0)
 		tween.parallel().tween_property(card, "global_position", destination, 0.25)
 		tween.parallel().tween_property(card, "scale", Vector2(1.0,1.0), 0.25)
+		await tween.finished
 		return card
 
 	return null
 
 func draw_and_assign()->void:
 	print("CARD DRAWN, ASSIGNED")
-	var card:KaijuCardStub = draw_card()
+	var card:KaijuCardStub = await draw_card() #Using await to make the arrow wait for drawing animation
 	card.played_by = self
+	var num_resolve_targets:int = card.lc.resolve_targets
+	print("NUM RESOLVE IS", num_resolve_targets)
 
 	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_node("HBoxContainer").get_children()
 	var valid_targets:Array = []
 	for target:PilotButton in pilot_targets:
 		if target.active == true:
 			valid_targets.append(target)
-	card.resolve_targets=valid_targets
+
+	for i in range(num_resolve_targets):
+		var rand_index:int = randi() % valid_targets.size()
+		print("rand_index is", rand_index)
+		var target:PilotButton = valid_targets[rand_index]
+		print("target should be", target)
+		card.resolve_targets.append(target)
+
 	card.show_resolve_targets()
-
-
-	#for target in valid_targets, choose one, assign
-	var rand_index:int = randi() % valid_targets.size()
-	var target:PilotButton = valid_targets[rand_index]
-	#assign_target(target)
-
-
-	#CardHelpers.arrow_to_target_k(card, target)
-
-	pass
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
