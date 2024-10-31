@@ -24,7 +24,7 @@ func do_turn(turn_state: int) -> void:
 
 func do_kaiju_turn() -> void:
 	var time: float = 0.25
-	for i in range(kaiju_buttons.size()):
+	for i in range(kaiju_buttons.size()-1):
 		var kaiju_button: KaijuButton = kaiju_buttons[i]
 		var interval: float = i * time
 		var timer: SceneTreeTimer = get_tree().create_timer(interval)

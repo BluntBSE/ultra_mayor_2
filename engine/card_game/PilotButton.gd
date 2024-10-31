@@ -1,4 +1,4 @@
-extends Control
+extends Control #Should this be node2D?
 class_name PilotButton
 
 var state_machine:StateMachine

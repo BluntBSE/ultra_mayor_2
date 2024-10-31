@@ -17,4 +17,5 @@ points = PackedVector2Array(125, 106)
 texture = ExtResource("2_hrevd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("3_g77g0")

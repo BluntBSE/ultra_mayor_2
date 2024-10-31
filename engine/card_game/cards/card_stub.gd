@@ -1,8 +1,11 @@
 extends Node2D
 class_name KaijuCardStub
 
+#Set by battle interface
+var played_by:KaijuButton
 
 
+##Card stats
 var lc: LogicalCard
 var art: Sprite2D
 var value_min:int
@@ -40,7 +43,7 @@ var affinity_effects:Array = []
 
 func show_resolve_targets()->void:
 	for target:PilotButton in resolve_targets:
-		CardHelpers.arrow_to_target_k(origin, target)
+		CardHelpers.arrow_to_target_k(self, target)
 	pass
 
 

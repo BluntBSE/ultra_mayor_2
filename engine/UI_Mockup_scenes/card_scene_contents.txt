@@ -1,0 +1,24 @@
+
+
+UI:
+	-Custom mouse cursor
+
+TOP BAR:
+	DISPLAYS GAME DATE (format: "Late Fall, 2024", "Early Summer, 2024")
+	OPTIONS/QUIT BUTTON
+
+
+SIDEBAR:
+	-Portrait of thing you're hovering over (Kaiju or Pilot)
+	FOR PILOTS (and MAYBE Kaiju?): Moves remaining e.g: 4/5
+	FOR KAIJU: "Targeting X,y" - something that indicates where the Kaiju's final path is, which can be clicked to go there.
+
+	Button to click for more info about the thing you're hovering over.
+
+	-Picture and information about the terrain you're hovering over
+
+
+POPUP:
+	-When you right click a kaiju while you have a pilot selected...
+	"BATTLE"
+	"SHOVE"

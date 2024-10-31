@@ -1,36 +1,23 @@
-[gd_scene load_steps=19 format=3 uid="uid://de7tfacmel8kc"]
+[gd_scene load_steps=10 format=3 uid="uid://de7tfacmel8kc"]
 
-[ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_7o5sm"]
-[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_luau5"]
-[ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_lovxj"]
-[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_jiohb"]
 [ext_resource type="Texture2D" uid="uid://ccw0yh23jc7eo" path="res://engine/UI_Mockup_scenes/mockup.png" id="4_tlmp0"]
 [ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="5_5d4wb"]
 [ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_l0ctt"]
-[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="7_015pc"]
 [ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="8_gd6ka"]
-[ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="9_gialn"]
-[ext_resource type="Script" path="res://engine/tile_level/UI/BattleFilter.gd" id="10_wvdgk"]
 [ext_resource type="FontFile" uid="uid://dgwrlf53u1wv7" path="res://engine/common/fonts/fonstars-v3-font/Fonstars-4Bo0p.otf" id="11_5nfwc"]
-[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="12_33yhp"]
 [ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/art_packs/zilla/AI_Zilla.jpg" id="13_entkx"]
 [ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="14_lx8q5"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="15_t2j5b"]
-[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="16_r012f"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
 [node name="GameMain" type="Node2D"]
-script = ExtResource("1_7o5sm")
 
 [node name="Map" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_luau5")
-x_offset = 185
 
 [node name="test_arrow" type="Node2D" parent="Map"]
 visible = false
-script = ExtResource("3_lovxj")
 
 [node name="arrows" type="Node2D" parent="Map"]
 
@@ -60,7 +47,6 @@ offset_right = 1921.0
 offset_bottom = 1081.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
-script = ExtResource("4_jiohb")
 
 [node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
@@ -204,7 +190,6 @@ offset_right = 1920.0
 offset_bottom = 66.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0, 0, 0, 1)
-script = ExtResource("7_015pc")
 
 [node name="debug_builder_button" type="Button" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 layout_mode = 0
@@ -244,14 +229,12 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("9_gialn")
 
 [node name="Battle" type="ColorRect" parent="UICanvas/ScreenFilters"]
 layout_mode = 0
 offset_right = 1919.0
 offset_bottom = 1081.0
 color = Color(0, 0, 0, 1)
-script = ExtResource("10_wvdgk")
 
 [node name="Battle" type="RichTextLabel" parent="UICanvas/ScreenFilters/Battle"]
 layout_mode = 1
@@ -289,9 +272,6 @@ text = "[center]VS[/center]"
 clip_children = 1
 position = Vector2(1314, 599)
 polygon = PackedVector2Array(180, 0, 90, 155.885, -90, 155.885, -180, 2.20429e-14, -90, -155.885, 90, -155.885, 180, 0)
-script = ExtResource("12_33yhp")
-sides = 6
-radius = 180.0
 
 [node name="KaijuSprite" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/KaijuPoly"]
 position = Vector2(14, 62)
@@ -317,9 +297,6 @@ offset_bottom = -17.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("12_33yhp")
-sides = 6
-radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
@@ -339,9 +316,6 @@ offset_bottom = 59.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("12_33yhp")
-sides = 6
-radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton2/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
@@ -361,9 +335,6 @@ offset_bottom = 123.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("12_33yhp")
-sides = 6
-radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton3/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
@@ -383,9 +354,6 @@ offset_bottom = 268.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("12_33yhp")
-sides = 6
-radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton4/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
@@ -405,9 +373,6 @@ offset_bottom = 196.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("12_33yhp")
-sides = 6
-radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton5/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
@@ -444,10 +409,7 @@ text = "Previous Battle"
 unique_name_in_owner = true
 position = Vector2(948, 540)
 zoom = Vector2(0.75, 0.75)
-script = ExtResource("16_r012f")
 
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
-[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_builder_button" to="Map" method="set_mode" binds= [0]]
-[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_battle_mode" to="Map" method="set_mode" binds= [1]]
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]

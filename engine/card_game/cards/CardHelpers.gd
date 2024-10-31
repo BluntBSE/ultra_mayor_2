@@ -1,5 +1,5 @@
-class_name CardHelpers
 
+class_name CardHelpers
 
 static func slide_to_point(node:Node, point:Vector2, duration:float)->void:
 	var tween:Tween = node.create_tween()
@@ -28,9 +28,7 @@ static func shuffle_array(arr: Array) -> Array:
 
 static func arrow_to_target_k(origin:KaijuCardStub, target:PilotButton)->void:
 	#TODO: Add color and/or texture as arguments
-	var arrow:TargetArrow = load("res://engine/common/ui_scenes/target_arrow.tscn").instantiate()
-	origin.add_child(arrow)
-	arrow.unpack(origin.global_position, target.global_position)
+	#Replace with a fancier curve arrow. For now...
 
 	pass
 
