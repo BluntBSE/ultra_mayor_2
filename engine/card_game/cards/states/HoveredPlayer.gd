@@ -21,6 +21,14 @@ func find_bottom(card:RenderedCard)->Vector2:
 
 	return Vector2(current_position.x, bottom_y)
 
+	"""
+	valid inputs:
+	l_click
+	r_click
+	hover
+	exit
+	"""
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,14 +37,8 @@ func _ready() -> void:
 	pass  # Replace with function body.
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		stateHandleInput({"event": "l_click"})
-
-
 func stateUpdate(_delta: float) -> void:
-	if is_left_mouse_released():
-		stateHandleInput({"event": "l_click"})
+	pass
 
 
 func stateEnter(_args: Dictionary) -> void:
@@ -59,28 +61,60 @@ func stateEnter(_args: Dictionary) -> void:
 
 
 func stateHandleInput(args: Dictionary) -> void:
+	print("State handle input firing with args:", args)
 
 	if args.event == "exit":
 		print("Received an exit event inside of Hover")
-	var tween:Tween = _reference.create_tween()
-	var t_args:Dictionary = {
-		"global_position": original_position,
-		"rotation": original_rotation,
-		"scale": original_scale,
-		"time": 0.10,
-		"z_index": original_z
-	}
-	_reference.do_transit(t_args)
+		var tween:Tween = _reference.create_tween()
+		var t_args:Dictionary = {
+			"global_position": original_position,
+			"rotation": original_rotation,
+			"scale": original_scale,
+			"time": 0.10,
+			"z_index": original_z
+		}
+		_reference.do_transit(t_args)
 
 	if args.event == "l_click":
-		_reference.draw_card() #TODO: Remove?
+		print("Hello from ", _reference.display_name.text)
+		#Change to assigning state.
+
+		"""
+		If the card has an instant effect that takes targets, do the below assigning process but for instant effects.
+
+		"""
+
+		"""
+		In assigning_resolve state, the hover_border turns red.
+		An arrow is cast from the top of the card to the player's mouse position
+		All left clicks that are not on a valid target are blocked
+		If the player hovers over a valid target while this card is in this state, the target's hover border
+		Turns red
+		TODO: Create a uniform convention for targets that get hovered over. E.g: all valid targets have it called "HoverBorder"
+		Do I need a signal system where the nodes we hover over emit enter/exit signals?
+		Maybe, may just be better to detect what's under the mouse if we can.
+		If the user left clicks while hovering over a valid target, -1 from the num of targets the _reference requires
+		Draw a line between the _reference and the above target
+
+		Restart the process
+
+		When the num of targets the _reference has left == 0,
+		this card creates a PilotCardStub childed to the PilotInPlay node with the arguments of its targets, etc. attached to it.
+		The PilotCardStub also carries its instant effects, and its removal re_triggers the queued instant effects.
+		The _reference card ceases to exist (animate it going into the PilotInPlay node though)
 
 
-func is_left_mouse_released() -> bool:
-	return Input.is_action_just_released("left_click")
 
-func is_right_mouse_released() -> bool:
-	return Input.is_action_just_released("right_click")
+		escape conditions: left clicking the _reference sends it back to the basic "hovered" state. Right_clicking anywhere does it too.
+
+
+		"""
+
+#func is_left_mouse_released() -> bool:
+	#return Input.is_action_just_released("left_click")
+
+#func is_right_mouse_released() -> bool:
+	#return Input.is_action_just_released("right_click")
 
 
 func stateExit() -> void:

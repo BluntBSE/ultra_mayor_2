@@ -21,8 +21,6 @@ var inspect_area: Node
 var inspection_copy: RenderedCard
 var is_inspection_copy: bool
 
-signal hand_hovered
-signal hand_exited
 
 
 func unpack(_lc: LogicalCard, _hand:CardHand) -> void:
@@ -57,12 +55,12 @@ func _ready() -> void:
 	state_machine.Add("interactive", InteractiveCard.new(self, {}))
 	state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
 	state_machine.Add("transit", TransitCardState.new(self,{}))
+	#state_machine.add("assigning_instant", AssigningInstantState.new(self,{}))
+	#state_machine.add("assigning_resolve", AssigningResolveState.new(self,{}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Change("interactive", {})
 	pass
 
-func do_input(_event:InputEvent)->void:
-	pass
 
 
 func do_transit(args:Dictionary)->void:
@@ -82,5 +80,13 @@ func _on_mouse_area_exited()->void:
 	state_machine.handleInput({"event":"exit"})
 	pass
 
-func back_in_place()->void:
-	hand_exited.emit()
+
+func _on_mouse_area_gui_input(event:InputEvent)->void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				print("Left button was clicked at ", event.position)
+				state_machine.handleInput({"event":"l_click"})
+			else:
+				print("Left button was released")
+	pass # Replace with function body.
