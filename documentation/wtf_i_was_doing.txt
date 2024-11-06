@@ -1,9 +1,18 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
-BUG: Weird black spot under background of battle interface?
+You play jiu jitsu
+You immediately select two kaiju cards to change the targets of
+You do, they redraw
+You then take jiu jitsu off the field
+....
+I guess a queue of instant effects  is useful to represent redoing them all as cards leave/enter.
+A modifier could be "redirected", and as part of the instant queue resolving, if "redirected" ever
+leaves the modifiers array, the kaiju cards can return to their original targets.
 
-MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS?
+
+
+MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?
 
 POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
 

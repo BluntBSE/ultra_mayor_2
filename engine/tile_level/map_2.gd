@@ -153,6 +153,8 @@ func add_test_elements() -> void:
 
 	tt_3.occupant = KaijuLib.lib["raiju"]
 	tt_3.occupant.unpack(self, tt_3.x, tt_3.y, logical_grid, rendered_grid)
+	tt_4.occupant= KaijuLib.lib["bird"]
+	tt_4.occupant.unpack(self, tt_4.x, tt_4.y, logical_grid, rendered_grid)
 
 
 func pass_turn() -> void:

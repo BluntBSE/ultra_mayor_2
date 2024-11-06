@@ -7,4 +7,3 @@ var kaiju:LogicalKaiju
 var pilots:Array = []
 var terrain:String = "" #Or enum?
 var modifiers:Array = []
-

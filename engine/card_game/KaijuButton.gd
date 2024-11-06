@@ -11,6 +11,8 @@ var cards_starting: int
 var in_play: Node2D
 var targets:Array = []
 var arrows:Array = []
+var active:bool = false
+var interface:BattleInterface
 
 
 func count_string(left: int, starting: int) -> String:
@@ -44,12 +46,10 @@ func draw_card()->KaijuCardStub:
 	return null
 
 func draw_and_assign()->void:
-	print("CARD DRAWN, ASSIGNED")
 	var card:KaijuCardStub = await draw_card() #Using await to make the arrow wait for drawing animation
 	card.played_by = self
 	var num_resolve_targets:int = card.lc.resolve_targets
-	print("NUM RESOLVE IS", num_resolve_targets)
-
+	var num_instant_targets:int = card.lc.instant_targets
 	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_node("HBoxContainer").get_children()
 	var valid_targets:Array = []
 	for target:PilotButton in pilot_targets:
@@ -58,26 +58,36 @@ func draw_and_assign()->void:
 
 	for i in range(num_resolve_targets):
 		var rand_index:int = randi() % valid_targets.size()
-		print("rand_index is", rand_index)
 		var target:PilotButton = valid_targets[rand_index]
-		print("target should be", target)
 		card.resolve_targets.append(target)
 
 	card.show_resolve_targets()
 
-func unpack(kaiju: LogicalKaiju, _limb:Limb) -> void:
+	#Play effects. Probably do this before resolve_targets()
+	if card.lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
+		for i in range(num_instant_targets):
+			var rand_index:int = randi() % valid_targets.size()
+			var target:PilotButton = valid_targets[rand_index]
+			card.instant_targets_pilot_buttons.append(target)
+			card.o_instant_targets_pilot_buttons.append(target)
+			print(card.lc.display_name, card.instant_targets_pilot_buttons)
+
+	card.queue_instant_effects()
+
+func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
 	sprite.texture = load(KaijuLib.lib[kaiju.id].art_pack[_limb.id]) #Update to limb.art
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	sprite.self_modulate = Color(1, 1, 1, 1)
 	limb = _limb
 	deck = limb.deck
+	active = true
 	#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
+	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
-	print("IN PLAY IS ", in_play)
 
 
 

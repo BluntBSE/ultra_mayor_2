@@ -62,11 +62,9 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 	var k_button_list: Array = k_button_node.get_node("KaijuBox").get_children()
 	kaiju_buttons = k_button_list
 	var limbs:Array = _battle_object.kaiju.limbs
-	print("LIMBS ARE ", limbs)
 	for limb:Limb in limbs:
 		var matching_button:KaijuButton = kaiju_buttons[k_button_idx]
-		print("MATCHING BUTTON: ", matching_button)
-		matching_button.unpack(_battle_object.kaiju, limb)
+		matching_button.unpack(_battle_object.kaiju, limb, self)
 		k_button_idx += 1
 	#Gray out unused limbs
 	for i: int in range(k_button_idx, 5):
@@ -89,6 +87,21 @@ func switch_turn(state:int)->void:
 		print("Switched to player turn")
 		active_turn = TURN_STATES.PLAYER
 		turn_signal.emit(TURN_STATES.PLAYER)
+
+
+
+func update_instant_effects()->void:
+	#TODO: Remove all existing modifiers
+
+	#Add any modifiers from terrain and pilots
+
+
+	#Apply all Kaiju effects
+
+	for card:KaijuCardStub in %KaijuInPlay.get_children():
+		card.queue_instant_effects()
+		pass
+	pass
 
 func _ready() -> void:
 	pass  # Replace with function body.

@@ -558,9 +558,11 @@ text = "25/25"
 metadata/_edit_use_anchors_ = true
 
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
 position = Vector2(368, 217)
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
 visible = false
 position = Vector2(387, 605)
 

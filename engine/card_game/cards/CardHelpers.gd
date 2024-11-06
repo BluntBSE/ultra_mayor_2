@@ -27,7 +27,6 @@ static func shuffle_array(arr: Array) -> Array:
 	return shuffled_array
 
 static func arrow_to_target_k(origin:KaijuCardStub, target:PilotButton)->void:
-	print("ARROW TO TARGET K CALLED")
 	#TODO: Add color and/or texture as arguments
 	#Replace with a fancier curve arrow. For now...
 	var arrow:IndicateArrow = IndicateArrow.new()
@@ -36,9 +35,7 @@ static func arrow_to_target_k(origin:KaijuCardStub, target:PilotButton)->void:
 	arrow.global_position=Vector2(0.0,0.0)
 
 	var origin_pos:Vector2 = origin.global_position
-	print("ORIGIN POS", origin_pos)
 	var target_pos:Vector2 = target.global_position
-	print("TARGET POS, ", target_pos)
 	arrow.unpack(origin_pos, target_pos)
 
 	pass

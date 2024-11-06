@@ -24,9 +24,22 @@ var state_machine: StateMachine = StateMachine.new()
 var played_from:KaijuButton
 
 #Card Stuff
-var instant_targets:Array = []
+var instant_targets_pilot_stubs:Array = []
+var instant_targets_kaiju_stubs:Array = []
+var instant_targets_kaiju_buttons:Array = []
+var Winstant_targets_pilot_buttons:Array = []
+
 var instant_value:int = 0
-var instant_target_type:String = "none"
+var instant_target_type:int= 4
+"""enum target_types {
+	P_STUBS,
+	P_BUTTONS,
+	K_STUBS,
+	K_BUTTONS,
+	NONE,
+	ALL_STUBS,
+	ALL_BUTTONS
+}"""
 var instant_effect:String = "debug_instant_effect"
 var resolve_secondary_targets:Array = []
 #var resolve_seconary_ttype --- Kaiju assign their targets pseudo at random, so this might not be necessary
@@ -39,11 +52,39 @@ var types:Array = []
 var affinities:Array = []
 var affinity_effects:Array = []
 
+#For funky data
+#Card Stuff
+var o_instant_targets_pilot_stubs:Array = []
+var o_instant_targets_kaiju_stubs:Array = []
+var o_instant_targets_kaiju_buttons:Array = []
+var o_instant_targets_pilot_buttons:Array = []
+var modifiers:Array = []
 
+var effects:CardEffects
 
 func show_resolve_targets()->void:
 	for target:PilotButton in resolve_targets:
 		CardHelpers.arrow_to_target_k(self, target)
+	pass
+
+func queue_instant_effects()->void:
+	print("QUEUE INSTANT EFFECTS CALLED")
+	if lc.instant_target_type == LogicalCard.target_types.P_STUBS:
+		print("HELLO FROM PSTUB TARGET")
+		effects.call(instant_effect, instant_targets_pilot_stubs)
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.K_STUBS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.K_BUTTONS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.ALL_STUBS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.ALL_BUTTONS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.NONE:
+		pass
 	pass
 
 
@@ -62,6 +103,9 @@ func unpack(_lc: LogicalCard, _played_from:KaijuButton) -> void:
 
 	value_label = find_child("ValueLabel")
 	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
+
+
+	effects = CardEffects.new()
 
 	pass
 
