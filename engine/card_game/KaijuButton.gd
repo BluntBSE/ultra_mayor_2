@@ -63,7 +63,7 @@ func draw_and_assign()->void:
 
 	card.show_resolve_targets()
 
-	#Play effects. Probably do this before resolve_targets()
+	#Play instant effects. Probably do this before resolve_targets()
 	if card.lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
 		for i in range(num_instant_targets):
 			var rand_index:int = randi() % valid_targets.size()

@@ -27,7 +27,7 @@ var played_from:KaijuButton
 var instant_targets_pilot_stubs:Array = []
 var instant_targets_kaiju_stubs:Array = []
 var instant_targets_kaiju_buttons:Array = []
-var Winstant_targets_pilot_buttons:Array = []
+var instant_targets_pilot_buttons:Array = []
 
 var instant_value:int = 0
 var instant_target_type:int= 4
