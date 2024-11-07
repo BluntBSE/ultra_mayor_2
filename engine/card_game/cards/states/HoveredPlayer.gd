@@ -33,9 +33,7 @@ func find_bottom(card:RenderedCard)->Vector2:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_process_input(true)
-	pass  # Replace with function body.
-
+	set_process_input(true) #????
 
 func stateUpdate(_delta: float) -> void:
 	pass
@@ -78,6 +76,8 @@ func stateHandleInput(args: Dictionary) -> void:
 	if args.event == "l_click":
 		print("Hello from ", _reference.display_name.text)
 		#Change to assigning state.
+		_reference.state_machine.Change("assigning_resolve", {})
+
 
 		"""
 		If the card has an instant effect that takes targets, do the below assigning process but for instant effects.

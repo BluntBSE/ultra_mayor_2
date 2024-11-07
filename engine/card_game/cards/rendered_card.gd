@@ -9,6 +9,7 @@ var lc: LogicalCard
 var art: Sprite2D
 var display_name: RichTextLabel
 var border: ColorRect
+var hover_border: ColorRect
 
 var cost_label_poly: Polygon2D
 var value_label: RichTextLabel
@@ -35,6 +36,8 @@ func unpack(_lc: LogicalCard, _hand:CardHand) -> void:
 	border = find_child("LabelRect")
 	border.color = lc.border
 
+	hover_border = find_child("HoverBorder")
+
 	cost_label_poly = find_child("CostLabelPoly")
 	cost_label_poly.color = lc.border
 
@@ -56,7 +59,7 @@ func _ready() -> void:
 	state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
 	state_machine.Add("transit", TransitCardState.new(self,{}))
 	#state_machine.add("assigning_instant", AssigningInstantState.new(self,{}))
-	#state_machine.add("assigning_resolve", AssigningResolveState.new(self,{}))
+	state_machine.Add("assigning_resolve", PlayerAssignResolve.new(self,{}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Change("interactive", {})
 	pass
