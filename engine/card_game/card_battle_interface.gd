@@ -78,6 +78,7 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 	pass
 
 func handle_pcard_sig(state:String)->void:
+
 	print("state is", state)
 	"""
 		state_machine.Add("interactive", InteractiveCard.new(self, {}))

@@ -58,6 +58,7 @@ func unpack(pilot: LogicalPilot, _interface:BattleInterface) -> void:
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
 	active = true
+	interface.turn_signal.connect(switch_interactivity)
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
 	if turn_signal == interface.TURN_STATES.PLAYER:

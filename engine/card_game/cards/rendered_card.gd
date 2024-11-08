@@ -23,6 +23,7 @@ var inspection_copy: RenderedCard
 var is_inspection_copy: bool
 
 var interface:BattleInterface
+var interactivity_mode:String = "interactive"
 
 
 signal turn_signal
@@ -55,7 +56,9 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface) -> voi
 	mouse_area = get_node("MouseArea")
 
 	interface = _interface
+	print("interface is", interface)
 	connect("turn_signal", interface.handle_pcard_sig)
+	interface.connect("turn_signal", set_interactivity_mode)
 
 
 
@@ -82,7 +85,8 @@ func do_interactive()->void:
 
 func _on_mouse_area_mouse_entered()->void:
 	print("HOVERED! My state is", state_machine.getCurrent())
-	state_machine.handleInput({"event":"hover"})
+	if interactivity_mode == "interactive": #TODO: Should this be moved to specific states?s
+		state_machine.handleInput({"event":"hover"})
 	pass # Replace with function body.
 
 func _on_mouse_area_exited()->void:
@@ -99,3 +103,7 @@ func _on_mouse_area_gui_input(event:InputEvent)->void:
 			else:
 				print("Left button was released")
 	pass # Replace with function body.
+
+
+func set_interactivity_mode(turn_state:int)->void:
+	pass

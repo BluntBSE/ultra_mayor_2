@@ -19,9 +19,10 @@ func Change(state_id:String, args:Dictionary) -> void:
 	_prev_id = _current_state_id
 	_current.stateExit()
 	var next:GenericState = _stateDict[state_id]
+	_current_state_id = state_id
 	next.stateEnter(args)
 	_current = next
-	_current_state_id = state_id
+	#_current_state_id = state_id -- We moved this earlier to make it possible to emit the state we're about to enter
 func Revert()->void:
 	#TODO: Currently broken
 	var temp_id:String = _current_state_id
