@@ -433,6 +433,13 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="KaijuButton1" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
 script = ExtResource("9_jo1m0")
@@ -472,6 +479,13 @@ offset_right = 100.0
 offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="KaijuButton2" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
@@ -513,6 +527,13 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="KaijuButton3" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
 script = ExtResource("9_jo1m0")
@@ -553,6 +574,13 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="KaijuButton4" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
 script = ExtResource("9_jo1m0")
@@ -592,6 +620,13 @@ offset_right = 100.0
 offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
@@ -766,4 +801,14 @@ script = ExtResource("18_ujnq3")
 [connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton3" method="on_exit"]
 [connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_hover"]
 [connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton0" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton0" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton1" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton1" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton2" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton2" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton3" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton3" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_exit"]
 [connection signal="button_up" from="Button" to="Button" method="quit"]
