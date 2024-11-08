@@ -22,6 +22,7 @@ func stateUpdate(_delta: float) -> void:
 
 
 func stateEnter(args: Dictionary) -> void:
+	_reference.turn_signal.emit()
 	pass
 
 

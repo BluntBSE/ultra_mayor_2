@@ -40,6 +40,7 @@ func stateUpdate(_delta: float) -> void:
 
 
 func stateEnter(_args: Dictionary) -> void:
+	_reference.turn_signal.emit()
 	print("Entered hovered state")
 	original_position = _reference.global_position
 	original_rotation = _reference.rotation

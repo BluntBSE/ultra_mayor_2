@@ -13,6 +13,8 @@ var targets:Array = []
 var arrows:Array = []
 var active:bool = false
 var interface:BattleInterface
+var interaction_mode:String = "interactive"
+#interactive, assignable, not_interactive
 
 
 func count_string(left: int, starting: int) -> String:
@@ -88,6 +90,7 @@ func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void
 	card_count.text = count_string(cards_starting, cards_left)
 	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
+	interface.turn_signal.connect(switch_interactivity)
 
 
 
@@ -98,6 +101,14 @@ func _ready()->void:
 	state_machine.Change("normal", {})
 	pass
 
+
+func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
+	if turn_signal == interface.TURN_STATES.PLAYER:
+		interaction_mode = "interactive"
+	else:
+		interaction_mode = "not_interactive"
+
+	pass
 
 func on_hover()->void:
 	state_machine._current.stateHandleInput({"event": "hover"})

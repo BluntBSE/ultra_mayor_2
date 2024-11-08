@@ -30,7 +30,7 @@ This state might primarily be used to update the state machines of child nodes. 
 """
 
 # Called when the node enters the scene tree for the first time.
-enum TURN_STATES { PAUSE, PLAYER, ASSIGNING, KAIJU, RESOLVING }
+enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
 signal turn_signal
 
 
@@ -48,7 +48,7 @@ func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 		var matching_button: PilotButton = p_button_list[pilot_idx]
 		#Make the matching_button enter an "active/interactable" state
 
-		matching_button.unpack(pilot)
+		matching_button.unpack(pilot, self)
 		pilot_idx += 1
 	for i: int in range(pilot_idx, 5):  #b is inclusive, n is exclusive
 		var btn: Control = p_button_list[i]
@@ -77,16 +77,24 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 
 	pass
 
-func switch_turn(state:int)->void:
-	if state == TURN_STATES.KAIJU:
-		print("Switched to Kaiju turn")
-		active_turn = TURN_STATES.KAIJU
-		turn_signal.emit(TURN_STATES.KAIJU)
-
-	if state == TURN_STATES.PLAYER:
-		print("Switched to player turn")
-		active_turn = TURN_STATES.PLAYER
-		turn_signal.emit(TURN_STATES.PLAYER)
+func handle_pcard_sig(state:String)->void:
+	print("state is", state)
+	"""
+		state_machine.Add("interactive", InteractiveCard.new(self, {}))
+		state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
+		state_machine.Add("transit", TransitCardState.new(self,{}))
+		#state_machine.add("assigning_instant", AssigningInstantState.new(self,{}))
+		state_machine.Add("assigning_resolve", PlayerAssignResolve.new(self,{}))
+		#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
+		state_machine.Change("interactive", {})
+	"""
+	if state == "interactive":
+		active_turn == TURN_STATES.PLAYER
+	if state == "assigning_instant":
+		active_turn == TURN_STATES.ASSIGNING_INSTANT
+	if state == "assigning_resolve":
+		active_turn == TURN_STATES.ASSIGNING_RESOLVE
+	turn_signal.emit(active_turn)
 
 
 
@@ -110,6 +118,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
 
 
 

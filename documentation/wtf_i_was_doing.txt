@@ -10,6 +10,9 @@ I guess a queue of instant effects  is useful to represent redoing them all as c
 A modifier could be "redirected", and as part of the instant queue resolving, if "redirected" ever
 leaves the modifiers array, the kaiju cards can return to their original targets.
 
+MENUS ETC:
+	-
+
 
 
 MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?

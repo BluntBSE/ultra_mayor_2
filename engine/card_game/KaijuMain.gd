@@ -9,7 +9,7 @@ func _ready() -> void:
 	kaiju_buttons = %KaijuBox.get_children()
 	parent = get_parent()
 	parent.connect("turn_signal", do_turn)
-	connect("finished", parent.switch_turn)
+	connect("finished", parent.handle_pcard_sig)
 	pass  # Replace with function body.
 
 

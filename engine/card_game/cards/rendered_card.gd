@@ -22,9 +22,14 @@ var inspect_area: Node
 var inspection_copy: RenderedCard
 var is_inspection_copy: bool
 
+var interface:BattleInterface
 
 
-func unpack(_lc: LogicalCard, _hand:CardHand) -> void:
+signal turn_signal
+
+
+
+func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface) -> void:
 	hand = _hand
 	lc = _lc
 	art = find_child("ArtImg")
@@ -49,7 +54,8 @@ func unpack(_lc: LogicalCard, _hand:CardHand) -> void:
 
 	mouse_area = get_node("MouseArea")
 
-	pass
+	interface = _interface
+	connect("turn_signal", interface.handle_pcard_sig)
 
 
 

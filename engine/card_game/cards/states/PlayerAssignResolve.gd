@@ -27,10 +27,19 @@ escape conditions: left clicking the _reference sends it back to the basic "hove
 
 The signal system:
 
+OPTIONS: Pause all nodes upon receiving a signal
+Interception screenspace node
+
+Emit signal to Battle Interface telling it what state to be in
+
+Battle interface emits signal to all child nodes telling them they are legal or not based on their state
+
+If a node is legal, its hover things work...
 
 """
 
 func stateEnter(args:Dictionary)->void:
+	_reference.turn_signal.emit()
 	print("Hello from assigning resolve!")
 	var hover_border:ColorRect = _reference.hover_border
 	hover_border.visible = true
