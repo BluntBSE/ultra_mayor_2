@@ -39,9 +39,8 @@ If a node is legal, its hover things work...
 """
 
 func stateEnter(args:Dictionary)->void:
-	print("What is this?", _reference.state_machine._current_state_id)
+	print("Rendered card is about to emit", _reference.state_machine._current_state_id)
 	_reference.turn_signal.emit(_reference.state_machine._current_state_id)
-	print("Hello from assigning resolve!")
 	var hover_border:ColorRect = _reference.hover_border
 	hover_border.visible = true
 	hover_border.color = Color(Color.RED)

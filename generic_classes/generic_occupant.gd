@@ -15,7 +15,6 @@ var logical_grid:Array
 var rendered_grid:Array
 
 func occupant_unpack()->void:
-	print("Highest level occupant unpack called")
 	pass
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:

@@ -70,7 +70,6 @@ func show_resolve_targets()->void:
 func queue_instant_effects()->void:
 	print("QUEUE INSTANT EFFECTS CALLED")
 	if lc.instant_target_type == LogicalCard.target_types.P_STUBS:
-		print("HELLO FROM PSTUB TARGET")
 		effects.call(instant_effect, instant_targets_pilot_stubs)
 		pass
 	if lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:

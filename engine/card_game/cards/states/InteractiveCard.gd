@@ -16,7 +16,6 @@ func _input(event: InputEvent) -> void:
 
 
 func stateUpdate(_delta: float) -> void:
-	#print("BEEP")
 	if is_left_mouse_released():
 		stateHandleInput({"event": "l_click"})
 

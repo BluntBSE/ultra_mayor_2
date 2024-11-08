@@ -75,7 +75,6 @@ func stateHandleInput(args: Dictionary) -> void:
 		_reference.do_transit(t_args)
 
 	if args.event == "l_click":
-		print("Hello from ", _reference.display_name.text)
 		#Change to assigning state.
 		_reference.state_machine.Change("assigning_resolve", {})
 

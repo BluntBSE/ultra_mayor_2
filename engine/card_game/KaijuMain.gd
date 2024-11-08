@@ -9,17 +9,16 @@ func _ready() -> void:
 	kaiju_buttons = %KaijuBox.get_children()
 	parent = get_parent()
 	parent.connect("turn_signal", do_turn)
-	connect("finished", parent.handle_pcard_sig)
-	pass  # Replace with function body.
+	connect("finished", parent.handle_kaiju_turn_finished)
 
 
 func do_turn(turn_state: int) -> void:
+	print("DO TURN RECEIVED ARG: ", parent.TURN_STATES.keys()[turn_state])
 	#Turn states are in
 	#BattleInterface.TURN_STATES
 	if turn_state == BattleInterface.TURN_STATES.KAIJU:
 		print("Doing kaiju turn!")
 		do_kaiju_turn()
-	pass
 
 
 func do_kaiju_turn() -> void:
@@ -39,7 +38,7 @@ func do_kaiju_turn() -> void:
 
 	var timer: SceneTreeTimer = get_tree().create_timer(kaiju_buttons.size() * time)
 	await timer.timeout
-	finished.emit(parent.TURN_STATES.PLAYER)
+	finished.emit()
 
 	pass
 

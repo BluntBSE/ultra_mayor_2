@@ -34,7 +34,9 @@ enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_INSTANT, KAIJU, R
 signal turn_signal
 
 
-
+func log_turn_signal(sig:int)->void:
+	print("Battle interface just switched turn to")
+	print(TURN_STATES.keys()[sig])
 
 func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 	pilots = _battle_object.pilots
@@ -48,7 +50,7 @@ func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 		var matching_button: PilotButton = p_button_list[pilot_idx]
 		#Make the matching_button enter an "active/interactable" state
 
-		matching_button.unpack(pilot, self)
+		matching_button.unpack(pilot)
 		pilot_idx += 1
 	for i: int in range(pilot_idx, 5):  #b is inclusive, n is exclusive
 		var btn: Control = p_button_list[i]
@@ -76,10 +78,14 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 
 
 	pass
+	
+func handle_kaiju_turn_finished()->void:
+	active_turn = TURN_STATES.PLAYER
+	turn_signal.emit(active_turn)
 
 func handle_pcard_sig(state:String)->void:
 
-	print("state is", state)
+	
 	"""
 		state_machine.Add("interactive", InteractiveCard.new(self, {}))
 		state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
@@ -90,11 +96,11 @@ func handle_pcard_sig(state:String)->void:
 		state_machine.Change("interactive", {})
 	"""
 	if state == "interactive":
-		active_turn == TURN_STATES.PLAYER
+		active_turn = TURN_STATES.PLAYER
 	if state == "assigning_instant":
-		active_turn == TURN_STATES.ASSIGNING_INSTANT
+		active_turn = TURN_STATES.ASSIGNING_INSTANT
 	if state == "assigning_resolve":
-		active_turn == TURN_STATES.ASSIGNING_RESOLVE
+		active_turn = TURN_STATES.ASSIGNING_RESOLVE
 	turn_signal.emit(active_turn)
 
 
@@ -113,6 +119,7 @@ func update_instant_effects()->void:
 	pass
 
 func _ready() -> void:
+	connect("turn_signal", log_turn_signal)
 	pass  # Replace with function body.
 
 

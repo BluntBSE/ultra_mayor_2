@@ -44,29 +44,29 @@ func draw_card()->void:
 
 	pass
 
-func unpack(pilot: LogicalPilot, _interface:BattleInterface) -> void:
+func unpack(pilot: LogicalPilot) -> void:
 	#TODO: Consider moving sprite assignment to the button's unpack.
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
 	sprite.texture = load(PilotLib.lib[pilot.id].portrait)
 	sprite.self_modulate = Color(1, 1, 1, 1)
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	hand = get_tree().root.find_child("Hand", true, false)
-	interface = _interface
 	deck = pilot.deck
 	deck = CardHelpers.shuffle_array(deck)
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
 	active = true
-	interface.turn_signal.connect(switch_interactivity)
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
+	#Should this be a state machine? I've opted against one since this only disables one aspect.
+	#And other states might sit on top
 	if turn_signal == interface.TURN_STATES.PLAYER:
 		interaction_mode = "interactive"
+		print("PButton switched to interactive mode")
 	else:
+		print("Pbutton switched to not_interactive")
 		interaction_mode = "not_interactive"
-
-	pass
 
 
 func _ready()->void:
@@ -74,11 +74,16 @@ func _ready()->void:
 	state_machine.Add("hover", CardButtonHover.new(self, {}))
 	state_machine.Add("normal", CardButtonNormal.new(self, {}))
 	state_machine.Change("normal", {})
+	
+	interface = get_tree().root.find_child("BattleInterface", true, false)
+	interface.turn_signal.connect(switch_interactivity)
+
 	pass
 
 
 func on_hover()->void:
 	if interaction_mode == "interactive":
+		print("You hovered over pbutton that thinks it's interactive")
 		get_viewport().set_input_as_handled() #TODO: Is this really the way?
 		state_machine._current.stateHandleInput({"event": "hover"})
 
