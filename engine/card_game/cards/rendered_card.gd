@@ -32,11 +32,14 @@ signal turn_signal
 signal target_signal
 signal clicked_stub
 signal clicked_button
+signal was_played
+signal was_removed
 
 
 
 func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:PilotButton) -> void:
 	hand = _hand
+	connect("was_removed", hand.handle_removed)
 	lc = _lc
 	art = find_child("ArtImg")
 	art.texture = lc.art
@@ -69,6 +72,9 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	interface.connect("turn_signal", set_interactivity_mode)
 	interface.connect("clicked_button", do_clicked_button)
 
+	var player_in_play:PlayerInPlay = get_tree().root.find_child("PlayerInPlay", true, false)
+	connect("was_played", player_in_play.handle_played)
+
 
 
 
@@ -83,6 +89,11 @@ func _ready() -> void:
 	pass
 
 
+func do_on_played()->void:
+	#Whenever a card is played, it should emit that the turn is back to the player state.
+	turn_signal.emit("interactive") #Why are we using strings here and not the enum? I recall there being a reason...
+	was_removed.emit(self)
+	queue_free()
 
 func do_transit(args:Dictionary)->void:
 	state_machine.Change("transit", args)

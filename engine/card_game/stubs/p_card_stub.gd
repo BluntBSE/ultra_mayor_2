@@ -59,6 +59,9 @@ var modifiers:Array = []
 
 var effects:CardEffects
 
+#Card state etc.
+var interaction_mode:String = "interactive"
+
 func show_resolve_targets()->void:
 	for target:PilotButton in resolve_targets:
 		CardHelpers.arrow_to_target_k(self, target)
@@ -110,6 +113,8 @@ func unpack(_lc: LogicalCard, _played_from:Control) -> void:
 
 
 func _ready() -> void:
+	state_machine.Add("in_play", PStubInPlayState.new(self,{}))
+	state_machine.Add("in_transit", TransitNodeState.new(self,{}))
 	#state_machine.Add("interactive", InteractiveCard.new(self, {}))
 	#state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
@@ -119,9 +124,20 @@ func _ready() -> void:
 func do_input(_event:InputEvent)->void:
 	pass
 
+func do_transit(args:Dictionary)->void:
+	state_machine.Change("in_transit", args)
+
+
+func do_clicked_button(button:Control)->void:
+	print("Clicked button fired!")
+	state_machine.handleInput({"event":button})
+	pass
+
 
 func _on_mouse_area_mouse_entered()->void:
-	state_machine.handleInput({"event":"hover"})
+	print("HOVERED! My state is", state_machine.getCurrent())
+	if interaction_mode == "interactive":
+		state_machine.handleInput({"event":"hover"})
 	pass # Replace with function body.
 
 func _on_mouse_area_exited()->void:

@@ -31,7 +31,7 @@ func draw_card()->KaijuCardStub:
 	if cards_left > 0:
 		cards_left -= 1
 		update_count()
-		var card:KaijuCardStub = load("res://engine/card_game/cards/k_card_stub_prototype_1.tscn").instantiate()
+		var card:KaijuCardStub = load("res://engine/card_game/stubs/k_card_stub_prototype_1.tscn").instantiate()
 		#remove_child(card)
 		card.unpack(logical_card, self)
 		in_play.add_child(card)

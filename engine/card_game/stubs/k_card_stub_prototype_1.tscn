@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://4042qebjvnsi"]
 
-[ext_resource type="Script" path="res://engine/card_game/cards/k_card_stub.gd" id="1_g8gyn"]
+[ext_resource type="Script" path="res://engine/card_game/stubs/k_card_stub.gd" id="1_g8gyn"]
 [ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="2_qhbb2"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_kcoxw"]
 

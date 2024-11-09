@@ -1,7 +1,6 @@
 extends GenericState
 class_name PlayerAssignResolve
 
-
 """
 In assigning_resolve state, the hover_border turns red.
 An arrow is cast from the top of the card to the player's mouse position
@@ -38,24 +37,24 @@ Battle interface emits signal to all child nodes telling them they are legal or 
 If a node is legal, its hover things work...
 
 """
-var num_resolve:int = 0
-var num_resolve_secondary:int = 0
-var num_instant:int = 0
-var resolve_targets:Array = []
-var resolve_targets_secondary:Array = []
-var instant_targets:Array = []
+var num_resolve: int = 0
+var num_resolve_secondary: int = 0
+var num_instant: int = 0
+var resolve_targets: Array = []
+var resolve_targets_secondary: Array = []
+var instant_targets: Array = []
 
 
-func stateEnter(args:Dictionary)->void:
+func stateEnter(args: Dictionary) -> void:
 	print("Rendered card is about to emit", _reference.state_machine._current_state_id)
-	var ref_lc:LogicalCard = _reference.lc
+	var ref_lc: LogicalCard = _reference.lc
 	print("I believe the reference card is", ref_lc.display_name)
 	print("I believe the number of resolve targets is", ref_lc.resolve_targets)
 	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
-	var targeting_type:int = ref_lc.resolve_target_type
+	var targeting_type: int = ref_lc.resolve_target_type
 	_reference.target_signal.emit(targeting_type)
 	_reference.turn_signal.emit(_reference.state_machine._current_state_id)
-	var hover_border:ColorRect = _reference.hover_border
+	var hover_border: ColorRect = _reference.hover_border
 	hover_border.visible = true
 	hover_border.color = Color(Color.RED)
 
@@ -65,11 +64,12 @@ func stateEnter(args:Dictionary)->void:
 
 	pass
 
-func stateHandleInput(args:Dictionary)->void:
+
+func stateHandleInput(args: Dictionary) -> void:
 	#Receives a button or stub as part of {"event": stub}
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
-	if args.event is Control: #Buttons are controls, stubs are Node2D
+	if args.event is Control:  #Buttons are controls, stubs are Node2D
 		print("RECEIVED A CONTROL, MOTHERFUCKER")
 		print(args.event)
 		print("Num resolve is", num_resolve)
@@ -78,7 +78,7 @@ func stateHandleInput(args:Dictionary)->void:
 		# Does its job by setting these variables to 0 based on the current turn state.
 		if num_instant > 0:
 			#Do instants
-			pass	#TODO: return
+			pass  #TODO: return
 		if num_resolve_secondary > 0:
 			#Treat as two_stage
 			return
@@ -92,41 +92,42 @@ func stateHandleInput(args:Dictionary)->void:
 	pass
 
 
-func assign_resolve_primary(arg:Array)->void: #Truly this is an untyped variable of either Button or Stub.
+func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
 	resolve_targets.append_array(arg)
 	num_resolve = num_resolve - 1
 
 
-
-func play_card(card:RenderedCard, resolve_targets_1:Array, resolve_targets_2:Array, instant_targets:Array)->void:
+func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: Array, instant_targets: Array) -> void:
 	print("ATTEMPTED TO PLAY CARD")
-	var stub:PlayerCardStub = load("res://engine/card_game/cards/p_card_stub_prototype_1.tscn").instantiate()
+	var stub: PlayerCardStub = load("res://engine/card_game/stubs/p_card_stub_prototype_1.tscn").instantiate()
 
-	var ref_lc:LogicalCard = _reference.lc
-	var ref_origin:PilotButton = _reference.origin
+	var ref_lc: LogicalCard = _reference.lc
+	var ref_origin: PilotButton = _reference.origin
 	stub.unpack(ref_lc, ref_origin)
-	var player_in_play:Node2D = _reference.get_tree().root.find_child("PlayerInPlay", true, false)
+	var player_in_play: PlayerInPlay = _reference.get_tree().root.find_child("PlayerInPlay", true, false)
 	print("PLAYER IN PLAY?", player_in_play)
 	print("STUB SCALE?", stub.scale)
 	player_in_play.add_child(stub)
-	stub.position = Vector2(0.0,0.0)
+	player_in_play.in_play.append(stub)
+
+	#TODO: Stubs may need a transit state like the cards did.
+	stub.position = Vector2(0.0, 0.0)
 	stub.global_position = _reference.global_position
+	stub.scale = Vector2(0.25, 0.25)
+	#TODO
+	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
+	_reference.do_on_played()
 	_reference.queue_free()
 
-	var tween:Tween = stub.create_tween()
-	var destination:Vector2 = player_in_play.global_position
+	var tween: Tween = stub.create_tween()
+	#Destination actually needs to be handled by the PlayerInPlay reorganize
+	var destination: Vector2 = player_in_play.global_position
 	tween.parallel().tween_property(stub, "global_position", destination, 0.25)
-	#tween.parallel().tween_property(stub, "scale", Vector2(1.0,1.0), 0.25)
+	tween.parallel().tween_property(stub, "scale", Vector2(1.0, 1.0), 0.25)
 	await tween.finished
 
-	#Why dont tweens work here?
-	CardHelpers.arrow_to_target_k(stub, resolve_targets[0])
+	#CardHelpers.arrow_to_target_k(stub, resolve_targets[0])
 	#stub.scale = Vector2(0.25,0.25)
-
-	#Put the stub directly below the button drawing it
-
-	pass
-
 
 	pass

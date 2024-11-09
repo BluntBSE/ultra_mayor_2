@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=21 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="9_ic2nq"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
+[ext_resource type="Script" path="res://engine/card_game/UI_elements/player_in_play.gd" id="10_lewek"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/submit_assign_button.gd" id="15_ycgji"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
@@ -634,7 +635,8 @@ position = Vector2(368, 217)
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
-position = Vector2(387, 605)
+position = Vector2(466, 622)
+script = ExtResource("10_lewek")
 
 [node name="HandDock" type="ColorRect" parent="PlayArea"]
 self_modulate = Color(1, 1, 1, 0.388235)
