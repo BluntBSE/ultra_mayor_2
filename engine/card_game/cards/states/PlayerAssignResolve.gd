@@ -70,10 +70,7 @@ func stateHandleInput(args: Dictionary) -> void:
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
 	if args.event is Control:  #Buttons are controls, stubs are Node2D
-		print("RECEIVED A CONTROL, MOTHERFUCKER")
 		print(args.event)
-		print("Num resolve is", num_resolve)
-
 		#NOTE: The while loops below imply that the job of any "submit X" button to exit early
 		# Does its job by setting these variables to 0 based on the current turn state.
 		if num_instant > 0:
@@ -99,35 +96,23 @@ func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped vari
 
 
 func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: Array, instant_targets: Array) -> void:
-	print("ATTEMPTED TO PLAY CARD")
 	var stub: PlayerCardStub = load("res://engine/card_game/stubs/p_card_stub_prototype_1.tscn").instantiate()
 
 	var ref_lc: LogicalCard = _reference.lc
 	var ref_origin: PilotButton = _reference.origin
 	stub.unpack(ref_lc, ref_origin)
 	var player_in_play: PlayerInPlay = _reference.get_tree().root.find_child("PlayerInPlay", true, false)
-	print("PLAYER IN PLAY?", player_in_play)
-	print("STUB SCALE?", stub.scale)
 	player_in_play.add_child(stub)
-	player_in_play.in_play.append(stub)
 
 	#TODO: Stubs may need a transit state like the cards did.
-	stub.position = Vector2(0.0, 0.0)
+	#stub.position = Vector2(0.0, 0.0)
 	stub.global_position = _reference.global_position
 	stub.scale = Vector2(0.25, 0.25)
 	#TODO
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
 	_reference.do_on_played()
-	_reference.queue_free()
 
-	var tween: Tween = stub.create_tween()
-	#Destination actually needs to be handled by the PlayerInPlay reorganize
-	var destination: Vector2 = player_in_play.global_position
-	tween.parallel().tween_property(stub, "global_position", destination, 0.25)
-	tween.parallel().tween_property(stub, "scale", Vector2(1.0, 1.0), 0.25)
-	await tween.finished
-
-	#CardHelpers.arrow_to_target_k(stub, resolve_targets[0])
+	CardHelpers.arrow_to_target_k(stub, resolve_targets[0])
 	#stub.scale = Vector2(0.25,0.25)
 
 	pass

@@ -5,8 +5,9 @@ var in_play:Array = []
 
 
 func handle_played(stub:PlayerCardStub)->void:
+	print("CALLED HANDLE_PLAYED FROM IN PLAY")
 	#Although the emission occurs from a RenderedCard, we actually receive the stub representing the played card.
-	in_play.push_front(stub)
+	in_play.push_back(stub) #Maybe do push front?
 	organize_stubs()
 
 func organize_stubs() -> void:
@@ -18,8 +19,8 @@ func organize_stubs() -> void:
 
 	var idx:int = 0
 	for stub:PlayerCardStub in in_play:
-		var destination:Vector2 = self.global_position + Vector2(200.0*float(idx),0.0)
-
+		var destination:Vector2 = self.global_position + Vector2(200.0*(idx),0.0)
+		print("ATTEMPTING TO MOVE ", stub.lc.display_name, "TO ", destination)
 		var dest_args:Dictionary = {
 			"global_position":destination,
 			"scale": Vector2(1.0,1.0),
