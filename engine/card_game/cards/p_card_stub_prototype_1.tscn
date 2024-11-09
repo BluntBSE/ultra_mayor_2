@@ -1,13 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtex61cpbhmci"]
+[gd_scene load_steps=5 format=3 uid="uid://3kct15x8wk3f"]
 
-[ext_resource type="Script" path="res://engine/card_game/cards/k_card_stub.gd" id="1_iee1k"]
-[ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="2_7cjcl"]
-[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_6f8eb"]
+[ext_resource type="Script" path="res://engine/card_game/cards/p_card_stub.gd" id="1_jbetc"]
+[ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="2_byxu1"]
+[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_aw3h7"]
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
 
 [node name="CardStub" type="Node2D"]
-script = ExtResource("1_iee1k")
+script = ExtResource("1_jbetc")
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 visible = false
@@ -35,14 +35,14 @@ color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 [node name="ArtImg" type="Sprite2D" parent="ImgMask"]
 position = Vector2(84.625, 86.5)
 scale = Vector2(0.176758, 0.174805)
-texture = ExtResource("2_7cjcl")
+texture = ExtResource("2_byxu1")
 
 [node name="ValueLabelPoly" type="Polygon2D" parent="."]
 position = Vector2(59, -73)
 rotation = -0.785398
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(30, 0, 1.83691e-15, 30, -30, 3.67382e-15, -5.51073e-15, -30, 30, 0)
-script = ExtResource("3_6f8eb")
+script = ExtResource("3_aw3h7")
 sides = 4
 radius = 30.0
 
@@ -62,7 +62,7 @@ position = Vector2(66, 45)
 rotation = 0.785398
 color = Color(0.329412, 0.933333, 0.184314, 1)
 polygon = PackedVector2Array(18, 0, 1.10215e-15, 18, -18, 2.20429e-15, -3.30644e-15, -18, 18, 0)
-script = ExtResource("3_6f8eb")
+script = ExtResource("3_aw3h7")
 sides = 4
 radius = 18.0
 

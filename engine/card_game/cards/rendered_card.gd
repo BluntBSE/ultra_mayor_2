@@ -24,6 +24,8 @@ var is_inspection_copy: bool
 
 var interface:BattleInterface
 var interactivity_mode:String = "interactive"
+var origin:PilotButton
+
 
 
 signal turn_signal
@@ -33,7 +35,7 @@ signal clicked_button
 
 
 
-func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface) -> void:
+func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:PilotButton) -> void:
 	hand = _hand
 	lc = _lc
 	art = find_child("ArtImg")
@@ -59,6 +61,8 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface) -> voi
 	mouse_area = get_node("MouseArea")
 
 	interface = _interface
+	origin = _origin
+
 	print("interface is", interface)
 	connect("turn_signal", interface.handle_pcard_sig)
 	connect("target_signal", interface.handle_pcard_target)
@@ -88,6 +92,7 @@ func do_interactive()->void:
 	state_machine.Change("interactive", {})
 
 func do_clicked_button(button:Control)->void:
+	print("Clicked button fired!")
 	state_machine.handleInput({"event":button})
 	pass
 

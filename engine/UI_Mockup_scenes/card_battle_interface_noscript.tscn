@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="7_ggnxl"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="8_1y31k"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_iwl3m"]
-[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="10_f8vc7"]
+[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/k_card_stub_prototype_1.tscn" id="10_f8vc7"]
 [ext_resource type="Script" path="res://engine/card_game/Hand.gd" id="11_k62uq"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="12_kxkab"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="13_7uu8b"]

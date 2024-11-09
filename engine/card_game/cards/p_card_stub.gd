@@ -1,9 +1,5 @@
 extends Node2D
-class_name KaijuCardStub
-
-#Set by battle interface
-var played_by:KaijuButton
-
+class_name PlayerCardStub
 
 ##Card stats
 var lc: LogicalCard
@@ -11,7 +7,6 @@ var art: Sprite2D
 var value_min:int
 var value_max:int
 var energy_cost:int
-var origin:KaijuCardStub
 
 #Displays
 var value_label:RichTextLabel
@@ -21,7 +16,7 @@ var cost_label:RichTextLabel
 var state_machine: StateMachine = StateMachine.new()
 
 #Origin
-var played_from:KaijuButton
+var played_from:PilotButton
 
 #Card Stuff
 var instant_targets_pilot_stubs:Array = []
@@ -46,6 +41,7 @@ var resolve_secondary_targets:Array = []
 #Likely secondary_targets will be any single pilot or the origin of this card since this is kaiju
 var resolve_effect:String = "debug_resolve_effect"
 var resolve_targets:Array = []
+var resolve_targets_secondary:Array = []
 var resolve_min:int = 0
 var resolve_max:int = 99
 var types:Array = []
@@ -54,6 +50,7 @@ var affinity_effects:Array = []
 
 #For funky data
 #Card Stuff
+#Original targets for when redirects leave the field
 var o_instant_targets_pilot_stubs:Array = []
 var o_instant_targets_kaiju_stubs:Array = []
 var o_instant_targets_kaiju_buttons:Array = []
@@ -88,7 +85,8 @@ func queue_instant_effects()->void:
 
 
 
-func unpack(_lc: LogicalCard, _played_from:KaijuButton) -> void:
+func unpack(_lc: LogicalCard, _played_from:Control) -> void:
+	#Played from is a pilotbutton or a kaiju button
 	played_from = _played_from
 	lc = _lc
 	art = find_child("ArtImg")

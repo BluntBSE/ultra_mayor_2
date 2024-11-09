@@ -21,14 +21,15 @@ func stateUpdate(_delta: float) -> void:
 
 
 func stateEnter(args: Dictionary) -> void:
-	_reference.turn_signal.emit()
+	#_reference.turn_signal.emit(BattleInterface.TURN_STATES.PLAYER) #TODO: Is this appropriate?
 	pass
 
 
 func stateHandleInput(args: Dictionary) -> void:
-	if args.event == "hover":
-		_reference.state_machine.Change("hovered_player", {})
-		#_reference.state_machine.Change("normal", {})
+	if args.event is String:
+		if args.event == "hover":
+			_reference.state_machine.Change("hovered_player", {})
+			#_reference.state_machine.Change("normal", {})
 	pass
 
 

@@ -40,7 +40,8 @@ func stateUpdate(_delta: float) -> void:
 
 
 func stateEnter(_args: Dictionary) -> void:
-	_reference.turn_signal.emit()
+	#_reference.turn_signal.emit() #Probably not appropriate
+	#TBH Maybe the stateexit of assigning should be what sends the turn signal out
 	print("Entered hovered state")
 	original_position = _reference.global_position
 	original_rotation = _reference.rotation

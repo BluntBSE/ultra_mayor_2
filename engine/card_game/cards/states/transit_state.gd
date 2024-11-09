@@ -10,7 +10,7 @@ var final_state:String
 var final_args:Dictionary
 
 func stateEnter(args:Dictionary)->void:
-	_reference.turn_signal.emit()
+	#_reference.turn_signal.emit() - Not actually appropriate for transit state
 	var card:RenderedCard = _reference
 	fin_pos = args.get("global_position", _reference.global_position)
 	fin_scale = args.get("scale", Vector2(1.0,1.0))

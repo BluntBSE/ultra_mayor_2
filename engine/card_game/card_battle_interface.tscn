@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="9_ic2nq"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
-[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_cyci2"]
+[ext_resource type="Script" path="res://engine/card_game/UI_elements/submit_assign_button.gd" id="15_ycgji"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
@@ -634,28 +634,7 @@ position = Vector2(368, 217)
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
-visible = false
 position = Vector2(387, 605)
-
-[node name="CardPrototype1" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(65, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype2" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(309, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype3" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(552, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype4" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(805, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype5" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(1037, 94)
-scale = Vector2(0.8, 0.8)
 
 [node name="HandDock" type="ColorRect" parent="PlayArea"]
 self_modulate = Color(1, 1, 1, 0.388235)
@@ -791,6 +770,14 @@ z_index = 4000
 position = Vector2(979, 469)
 script = ExtResource("18_ujnq3")
 
+[node name="SubmitButton" type="Button" parent="."]
+offset_left = 1694.0
+offset_top = 690.0
+offset_right = 1762.0
+offset_bottom = 721.0
+text = "SUBMIT"
+script = ExtResource("15_ycgji")
+
 [connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_hover"]
 [connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_exit"]
 [connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_hover"]
@@ -812,3 +799,4 @@ script = ExtResource("18_ujnq3")
 [connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_hover"]
 [connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_exit"]
 [connection signal="button_up" from="Button" to="Button" method="quit"]
+[connection signal="button_up" from="SubmitButton" to="SubmitButton" method="do_submit"]
