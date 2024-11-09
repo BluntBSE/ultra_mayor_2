@@ -46,10 +46,7 @@ var instant_targets: Array = []
 
 
 func stateEnter(args: Dictionary) -> void:
-	print("Rendered card is about to emit", _reference.state_machine._current_state_id)
 	var ref_lc: LogicalCard = _reference.lc
-	print("I believe the reference card is", ref_lc.display_name)
-	print("I believe the number of resolve targets is", ref_lc.resolve_targets)
 	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 	var targeting_type: int = ref_lc.resolve_target_type
 	_reference.target_signal.emit(targeting_type)
@@ -100,7 +97,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 
 	var ref_lc: LogicalCard = _reference.lc
 	var ref_origin: PilotButton = _reference.origin
-	stub.unpack(ref_lc, ref_origin)
+	stub.unpack(ref_lc, ref_origin, resolve_targets_1, resolve_targets_2, instant_targets)
 	var player_in_play: PlayerInPlay = _reference.get_tree().root.find_child("PlayerInPlay", true, false)
 	player_in_play.add_child(stub)
 
@@ -111,8 +108,5 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	#TODO
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
 	_reference.do_on_played()
-
-	CardHelpers.arrow_to_target_k(stub, resolve_targets[0])
-	#stub.scale = Vector2(0.25,0.25)
 
 	pass

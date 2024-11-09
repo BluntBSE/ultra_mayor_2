@@ -19,10 +19,7 @@ var state_machine: StateMachine = StateMachine.new()
 var played_from:PilotButton
 
 #Card Stuff
-var instant_targets_pilot_stubs:Array = []
-var instant_targets_kaiju_stubs:Array = []
-var instant_targets_kaiju_buttons:Array = []
-var instant_targets_pilot_buttons:Array = []
+var instant_targets:Array  = []
 
 var instant_value:int = 0
 var instant_target_type:int= 4
@@ -70,7 +67,7 @@ func show_resolve_targets()->void:
 func queue_instant_effects()->void:
 	print("QUEUE INSTANT EFFECTS CALLED")
 	if lc.instant_target_type == LogicalCard.target_types.P_STUBS:
-		effects.call(instant_effect, instant_targets_pilot_stubs)
+		effects.call(instant_effect, instant_targets)
 		pass
 	if lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
 		pass
@@ -88,7 +85,7 @@ func queue_instant_effects()->void:
 
 
 
-func unpack(_lc: LogicalCard, _played_from:Control) -> void:
+func unpack(_lc: LogicalCard, _played_from:Control, _resolve_targets:Array = [], _resolve_targets_2:Array = [], _instant_targets:Array = [] ) -> void:
 	#Played from is a pilotbutton or a kaiju button
 	played_from = _played_from
 	lc = _lc
@@ -104,8 +101,12 @@ func unpack(_lc: LogicalCard, _played_from:Control) -> void:
 	value_label = find_child("ValueLabel")
 	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
 
+	resolve_targets = _resolve_targets
+	resolve_targets_secondary = _resolve_targets_2
+	instant_targets
 
 	effects = CardEffects.new()
+
 
 	pass
 
