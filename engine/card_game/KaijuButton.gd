@@ -14,6 +14,7 @@ var arrows:Array = []
 var active:bool = false
 var interface:BattleInterface
 var interaction_mode:String = "not_interactive"
+var graveyard:Array = []
 #interactive, assignable, not_interactive
 signal was_clicked
 
@@ -22,7 +23,9 @@ func count_string(left: int, starting: int) -> String:
 	return str(left) + "/" + str(starting)
 
 func update_count()->void:
+	cards_left = deck.size()
 	card_count.text = count_string(cards_left, cards_starting)
+
 
 
 #TODO: Put draw_card in the interactive state.

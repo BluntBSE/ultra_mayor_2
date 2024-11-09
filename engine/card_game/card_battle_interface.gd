@@ -22,13 +22,6 @@ var energy: int = 0
 #STATEMACHINE
 #var state_machine = state_machine.new()
 #State machine states:
-"""
-Kaiju's turn - draw and assign
-Player's turn
-Resolving
-
-This state might primarily be used to update the state machines of child nodes. E.g: only make pilot_in_play interactive while it's the player's turn
-"""
 
 # Called when the node enters the scene tree for the first time.
 enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_2ND_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
@@ -164,3 +157,22 @@ func unpack(_battle_object: BattleObject) -> void:
 	await timer.timeout
 	active_turn = TURN_STATES.KAIJU
 	turn_signal.emit(active_turn)
+
+
+
+#####TURN MANAGER -- CONSIDER MOVING TO ITS OWN NODE?
+func player_resolve_effects()->void:
+	var p_in_play_node:PlayerInPlay = %PlayerInPlay
+	var player_stubs:Array = p_in_play_node.get_children()
+	for stub:PlayerCardStub in player_stubs:
+		stub.execute_resolve()
+
+
+func do_player_turn()->void:
+	player_resolve_effects()
+
+	#Check if player won
+	#Kaiju resolution
+	#CHeck if player lost
+	#Kaiju turn
+	pass

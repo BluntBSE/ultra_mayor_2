@@ -39,5 +39,10 @@ func stateEnter(args:Dictionary)->void:
 	if final_callback != null and final_cb_args != {}:
 		tween.tween_callback(node.final_callback(final_cb_args))
 
+
+
 	if final_state != null:
-		_reference.state_machine.Change(final_state, final_state_args)
+		if final_state == "free":
+			_reference.queue_free()
+		else:
+			_reference.state_machine.Change(final_state, final_state_args)

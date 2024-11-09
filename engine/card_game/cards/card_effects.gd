@@ -6,3 +6,14 @@ static func debug_instant_effect(targets:Array)->void:
 	for target:PilotButton in targets:
 		print(target.name)
 	pass
+
+
+static func simple_damage(targets_primary:Array = [], _targets_secondary:Array = [], min_value:int = 0, max_value:int = 0)->void:
+	for target:KaijuButton in targets_primary:
+		var damage:int = randi_range(min_value, max_value)
+		print("SIMPLE DAMAGE HAS DECLARED A DAMAGE OF", damage)
+		for i in range(damage):
+			var milled:LogicalCard = target.deck.pop_front()
+			print("Simple damage just milled ", milled.display_name)
+			target.update_count()
+			target.graveyard.append(milled)
