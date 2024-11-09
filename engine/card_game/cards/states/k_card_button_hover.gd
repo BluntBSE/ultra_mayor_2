@@ -30,7 +30,7 @@ func stateHandleInput(args: Dictionary) -> void:
 		_reference.state_machine.Revert()
 		#_reference.state_machine.Change("normal", {})
 	if args.event == "l_click":
-		_reference.draw_card()
+		_reference.was_clicked.emit(_reference)
 
 
 func is_left_mouse_released() -> bool:

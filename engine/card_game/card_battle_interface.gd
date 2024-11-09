@@ -35,6 +35,8 @@ enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_INSTANT, KAIJU, R
 enum SEEKING_TARGET {KAIJU_BUTTON, KAIJU_CARD, PLAYER_BUTTON, PLAYER_CARD}
 signal turn_signal
 signal targeting_signal
+signal clicked_button
+signal clicked_stub
 
 
 func log_turn_signal(sig:int)->void:
@@ -116,6 +118,12 @@ func handle_pcard_target(type:int)->void:
 	if type == SEEKING_TARGET.PLAYER_CARD:
 		targeting_state = SEEKING_TARGET.PLAYER_CARD
 	targeting_signal.emit(targeting_state) #We might not actually use this, but interrogate it from the buttons
+
+func broadcast_button(button:Control)->void:
+	clicked_button.emit(button)
+
+func broadcast_stub(stub:Node2D)->void:
+	clicked_stub.emit(stub)
 
 
 

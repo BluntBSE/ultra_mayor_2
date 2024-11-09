@@ -28,6 +28,8 @@ var interactivity_mode:String = "interactive"
 
 signal turn_signal
 signal target_signal
+signal clicked_stub
+signal clicked_button
 
 
 
@@ -61,6 +63,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface) -> voi
 	connect("turn_signal", interface.handle_pcard_sig)
 	connect("target_signal", interface.handle_pcard_target)
 	interface.connect("turn_signal", set_interactivity_mode)
+	interface.connect("clicked_button", do_clicked_button)
 
 
 
@@ -83,6 +86,10 @@ func do_transit(args:Dictionary)->void:
 
 func do_interactive()->void:
 	state_machine.Change("interactive", {})
+
+func do_clicked_button(button:Control)->void:
+	state_machine.handleInput({"event":button})
+	pass
 
 
 func _on_mouse_area_mouse_entered()->void:

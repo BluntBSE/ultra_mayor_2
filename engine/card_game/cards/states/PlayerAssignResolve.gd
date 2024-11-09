@@ -1,6 +1,7 @@
 extends GenericState
 class_name PlayerAssignResolve
 
+
 """
 In assigning_resolve state, the hover_border turns red.
 An arrow is cast from the top of the card to the player's mouse position
@@ -51,4 +52,9 @@ func stateEnter(args:Dictionary)->void:
 
 	pass
 
+func stateHandleInput(args:Dictionary)->void:
+	if args.event is Control: #Buttons are controls, stubs are Node2D
+		print("RECEIVED A CONTROL, MOTHERFUCKER")
+		print(args.event)
+	pass
 #Capture all input to avoid letting the player left click on shit.

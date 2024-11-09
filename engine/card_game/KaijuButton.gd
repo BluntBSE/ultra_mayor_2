@@ -15,6 +15,7 @@ var active:bool = false
 var interface:BattleInterface
 var interaction_mode:String = "not_interactive"
 #interactive, assignable, not_interactive
+signal was_clicked
 
 
 func count_string(left: int, starting: int) -> String:
@@ -91,6 +92,7 @@ func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void
 	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
 	interface.turn_signal.connect(switch_interactivity)
+	connect("was_clicked", interface.broadcast_button)
 
 
 
@@ -109,7 +111,7 @@ func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInte
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.K_BUTTONS:
 			interaction_mode = "interactive"
 	else:
-		interaction_mode = "not_interactive"
+		interaction_mode = "not_interactive" #INSPECTABLE? vs not interactive? So you can view the deck and shit
 
 	pass
 
