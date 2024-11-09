@@ -40,6 +40,8 @@ enum target_types {
 	P_BUTTONS,
 	K_STUBS,
 	K_BUTTONS,
+	ALL_K,
+	ALL_P,
 	NONE,
 	ALL_STUBS,
 	ALL_BUTTONS

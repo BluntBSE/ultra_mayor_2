@@ -71,10 +71,10 @@ func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInte
 
 func _ready()->void:
 	state_machine = StateMachine.new()
-	state_machine.Add("hover", CardButtonHover.new(self, {}))
-	state_machine.Add("normal", CardButtonNormal.new(self, {}))
+	state_machine.Add("hover", PCardButtonHover.new(self, {}))
+	state_machine.Add("normal", PCardButtonNormal.new(self, {}))
 	state_machine.Change("normal", {})
-	
+
 	interface = get_tree().root.find_child("BattleInterface", true, false)
 	interface.turn_signal.connect(switch_interactivity)
 

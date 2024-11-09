@@ -1,5 +1,5 @@
 extends GenericState
-class_name CardButtonNormal
+class_name PCardButtonNormal
 
 
 

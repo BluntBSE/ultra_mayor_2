@@ -40,6 +40,10 @@ If a node is legal, its hover things work...
 
 func stateEnter(args:Dictionary)->void:
 	print("Rendered card is about to emit", _reference.state_machine._current_state_id)
+	var ref_lc:LogicalCard = _reference.lc
+	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
+	var targeting_type:int = ref_lc.resolve_target_type
+	_reference.target_signal.emit(targeting_type)
 	_reference.turn_signal.emit(_reference.state_machine._current_state_id)
 	var hover_border:ColorRect = _reference.hover_border
 	hover_border.visible = true

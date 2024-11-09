@@ -1,5 +1,5 @@
 extends GenericState
-class_name CardButtonHover
+class_name PCardButtonHover
 
 var highlight: Polygon2D
 

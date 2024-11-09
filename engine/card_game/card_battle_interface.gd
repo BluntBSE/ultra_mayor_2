@@ -2,6 +2,7 @@ extends Node2D
 class_name BattleInterface
 
 var active_turn: int = TURN_STATES.PAUSE
+var targeting_state: int = SEEKING_TARGET.KAIJU_BUTTON
 var kaiju: LogicalKaiju
 var pilots: Array = []
 var terrain: String = ""  #Or enum?
@@ -31,7 +32,9 @@ This state might primarily be used to update the state machines of child nodes. 
 
 # Called when the node enters the scene tree for the first time.
 enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
+enum SEEKING_TARGET {KAIJU_BUTTON, KAIJU_CARD, PLAYER_BUTTON, PLAYER_CARD}
 signal turn_signal
+signal targeting_signal
 
 
 func log_turn_signal(sig:int)->void:
@@ -78,14 +81,14 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 
 
 	pass
-	
+
 func handle_kaiju_turn_finished()->void:
 	active_turn = TURN_STATES.PLAYER
 	turn_signal.emit(active_turn)
 
 func handle_pcard_sig(state:String)->void:
 
-	
+
 	"""
 		state_machine.Add("interactive", InteractiveCard.new(self, {}))
 		state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
@@ -102,6 +105,17 @@ func handle_pcard_sig(state:String)->void:
 	if state == "assigning_resolve":
 		active_turn = TURN_STATES.ASSIGNING_RESOLVE
 	turn_signal.emit(active_turn)
+
+func handle_pcard_target(type:int)->void:
+	if type == SEEKING_TARGET.KAIJU_BUTTON:
+		targeting_state = SEEKING_TARGET.KAIJU_BUTTON
+	if type == SEEKING_TARGET.KAIJU_CARD:
+		targeting_state = SEEKING_TARGET.KAIJU_CARD
+	if type == SEEKING_TARGET.PLAYER_BUTTON:
+		targeting_state = SEEKING_TARGET.PLAYER_BUTTON
+	if type == SEEKING_TARGET.PLAYER_CARD:
+		targeting_state = SEEKING_TARGET.PLAYER_CARD
+	targeting_signal.emit(targeting_state) #We might not actually use this, but interrogate it from the buttons
 
 
 

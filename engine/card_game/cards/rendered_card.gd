@@ -27,6 +27,7 @@ var interactivity_mode:String = "interactive"
 
 
 signal turn_signal
+signal target_signal
 
 
 
@@ -58,6 +59,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface) -> voi
 	interface = _interface
 	print("interface is", interface)
 	connect("turn_signal", interface.handle_pcard_sig)
+	connect("target_signal", interface.handle_pcard_target)
 	interface.connect("turn_signal", set_interactivity_mode)
 
 
