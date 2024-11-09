@@ -11,7 +11,7 @@ var art: Sprite2D
 var value_min:int
 var value_max:int
 var energy_cost:int
-var origin:KaijuCardStub
+
 
 #Displays
 var value_label:RichTextLabel
@@ -24,31 +24,74 @@ var state_machine: StateMachine = StateMachine.new()
 var played_from:KaijuButton
 
 #Card Stuff
-var instant_targets:Array = []
+var instant_targets_pilot_stubs:Array = []
+var instant_targets_kaiju_stubs:Array = []
+var instant_targets_kaiju_buttons:Array = []
+var instant_targets_pilot_buttons:Array = []
+
 var instant_value:int = 0
-var instant_target_type:String = "none"
+var instant_target_type:int= 4
+"""enum target_types {
+	P_STUBS,
+	P_BUTTONS,
+	K_STUBS,
+	K_BUTTONS,
+	NONE,
+	ALL_STUBS,
+	ALL_BUTTONS
+}"""
 var instant_effect:String = "debug_instant_effect"
 var resolve_secondary_targets:Array = []
 #var resolve_seconary_ttype --- Kaiju assign their targets pseudo at random, so this might not be necessary
 #Likely secondary_targets will be any single pilot or the origin of this card since this is kaiju
 var resolve_effect:String = "debug_resolve_effect"
 var resolve_targets:Array = []
+var resolve_targets_secondary:Array = []
 var resolve_min:int = 0
 var resolve_max:int = 99
 var types:Array = []
 var affinities:Array = []
 var affinity_effects:Array = []
 
+#For funky data
+#Card Stuff
+#Original targets for when redirects leave the field
+var o_instant_targets_pilot_stubs:Array = []
+var o_instant_targets_kaiju_stubs:Array = []
+var o_instant_targets_kaiju_buttons:Array = []
+var o_instant_targets_pilot_buttons:Array = []
+var modifiers:Array = []
 
+var effects:CardEffects
 
 func show_resolve_targets()->void:
 	for target:PilotButton in resolve_targets:
-		CardHelpers.arrow_to_target_k(self, target)
+		CardHelpers.arrow_to_target_k(self, target, Color.RED)
+	pass
+
+func queue_instant_effects()->void:
+	print("QUEUE INSTANT EFFECTS CALLED")
+	if lc.instant_target_type == LogicalCard.target_types.P_STUBS:
+		effects.call(instant_effect, instant_targets_pilot_stubs)
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.K_STUBS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.K_BUTTONS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.ALL_STUBS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.ALL_BUTTONS:
+		pass
+	if lc.instant_target_type == LogicalCard.target_types.NONE:
+		pass
 	pass
 
 
 
-func unpack(_lc: LogicalCard, _played_from:KaijuButton) -> void:
+func unpack(_lc: LogicalCard, _played_from:Control) -> void:
+	#Played from is a pilotbutton or a kaiju button
 	played_from = _played_from
 	lc = _lc
 	art = find_child("ArtImg")
@@ -62,6 +105,9 @@ func unpack(_lc: LogicalCard, _played_from:KaijuButton) -> void:
 
 	value_label = find_child("ValueLabel")
 	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
+
+
+	effects = CardEffects.new()
 
 	pass
 

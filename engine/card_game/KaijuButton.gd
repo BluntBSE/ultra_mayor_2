@@ -11,6 +11,11 @@ var cards_starting: int
 var in_play: Node2D
 var targets:Array = []
 var arrows:Array = []
+var active:bool = false
+var interface:BattleInterface
+var interaction_mode:String = "not_interactive"
+#interactive, assignable, not_interactive
+signal was_clicked
 
 
 func count_string(left: int, starting: int) -> String:
@@ -26,7 +31,7 @@ func draw_card()->KaijuCardStub:
 	if cards_left > 0:
 		cards_left -= 1
 		update_count()
-		var card:KaijuCardStub = load("res://engine/card_game/cards/card_stub_prototype_1.tscn").instantiate()
+		var card:KaijuCardStub = load("res://engine/card_game/stubs/k_card_stub_prototype_1.tscn").instantiate()
 		#remove_child(card)
 		card.unpack(logical_card, self)
 		in_play.add_child(card)
@@ -44,12 +49,10 @@ func draw_card()->KaijuCardStub:
 	return null
 
 func draw_and_assign()->void:
-	print("CARD DRAWN, ASSIGNED")
 	var card:KaijuCardStub = await draw_card() #Using await to make the arrow wait for drawing animation
 	card.played_by = self
 	var num_resolve_targets:int = card.lc.resolve_targets
-	print("NUM RESOLVE IS", num_resolve_targets)
-
+	var num_instant_targets:int = card.lc.instant_targets
 	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_node("HBoxContainer").get_children()
 	var valid_targets:Array = []
 	for target:PilotButton in pilot_targets:
@@ -58,39 +61,65 @@ func draw_and_assign()->void:
 
 	for i in range(num_resolve_targets):
 		var rand_index:int = randi() % valid_targets.size()
-		print("rand_index is", rand_index)
 		var target:PilotButton = valid_targets[rand_index]
-		print("target should be", target)
 		card.resolve_targets.append(target)
 
 	card.show_resolve_targets()
 
-func unpack(kaiju: LogicalKaiju, _limb:Limb) -> void:
+	#Play instant effects. Probably do this before resolve_targets()
+	if card.lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
+		for i in range(num_instant_targets):
+			var rand_index:int = randi() % valid_targets.size()
+			var target:PilotButton = valid_targets[rand_index]
+			card.instant_targets_pilot_buttons.append(target)
+			card.o_instant_targets_pilot_buttons.append(target)
+			print(card.lc.display_name, card.instant_targets_pilot_buttons)
+
+	card.queue_instant_effects()
+
+func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
 	sprite.texture = load(KaijuLib.lib[kaiju.id].art_pack[_limb.id]) #Update to limb.art
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	sprite.self_modulate = Color(1, 1, 1, 1)
 	limb = _limb
 	deck = limb.deck
+	active = true
 	#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
+	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
-	print("IN PLAY IS ", in_play)
+	interface.turn_signal.connect(switch_interactivity)
+	connect("was_clicked", interface.broadcast_button)
 
 
 
 func _ready()->void:
 	state_machine = StateMachine.new()
-	state_machine.Add("hover", CardButtonHover.new(self, {}))
-	state_machine.Add("normal", CardButtonNormal.new(self, {}))
+	state_machine.Add("hover", KCardButtonHover.new(self, {}))
+	state_machine.Add("normal", KCardButtonNormal.new(self, {}))
 	state_machine.Change("normal", {})
 	pass
 
 
+func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
+	if turn_signal == interface.TURN_STATES.PLAYER:
+		interaction_mode = "not_interactive"
+	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
+		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.K_BUTTONS:
+			interaction_mode = "interactive"
+	else:
+		interaction_mode = "not_interactive" #INSPECTABLE? vs not interactive? So you can view the deck and shit
+
+	pass
+
 func on_hover()->void:
-	state_machine._current.stateHandleInput({"event": "hover"})
+	if interaction_mode == "interactive":
+		#AND IF YOU ARE THE RIGHT KIND OF NODE???AGHHH
+		get_viewport().set_input_as_handled() #TODO: Is this really the way?
+		state_machine._current.stateHandleInput({"event": "hover"})
 
 func on_exit()->void:
 	state_machine._current.stateHandleInput({"event": "exit"})

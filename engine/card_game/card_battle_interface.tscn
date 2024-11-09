@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=21 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -10,7 +10,8 @@
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="9_ic2nq"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
-[ext_resource type="PackedScene" uid="uid://4042qebjvnsi" path="res://engine/card_game/cards/card_stub_prototype_1.tscn" id="16_cyci2"]
+[ext_resource type="Script" path="res://engine/card_game/UI_elements/player_in_play.gd" id="10_lewek"]
+[ext_resource type="Script" path="res://engine/card_game/UI_elements/submit_assign_button.gd" id="15_ycgji"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
@@ -186,6 +187,7 @@ shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="PilotButton1" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1"]
@@ -212,6 +214,7 @@ offset_left = -57.0
 offset_top = 51.0
 offset_right = 53.0
 offset_bottom = 67.0
+mouse_filter = 2
 color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -224,8 +227,16 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="PilotButton2" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2"]
@@ -252,6 +263,7 @@ offset_left = -57.0
 offset_top = 51.0
 offset_right = 53.0
 offset_bottom = 67.0
+mouse_filter = 2
 color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -264,8 +276,16 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="PilotButton3" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3"]
@@ -292,6 +312,7 @@ offset_left = -57.0
 offset_top = 51.0
 offset_right = 53.0
 offset_bottom = 67.0
+mouse_filter = 2
 color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -304,8 +325,16 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="PilotButton4" type="Control" parent="PlayArea/PilotButtons/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("6_5f7kb")
 
 [node name="HoverPoly" type="Polygon2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4"]
@@ -332,6 +361,7 @@ offset_left = -57.0
 offset_top = 51.0
 offset_right = 53.0
 offset_bottom = 67.0
+mouse_filter = 2
 color = Color(0.00392157, 0.00392157, 0.00392157, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -343,6 +373,13 @@ offset_right = 100.0
 offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="KaijuButtons" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
@@ -397,6 +434,13 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="KaijuButton1" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
 script = ExtResource("9_jo1m0")
@@ -436,6 +480,13 @@ offset_right = 100.0
 offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="KaijuButton2" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
@@ -477,6 +528,13 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="KaijuButton3" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
 script = ExtResource("9_jo1m0")
@@ -516,6 +574,13 @@ offset_right = 100.0
 offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="KaijuButton4" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
 layout_mode = 2
@@ -557,32 +622,21 @@ offset_bottom = 35.0
 text = "25/25"
 metadata/_edit_use_anchors_ = true
 
+[node name="Area2D" type="Area2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4"]
+z_index = 100
+script = ExtResource("9_ic2nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D"]
+shape = SubResource("CircleShape2D_y7vs5")
+
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
+unique_name_in_owner = true
 position = Vector2(368, 217)
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
-visible = false
-position = Vector2(387, 605)
-
-[node name="CardPrototype1" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(65, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype2" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(309, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype3" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(552, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype4" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(805, 94)
-scale = Vector2(0.8, 0.8)
-
-[node name="CardPrototype5" parent="PlayArea/PlayerInPlay" instance=ExtResource("16_cyci2")]
-position = Vector2(1037, 94)
-scale = Vector2(0.8, 0.8)
+unique_name_in_owner = true
+position = Vector2(466, 622)
+script = ExtResource("10_lewek")
 
 [node name="HandDock" type="ColorRect" parent="PlayArea"]
 self_modulate = Color(1, 1, 1, 0.388235)
@@ -718,14 +772,33 @@ z_index = 4000
 position = Vector2(979, 469)
 script = ExtResource("18_ujnq3")
 
+[node name="SubmitButton" type="Button" parent="."]
+offset_left = 1694.0
+offset_top = 690.0
+offset_right = 1762.0
+offset_bottom = 721.0
+text = "SUBMIT"
+script = ExtResource("15_ycgji")
+
 [connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_hover"]
 [connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_exit"]
-[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_hover"]
-[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_exit"]
-[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton2" to="PlayArea/PilotButtons/HBoxContainer/PilotButton2" method="on_hover"]
-[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton2" to="PlayArea/PilotButtons/HBoxContainer/PilotButton2" method="on_exit"]
-[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton3" to="PlayArea/PilotButtons/HBoxContainer/PilotButton3" method="on_hover"]
-[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton3" to="PlayArea/PilotButtons/HBoxContainer/PilotButton3" method="on_exit"]
-[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_hover"]
-[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton1/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton1" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton2" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton2/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton2" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton3" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton3/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton3" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/PilotButtons/HBoxContainer/PilotButton4/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton4" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton0" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton0" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton1" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton1" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton2" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton2" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton3" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton3" method="on_exit"]
+[connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_hover"]
+[connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_exit"]
 [connection signal="button_up" from="Button" to="Button" method="quit"]
+[connection signal="button_up" from="SubmitButton" to="SubmitButton" method="do_submit"]

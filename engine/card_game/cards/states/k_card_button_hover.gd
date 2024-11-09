@@ -1,7 +1,7 @@
-class_name InteractiveCard
 extends GenericState
+class_name KCardButtonHover
 
-var highlight: ColorRect
+var highlight: Polygon2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,17 +20,17 @@ func stateUpdate(_delta: float) -> void:
 		stateHandleInput({"event": "l_click"})
 
 
-func stateEnter(args: Dictionary) -> void:
-	#_reference.turn_signal.emit(BattleInterface.TURN_STATES.PLAYER) #TODO: Is this appropriate?
-	pass
+func stateEnter(_args: Dictionary) -> void:
+	highlight = _reference.get_node("HoverPoly")
+	highlight.visible = true
 
 
 func stateHandleInput(args: Dictionary) -> void:
-	if args.event is String:
-		if args.event == "hover":
-			_reference.state_machine.Change("hovered_player", {})
-			#_reference.state_machine.Change("normal", {})
-	pass
+	if args.event == "exit":
+		_reference.state_machine.Revert()
+		#_reference.state_machine.Change("normal", {})
+	if args.event == "l_click":
+		_reference.was_clicked.emit(_reference)
 
 
 func is_left_mouse_released() -> bool:
@@ -38,4 +38,4 @@ func is_left_mouse_released() -> bool:
 
 
 func stateExit() -> void:
-	pass
+	highlight.visible = false

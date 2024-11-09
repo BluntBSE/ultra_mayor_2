@@ -9,40 +9,36 @@ func _ready() -> void:
 	kaiju_buttons = %KaijuBox.get_children()
 	parent = get_parent()
 	parent.connect("turn_signal", do_turn)
-	connect("finished", parent.switch_turn)
-	pass  # Replace with function body.
+	connect("finished", parent.handle_kaiju_turn_finished)
 
 
 func do_turn(turn_state: int) -> void:
+	print("DO TURN RECEIVED ARG: ", parent.TURN_STATES.keys()[turn_state])
 	#Turn states are in
 	#BattleInterface.TURN_STATES
 	if turn_state == BattleInterface.TURN_STATES.KAIJU:
 		print("Doing kaiju turn!")
 		do_kaiju_turn()
-	pass
 
 
 func do_kaiju_turn() -> void:
 	var time: float = 0.25
-	for i in range(kaiju_buttons.size()-1):
+	var active_buttons:Array = []
+	for button:KaijuButton in kaiju_buttons:
+		if button.active == true:
+			active_buttons.append(button)
+	for i in range(active_buttons.size()): #Needs to be number of ACTIVE buttons
 		var kaiju_button: KaijuButton = kaiju_buttons[i]
 		var interval: float = i * time
 		var timer: SceneTreeTimer = get_tree().create_timer(interval)
-		timer.connect("timeout", kaiju_button.draw_and_assign) #kaiju_button.draw_and_assign
-		#TODO: Fetch the number of valid targets from the card's data before assigning.
-		#assign to a random target
-		var pilots:Array = get_tree().root.find_child("PlayArea", true, false).get_node("PilotButtons/HBoxContainer").get_children()
-		var active_pilots:Array = []
-		for pilot:PilotButton in pilots:
-			if pilot.active == true:
-				active_pilots.append(pilot)
-		var target:int = randi() % active_pilots.size()
-		#PLACEHOLDER FOR ARROW DEMO
+		timer.connect("timeout", kaiju_button.draw_and_assign)
+
+
 
 
 	var timer: SceneTreeTimer = get_tree().create_timer(kaiju_buttons.size() * time)
 	await timer.timeout
-	finished.emit(parent.TURN_STATES.PLAYER)
+	finished.emit()
 
 	pass
 

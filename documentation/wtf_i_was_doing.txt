@@ -1,9 +1,12 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+SUBMIT UP TO X REQUIRES AN INTERFACE COMPONENT
+MENUS ETC:
+	-
 
-BUG: Weird black spot under background of battle interface?
 
-MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS?
+
+MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?
 
 POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
 

@@ -58,3 +58,8 @@ func organize_cards() -> void:
 
 		#TODO: Make this return the destination of N + 1 so that a newly drawn card can slide into the right spot.
 		#So you'll call reorganize twice.
+
+func handle_removed(card:RenderedCard)->void:
+	print("Hello from handle_removed in Hand")
+	cards_in_hand.erase(card)
+	pass

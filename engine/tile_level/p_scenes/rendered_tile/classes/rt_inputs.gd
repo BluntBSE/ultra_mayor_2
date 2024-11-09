@@ -27,6 +27,3 @@ static var public:Dictionary = {
 	K_M_PREVIEW: "k_m_preview",
 	REVERT: "revert",
 }
-
-
-

@@ -2,6 +2,7 @@ extends Node2D
 class_name BattleInterface
 
 var active_turn: int = TURN_STATES.PAUSE
+var targeting_state: int = SEEKING_TARGET.KAIJU_BUTTON
 var kaiju: LogicalKaiju
 var pilots: Array = []
 var terrain: String = ""  #Or enum?
@@ -30,11 +31,17 @@ This state might primarily be used to update the state machines of child nodes. 
 """
 
 # Called when the node enters the scene tree for the first time.
-enum TURN_STATES { PAUSE, PLAYER, ASSIGNING, KAIJU, RESOLVING }
+enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_2ND_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
+enum SEEKING_TARGET {KAIJU_BUTTON, KAIJU_CARD, PLAYER_BUTTON, PLAYER_CARD}
 signal turn_signal
+signal targeting_signal
+signal clicked_button
+signal clicked_stub
 
 
-
+func log_turn_signal(sig:int)->void:
+	print("Battle interface just switched turn to")
+	print(TURN_STATES.keys()[sig])
 
 func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 	pilots = _battle_object.pilots
@@ -62,11 +69,9 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 	var k_button_list: Array = k_button_node.get_node("KaijuBox").get_children()
 	kaiju_buttons = k_button_list
 	var limbs:Array = _battle_object.kaiju.limbs
-	print("LIMBS ARE ", limbs)
 	for limb:Limb in limbs:
 		var matching_button:KaijuButton = kaiju_buttons[k_button_idx]
-		print("MATCHING BUTTON: ", matching_button)
-		matching_button.unpack(_battle_object.kaiju, limb)
+		matching_button.unpack(_battle_object.kaiju, limb, self)
 		k_button_idx += 1
 	#Gray out unused limbs
 	for i: int in range(k_button_idx, 5):
@@ -79,24 +84,72 @@ func unpack_kaiju_buttons(_battle_object:BattleObject)->void:
 
 	pass
 
-func switch_turn(state:int)->void:
-	if state == TURN_STATES.KAIJU:
-		print("Switched to Kaiju turn")
-		active_turn = TURN_STATES.KAIJU
-		turn_signal.emit(TURN_STATES.KAIJU)
+func handle_kaiju_turn_finished()->void:
+	active_turn = TURN_STATES.PLAYER
+	turn_signal.emit(active_turn)
 
-	if state == TURN_STATES.PLAYER:
-		print("Switched to player turn")
+func handle_pcard_sig(state:String)->void:
+
+
+	"""
+		state_machine.Add("interactive", InteractiveCard.new(self, {}))
+		state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
+		state_machine.Add("transit", TransitCardState.new(self,{}))
+		#state_machine.add("assigning_instant", AssigningInstantState.new(self,{}))
+		state_machine.Add("assigning_resolve", PlayerAssignResolve.new(self,{}))
+		#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
+		state_machine.Change("interactive", {})
+	"""
+	if state == "interactive":
 		active_turn = TURN_STATES.PLAYER
-		turn_signal.emit(TURN_STATES.PLAYER)
+	if state == "assigning_instant":
+		active_turn = TURN_STATES.ASSIGNING_INSTANT
+	if state == "assigning_resolve":
+		active_turn = TURN_STATES.ASSIGNING_RESOLVE
+	turn_signal.emit(active_turn)
+
+func handle_pcard_target(type:int)->void:
+	if type == SEEKING_TARGET.KAIJU_BUTTON:
+		targeting_state = SEEKING_TARGET.KAIJU_BUTTON
+	if type == SEEKING_TARGET.KAIJU_CARD:
+		targeting_state = SEEKING_TARGET.KAIJU_CARD
+	if type == SEEKING_TARGET.PLAYER_BUTTON:
+		targeting_state = SEEKING_TARGET.PLAYER_BUTTON
+	if type == SEEKING_TARGET.PLAYER_CARD:
+		targeting_state = SEEKING_TARGET.PLAYER_CARD
+	targeting_signal.emit(targeting_state) #We might not actually use this, but interrogate it from the buttons
+
+func broadcast_button(button:Control)->void:
+	clicked_button.emit(button)
+
+func broadcast_stub(stub:Node2D)->void:
+	clicked_stub.emit(stub)
+
+
+
+func update_instant_effects()->void:
+	#TODO: Remove all existing modifiers
+
+	#Add any modifiers from terrain and pilots
+
+
+	#Apply all Kaiju effects
+
+	for card:KaijuCardStub in %KaijuInPlay.get_children():
+		card.queue_instant_effects()
+		pass
+	pass
 
 func _ready() -> void:
+	connect("turn_signal", log_turn_signal)
 	pass  # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
 
 
 

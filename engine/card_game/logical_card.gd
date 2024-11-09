@@ -14,13 +14,15 @@ extends Resource
 @export var instant_effect: String
 @export var instant_targets: int
 @export var instant_value: int
-@export var instant_target_type: String
+## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
+@export var instant_target_type: int = 4
 
 # Resolve effects take place after the "resolve" button is hit.
 # Player cards resolve first, from left to right. Then kaiju, from left to right.
 @export var resolve_effect: String
 @export var resolve_targets: int
-@export var resolve_target_type: int
+## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
+@export var resolve_target_type: int = 4
 @export var resolve_secondary_targets: int
 @export var resolve_secondary_ttype:String
 @export var resolve_min: int
@@ -33,6 +35,18 @@ extends Resource
 
 @export var requirements:String
 
+enum target_types {
+	P_STUBS,
+	P_BUTTONS,
+	K_STUBS,
+	K_BUTTONS,
+	ALL_K,
+	ALL_P,
+	NONE,
+	ALL_STUBS,
+	ALL_BUTTONS
+}
+
 func _init(args: Dictionary = {}) -> void:
 	print("HELLO FROM RESOURCE INSTANTIATION FROM PILOTLIB")
 	id = args.get("id", "DEFAULT_ID")
@@ -43,7 +57,7 @@ func _init(args: Dictionary = {}) -> void:
 	instant_effect = args.get("instant_effect", "")
 	instant_targets = args.get("instant_targets", 0)
 	instant_value = args.get("instant_value", 0)
-	instant_target_type = args.get("instant_target_type", "")
+	instant_target_type = args.get("instant_target_type", 4)
 
 	resolve_effect = args.get("resolve_effect", "")
 	resolve_targets = args.get("resolve_targets", 0)
