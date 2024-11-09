@@ -38,6 +38,10 @@ Battle interface emits signal to all child nodes telling them they are legal or 
 If a node is legal, its hover things work...
 
 """
+var num_resolve:int = 0
+var num_resolve_secondary:int = 0
+var num_instant:int = 0
+
 
 func stateEnter(args:Dictionary)->void:
 	print("Rendered card is about to emit", _reference.state_machine._current_state_id)
@@ -50,11 +54,34 @@ func stateEnter(args:Dictionary)->void:
 	hover_border.visible = true
 	hover_border.color = Color(Color.RED)
 
+	num_resolve = ref_lc.resolve_targets
+
 	pass
 
 func stateHandleInput(args:Dictionary)->void:
+	#Before doing the below, determine what kind of target the card wants.
+	#Stubs or buttons?
 	if args.event is Control: #Buttons are controls, stubs are Node2D
 		print("RECEIVED A CONTROL, MOTHERFUCKER")
 		print(args.event)
+		LogicalCard
+		if num_resolve_secondary > 0:
+			if num_instant > 0:
+				#Treat as three stage
+				return
+			#Treat as two_stage
+			return
+		if num_resolve > 0:
+			#Treat as one stage
+			return
+		#Apply any global instant effects here
+		#Add any global resolve effects to queue
+
 	pass
 #Capture all input to avoid letting the player left click on shit.
+
+
+func assign_resolve_target(target:Array)->void: #In truth this is an untyped argument, but I didn't want to let the editor allow it generally
+	#This is because we can assign KaijuButtons, PlayerButtons, KaijuStubs, and PlayerStubs to the resolve targets array
+
+	pass

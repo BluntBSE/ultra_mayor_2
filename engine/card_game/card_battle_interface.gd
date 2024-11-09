@@ -31,7 +31,7 @@ This state might primarily be used to update the state machines of child nodes. 
 """
 
 # Called when the node enters the scene tree for the first time.
-enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
+enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_2ND_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
 enum SEEKING_TARGET {KAIJU_BUTTON, KAIJU_CARD, PLAYER_BUTTON, PLAYER_CARD}
 signal turn_signal
 signal targeting_signal
