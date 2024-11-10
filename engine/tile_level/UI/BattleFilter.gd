@@ -23,7 +23,6 @@ func assign_battle(idx:int)->void:
 	#var idx_display:String = str(idx+1)
 	pilot_displays = get_node("AllPilots").get_children()
 	var p_idx := 0
-	print("ACTIVE BATTLE PILOTS ARE , ", active_battle.pilots)
 	for pilot:LogicalPilot in active_battle.pilots:
 		var btn:Control = pilot_displays[p_idx]
 		var sprite:Sprite2D = btn.get_node("Polygon2D/Sprite2D")
@@ -49,7 +48,6 @@ func assign_battle(idx:int)->void:
 
 func start_battle()->void:
 	#TODO:
-	print("Canvas is ", canvas)
 	canvas.get_node("OverworldBattleUI").visible = false
 	battle_interface.unpack(active_battle)
 	var screen_filters: Control = get_parent()

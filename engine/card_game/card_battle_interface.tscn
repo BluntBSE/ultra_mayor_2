@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=22 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="4_mynaa"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="5_084cw"]
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="6_5f7kb"]
+[ext_resource type="Script" path="res://engine/card_game/UI_elements/energy_display.gd" id="6_tdopw"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="9_ic2nq"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/player_in_play.gd" id="10_lewek"]
@@ -70,23 +71,26 @@ scale = Vector2(0.35, 0.35)
 texture = ExtResource("3_jqjyu")
 
 [node name="EnergyDisplay" type="Control" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1665.0
-offset_top = 605.0
-offset_right = 1815.0
-offset_bottom = 755.0
+offset_left = 1646.0
+offset_top = 721.0
+offset_right = 1796.0
+offset_bottom = 871.0
+script = ExtResource("6_tdopw")
 
 [node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay"]
-position = Vector2(66, 215)
+position = Vector2(75, 83)
 color = Color(0.866667, 0.670588, 0.211765, 1)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
 sides = 6
 radius = 75.0
 
-[node name="TextEdit" type="RichTextLabel" parent="EnergyDisplay/Polygon2D"]
+[node name="EnergyText" type="RichTextLabel" parent="EnergyDisplay/Polygon2D"]
+unique_name_in_owner = true
 offset_left = -61.0
 offset_top = -28.0
 offset_right = 63.0
@@ -96,7 +100,7 @@ theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]7 / 10[/center]"
 
-[node name="EnergyDisplay2" type="Control" parent="."]
+[node name="QMark" type="Control" parent="."]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 3
 anchors_preset = 0
@@ -105,7 +109,7 @@ offset_top = 806.0
 offset_right = 381.0
 offset_bottom = 956.0
 
-[node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay2"]
+[node name="Polygon2D" type="Polygon2D" parent="QMark"]
 position = Vector2(66, 63)
 color = Color(0.141176, 0.117647, 0.105882, 0.803922)
 polygon = PackedVector2Array(20, 0, 10, 17.3205, -10, 17.3205, -20, 2.44921e-15, -10, -17.3205, 10, -17.3205, 20, 0)
@@ -113,7 +117,7 @@ script = ExtResource("4_3y6xh")
 sides = 6
 radius = 20.0
 
-[node name="TextEdit" type="RichTextLabel" parent="EnergyDisplay2/Polygon2D"]
+[node name="TextEdit" type="RichTextLabel" parent="QMark/Polygon2D"]
 offset_left = -61.0
 offset_top = -23.0
 offset_right = 63.0

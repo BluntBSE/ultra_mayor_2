@@ -12,7 +12,6 @@ func stateEnter(args:Dictionary)->void:
 	sprite.modulate = "#f6535d"
 
 func stateHandleInput(args:Dictionary)->void:
-	print("RECEIVED ARGS OF", args)
 	if args.event == RTInputs.CLEAR:
 		_reference.state_machine.Change("basic", {})
 	if args.event == RTInputs.SELECT_2:
@@ -30,5 +29,3 @@ func stateUpdate(_delta:float) -> void:
 
 func stateExit()->void:
 	_reference.prev_state = "kaiju_move_preview"
-
-
