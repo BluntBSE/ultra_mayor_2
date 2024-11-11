@@ -108,7 +108,8 @@ func _ready()->void:
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
 	if turn_signal == interface.TURN_STATES.PLAYER:
-		interaction_mode = "not_interactive"
+		#interaction_mode = "not_interactive"
+		interaction_mode = "interactive"
 	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.K_BUTTONS:
 			interaction_mode = "interactive"

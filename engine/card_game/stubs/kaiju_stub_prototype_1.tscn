@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c34o5qhw84gg6"]
+[gd_scene load_steps=4 format=3 uid="uid://cqunvgckjxeh8"]
 
 [ext_resource type="Texture2D" uid="uid://bsky1d31lgusp" path="res://engine/card_game/assets/kaiju_decks/AI_spike_rupture.jpg" id="1_wyqq3"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="2_5x03d"]
@@ -8,7 +8,6 @@
 [node name="CardPrototype1" type="Node2D"]
 
 [node name="HoverBorder" type="ColorRect" parent="."]
-visible = false
 offset_left = -105.0
 offset_top = -163.0
 offset_right = 103.0
@@ -55,3 +54,14 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[center]1[/center]"
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="InstantArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
+
+[node name="ResolveArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
+
+[node name="ResolveSecondaryArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true

@@ -90,18 +90,28 @@ func _on_mouse_area_exited() -> void:
 	pass
 
 
+
+
 func flash_all_targets()->void:
 	var i_arrows:Array = []
 	var r_arrows:Array = []
 	var r_2_arrows:Array = []
 
 	for target:Node in instant_targets:
-		i_arrows.append(CardHelpers.arrow_to_target_k(self, target, Color.BLANCHED_ALMOND))
+		var arrow:IndicateArrow = CardHelpers.arrow_to_target_k(self, target, Color.BLANCHED_ALMOND)
+		i_arrows.append(arrow)
+		remove_child(arrow)
+		%InstantArrows.add_child(arrow)
 	for target:Node in resolve_targets:
-		r_arrows.append(CardHelpers.arrow_to_target_k(self, target, Color.CYAN))
+		var arrow:IndicateArrow = CardHelpers.arrow_to_target_k(self, target, Color.CYAN)
+		r_arrows.append(arrow)
+		remove_child(arrow)
+		%ResolveArrows.add_child(arrow)
 	for target:Node in resolve_targets_secondary:
-		r_2_arrows.append(CardHelpers.arrow_to_target_k(self,target, Color.ORANGE))
-
+		var arrow:IndicateArrow = CardHelpers.arrow_to_target_k(self, target, Color.ORANGE)
+		remove_child(arrow)
+		r_2_arrows.append(arrow)
+		%ResolveSecondaryArrows.add_child(arrow)
 	for arrow:IndicateArrow in i_arrows:
 		arrow.soft_double_fade()
 	for arrow:IndicateArrow in r_arrows:

@@ -77,3 +77,14 @@ theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[center]1[/center]"
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="InstantArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
+
+[node name="ResolveArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
+
+[node name="ResolveSecondaryArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
