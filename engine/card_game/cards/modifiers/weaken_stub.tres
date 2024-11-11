@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardModifier" load_steps=2 format=3 uid="uid://7vcctr7qbqa"]
+
+[ext_resource type="Script" path="res://engine/card_game/cards/card_modifier.gd" id="1_enhw4"]
+
+[resource]
+script = ExtResource("1_enhw4")
+modifier = "weaken_stub"
+category = 1
+types = []
+description = ""

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardModifier" load_steps=2 format=3 uid="uid://waox24bfotct"]
+
+[ext_resource type="Script" path="res://engine/card_game/cards/card_modifier.gd" id="1_alerl"]
+
+[resource]
+script = ExtResource("1_alerl")
+modifier = "weaken_card"
+category = 0
+types = []
+description = ""

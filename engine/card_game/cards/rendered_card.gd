@@ -94,6 +94,7 @@ func _ready() -> void:
 func do_on_played()->void:
 	#Whenever a card is played, it should emit that the turn is back to the player state.
 	energy_spent.emit(cost) #TODO: Once we get into modifiers, energy cost can change.
+	#Apply instant speed effects -- part of stub actually
 	turn_signal.emit("interactive") #Why are we using strings here and not the enum? I recall there being a reason...
 	was_removed.emit(self)
 	queue_free()

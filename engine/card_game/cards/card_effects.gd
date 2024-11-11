@@ -17,3 +17,6 @@ static func simple_damage(targets_primary:Array = [], _targets_secondary:Array =
 			print("Simple damage just milled ", milled.display_name)
 			target.update_count()
 			target.graveyard.append(milled)
+
+static func instant_weaken(targets:Array)->void:
+	pass

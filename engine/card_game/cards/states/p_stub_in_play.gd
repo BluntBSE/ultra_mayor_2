@@ -3,9 +3,11 @@ class_name PStubInPlayState
 
 
 func stateEnter(args:Dictionary)->void:
-	print("Stub entered in play state")
 	var ref:PlayerCardStub = _reference
-	print("RESOLVE TARGETS ARE ", ref.resolve_targets)
+	for target:Node in ref.instant_targets:
+		CardHelpers.arrow_to_target_k(ref, target, Color.BLANCHED_ALMOND)
 	for target:Node in ref.resolve_targets:
 		CardHelpers.arrow_to_target_k(ref, target, Color.CYAN)
+	for target:Node in ref.resolve_targets_secondary:
+		CardHelpers.arrow_to_target_k(ref,target, Color.ORANGE)
 	pass

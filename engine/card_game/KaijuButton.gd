@@ -78,7 +78,7 @@ func draw_and_assign()->void:
 			card.o_instant_targets_pilot_buttons.append(target)
 			print(card.lc.display_name, card.instant_targets_pilot_buttons)
 
-	card.queue_instant_effects()
+	#card.queue_instant_effects() - Possibly attach this to  kaiju stubs instead
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")

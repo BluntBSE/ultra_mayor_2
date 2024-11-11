@@ -69,24 +69,6 @@ func show_resolve_targets()->void:
 		CardHelpers.arrow_to_target_k(self, target, Color.RED)
 	pass
 
-func queue_instant_effects()->void:
-	print("QUEUE INSTANT EFFECTS CALLED")
-	if lc.instant_target_type == LogicalCard.target_types.P_STUBS:
-		effects.call(instant_effect, instant_targets_pilot_stubs)
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.K_STUBS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.K_BUTTONS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.ALL_STUBS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.ALL_BUTTONS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.NONE:
-		pass
-	pass
 
 
 

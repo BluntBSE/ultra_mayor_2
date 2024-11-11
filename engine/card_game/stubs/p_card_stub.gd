@@ -66,26 +66,6 @@ func show_resolve_targets() -> void:
 	pass
 
 
-func queue_instant_effects() -> void:
-	print("QUEUE INSTANT EFFECTS CALLED")
-	if lc.instant_target_type == LogicalCard.target_types.P_STUBS:
-		effects.call(instant_effect, instant_targets)
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.K_STUBS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.K_BUTTONS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.ALL_STUBS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.ALL_BUTTONS:
-		pass
-	if lc.instant_target_type == LogicalCard.target_types.NONE:
-		pass
-	pass
-
-
 func execute_resolve() -> void:
 	effects.call(resolve_effect, resolve_targets, resolve_targets_secondary, resolve_min, resolve_max)
 	played_from.graveyard.append(lc)
@@ -118,6 +98,20 @@ func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [
 	resolve_max = lc.resolve_max
 	effects = CardEffects.new()
 
+	pass
+
+func execute_instant_effects()->void:
+	print("Executing instant effect from ", self.lc.display_name)
+	effects.call(instant_effect, instant_targets)
+
+func undo_instant_effects()->void:
+	var func_name:String = instant_effect+"_undo"
+	effects.call(func_name, instant_targets)
+	pass
+
+func unplay()->void:
+	#Removes all arrows childed to this stub
+	#Undoes all instants
 	pass
 
 

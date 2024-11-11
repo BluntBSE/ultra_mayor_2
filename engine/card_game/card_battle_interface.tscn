@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=23 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8pplf"]
 
 [sub_resource type="Theme" id="Theme_igp6n"]
 
@@ -82,6 +84,7 @@ offset_bottom = 871.0
 script = ExtResource("6_tdopw")
 
 [node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay"]
+material = SubResource("ShaderMaterial_8pplf")
 position = Vector2(75, 83)
 color = Color(0.866667, 0.670588, 0.211765, 1)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)

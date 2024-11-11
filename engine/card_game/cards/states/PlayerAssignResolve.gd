@@ -56,6 +56,8 @@ func stateEnter(args: Dictionary) -> void:
 	hover_border.color = Color(Color.RED)
 
 	num_resolve = ref_lc.resolve_targets
+	num_instant = ref_lc.instant_targets
+	num_resolve_secondary = ref_lc.resolve_secondary_targets
 	print("NUM RESOLVE IS NOW ", num_resolve)
 	#TODO, instant, resolve_2
 
@@ -71,25 +73,58 @@ func stateHandleInput(args: Dictionary) -> void:
 		#NOTE: The while loops below imply that the job of any "submit X" button to exit early
 		# Does its job by setting these variables to 0 based on the current turn state.
 		if num_instant > 0:
+			print("NUM INSTANT CHECK")
 			#Do instants
-			pass  #TODO: return
-		if num_resolve_secondary > 0:
-			#Treat as two_stage
-			return
+			if num_instant > 0:
+				if num_instant >= instant_targets.size():
+					assign_instant([args.event])
+				if num_resolve == 0 and num_resolve_secondary == 0:
+					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+				return
+
 		if num_resolve > 0:
+			print("NUM RESOLVE CHECK", num_resolve)
 			#Treat as one stage
-			assign_resolve_primary([args.event])
+			if num_resolve >= resolve_targets.size():
+				assign_resolve_primary([args.event])
+				if num_resolve == 0 and num_resolve_secondary == 0:
+					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+				return
+
+
+		if num_resolve_secondary > 0:
+			if num_resolve >= resolve_targets_secondary.size():
+				assign_resolve_secondary([args.event])
+				if num_resolve == 0 and num_resolve_secondary == 0:
+					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+				return
+
+		if num_resolve == 0 and num_resolve_secondary == 0:
 			play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
 			return
-		#Create the card stub with its targets assigned
-		#The card stub will, upon entering the tree, apply instant effects and store knowledge about its resolve effects
 	pass
 
 
 func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
+	#TODO: Temporary arrow?
 	resolve_targets.append_array(arg)
 	num_resolve = num_resolve - 1
+	print("NUM RESOLVE IS NOW", num_resolve)
+
+func assign_resolve_secondary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
+	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
+	#TODO: Temporary arrow?
+	resolve_targets_secondary.append_array(arg)
+	num_resolve_secondary = num_resolve_secondary - 1
+	print("NUM SECONDARY IS NOW", num_resolve)
+
+
+func assign_instant(arg:Array)->void:
+	instant_targets.append_array(arg)
+	num_instant = num_instant - 1
+	print("INSTANTS IS NOW", num_instant)
+
 
 
 func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: Array, instant_targets: Array) -> void:
