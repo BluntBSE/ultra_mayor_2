@@ -53,7 +53,7 @@ func draw_card()->KaijuCardStub:
 
 func draw_and_assign()->void:
 	var card:KaijuCardStub = await draw_card() #Using await to make the arrow wait for drawing animation
-	card.played_by = self
+	card.played_from = self
 	var num_resolve_targets:int = card.lc.resolve_targets
 	var num_instant_targets:int = card.lc.instant_targets
 	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_node("HBoxContainer").get_children()
@@ -74,9 +74,8 @@ func draw_and_assign()->void:
 		for i in range(num_instant_targets):
 			var rand_index:int = randi() % valid_targets.size()
 			var target:PilotButton = valid_targets[rand_index]
-			card.instant_targets_pilot_buttons.append(target)
-			card.o_instant_targets_pilot_buttons.append(target)
-			print(card.lc.display_name, card.instant_targets_pilot_buttons)
+			card.instant_targets.append(target)
+			card.o_instant_targets.append(target)
 
 	#card.queue_instant_effects() - Possibly attach this to  kaiju stubs instead
 

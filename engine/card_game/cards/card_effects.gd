@@ -18,10 +18,10 @@ static func simple_damage(targets_primary:Array = [], _targets_secondary:Array =
 			target.update_count()
 			target.graveyard.append(milled)
 
-static func instant_weaken_card(targets:Array)->void:
+static func instant_weaken_stub(targets:Array)->void:
 	var modifier:CardModifier = load("res://engine/card_game/cards/modifiers/weaken_card.tres")
 	modifier.duration = 1
-	for target:Node in targets: #Player or Kaiju card stub
-		target.modifiers.append(modifiers)
+	for target:StubBase in targets: #Player or Kaiju card stub
+		target.modifiers.append(modifier)
 	#CardHelpers.
 	pass

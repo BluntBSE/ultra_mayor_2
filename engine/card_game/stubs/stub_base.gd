@@ -17,13 +17,11 @@ var cost_label:RichTextLabel
 var state_machine: StateMachine = StateMachine.new()
 
 #Origin
-var played_from:KaijuButton
+var played_from:Node
 
 #Card Stuff
-var instant_targets_pilot_stubs:Array = []
-var instant_targets_kaiju_stubs:Array = []
-var instant_targets_kaiju_buttons:Array = []
-var instant_targets_pilot_buttons:Array = []
+
+
 
 var instant_value:int = 0
 var instant_target_type:int= 4
@@ -41,6 +39,7 @@ var resolve_secondary_targets:Array = []
 #var resolve_seconary_ttype --- Kaiju assign their targets pseudo at random, so this might not be necessary
 #Likely secondary_targets will be any single pilot or the origin of this card since this is kaiju
 var resolve_effect:String = "debug_resolve_effect"
+var instant_targets:Array = []
 var resolve_targets:Array = []
 var resolve_targets_secondary:Array = []
 var resolve_min:int = 0
@@ -52,10 +51,8 @@ var affinity_effects:Array = []
 #For funky data
 #Card Stuff
 #Original targets for when redirects leave the field
-var o_instant_targets_pilot_stubs:Array = []
-var o_instant_targets_kaiju_stubs:Array = []
-var o_instant_targets_kaiju_buttons:Array = []
-var o_instant_targets_pilot_buttons:Array = []
+var o_instant_targets:Array = []
 var modifiers:Array = []
 
 var effects:CardEffects
+var interaction_mode:String  = "interactive"

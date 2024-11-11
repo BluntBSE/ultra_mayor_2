@@ -47,4 +47,4 @@ static func get_card_res(p_or_k:String, name:String = "default", tier:int = 0, l
 		pass
 	pass
 
-static func apply_modifiers_stub(stub:)
+#static func apply_modifiers_stub(stub:)
