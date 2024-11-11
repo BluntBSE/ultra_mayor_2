@@ -4,13 +4,9 @@ class_name PlayerCardStub
 
 #Origin
 #var played_from: PilotButton
+var entered:bool = false
 
 
-
-func show_resolve_targets() -> void:
-	for target: PilotButton in resolve_targets:
-		CardHelpers.arrow_to_target_k(self, target)
-	pass
 
 
 func execute_resolve() -> void:
@@ -92,3 +88,23 @@ func _on_mouse_area_mouse_entered() -> void:
 func _on_mouse_area_exited() -> void:
 	state_machine.handleInput({"event": "exit"})
 	pass
+
+
+func flash_all_targets()->void:
+	var i_arrows:Array = []
+	var r_arrows:Array = []
+	var r_2_arrows:Array = []
+
+	for target:Node in instant_targets:
+		i_arrows.append(CardHelpers.arrow_to_target_k(self, target, Color.BLANCHED_ALMOND))
+	for target:Node in resolve_targets:
+		r_arrows.append(CardHelpers.arrow_to_target_k(self, target, Color.CYAN))
+	for target:Node in resolve_targets_secondary:
+		r_2_arrows.append(CardHelpers.arrow_to_target_k(self,target, Color.ORANGE))
+
+	for arrow:IndicateArrow in i_arrows:
+		arrow.soft_double_fade()
+	for arrow:IndicateArrow in r_arrows:
+		arrow.soft_double_fade()
+	for arrow:IndicateArrow in r_2_arrows:
+		arrow.soft_double_fade()

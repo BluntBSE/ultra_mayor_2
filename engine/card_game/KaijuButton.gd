@@ -67,7 +67,7 @@ func draw_and_assign()->void:
 		var target:PilotButton = valid_targets[rand_index]
 		card.resolve_targets.append(target)
 
-	card.show_resolve_targets()
+	CardHelpers.flash_resolve_targets(card)
 
 	#Play instant effects. Probably do this before resolve_targets()
 	if card.lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:

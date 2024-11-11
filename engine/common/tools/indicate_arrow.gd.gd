@@ -56,3 +56,15 @@ func unpack(_starting_point: Vector2, _ending_point: Vector2, _color: Color = Co
 	width = _width
 
 	queue_redraw()
+
+
+func soft_double_fade()->void:
+	#Fade in and out once, usually used when a card is first played
+	var tween:Tween = create_tween()
+	var init_a:float = 0.0
+	self.modulate.a = init_a
+	tween.parallel().tween_property(self, "modulate:a", 1.0, .75)
+	await tween.finished
+	var tween_2:Tween = create_tween()
+	tween_2.parallel().tween_property(self, "modulate:a", 0.0, .5)
+	await tween_2.finished
