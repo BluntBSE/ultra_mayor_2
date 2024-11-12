@@ -5,7 +5,7 @@
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
 
-[node name="CardPrototype1" type="Node2D"]
+[node name="CardPrototype2" type="Node2D"]
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 visible = false

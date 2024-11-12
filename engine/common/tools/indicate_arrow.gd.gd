@@ -42,7 +42,7 @@ func _draw() -> void:
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
-	unpack(Vector2(0.0,0.0),Vector2(466.5,822))
+	#unpack(Vector2(0.0,0.0),Vector2(466.5,822))
 	pass
 	#update()  # Call update to trigger the _draw function
 

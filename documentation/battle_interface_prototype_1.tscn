@@ -19,7 +19,7 @@
 
 [sub_resource type="Theme" id="Theme_igp6n"]
 
-[node name="BattleInterface" type="Node2D"]
+[node name="BattleInterface2" type="Node2D"]
 
 [node name="BGTexture" type="TextureRect" parent="."]
 self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
