@@ -6,6 +6,7 @@ static var lib: Dictionary = {
 		{
 			"id": "demo_pilot",
 			"display_name": "Demo Pilot",
+			"energy": 2,
 			"sprite": "res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/demo_mech.png",
 			"portrait": "res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/alicia.png",
 			"move_points": 4,
@@ -19,6 +20,7 @@ static var lib: Dictionary = {
 		{
 			"id": "demo_pilot_2",
 			"display_name": "Demo Pilot",
+			"energy":2,
 			"sprite": "res://engine/tile_level/pilots/assets/sprites/LancerPCmechs/demo_mech_2.png",
 			"portrait": "res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/mustache.png",
 			"move_points": 4,

@@ -7,7 +7,6 @@ func unpack(_args:Dictionary)->void:
 	sprite = _reference.bg_sprite
 # Called when the node enters the scene tree for the first time.
 func stateEnter(args:Dictionary)->void:
-	print("Entered SECONDARY selected state at", _reference.x, _reference.y)
 	sprite.modulate = "#f161c9"
 
 

@@ -6,6 +6,7 @@ var hand_position: Vector2
 var hand_rotation: float
 
 var lc: LogicalCard
+var cost:int
 var art: Sprite2D
 var display_name: RichTextLabel
 var border: ColorRect
@@ -28,6 +29,7 @@ var origin:PilotButton
 
 
 
+signal energy_spent
 signal turn_signal
 signal target_signal
 signal clicked_stub
@@ -65,13 +67,13 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 
 	interface = _interface
 	origin = _origin
+	cost = lc.energy_cost
 
-	print("interface is", interface)
 	connect("turn_signal", interface.handle_pcard_sig)
 	connect("target_signal", interface.handle_pcard_target)
+	connect("energy_spent", interface.handle_spend)
 	interface.connect("turn_signal", set_interactivity_mode)
 	interface.connect("clicked_button", do_clicked_button)
-
 	var player_in_play:PlayerInPlay = get_tree().root.find_child("PlayerInPlay", true, false)
 	connect("was_played", player_in_play.handle_played)
 
@@ -91,6 +93,8 @@ func _ready() -> void:
 
 func do_on_played()->void:
 	#Whenever a card is played, it should emit that the turn is back to the player state.
+	energy_spent.emit(cost) #TODO: Once we get into modifiers, energy cost can change.
+	#Apply instant speed effects -- part of stub actually
 	turn_signal.emit("interactive") #Why are we using strings here and not the enum? I recall there being a reason...
 	was_removed.emit(self)
 	queue_free()
@@ -132,3 +136,6 @@ func _on_mouse_area_gui_input(event:InputEvent)->void:
 
 func set_interactivity_mode(turn_state:int)->void:
 	pass
+
+func can_afford()->bool:
+	return (interface.energy - cost >= 0)

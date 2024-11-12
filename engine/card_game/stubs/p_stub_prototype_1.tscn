@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxblcgdlqobmd"]
+[gd_scene load_steps=4 format=3 uid="uid://ptrigf4xp7mf"]
 
 [ext_resource type="Texture2D" uid="uid://bsky1d31lgusp" path="res://engine/card_game/assets/kaiju_decks/AI_spike_rupture.jpg" id="1_6awxy"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="2_0e8jx"]

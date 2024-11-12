@@ -4,7 +4,6 @@ class_name BasicStatePilot
 
 # Called when the node enters the scene tree for the first time.
 func stateEnter(_args:Dictionary) ->void:
-	print("ENTERED BASIC PILOT STATE")
 	pass
 
 func stateHandleInput(args:Dictionary)->void:
@@ -12,4 +11,3 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.state_machine.Change("basic", {})
 	if args.event == "move":
 		_reference.state_machine.Change("moving", {"origin": args.origin, "target": args.target, "map": args.map})
-

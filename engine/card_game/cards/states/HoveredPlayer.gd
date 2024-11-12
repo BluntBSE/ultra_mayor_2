@@ -42,7 +42,6 @@ func stateUpdate(_delta: float) -> void:
 func stateEnter(_args: Dictionary) -> void:
 	#_reference.turn_signal.emit() #Probably not appropriate
 	#TBH Maybe the stateexit of assigning should be what sends the turn signal out
-	print("Entered hovered state")
 	original_position = _reference.global_position
 	original_rotation = _reference.rotation
 	original_z = _reference.z_index
@@ -76,8 +75,12 @@ func stateHandleInput(args: Dictionary) -> void:
 		_reference.do_transit(t_args)
 
 	if args.event == "l_click":
-		#Change to assigning state.
-		_reference.state_machine.Change("assigning_resolve", {})
+		if _reference.can_afford():
+			_reference.state_machine.Change("assigning_resolve", {})
+		else:
+			#TODO: Replace with a better cancel function on RenderedCard
+			_reference.state_machine.Change("interactive", {})
+			_reference.hand.organize_cards()
 
 
 		"""
@@ -119,7 +122,6 @@ func stateHandleInput(args: Dictionary) -> void:
 
 
 func stateExit() -> void:
-	print("Attempted exit from hover")
 	highlight.visible = false
 	#TODO: Need to make the card not interactive when tweening back to original position.
 

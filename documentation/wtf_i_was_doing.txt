@@ -1,5 +1,12 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+NEXT:
+Have an energy requirement
+Multiple rounds of assignment
+Unplay cards
+
+
+
 SUBMIT UP TO X REQUIRES AN INTERFACE COMPONENT
 MENUS ETC:
 	-

@@ -14,7 +14,6 @@ func hide_filter(filter: String) -> void:
 
 
 func unpack_filter(filter: String, args: Array) -> void:
-	print("Screen filter recevied args", args)
 	var filter_node: Control = get_node(filter)
 	filter_node.callv("unpack", args)
 	pass

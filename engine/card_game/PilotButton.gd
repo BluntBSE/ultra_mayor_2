@@ -10,6 +10,7 @@ var hand:CardHand
 var active:bool
 var interaction_mode:String = "interactive"
 var interface:BattleInterface
+var graveyard:Array = []
 #interactive, assignable, not_interactive
 
 

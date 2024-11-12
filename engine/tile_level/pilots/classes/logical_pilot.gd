@@ -5,7 +5,7 @@ var reachable_path:Array = []
 #Deck, etc.
 var deck:Array = []
 var deck_strings:Array = []
-var power:int
+var energy:int
 var services:Services
 signal pilot_path
 
@@ -22,6 +22,7 @@ func _init(args:Dictionary)->void:
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
 	deck_strings  = args.default_deck
+	energy = args.energy
 
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
@@ -30,7 +31,6 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 	map = _map
 	logical_grid=_logical_grid
 	rendered_grid=_rendered_grid
-	print("IS OCCUPANT IN TREE? ", is_inside_tree())
 	services = get_tree().root.get_node("Main/Services")
 
 

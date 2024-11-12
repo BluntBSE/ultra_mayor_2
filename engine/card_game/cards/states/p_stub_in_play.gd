@@ -3,9 +3,10 @@ class_name PStubInPlayState
 
 
 func stateEnter(args:Dictionary)->void:
-	print("Stub entered in play state")
+	#NOTE: Currently we enter this state every time organize_stubs is called, causing all in-play cards to show their targets
+#	#Therefore, we're currently checking if ref has been played.
 	var ref:PlayerCardStub = _reference
-	print("RESOLVE TARGETS ARE ", ref.resolve_targets)
-	for target:Node in ref.resolve_targets:
-		CardHelpers.arrow_to_target_k(ref, target, Color.CYAN)
-	pass
+	if ref.entered == false:
+		#Things that should only happen once
+		ref.flash_all_targets()
+	ref.entered = true

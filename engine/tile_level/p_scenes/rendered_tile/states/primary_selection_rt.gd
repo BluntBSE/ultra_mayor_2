@@ -7,7 +7,6 @@ func unpack(_args:Dictionary)->void:
 	sprite = _reference.bg_sprite
 # Called when the node enters the scene tree for the first time.
 func stateEnter(_args:Dictionary)->void:
-	print("Entered PRIMARY selected state at", _reference.x, " ", _reference.y)
 	sprite.modulate = "#37a5d2"
 
 
@@ -18,4 +17,3 @@ func _process(_delta:float )->void:
 func stateHandleInput(args:Dictionary)->void:
 	if args.event == RTInputs.CLEAR:
 		_reference.state_machine.Change("basic", {})
-

@@ -65,7 +65,7 @@ func handle_input(args:Dictionary)->void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float) -> void:
-	state_machine._current.stateUpdate(delta)
+	state_machine._current.stateUpdate(_delta)
 
 #Connected via inspector to hover_area
 func custom_hover_enter() -> void:
@@ -111,7 +111,6 @@ func custom_right_click() -> void:
 
 
 func _on_hover_area_input_event(viewport:Node, event:InputEvent, shape_idx:int) ->void:
-	print("EVENT IS: ", event)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 		custom_left_click() #Emit signal to Map node
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():

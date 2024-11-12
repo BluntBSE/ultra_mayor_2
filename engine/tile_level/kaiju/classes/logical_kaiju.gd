@@ -319,8 +319,6 @@ func regenerate_kaiju()->void:
 	pass
 
 func occupant_unpack()->void:
-	print("OCCUPANT UNPACK CALLED FROM KAIJU")
-	print("UNPACKING WITH", limb_names)
 	generate_limbs(limb_names)
 
 

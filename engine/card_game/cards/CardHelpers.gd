@@ -26,7 +26,7 @@ static func shuffle_array(arr: Array) -> Array:
 
 	return shuffled_array
 
-static func arrow_to_target_k(origin:Node, target:Node, color:Color = Color.CYAN)->void:
+static func arrow_to_target_k(origin:Node, target:Node, color:Color = Color.CYAN)->IndicateArrow:
 	#TODO: Add color and/or texture as arguments
 	#Replace with a fancier curve arrow. For now...
 	var arrow:IndicateArrow = IndicateArrow.new()
@@ -37,6 +37,7 @@ static func arrow_to_target_k(origin:Node, target:Node, color:Color = Color.CYAN
 	var origin_pos:Vector2 = origin.global_position
 	var target_pos:Vector2 = target.global_position
 	arrow.unpack(origin_pos, target_pos, color)
+	return arrow
 
 static func get_card_res(p_or_k:String, name:String = "default", tier:int = 0, limb:String = "none" )->void:
 	var p_decklists:String = "res://engine/card_game/decklists_pilot/"
@@ -46,3 +47,18 @@ static func get_card_res(p_or_k:String, name:String = "default", tier:int = 0, l
 	if p_or_k == "pilot":
 		pass
 	pass
+
+#static func apply_modifiers_stub(stub:)
+
+static func show_resolve_targets(stub:StubBase)->void:
+	for target:Node in stub.resolve_targets:
+		CardHelpers.arrow_to_target_k(stub, target, Color.RED)
+
+static func flash_resolve_targets(stub:StubBase)->void:
+
+	var arrows:Array = [] #Consider changing this to a node parented to the stub.
+	for target:Node in stub.resolve_targets:
+		arrows.append(CardHelpers.arrow_to_target_k(stub, target, Color.RED))
+	for arrow:IndicateArrow in arrows:
+		arrow.soft_double_fade()
+pass

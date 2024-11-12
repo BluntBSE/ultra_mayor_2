@@ -2,7 +2,6 @@ class_name TileMapHeaderBar extends ColorRect
 
 @onready var label:RichTextLabel = get_node("mode_label")
 func update_label(mode:int) -> void:
-	print("Updating label to be", mode)
 	if mode == 0:
 		label.text = "MODE: CITY BUILDER"
 	if mode == 1:

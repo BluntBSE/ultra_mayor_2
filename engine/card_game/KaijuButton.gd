@@ -14,6 +14,7 @@ var arrows:Array = []
 var active:bool = false
 var interface:BattleInterface
 var interaction_mode:String = "not_interactive"
+var graveyard:Array = []
 #interactive, assignable, not_interactive
 signal was_clicked
 
@@ -22,7 +23,9 @@ func count_string(left: int, starting: int) -> String:
 	return str(left) + "/" + str(starting)
 
 func update_count()->void:
+	cards_left = deck.size()
 	card_count.text = count_string(cards_left, cards_starting)
+
 
 
 #TODO: Put draw_card in the interactive state.
@@ -50,7 +53,7 @@ func draw_card()->KaijuCardStub:
 
 func draw_and_assign()->void:
 	var card:KaijuCardStub = await draw_card() #Using await to make the arrow wait for drawing animation
-	card.played_by = self
+	card.played_from = self
 	var num_resolve_targets:int = card.lc.resolve_targets
 	var num_instant_targets:int = card.lc.instant_targets
 	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_node("HBoxContainer").get_children()
@@ -64,18 +67,17 @@ func draw_and_assign()->void:
 		var target:PilotButton = valid_targets[rand_index]
 		card.resolve_targets.append(target)
 
-	card.show_resolve_targets()
+	CardHelpers.flash_resolve_targets(card)
 
 	#Play instant effects. Probably do this before resolve_targets()
 	if card.lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
 		for i in range(num_instant_targets):
 			var rand_index:int = randi() % valid_targets.size()
 			var target:PilotButton = valid_targets[rand_index]
-			card.instant_targets_pilot_buttons.append(target)
-			card.o_instant_targets_pilot_buttons.append(target)
-			print(card.lc.display_name, card.instant_targets_pilot_buttons)
+			card.instant_targets.append(target)
+			card.o_instant_targets.append(target)
 
-	card.queue_instant_effects()
+	#card.queue_instant_effects() - Possibly attach this to  kaiju stubs instead
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
@@ -92,7 +94,7 @@ func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void
 	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
 	interface.turn_signal.connect(switch_interactivity)
-	connect("was_clicked", interface.broadcast_button)
+	connect("was_clicked", interface.broadcast_button) #Currently used, but I forget how.
 
 
 
@@ -106,7 +108,8 @@ func _ready()->void:
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
 	if turn_signal == interface.TURN_STATES.PLAYER:
-		interaction_mode = "not_interactive"
+		#interaction_mode = "not_interactive"
+		interaction_mode = "interactive"
 	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.K_BUTTONS:
 			interaction_mode = "interactive"

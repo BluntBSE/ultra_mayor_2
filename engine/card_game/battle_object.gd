@@ -4,6 +4,6 @@ class_name BattleObject
 # {"kaiju":the_kaiju, "pilots": [all_the_pilots], "modifiers": build_terrain_mods + modifiers on terrain
 
 var kaiju:LogicalKaiju
-var pilots:Array = []
+var pilots:Array = [] #
 var terrain:String = "" #Or enum?
 var modifiers:Array = []
