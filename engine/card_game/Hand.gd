@@ -8,7 +8,7 @@ var cards_in_hand: Array = []
 @export var rot_curve: Curve = Curve.new()
 
 
-func reorganize() -> void:
+func reorganize() -> void: #DEPRECATED?
 	var idx: int = 0
 	for card: RenderedCard in cards_in_hand:
 		card.position = Vector2((x_offset * idx) + x_offset, y_offset)

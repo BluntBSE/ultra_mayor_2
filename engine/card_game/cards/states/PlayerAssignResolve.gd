@@ -1,42 +1,7 @@
 extends GenericState
 class_name PlayerAssignResolve
 
-"""
-In assigning_resolve state, the hover_border turns red.
-An arrow is cast from the top of the card to the player's mouse position
-All left clicks that are not on a valid target are blocked
-If the player hovers over a valid target while this card is in this state, the target's hover border
-Turns red
-TODO: Create a uniform convention for targets that get hovered over. E.g: all valid targets have it called "HoverBorder"
-Do I need a signal system where the nodes we hover over emit enter/exit signals?
-Maybe, may just be better to detect what's under the mouse if we can.
-If the user left clicks while hovering over a valid target, -1 from the num of targets the _reference requires
-Draw a line between the _reference and the above target
-
-Restart the process
-
-When the num of targets the _reference has left == 0,
-this card creates a PilotCardStub childed to the PilotInPlay node with the arguments of its targets, etc. attached to it.
-The PilotCardStub also carries its instant effects, and its removal re_triggers the queued instant effects.
-The _reference card ceases to exist (animate it going into the PilotInPlay node though)
-
-
-escape conditions: left clicking the _reference sends it back to the basic "hovered" state. Right_clicking anywhere does it too.
-
-
-
-The signal system:
-
-OPTIONS: Pause all nodes upon receiving a signal
-Interception screenspace node
-
-Emit signal to Battle Interface telling it what state to be in
-
-Battle interface emits signal to all child nodes telling them they are legal or not based on their state
-
-If a node is legal, its hover things work...
-
-"""
+var indicator:IndicateArrow
 var num_resolve: int = 0
 var num_resolve_secondary: int = 0
 var num_instant: int = 0
@@ -46,6 +11,9 @@ var instant_targets: Array = []
 
 
 func stateEnter(args: Dictionary) -> void:
+	indicator = IndicateArrow.new()
+	_reference.add_child(indicator)
+	indicator.visible = false
 	var ref_lc: LogicalCard = _reference.lc
 	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 	var targeting_type: int = ref_lc.resolve_target_type
@@ -69,7 +37,6 @@ func stateHandleInput(args: Dictionary) -> void:
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
 	if args.event is Control:  #Buttons are controls, stubs are Node2D
-		print(args.event)
 		#NOTE: The while loops below imply that the job of any "submit X" button to exit early
 		# Does its job by setting these variables to 0 based on the current turn state.
 		if num_instant > 0:
@@ -107,20 +74,21 @@ func stateHandleInput(args: Dictionary) -> void:
 
 func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
-	#TODO: Temporary arrow?
+	CardHelpers.arrow_between(_reference, arg[0], Color.CYAN)
 	resolve_targets.append_array(arg)
 	num_resolve = num_resolve - 1
 	print("NUM RESOLVE IS NOW", num_resolve)
 
 func assign_resolve_secondary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
-	#TODO: Temporary arrow?
+	CardHelpers.arrow_between(_reference, arg[0], Color.ORANGE)
 	resolve_targets_secondary.append_array(arg)
 	num_resolve_secondary = num_resolve_secondary - 1
 	print("NUM SECONDARY IS NOW", num_resolve)
 
 
-func assign_instant(arg:Array)->void:
+func assign_instant(arg:Array)->void:#Truly this is an untyped variable of either Button or Stub.
+	CardHelpers.arrow_between(_reference, arg[0], Color.BLANCHED_ALMOND)
 	instant_targets.append_array(arg)
 	num_instant = num_instant - 1
 	print("INSTANTS IS NOW", num_instant)
@@ -145,3 +113,19 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	_reference.do_on_played()
 
 	pass
+
+func stateUpdate(_dt:float)->void:
+	#Regenrating this arrow every frame might be bad.
+	#indicator.queue_free()
+	indicator.visible = true
+	#indicator.scale = Vector2(1.0,1.0)
+	if num_instant > 0:
+		#print("TRYING TO DRAW INSTANT ARROW FROM ", _reference.global_position, "TO ", _reference.get_global_mouse_position())
+		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.BLANCHED_ALMOND)
+		return
+	if num_resolve > 0:
+		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.CYAN)
+		return
+	if num_resolve_secondary > 0:
+		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.ORANGE)
+		return

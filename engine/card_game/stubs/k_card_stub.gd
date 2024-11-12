@@ -7,7 +7,7 @@ class_name KaijuCardStub
 
 func show_resolve_targets()->void:
 	for target:PilotButton in resolve_targets:
-		CardHelpers.arrow_to_target_k(self, target, Color.RED)
+		CardHelpers.arrow_between(self, target, Color.RED)
 	pass
 
 
