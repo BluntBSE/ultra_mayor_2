@@ -41,7 +41,6 @@ signal was_removed
 
 func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:Control) -> void:
 	hand = _hand
-	connect("was_removed", hand.handle_removed)
 	lc = _lc
 	art = find_child("ArtImg")
 	art.texture = lc.art

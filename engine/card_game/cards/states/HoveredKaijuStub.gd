@@ -3,6 +3,7 @@ class_name InspectableStub
 
 var highlight: ColorRect
 var inspect_copy:RenderedCard
+var dummy_hand:CardHand
 
 
 
@@ -18,13 +19,14 @@ func stateEnter(_args: Dictionary) -> void:
 
 func stateHandleInput(args:Dictionary)->void:
 	var ref:StubBase = _reference
+
 	if args.event == "hover":
 		_reference.hovered = true
 		highlight.visible = true
 		var inspect_node:Node2D = ref.get_tree().root.find_child("InspectCard", true, false)
 		inspect_copy = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
 		inspect_node.add_child(inspect_copy)
-		var dummy_hand:CardHand = CardHand.new()
+		dummy_hand = CardHand.new()
 		inspect_node.add_child(dummy_hand)
 		var interface:BattleInterface = ref.get_tree().root.find_child("BattleInterface", true, false)
 		inspect_copy.unpack(ref.lc, dummy_hand, interface, ref.played_from)
@@ -37,6 +39,8 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.hovered = false
 		highlight.visible = false
 		inspect_copy.queue_free()
+		if dummy_hand:
+			dummy_hand.queue_free()
 		pass
 
 

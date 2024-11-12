@@ -15,10 +15,10 @@ script = ExtResource("1_jbetc")
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 visible = false
-offset_left = -105.0
-offset_top = -163.0
-offset_right = 103.0
-offset_bottom = 15.0
+offset_left = -110.0
+offset_top = -107.0
+offset_right = 98.0
+offset_bottom = 71.0
 mouse_filter = 2
 color = Color(0.329412, 0.933333, 0.184314, 1)
 

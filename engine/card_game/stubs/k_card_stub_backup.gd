@@ -1,5 +1,5 @@
 extends StubBase
-class_name KaijuCardStub
+class_name KaijuCardStubBackup
 
 #Set by battle interface
 #var played_by:KaijuButton
@@ -41,7 +41,6 @@ func _ready() -> void:
 	state_machine.Add("inspectable", InspectableStub.new(self, {}))
 	#state_machine.Add("assignable", AssignableStub.new(self,{}))
 	state_machine.Add("normal", GenericState.new(self,{}))
-	state_machine.Add("in_transit", TransitNodeState.new(self, {}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Change("inspectable", {})
 	pass
