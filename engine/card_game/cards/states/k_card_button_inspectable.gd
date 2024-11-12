@@ -1,5 +1,5 @@
 extends GenericState
-class_name KCardButtonHover
+class_name KCardButtonInspectable
 
 var highlight: Polygon2D
 
@@ -22,15 +22,21 @@ func stateUpdate(_delta: float) -> void:
 
 func stateEnter(_args: Dictionary) -> void:
 	highlight = _reference.get_node("HoverPoly")
-	highlight.visible = true
+	pass
 
 
 func stateHandleInput(args: Dictionary) -> void:
+	if args.event == "hover":
+		_reference.hovered = true
+		highlight.visible = true
+	if args.event == "l_click" and _reference.hovered == true:
+		#_reference.was_clicked.emit(_reference)
+		print("INSPECTION SHOULD BE TRIGGERED HERE")
 	if args.event == "exit":
-		_reference.state_machine.Revert()
-		#_reference.state_machine.Change("normal", {})
-	if args.event == "l_click":
-		_reference.was_clicked.emit(_reference)
+		#NOTE: Clicks qualify as 'exit' too!
+		_reference.hovered = false
+		highlight.visible = false
+		pass
 
 
 func is_left_mouse_released() -> bool:
