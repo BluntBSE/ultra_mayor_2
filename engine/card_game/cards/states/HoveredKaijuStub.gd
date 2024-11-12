@@ -22,7 +22,6 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.hovered = true
 		highlight.visible = true
 		var inspect_node:Node2D = ref.get_tree().root.find_child("InspectCard", true, false)
-		print("Inspect node is", inspect_node)
 		inspect_copy = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
 		inspect_node.add_child(inspect_copy)
 		var dummy_hand:CardHand = CardHand.new()

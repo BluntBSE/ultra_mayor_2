@@ -11,6 +11,7 @@ var active:bool
 var interaction_mode:String = "interactive"
 var interface:BattleInterface
 var graveyard:Array = []
+var hovered:bool = false
 #interactive, assignable, not_interactive
 
 
@@ -59,21 +60,27 @@ func unpack(pilot: LogicalPilot) -> void:
 	card_count.text = count_string(cards_starting, cards_left)
 	active = true
 
-func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
-	#Should this be a state machine? I've opted against one since this only disables one aspect.
-	#And other states might sit on top
-	if turn_signal == interface.TURN_STATES.PLAYER:
-		interaction_mode = "interactive"
-		print("PButton switched to interactive mode")
-	else:
-		print("Pbutton switched to not_interactive")
-		interaction_mode = "not_interactive"
 
+
+func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
+	if not active:
+		return
+	if turn_signal == interface.TURN_STATES.PLAYER:
+		#interaction_mode = "not_interactive"
+		state_machine.Change("drawable", {})
+	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
+		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.P_BUTTONS:
+			state_machine.Change("assignable", {})
+	else:
+		pass
+
+	pass
 
 func _ready()->void:
 	state_machine = StateMachine.new()
-	state_machine.Add("hover", PCardButtonHover.new(self, {}))
+	state_machine.Add("drawable", PCardButtonDrawable.new(self, {}))
 	state_machine.Add("normal", PCardButtonNormal.new(self, {}))
+	state_machine.Add("assignable", PCardButtonAssignable.new(self, {}))
 	state_machine.Change("normal", {})
 
 	interface = get_tree().root.find_child("BattleInterface", true, false)
@@ -83,8 +90,6 @@ func _ready()->void:
 
 
 func on_hover()->void:
-	if interaction_mode == "interactive":
-		print("You hovered over pbutton that thinks it's interactive")
 		get_viewport().set_input_as_handled() #TODO: Is this really the way?
 		state_machine._current.stateHandleInput({"event": "hover"})
 

@@ -1,5 +1,5 @@
 extends GenericState
-class_name PCardButtonHover
+class_name PCardButtonDrawable
 
 var highlight: Polygon2D
 
@@ -10,26 +10,19 @@ func _ready() -> void:
 	pass  # Replace with function body.
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		stateHandleInput({"event": "l_click"})
-
-
-func stateUpdate(_delta: float) -> void:
-	if is_left_mouse_released():
-		stateHandleInput({"event": "l_click"})
-
 
 func stateEnter(_args: Dictionary) -> void:
 	highlight = _reference.get_node("HoverPoly")
-	highlight.visible = true
-
+	pass
 
 func stateHandleInput(args: Dictionary) -> void:
+	if args.event == "hover":
+		highlight.visible = true
+		_reference.hovered = true
 	if args.event == "exit":
-		_reference.state_machine.Revert()
-		#_reference.state_machine.Change("normal", {})
-	if args.event == "l_click":
+		_reference.hovered = false
+		highlight.visible = false
+	if args.event == "l_click" and _reference.hovered == true:
 		_reference.draw_card()
 
 
@@ -39,3 +32,8 @@ func is_left_mouse_released() -> bool:
 
 func stateExit() -> void:
 	highlight.visible = false
+
+
+func stateUpdate(_delta: float) -> void:
+	if is_left_mouse_released():
+		stateHandleInput({"event": "l_click"})
