@@ -76,7 +76,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	interface.connect("clicked_button", do_clicked_button)
 	var player_in_play:PlayerInPlay = get_tree().root.find_child("PlayerInPlay", true, false)
 	connect("was_played", player_in_play.handle_played)
-	connect("was_played", hand.organize_cards)
+	connect("was_removed", hand.handle_removed)
 
 
 

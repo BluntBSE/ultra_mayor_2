@@ -8,15 +8,7 @@ var cards_in_hand: Array = []
 @export var rot_curve: Curve = Curve.new()
 
 
-func reorganize() -> void: #DEPRECATED?
-	var idx: int = 0
-	for card: RenderedCard in cards_in_hand:
-		card.position = Vector2((x_offset * idx) + x_offset, y_offset)
-		card.hand_rotation = card.rotation
-		card.hand_position = card.position  #Store the position for resetting whenever it hovers, gets dragged, etc.
-		idx += 1
-		z_index += 1
-	pass
+
 
 
 func organize_cards() -> void:
@@ -62,4 +54,5 @@ func organize_cards() -> void:
 func handle_removed(card:RenderedCard)->void:
 	print("Hello from handle_removed in Hand")
 	cards_in_hand.erase(card)
+	organize_cards()
 	pass
