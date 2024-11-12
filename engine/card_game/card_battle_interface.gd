@@ -86,15 +86,7 @@ func handle_kaiju_turn_finished() -> void:
 
 
 func handle_pcard_sig(state: String) -> void:
-	"""
-		state_machine.Add("interactive", InteractiveCard.new(self, {}))
-		state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
-		state_machine.Add("transit", TransitCardState.new(self,{}))
-		#state_machine.add("assigning_instant", AssigningInstantState.new(self,{}))
-		state_machine.Add("assigning_resolve", PlayerAssignResolve.new(self,{}))
-		#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
-		state_machine.Change("interactive", {})
-	"""
+
 	if state == "interactive":
 		active_turn = TURN_STATES.PLAYER
 	if state == "assigning_instant":

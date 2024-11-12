@@ -25,7 +25,7 @@ var is_inspection_copy: bool
 
 var interface:BattleInterface
 var interactivity_mode:String = "interactive"
-var origin:PilotButton
+var origin:Control #TODO: Make a shared button class
 
 
 
@@ -39,9 +39,8 @@ signal was_removed
 
 
 
-func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:PilotButton) -> void:
+func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:Control) -> void:
 	hand = _hand
-	connect("was_removed", hand.handle_removed)
 	lc = _lc
 	art = find_child("ArtImg")
 	art.texture = lc.art
@@ -76,7 +75,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	interface.connect("clicked_button", do_clicked_button)
 	var player_in_play:PlayerInPlay = get_tree().root.find_child("PlayerInPlay", true, false)
 	connect("was_played", player_in_play.handle_played)
-	connect("was_played", hand.organize_cards)
+	connect("was_removed", hand.handle_removed)
 
 
 

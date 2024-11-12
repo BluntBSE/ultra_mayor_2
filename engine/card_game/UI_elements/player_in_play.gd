@@ -27,7 +27,7 @@ func organize_stubs() -> void:
 			"rotation": 0.0,
 			"time": 0.25,
 			"fin_z": idx,
-			"final_state": "in_play"
+			"final_state": "inspectable"
 		}
 
 		stub.do_transit(dest_args)

@@ -55,4 +55,5 @@ var o_instant_targets:Array = []
 var modifiers:Array = []
 
 var effects:CardEffects
-var interaction_mode:String  = "interactive"
+var interaction_mode:String  = "interactive" #DEPRECATED
+var hovered:bool = false

@@ -752,8 +752,8 @@ offset_bottom = 65.0
 icon = ExtResource("17_yjvxi")
 script = ExtResource("18_tuknu")
 
-[node name="InspectArea" type="Node2D" parent="."]
-position = Vector2(1718, 461)
+[node name="InspectCard" type="Node2D" parent="."]
+position = Vector2(1744, 335)
 scale = Vector2(1.5, 1.5)
 
 [node name="DebugIndicateArrow" type="Node2D" parent="."]

@@ -10,3 +10,4 @@ func stateEnter(args:Dictionary)->void:
 		#Things that should only happen once
 		ref.flash_all_targets()
 	ref.entered = true
+	ref.state_machine.Change("inspectable", {})
