@@ -14,7 +14,7 @@ var targets:Array = []
 var arrows:Array = []
 var active:bool = false
 var interface:BattleInterface
-var interaction_mode:String = "not_interactive"
+#var interaction_mode:String = "not_interactive"
 var graveyard:Array = []
 #interactive, assignable, not_interactive
 signal was_clicked
@@ -116,7 +116,7 @@ func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInte
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.K_BUTTONS:
 			state_machine.Change("assignable", {})
 	else:
-		interaction_mode = "not_interactive" #INSPECTABLE? vs not interactive? So you can view the deck and shit
+		pass
 
 	pass
 
