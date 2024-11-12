@@ -86,7 +86,6 @@ func handle_kaiju_turn_finished() -> void:
 
 
 func handle_pcard_sig(state: String) -> void:
-
 	if state == "interactive":
 		active_turn = TURN_STATES.PLAYER
 	if state == "assigning_instant":
