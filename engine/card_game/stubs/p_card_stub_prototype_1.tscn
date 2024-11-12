@@ -1,10 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://3kct15x8wk3f"]
+[gd_scene load_steps=7 format=3 uid="uid://3kct15x8wk3f"]
 
 [ext_resource type="Script" path="res://engine/card_game/stubs/p_card_stub.gd" id="1_jbetc"]
 [ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="2_byxu1"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_aw3h7"]
+[ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="4_bi5pn"]
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ybe1g"]
+radius = 73.0616
 
 [node name="CardStub" type="Node2D"]
 script = ExtResource("1_jbetc")
@@ -15,6 +19,7 @@ offset_left = -105.0
 offset_top = -163.0
 offset_right = 103.0
 offset_bottom = 15.0
+mouse_filter = 2
 color = Color(0.329412, 0.933333, 0.184314, 1)
 
 [node name="BG" type="ColorRect" parent="."]
@@ -22,6 +27,7 @@ offset_left = -96.0
 offset_top = -95.0
 offset_right = 80.0
 offset_bottom = 61.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="ImgMask" type="ColorRect" parent="."]
@@ -30,6 +36,7 @@ offset_left = -92.0
 offset_top = -92.0
 offset_right = 78.0
 offset_bottom = 58.0
+mouse_filter = 2
 color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 
 [node name="ArtImg" type="Sprite2D" parent="ImgMask"]
@@ -88,3 +95,14 @@ unique_name_in_owner = true
 
 [node name="ResolveSecondaryArrows" type="Node2D" parent="Arrows"]
 unique_name_in_owner = true
+
+[node name="Area2D" type="Area2D" parent="."]
+z_index = 100
+position = Vector2(-10, -21)
+script = ExtResource("4_bi5pn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ybe1g")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_area_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_mouse_area_exited"]

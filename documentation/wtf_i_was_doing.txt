@@ -1,6 +1,8 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 NEXT:
+SHARED CLASS FOR BUTTONS FOR INSPECT/RENDERED CARD UNPACK TO HAVE A REAL TYPE idk
+Can probably put card inspection in there aghhh
 Have an energy requirement
 Multiple rounds of assignment
 Unplay cards

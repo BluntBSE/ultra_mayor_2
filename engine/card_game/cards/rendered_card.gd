@@ -25,7 +25,7 @@ var is_inspection_copy: bool
 
 var interface:BattleInterface
 var interactivity_mode:String = "interactive"
-var origin:PilotButton
+var origin:Control #TODO: Make a shared button class
 
 
 
@@ -39,7 +39,7 @@ signal was_removed
 
 
 
-func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:PilotButton) -> void:
+func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:Control) -> void:
 	hand = _hand
 	connect("was_removed", hand.handle_removed)
 	lc = _lc

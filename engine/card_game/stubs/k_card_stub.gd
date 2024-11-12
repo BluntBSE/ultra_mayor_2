@@ -38,10 +38,11 @@ func unpack(_lc: LogicalCard, _played_from:Control) -> void:
 
 
 func _ready() -> void:
-	#state_machine.Add("interactive", InteractiveCard.new(self, {}))
-	#state_machine.Add("hovered_player", HoveredPlayerCardState.new(self, {}))
+	state_machine.Add("inspectable", InspectableStub.new(self, {}))
+	#state_machine.Add("assignable", AssignableStub.new(self,{}))
+	state_machine.Add("normal", GenericState.new(self,{}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
-	#state_machine.Change("interactive", {})
+	state_machine.Change("inspectable", {})
 	pass
 
 func do_input(_event:InputEvent)->void:
@@ -55,3 +56,10 @@ func _on_mouse_area_mouse_entered()->void:
 func _on_mouse_area_exited()->void:
 	state_machine.handleInput({"event":"exit"})
 	pass
+
+
+func on_exit()->void:
+	state_machine._current.stateHandleInput({"event": "exit"})
+
+func _process(_delta:float)->void:
+	state_machine.stateUpdate(_delta)
