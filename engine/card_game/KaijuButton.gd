@@ -1,6 +1,7 @@
 extends Control
 class_name KaijuButton
 
+var hovered:bool = false
 var state_machine:StateMachine
 var limb:Limb
 var types:Array = []
@@ -13,7 +14,7 @@ var targets:Array = []
 var arrows:Array = []
 var active:bool = false
 var interface:BattleInterface
-var interaction_mode:String = "not_interactive"
+#var interaction_mode:String = "not_interactive"
 var graveyard:Array = []
 #interactive, assignable, not_interactive
 signal was_clicked
@@ -100,7 +101,8 @@ func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void
 
 func _ready()->void:
 	state_machine = StateMachine.new()
-	state_machine.Add("hover", KCardButtonHover.new(self, {}))
+	state_machine.Add("assignable", KCardButtonAssignable.new(self, {}))
+	state_machine.Add("inspectable", KCardButtonInspectable.new(self,{}))
 	state_machine.Add("normal", KCardButtonNormal.new(self, {}))
 	state_machine.Change("normal", {})
 	pass
@@ -109,18 +111,16 @@ func _ready()->void:
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
 	if turn_signal == interface.TURN_STATES.PLAYER:
 		#interaction_mode = "not_interactive"
-		interaction_mode = "interactive"
+		state_machine.Change("inspectable", {})
 	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.K_BUTTONS:
-			interaction_mode = "interactive"
+			state_machine.Change("assignable", {})
 	else:
-		interaction_mode = "not_interactive" #INSPECTABLE? vs not interactive? So you can view the deck and shit
+		pass
 
 	pass
 
 func on_hover()->void:
-	if interaction_mode == "interactive":
-		#AND IF YOU ARE THE RIGHT KIND OF NODE???AGHHH
 		get_viewport().set_input_as_handled() #TODO: Is this really the way?
 		state_machine._current.stateHandleInput({"event": "hover"})
 
