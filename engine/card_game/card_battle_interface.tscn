@@ -772,6 +772,7 @@ text = "END TURN"
 script = ExtResource("15_ycgji")
 
 [node name="TargetSubmitWindow" type="ColorRect" parent="."]
+visible = false
 offset_left = 1619.0
 offset_top = 698.0
 offset_right = 1882.0
@@ -780,26 +781,28 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("17_1bnjf")
 
 [node name="SubmitText" type="RichTextLabel" parent="TargetSubmitWindow"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.968
 anchor_bottom = 1.0
 offset_left = -2.0
 offset_top = 9.0
-offset_right = 0.0319824
+offset_right = 0.0319672
 offset_bottom = -43.0
 bbcode_enabled = true
 text = "[center]Assign up to 2 limbs[/center]"
 
 [node name="SubmitButton" type="Button" parent="TargetSubmitWindow"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 91.0
-offset_top = 43.0
+offset_top = 37.5
 offset_right = -90.0
-offset_bottom = -24.0
+offset_bottom = -18.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "SUBMIT 1"

@@ -2,7 +2,7 @@ extends Node2D
 class_name BattleInterface
 
 var active_turn: int = TURN_STATES.PAUSE
-var targeting_state: int = SEEKING_TARGET.KAIJU_BUTTON
+var targeting_state: int = LogicalCard.target_types.K_BUTTONS
 var kaiju: LogicalKaiju
 var pilots: Array = []
 var terrain: String = ""  #Or enum?
@@ -96,15 +96,8 @@ func handle_pcard_sig(state: String) -> void:
 
 
 func handle_pcard_target(type: int) -> void:
-	if type == SEEKING_TARGET.KAIJU_BUTTON:
-		targeting_state = SEEKING_TARGET.KAIJU_BUTTON
-	if type == SEEKING_TARGET.KAIJU_CARD:
-		targeting_state = SEEKING_TARGET.KAIJU_CARD
-	if type == SEEKING_TARGET.PLAYER_BUTTON:
-		targeting_state = SEEKING_TARGET.PLAYER_BUTTON
-	if type == SEEKING_TARGET.PLAYER_CARD:
-		targeting_state = SEEKING_TARGET.PLAYER_CARD
-	targeting_signal.emit(targeting_state)  #We might not actually use this, but interrogate it from the buttons
+	targeting_state=type
+	targeting_signal.emit(type)  #We might not actually use this, but interrogate it from the buttons
 
 
 ##SIGNAL RELAYS

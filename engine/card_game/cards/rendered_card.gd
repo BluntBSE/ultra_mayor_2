@@ -75,6 +75,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	interface.connect("clicked_button", do_clicked_button)
 	var player_in_play:PlayerInPlay = get_tree().root.find_child("PlayerInPlay", true, false)
 	connect("was_played", player_in_play.handle_played)
+	connect("was_played", interface.find_child("TargetSubmitWindow", true, false).handle_was_played)
 	connect("was_removed", hand.handle_removed)
 
 
@@ -89,7 +90,6 @@ func _ready() -> void:
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Change("interactive", {})
 	pass
-
 
 func do_on_played()->void:
 	#Whenever a card is played, it should emit that the turn is back to the player state.
