@@ -15,6 +15,12 @@ func stateUpdate(_delta: float) -> void:
 
 func stateEnter(_args: Dictionary) -> void:
 	var ref:StubBase = _reference
+	#The first time a card becomes inspectable, flash its targets
+	if ref.entered == false:
+		print("HAS NO PLAYER ENTERED")
+		ref.entered = true
+		ref.flash_all_targets()
+		pass
 	highlight = _reference.get_node("HoverBorder")
 
 func stateHandleInput(args:Dictionary)->void:

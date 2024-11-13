@@ -37,13 +37,6 @@ func unpack(_lc: LogicalCard, _played_from:Control) -> void:
 
 
 
-func _ready() -> void:
-	state_machine.Add("inspectable", InspectableStub.new(self, {}))
-	#state_machine.Add("assignable", AssignableStub.new(self,{}))
-	state_machine.Add("normal", GenericState.new(self,{}))
-	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
-	state_machine.Change("inspectable", {})
-	pass
 
 func do_input(_event:InputEvent)->void:
 	pass

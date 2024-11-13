@@ -12,7 +12,6 @@ var cards_in_hand: Array = []
 
 
 func organize_cards() -> void:
-	print("Called organize_cards!")
 	var HARD_MAX: float = 700.0
 	var num_cards: int = cards_in_hand.size()
 	if num_cards == 0:
@@ -52,7 +51,6 @@ func organize_cards() -> void:
 		#So you'll call reorganize twice.
 
 func handle_removed(card:RenderedCard)->void:
-	print("Hello from handle_removed in Hand")
 	cards_in_hand.erase(card)
 	organize_cards()
 	pass

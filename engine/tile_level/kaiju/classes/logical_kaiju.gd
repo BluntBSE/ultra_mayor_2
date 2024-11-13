@@ -109,7 +109,6 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	var decklist:Array = []
 	var services:Services = get_tree().root.find_child("Services", true, false)
 	var cs:CardService = services.card_service
-	print("CS IS", cs.cards)
 	for type:String in types:
 		for key:String in cs.cards.keys():
 			var resource:LogicalCard = cs.cards[key] as LogicalCard
@@ -124,7 +123,7 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	decklist = CardHelpers.shuffle_array(decklist)
 	_limb.deck = decklist
 	for item:LogicalCard in decklist:
-		print(item.id)
+		pass #Would be prn
 
 
 func draw_reachable_path()->void:

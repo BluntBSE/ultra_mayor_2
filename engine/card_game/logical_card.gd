@@ -24,7 +24,8 @@ extends Resource
 ## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 @export var resolve_target_type: int = 4
 @export var resolve_secondary_targets: int
-@export var resolve_secondary_ttype:String
+## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
+@export var resolve_secondary_ttype:int = 4
 @export var resolve_min: int
 @export var resolve_max: int
 
@@ -48,7 +49,6 @@ enum target_types {
 }
 
 func _init(args: Dictionary = {}) -> void:
-	print("HELLO FROM RESOURCE INSTANTIATION FROM PILOTLIB")
 	id = args.get("id", "DEFAULT_ID")
 	display_name = args.get("display_name", "DEFAULT DISPLAY")
 	art = args.get("art", null)#ADD DEFAULT DEBUG WARNING ART
@@ -65,7 +65,7 @@ func _init(args: Dictionary = {}) -> void:
 	resolve_secondary_targets = args.get("resolve_secondary_targets", 0)
 	resolve_min = args.get("resolve_min", 0)
 	resolve_max = args.get("resolve_max", 0)
-	resolve_secondary_ttype = args.get("resolve_secondary_ttype", "")
+	resolve_secondary_ttype = args.get("resolve_secondary_ttype", 4)
 	types = args.get("types", [])
 	affinities = args.get("affinities", [])
 	affinity_effects = args.get("affinity_effects", [])

@@ -8,13 +8,25 @@ var num_instant: int = 0
 var resolve_targets: Array = []
 var resolve_targets_secondary: Array = []
 var instant_targets: Array = []
+var lc:LogicalCard
+signal submit_response
+signal did_assign
 
 
 func stateEnter(args: Dictionary) -> void:
+	print("MY REFERENCE IS", _reference.lc.display_name)
+	var ref:RenderedCard = _reference
+	var target_submit_window:TargetSubmitWindow = ref.get_tree().root.find_child("TargetSubmitWindow", true, false)
+	target_submit_window.do_visible()
+	var submit_button:SubmitButton = ref.get_tree().root.find_child("SubmitButton", true, false)
+	submit_button.connect("submit", handle_submit)
+	connect("submit_response", target_submit_window.handle_submit_response)
+	connect("did_assign", target_submit_window.handle_assign)
 	indicator = IndicateArrow.new()
 	_reference.add_child(indicator)
 	indicator.visible = false
 	var ref_lc: LogicalCard = _reference.lc
+	lc = ref_lc
 	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 	var targeting_type: int = ref_lc.resolve_target_type
 	_reference.target_signal.emit(targeting_type)
@@ -26,8 +38,8 @@ func stateEnter(args: Dictionary) -> void:
 	num_resolve = ref_lc.resolve_targets
 	num_instant = ref_lc.instant_targets
 	num_resolve_secondary = ref_lc.resolve_secondary_targets
-	print("NUM RESOLVE IS NOW ", num_resolve)
-	#TODO, instant, resolve_2
+
+	#did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
 
 	pass
 
@@ -62,9 +74,11 @@ func stateHandleInput(args: Dictionary) -> void:
 		if num_resolve_secondary > 0:
 			if num_resolve >= resolve_targets_secondary.size():
 				assign_resolve_secondary([args.event])
+
 				if num_resolve == 0 and num_resolve_secondary == 0:
 					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
 				return
+
 
 		if num_resolve == 0 and num_resolve_secondary == 0:
 			play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
@@ -78,6 +92,8 @@ func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped vari
 	resolve_targets.append_array(arg)
 	num_resolve = num_resolve - 1
 	print("NUM RESOLVE IS NOW", num_resolve)
+	did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
+
 
 func assign_resolve_secondary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
@@ -85,6 +101,7 @@ func assign_resolve_secondary(arg: Array) -> void:  #Truly this is an untyped va
 	resolve_targets_secondary.append_array(arg)
 	num_resolve_secondary = num_resolve_secondary - 1
 	print("NUM SECONDARY IS NOW", num_resolve)
+	did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
 
 
 func assign_instant(arg:Array)->void:#Truly this is an untyped variable of either Button or Stub.
@@ -92,6 +109,7 @@ func assign_instant(arg:Array)->void:#Truly this is an untyped variable of eithe
 	instant_targets.append_array(arg)
 	num_instant = num_instant - 1
 	print("INSTANTS IS NOW", num_instant)
+	did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
 
 
 
@@ -111,6 +129,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	#TODO
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
 	_reference.do_on_played()
+	queue_free()
 
 	pass
 
@@ -129,3 +148,19 @@ func stateUpdate(_dt:float)->void:
 	if num_resolve_secondary > 0:
 		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.ORANGE)
 		return
+
+func handle_submit()->void:
+	#Actually only play if everything is 0'd. Otherwise, reduce the appropriate increment to 0 and move on.
+	if num_instant > 0:
+		num_instant = 0
+	elif num_resolve > 0:
+		num_resolve = 0
+	elif num_resolve_secondary > 0:
+		num_resolve_secondary = 0
+
+
+	if num_instant == 0 and num_resolve == 0 and num_resolve_secondary == 0:
+		print("HELLO FROM SM", self)
+		play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+		return
+	submit_response.emit(num_instant, num_resolve, num_resolve_secondary, lc)

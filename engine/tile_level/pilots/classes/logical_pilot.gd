@@ -72,7 +72,6 @@ func preview_highlight(path:Array)->void:
 
 func apply_kaiju_block(tile:LogicalTile)->void:
 	#Allow previewing of kaiju moves while player attempts to move
-	print("Applied kaiju block at ", tile.x, tile.y)
 	map.kaiju_blocks = []
 	map.kaiju_blocks.append(tile)
 

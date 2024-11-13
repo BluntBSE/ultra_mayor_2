@@ -22,7 +22,6 @@ func _on_start_game_btn_button_up() -> void:
 	cs.load_cards("res://engine/card_game/decklists/")
 	var services:Services = main.get_node("Services")
 	services.register_service(cs)
-	print("FROM MAIN MENU:")
 	print(services.card_service.cards)
 	print(services.card_service.cards["body_slam_1"].id)
 	var game_main:Node = load("res://engine/tile_level/game_main.tscn").instantiate()

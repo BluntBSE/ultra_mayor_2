@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=24 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/player_in_play.gd" id="10_lewek"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/submit_assign_button.gd" id="15_ycgji"]
+[ext_resource type="Script" path="res://engine/card_game/UI_elements/target_submit_window.gd" id="17_1bnjf"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="18_tuknu"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
@@ -85,7 +86,7 @@ script = ExtResource("6_tdopw")
 
 [node name="Polygon2D" type="Polygon2D" parent="EnergyDisplay"]
 material = SubResource("ShaderMaterial_8pplf")
-position = Vector2(75, 83)
+position = Vector2(100, 163)
 color = Color(0.866667, 0.670588, 0.211765, 1)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
 script = ExtResource("4_3y6xh")
@@ -762,20 +763,49 @@ z_index = 4000
 position = Vector2(979, 469)
 script = ExtResource("18_ujnq3")
 
-[node name="SubmitButton" type="Button" parent="."]
-offset_left = 1694.0
-offset_top = 690.0
-offset_right = 1762.0
-offset_bottom = 721.0
-text = "SUBMIT"
+[node name="EndTurn" type="Button" parent="."]
+offset_left = 1707.0
+offset_top = 990.0
+offset_right = 1797.0
+offset_bottom = 1021.0
+text = "END TURN"
 script = ExtResource("15_ycgji")
 
-[node name="EndTurn" type="Button" parent="."]
-offset_left = 1682.0
-offset_top = 910.0
-offset_right = 1772.0
-offset_bottom = 941.0
-text = "END TURN"
+[node name="TargetSubmitWindow" type="ColorRect" parent="."]
+visible = false
+offset_left = 1619.0
+offset_top = 698.0
+offset_right = 1882.0
+offset_bottom = 785.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("17_1bnjf")
+
+[node name="SubmitText" type="RichTextLabel" parent="TargetSubmitWindow"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.968
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 9.0
+offset_right = 0.0319672
+offset_bottom = -43.0
+bbcode_enabled = true
+text = "[center]Assign up to 2 limbs[/center]"
+
+[node name="SubmitButton" type="Button" parent="TargetSubmitWindow"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 91.0
+offset_top = 37.5
+offset_right = -90.0
+offset_bottom = -18.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "SUBMIT 1"
 script = ExtResource("15_ycgji")
 
 [connection signal="mouse_entered" from="PlayArea/PilotButtons/HBoxContainer/PilotButton0/Area2D" to="PlayArea/PilotButtons/HBoxContainer/PilotButton0" method="on_hover"]
@@ -799,5 +829,5 @@ script = ExtResource("15_ycgji")
 [connection signal="mouse_entered" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_hover"]
 [connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuBox/KaijuButton4" method="on_exit"]
 [connection signal="button_up" from="Button" to="Button" method="quit"]
-[connection signal="button_up" from="SubmitButton" to="SubmitButton" method="do_submit"]
 [connection signal="button_up" from="EndTurn" to="." method="do_player_turn"]
+[connection signal="button_up" from="TargetSubmitWindow/SubmitButton" to="TargetSubmitWindow/SubmitButton" method="do_submit"]

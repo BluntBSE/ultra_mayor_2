@@ -17,7 +17,6 @@ func process_directory(dir_path: String) -> Array:
 		while file_name != "":
 			if dir.current_is_dir():
 				var new_path: String = dir.get_current_dir() + "/" + file_name
-				print(new_path)
 				card_paths = card_paths + (process_directory(new_path))
 
 			else:
@@ -38,7 +37,6 @@ func generate_dictionary(paths:Array)->Dictionary:
 		var key:String = path.split("/")[-1]
 		key = key.split(".")[0]
 		output[key] = load(path)
-	print("OUTPUT IS", output)
 	return output
 
 
@@ -46,6 +44,5 @@ func load_cards(path: String) -> void:  #Should this be static?
 	#Helper
 
 	var all_paths: Array = process_directory(path)
-	print("all paths are:", all_paths)
 	var output:Dictionary = generate_dictionary(all_paths)
 	cards = output

@@ -11,7 +11,6 @@ func handle_played(stub:PlayerCardStub)->void:
 	organize_stubs()
 
 func organize_stubs() -> void:
-	print("Called organize_stubs!")
 	var HARD_MAX: float = 700.0 #Max width. Over this, cards might overlap.
 	var num_in_play:int = in_play.size()
 	if num_in_play == 0:
@@ -19,7 +18,7 @@ func organize_stubs() -> void:
 
 	var idx:int = 0
 	for stub:PlayerCardStub in in_play:
-		var destination:Vector2 = self.global_position + Vector2(200.0*(idx),0.0)
+		var destination:Vector2 = self.global_position + Vector2(250.0*(idx),0.0)
 		print("ATTEMPTING TO MOVE ", stub.lc.display_name, "TO ", destination)
 		var dest_args:Dictionary = {
 			"global_position":destination,

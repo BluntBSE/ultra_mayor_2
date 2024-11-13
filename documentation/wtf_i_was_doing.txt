@@ -1,5 +1,9 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+BUG: When using submit, arrows are going weirdly one slot to the right...
+BUG: Type doesn't seem properly enforced during assignment
+BUG: Deck doesn't seem properly shuffled between playthroughs. Randomize seed somehow?
+
 NEXT:
 SHARED CLASS FOR BUTTONS FOR INSPECT/RENDERED CARD UNPACK TO HAVE A REAL TYPE idk
 Can probably put card inspection in there aghhh
