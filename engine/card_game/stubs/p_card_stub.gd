@@ -4,7 +4,7 @@ class_name PlayerCardStub
 
 #Origin
 #var played_from: PilotButton
-var entered:bool = false
+var player_entered:bool = false
 
 
 
@@ -93,36 +93,3 @@ func _on_mouse_area_mouse_entered() -> void:
 func _on_mouse_area_exited() -> void:
 	state_machine.handleInput({"event": "exit"})
 	pass
-
-
-
-
-func flash_all_targets()->void:
-	var i_arrows:Array = []
-	var r_arrows:Array = []
-	var r_2_arrows:Array = []
-	print("FLASH ALL TARGETS CALLED")
-
-	for target:Node in instant_targets:
-		print("INSTANT TARGET: ", target)
-		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.BLANCHED_ALMOND)
-		i_arrows.append(arrow)
-		remove_child(arrow)
-		%InstantArrows.add_child(arrow)
-	for target:Node in resolve_targets:
-		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.CYAN)
-		print("RESOLVE TARGET: ", target)
-		r_arrows.append(arrow)
-		remove_child(arrow)
-		%ResolveArrows.add_child(arrow)
-	for target:Node in resolve_targets_secondary:
-		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.ORANGE)
-		remove_child(arrow)
-		r_2_arrows.append(arrow)
-		%ResolveSecondaryArrows.add_child(arrow)
-	for arrow:IndicateArrow in i_arrows:
-		arrow.soft_double_fade()
-	for arrow:IndicateArrow in r_arrows:
-		arrow.soft_double_fade()
-	for arrow:IndicateArrow in r_2_arrows:
-		arrow.soft_double_fade()

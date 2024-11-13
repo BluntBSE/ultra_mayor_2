@@ -35,7 +35,9 @@ static func arrow_between(origin:Node, target:Node, color:Color = Color.CYAN)->I
 	arrow.global_position=Vector2(0.0,0.0)
 
 	var origin_pos:Vector2 = origin.global_position
+	print("GOING FROM ", origin_pos)
 	var target_pos:Vector2 = target.global_position
+	print("TO ", target_pos)
 	arrow.unpack(origin_pos, target_pos, color)
 	return arrow
 
@@ -83,5 +85,6 @@ static func flash_resolve_targets(stub:StubBase)->void:
 	for target:Node in stub.resolve_targets:
 		arrows.append(CardHelpers.arrow_between(stub, target, Color.RED))
 	for arrow:IndicateArrow in arrows:
+
 		arrow.soft_double_fade()
 pass

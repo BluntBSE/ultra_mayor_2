@@ -57,3 +57,39 @@ var modifiers:Array = []
 var effects:CardEffects
 var interaction_mode:String  = "interactive" #DEPRECATED
 var hovered:bool = false
+var entered:bool = true #Is set to false by specific states if we want to do somethign fancy on entry
+
+
+
+
+
+
+func flash_all_targets()->void:
+	var i_arrows:Array = []
+	var r_arrows:Array = []
+	var r_2_arrows:Array = []
+	print("FLASH ALL TARGETS CALLED")
+
+	for target:Node in instant_targets:
+		print("INSTANT TARGET: ", target)
+		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.BLANCHED_ALMOND)
+		i_arrows.append(arrow)
+		#remove_child(arrow)
+		#%InstantArrows.add_child(arrow)
+	for target:Node in resolve_targets:
+		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.CYAN)
+		print("RESOLVE TARGET: ", target)
+		r_arrows.append(arrow)
+		#remove_child(arrow)
+		#%ResolveArrows.add_child(arrow)
+	for target:Node in resolve_targets_secondary:
+		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.ORANGE)
+		remove_child(arrow)
+		#r_2_arrows.append(arrow)
+		#%ResolveSecondaryArrows.add_child(arrow)
+	for arrow:IndicateArrow in i_arrows:
+		arrow.soft_double_fade()
+	for arrow:IndicateArrow in r_arrows:
+		arrow.soft_double_fade()
+	for arrow:IndicateArrow in r_2_arrows:
+		arrow.soft_double_fade()

@@ -27,7 +27,6 @@ func handle_submit_response(num_instant:int, num_resolve:int, num_resolve_second
 	pass
 
 func parse_target_type(num:int)->String:
-	print("PARSE TARGET TYPE RECEIVED ", str(num))
 	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 	if num == 0:
 		return "pilot cards"
