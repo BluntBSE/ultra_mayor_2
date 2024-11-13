@@ -33,7 +33,6 @@ func stateEnter(args:Dictionary)->void:
 	tween.parallel().tween_property(_reference, "scale", fin_scale, time).from_current()
 	tween.parallel().tween_property(_reference, "rotation", fin_rot, time).from_current()
 	await tween.finished
-	print("POST NODE TRANSIT GLOBAL POSITION: ", _reference.global_position)
 	if final_callback != null and final_cb_args == {}:
 		tween.tween_callback(node.final_callback)
 	if final_callback != null and final_cb_args != {}:

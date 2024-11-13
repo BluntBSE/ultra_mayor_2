@@ -97,7 +97,7 @@ func do_on_played()->void:
 	#Apply instant speed effects -- part of stub actually
 	turn_signal.emit("interactive") #Why are we using strings here and not the enum? I recall there being a reason...
 	was_removed.emit(self)
-	queue_free()
+	queue_free() #DOES THIS SOMEHOW CHANGE THE POSITION OF THE ARROWS?
 
 func do_transit(args:Dictionary)->void:
 	state_machine.Change("transit", args)

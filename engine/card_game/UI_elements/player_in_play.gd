@@ -11,7 +11,6 @@ func handle_played(stub:PlayerCardStub)->void:
 	organize_stubs()
 
 func organize_stubs() -> void:
-	print("Called organize_stubs!")
 	var HARD_MAX: float = 700.0 #Max width. Over this, cards might overlap.
 	var num_in_play:int = in_play.size()
 	if num_in_play == 0:

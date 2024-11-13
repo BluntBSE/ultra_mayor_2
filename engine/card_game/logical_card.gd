@@ -49,7 +49,6 @@ enum target_types {
 }
 
 func _init(args: Dictionary = {}) -> void:
-	print("HELLO FROM RESOURCE INSTANTIATION FROM PILOTLIB")
 	id = args.get("id", "DEFAULT_ID")
 	display_name = args.get("display_name", "DEFAULT DISPLAY")
 	art = args.get("art", null)#ADD DEFAULT DEBUG WARNING ART

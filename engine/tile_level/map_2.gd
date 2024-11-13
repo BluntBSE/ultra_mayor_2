@@ -109,7 +109,6 @@ func process_rt_signal(args: RTSigObj) -> void:
 
 
 func set_selection_primary(args: LogicalTile) -> void:
-	print("UPDATING PRIMARY SELECTION TO ", args.x, " ", args.y)
 	selection_primary = args
 	#Experimentally...
 
@@ -184,8 +183,6 @@ func pass_turn() -> void:
 		#Fade to transition screen?
 		#battle_scene.instatiate...()
 		var battle_scene:Node2D = load("res://engine/card_game/card_battle_interface.tscn").instantiate()
-
-		print(battle_scene.name)
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
 
@@ -231,7 +228,6 @@ func pass_turn() -> void:
 
 	#Restore moves remaining
 	for _pilot: LogicalPilot in pilots:
-		print("Attempting to set move points from ", _pilot.moves_remaining, " to ", _pilot.move_points)
 		_pilot.moves_remaining = _pilot.move_points
 	for _kaiju: LogicalKaiju in kaijus:
 		_kaiju.moves_remaining = _kaiju.move_points
