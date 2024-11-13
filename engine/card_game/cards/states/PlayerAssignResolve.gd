@@ -161,6 +161,5 @@ func handle_submit()->void:
 	if num_instant == 0 and num_resolve == 0 and num_resolve_secondary == 0:
 		print("HELLO FROM SM", self)
 		play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
-		queue_free() #TODO: WTF?
 		return
 	submit_response.emit(num_instant, num_resolve, num_resolve_secondary, lc)
