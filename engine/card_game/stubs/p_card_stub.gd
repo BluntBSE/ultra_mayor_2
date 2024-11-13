@@ -58,15 +58,7 @@ func unplay()->void:
 	pass
 
 
-func _ready() -> void:
-	state_machine.Add("inspectable", InspectableStub.new(self, {}))
-	#state_machine.Add("assignable", AssignableStub.new(self,{}))
-	state_machine.Add("normal", GenericState.new(self,{}))
-	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
-	state_machine.Add("in_play", PStubInPlayState.new(self, {}))
-	state_machine.Add("in_transit", TransitNodeState.new(self, {}))
-	state_machine.Change("in_play", {})#NOTE: Should this ever be handled by the things that create it, and not this node?
-	pass
+
 
 
 func do_input(_event: InputEvent) -> void:

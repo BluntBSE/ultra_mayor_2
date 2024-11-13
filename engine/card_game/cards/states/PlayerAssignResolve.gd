@@ -129,7 +129,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	#TODO
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
 	_reference.do_on_played()
-	#queue_free()
+	queue_free()
 
 	pass
 

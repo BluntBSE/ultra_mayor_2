@@ -18,7 +18,7 @@ func stateEnter(_args: Dictionary) -> void:
 	#The first time a card becomes inspectable, flash its targets
 	if ref.entered == false:
 		print("HAS NO PLAYER ENTERED")
-		ref.player_entered = true
+		ref.entered = true
 		ref.flash_all_targets()
 		pass
 	highlight = _reference.get_node("HoverBorder")

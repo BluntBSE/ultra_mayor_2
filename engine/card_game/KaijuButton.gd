@@ -39,15 +39,7 @@ func draw_card()->KaijuCardStub:
 		#remove_child(card)
 		card.unpack(logical_card, self)
 		in_play.add_child(card)
-		card.global_position = self.global_position
-		card.scale = Vector2(0.25,0.25)
 
-		#Put the stub directly below the button drawing it
-		var tween:Tween = create_tween()
-		var destination:Vector2 = self.global_position + Vector2(0.0,200.0)
-		tween.parallel().tween_property(card, "global_position", destination, 0.25)
-		tween.parallel().tween_property(card, "scale", Vector2(1.0,1.0), 0.25)
-		await tween.finished
 		return card
 
 	return null
@@ -68,7 +60,7 @@ func draw_and_assign()->void:
 		var target:PilotButton = valid_targets[rand_index]
 		card.resolve_targets.append(target)
 
-	CardHelpers.flash_resolve_targets(card)
+	#CardHelpers.flash_resolve_targets(card)
 
 	#Play instant effects. Probably do this before resolve_targets()
 	if card.lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
@@ -78,6 +70,15 @@ func draw_and_assign()->void:
 			card.instant_targets.append(target)
 			card.o_instant_targets.append(target)
 
+	card.global_position=self.global_position
+	var dest_args:Dictionary = {
+		"global_position":self.global_position+Vector2(0.0,200.0),
+		"scale": Vector2(1.0,1.0),
+		"rotation": 0.0,
+		"time": 0.25,
+		"final_state": "inspectable"
+	}
+	card.do_transit(dest_args)
 	#card.queue_instant_effects() - Possibly attach this to  kaiju stubs instead
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
