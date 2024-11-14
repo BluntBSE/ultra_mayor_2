@@ -170,6 +170,7 @@ func kaiju_resolve_effects() -> void:
 	var kaiju_stubs: Array = k_in_play_node.get_children()
 	for stub: KaijuCardStub in kaiju_stubs:
 		stub.execute_resolve()
+		await stub.was_resolved
 
 func do_player_turn() -> void:
 	player_resolve_effects()

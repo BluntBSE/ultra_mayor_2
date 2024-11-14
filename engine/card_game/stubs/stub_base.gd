@@ -62,12 +62,13 @@ signal was_resolved
 
 
 func _ready()->void:
-	#COMMON - MUST COPY TO CHILDREN
+	#COMMON - MUST COPY TO CHILDREN BECAUSE ANY OVERRIDE OVERRIDES IT ALL
 	state_machine.Add("inspectable", InspectableStub.new(self, {}))
 	#state_machine.Add("assignable", AssignableStub.new(self,{}))
 	state_machine.Add("normal", GenericState.new(self,{}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Add("in_transit", TransitNodeState.new(self, {}))
+	state_machine.Add("resolving", ResolveNodeState.new(self,{}))
 	#state_machine.Change("in_play", {})#NOTE: Should this ever be handled by the things that create it, and not this node?
 
 
@@ -118,6 +119,6 @@ func execute_resolve() -> void:
 		"global_position": played_from.global_position,
 		"scale": Vector2(0.1, 0.1),
 		"time": 0.25,
-		"final_state": "free"
+		"final_state": "resolving"
 	}
 	state_machine.Change("in_transit", t_args)
