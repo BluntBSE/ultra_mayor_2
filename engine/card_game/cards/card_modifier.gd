@@ -1,4 +1,4 @@
-class_name CardModifier
+class_name StubModifier
 extends Resource
 
 @export var modifier:String
@@ -10,4 +10,4 @@ extends Resource
 var duration:int #Managed by gameplay
 
 enum CATEGORIES {buff, debuff, terrain, building}
-enum TYPES {physical, electric, water, fire, organic, psychic}
+enum TYPES {physical, electric, water, fire, organic, psychic} #Idk wf we actually want to use types here

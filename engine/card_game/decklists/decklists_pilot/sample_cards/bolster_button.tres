@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://cfx43bgcnflqa"]
+
+[ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="1_w2tcw"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_goqcn"]
+
+[resource]
+script = ExtResource("2_goqcn")
+id = "flamethrower"
+display_name = "Flamethrower"
+art = ExtResource("1_w2tcw")
+border = Color(0, 1, 0, 1)
+tier = 0
+limbs = ["pilot"]
+playable_by = "pilot"
+pilot_types = ["all"]
+energy_cost = 1
+instant_effect = "nullify_stub"
+instant_targets = 1
+instant_value = 0
+instant_target_type = 3
+resolve_effect = "simple_damage"
+resolve_targets = 0
+resolve_target_type = 0
+resolve_secondary_targets = 0
+resolve_secondary_ttype = 4
+resolve_min = 1
+resolve_max = 1
+types = ["physical"]
+affinities = ["forest"]
+affinity_effects = ["half_price"]
+description = "Flamethrower Description"
+requirements = "\"\""

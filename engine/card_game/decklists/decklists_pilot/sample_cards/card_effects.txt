@@ -1,0 +1,28 @@
+Resolve effect types:
+	Damage (mill)
+	Reveal cards
+	Switch target
+	Apply modifier
+
+Global instant speed effects -
+Energy Boost - Adds X energy to the field
+
+Card Modifiers
+
+nullify = min and max of target are set to zero
+minimized = card only inflicts minimal value
+maximized = card only inflictes maximal value
+lethal = if this card rolls maximum value, it inflicts quadruple the maximum value
+weakened = minimal and maximal values are halved to a minimum of one
+bolstered = minimal and maximal values are doubled
+-elemental effects will typically apply weakened or bolstered to cards that oppose or complement their element
+-can you 4x elemental bonus? Weakening terrain + card type?
+widened = all valid cards become added to this card's resolve_targets
+negated = this card does not resolve
+shifted = this card has new affinities and weaknesses
+
+Button Modifiers
+-Button modifiers are the same as the above, except cards played by then inherit the modifiers.
+
+Exceptions:
+-Stunned: Button cannot draw or play cards
