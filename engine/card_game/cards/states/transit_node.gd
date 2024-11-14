@@ -12,6 +12,7 @@ var final_state:String
 var final_state_args:Dictionary
 var final_callback:Variant
 var final_cb_args:Dictionary
+signal finished_transit
 
 func stateEnter(args:Dictionary)->void:
 	#_reference.turn_signal.emit() - Not actually appropriate for transit state
@@ -39,6 +40,7 @@ func stateEnter(args:Dictionary)->void:
 		tween.tween_callback(node.final_callback(final_cb_args))
 
 
+	finished_transit.emit()
 
 	if final_state != null:
 		if final_state == "free":
