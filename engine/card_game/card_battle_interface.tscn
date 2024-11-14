@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=25 format=3 uid="uid://daoer3necfaqq"]
 
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="1_5byun"]
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="9_ic2nq"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuButton.gd" id="9_jo1m0"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/player_in_play.gd" id="10_lewek"]
+[ext_resource type="Script" path="res://engine/card_game/UI_elements/kaiju_in_play.gd" id="11_jc57p"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/submit_assign_button.gd" id="15_ycgji"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/target_submit_window.gd" id="17_1bnjf"]
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="17_yjvxi"]
@@ -50,6 +51,7 @@ offset_bottom = 1075.0
 texture = ExtResource("1_5byun")
 
 [node name="KaijuMain" type="Control" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 3
 anchors_preset = 0
@@ -640,6 +642,7 @@ shape = SubResource("CircleShape2D_y7vs5")
 [node name="KaijuInPlay" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
 position = Vector2(368, 217)
+script = ExtResource("11_jc57p")
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true

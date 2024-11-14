@@ -1,8 +1,15 @@
 class_name CardEffects
 
-static func debug_instant_effect(targets:Array)->void:
+static func debug_instant_effect(targets:Array, _targets_secondary:Array = [], _min_value:int = 0, _max_value:int = 0)->void:
 	print("You called the debug instant effect successfully!")
 	print("TARGETS ARE:", targets)
+	for target:PilotButton in targets:
+		print("instant on ", target.name)
+	pass
+
+static func debug_resolve_effect(targets:Array, _targets_secondary:Array = [], _min_value:int = 0, _max_value:int = 0)->void:
+	print("You called the debug resolve effect successfully!")
+	print("TARGETS ARE: ", targets)
 	for target:PilotButton in targets:
 		print(target.name)
 	pass

@@ -109,3 +109,15 @@ func flash_all_targets()->void:
 
 func do_transit(args: Dictionary) -> void:
 	state_machine.Change("in_transit", args)
+
+func execute_resolve() -> void:
+	was_resolved.emit(self)
+	effects.call(resolve_effect, resolve_targets, resolve_targets_secondary, resolve_min, resolve_max)
+	played_from.graveyard.append(lc)
+	var t_args: Dictionary = {
+		"global_position": played_from.global_position,
+		"scale": Vector2(0.1, 0.1),
+		"time": 0.25,
+		"final_state": "free"
+	}
+	state_machine.Change("in_transit", t_args)

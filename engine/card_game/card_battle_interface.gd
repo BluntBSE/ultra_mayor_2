@@ -165,11 +165,18 @@ func player_resolve_effects() -> void:
 	for stub: PlayerCardStub in player_stubs:
 		stub.execute_resolve()
 
+func kaiju_resolve_effects() -> void:
+	var k_in_play_node: KaijuInPlay = %KaijuInPlay
+	var kaiju_stubs: Array = k_in_play_node.get_children()
+	for stub: KaijuCardStub in kaiju_stubs:
+		stub.execute_resolve()
 
 func do_player_turn() -> void:
 	player_resolve_effects()
-
-	#Check if player won
+	kaiju_resolve_effects()
+	%KaijuMain.do_kaiju_turn()
+	#Should this be a signal instead of switching to kaiju turn directly?
+	#TODO: Check if player won
 	#Kaiju resolution
 	#CHeck if player lost
 	#Kaiju turn
