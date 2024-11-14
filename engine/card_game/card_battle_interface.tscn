@@ -769,7 +769,6 @@ offset_top = 990.0
 offset_right = 1797.0
 offset_bottom = 1021.0
 text = "END TURN"
-script = ExtResource("15_ycgji")
 
 [node name="TargetSubmitWindow" type="ColorRect" parent="."]
 visible = false

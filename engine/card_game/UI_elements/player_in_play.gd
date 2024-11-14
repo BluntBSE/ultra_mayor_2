@@ -10,6 +10,9 @@ func handle_played(stub:PlayerCardStub)->void:
 	in_play.push_back(stub) #Maybe do push front?
 	organize_stubs()
 
+func handle_resolved(stub:PlayerCardStub)->void:
+	in_play.erase(stub)
+
 func organize_stubs() -> void:
 	var HARD_MAX: float = 700.0 #Max width. Over this, cards might overlap.
 	var num_in_play:int = in_play.size()

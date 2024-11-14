@@ -58,6 +58,8 @@ var effects:CardEffects
 var interaction_mode:String  = "interactive" #DEPRECATED
 var hovered:bool = false
 var entered:bool = false #Is set to false by specific states if we want to do somethign fancy on entry
+signal was_resolved
+
 
 func _ready()->void:
 	#COMMON - MUST COPY TO CHILDREN

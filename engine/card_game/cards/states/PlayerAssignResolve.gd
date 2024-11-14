@@ -121,6 +121,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	stub.unpack(ref_lc, ref_origin, resolve_targets_1, resolve_targets_2, instant_targets)
 	var player_in_play: PlayerInPlay = _reference.get_tree().root.find_child("PlayerInPlay", true, false)
 	player_in_play.add_child(stub)
+	stub.connect("was_resolved", player_in_play.handle_resolved)
 
 	#TODO: Stubs may need a transit state like the cards did.
 	#stub.position = Vector2(0.0, 0.0)
