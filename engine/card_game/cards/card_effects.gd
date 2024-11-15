@@ -15,6 +15,10 @@ static func debug_resolve_effect(targets:Array, _targets_secondary:Array = [], _
 	pass
 
 
+static func no_effect(targets:Array, _targets_secondary:Array = [], _min_value:int = 0, _max_value:int = 0)->void:
+	print("No effect here")
+	pass
+
 static func simple_damage(targets_primary:Array = [], _targets_secondary:Array = [], min_value:int = 0, max_value:int = 0)->void:
 	for target:KaijuButton in targets_primary:
 		var damage:int = randi_range(min_value, max_value)
@@ -26,9 +30,14 @@ static func simple_damage(targets_primary:Array = [], _targets_secondary:Array =
 			target.graveyard.append(milled)
 
 static func instant_weaken_stub(targets:Array)->void:
-	var modifier:CardModifier = load("res://engine/card_game/cards/modifiers/weaken_card.tres")
+	print("Called instant weaken stub!")
+	var modifier:StubModifier = load("res://engine/card_game/cards/modifiers/weaken_card.tres")
 	modifier.duration = 1
 	for target:StubBase in targets: #Player or Kaiju card stub
 		target.modifiers.append(modifier)
+		target.apply_modifier_filter()
 	#CardHelpers.
+	pass
+
+static func instant_weaken_stub_undo()->void:
 	pass

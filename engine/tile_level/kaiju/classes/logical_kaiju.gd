@@ -122,8 +122,7 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 
 	decklist = CardHelpers.shuffle_array(decklist)
 	_limb.deck = decklist
-	for item:LogicalCard in decklist:
-		pass #Would be prn
+
 
 
 func draw_reachable_path()->void:

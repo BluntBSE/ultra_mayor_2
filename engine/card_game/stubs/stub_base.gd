@@ -58,6 +58,7 @@ var effects:CardEffects
 var interaction_mode:String  = "interactive" #DEPRECATED
 var hovered:bool = false
 var entered:bool = false #Is set to false by specific states if we want to do somethign fancy on entry
+var status_mask:ColorRect
 signal was_resolved
 
 
@@ -70,8 +71,7 @@ func _ready()->void:
 	state_machine.Add("in_transit", TransitNodeState.new(self, {}))
 	state_machine.Add("resolving", ResolveNodeState.new(self,{}))
 	#state_machine.Change("in_play", {})#NOTE: Should this ever be handled by the things that create it, and not this node?
-
-
+	status_mask = %StatusMask
 
 
 func flash_all_targets()->void:
@@ -122,3 +122,27 @@ func execute_resolve() -> void:
 		"final_state": "resolving"
 	}
 	state_machine.Change("in_transit", t_args)
+
+
+var status_colors:Dictionary = {
+	"weakened": Color.SIENNA,
+	"maximized": Color.CYAN,
+	"minimized": Color.RED,
+	"bolstered": Color.GREEN,
+	"lethal": Color.DARK_VIOLET,
+	"nullified": Color.GRAY,
+}
+
+func apply_modifier_filter()->void:
+	var mask_alpha:float = 0.5
+	if modifiers.size() <1:
+		status_mask.visible = false
+		status_mask.color = Color.WHITE
+		status_mask.color.a = 0.0
+	if modifiers.size()>0:
+		status_mask.visible = true
+		for modifier:StubModifier in modifiers:
+			status_mask.color = modifier.color
+			status_mask.color.a = mask_alpha
+			pass
+	pass

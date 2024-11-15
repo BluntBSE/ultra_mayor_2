@@ -1,20 +1,20 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bc2u1ihclod4m"]
 
-[ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="1_n2xvm"]
+[ext_resource type="Texture2D" uid="uid://xeq4trvrfupv" path="res://engine/card_game/assets/pilot_decks/AI_psychic.jpg" id="1_17bx3"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_jyftj"]
 
 [resource]
 script = ExtResource("2_jyftj")
-id = "flamethrower"
-display_name = "Flamethrower"
-art = ExtResource("1_n2xvm")
-border = Color(0, 1, 0, 1)
+id = "bolster_stub"
+display_name = "Bolster Stub"
+art = ExtResource("1_17bx3")
+border = Color(0.959119, 0.360652, 0.761797, 1)
 tier = 0
 limbs = ["pilot"]
 playable_by = "pilot"
 pilot_types = ["all"]
 energy_cost = 1
-instant_effect = "nullify_stub"
+instant_effect = "debug_instant_effect"
 instant_targets = 1
 instant_value = 0
 instant_target_type = 3

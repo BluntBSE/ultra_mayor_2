@@ -103,5 +103,14 @@ unique_name_in_owner = true
 [node name="ResolveSecondaryArrows" type="Node2D" parent="Arrows"]
 unique_name_in_owner = true
 
+[node name="StatusMask" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -105.0
+offset_top = -107.0
+offset_right = 96.0
+offset_bottom = 68.0
+color = Color(1, 1, 1, 0.207843)
+
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_area_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_mouse_area_exited"]

@@ -1,20 +1,20 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://df8oq2ok1n447"]
 
-[ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="1_iabs3"]
+[ext_resource type="Texture2D" uid="uid://bjlh2ahxxqfds" path="res://engine/card_game/assets/pilot_decks/AI_charge.jpg" id="1_xxphb"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_oenue"]
 
 [resource]
 script = ExtResource("2_oenue")
-id = "flamethrower"
-display_name = "Flamethrower"
-art = ExtResource("1_iabs3")
+id = "weaken_button"
+display_name = "Weaken Button"
+art = ExtResource("1_xxphb")
 border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["pilot"]
 playable_by = "pilot"
 pilot_types = ["all"]
 energy_cost = 1
-instant_effect = "nullify_stub"
+instant_effect = "weaken_button"
 instant_targets = 0
 instant_value = 0
 instant_target_type = 4

@@ -1,5 +1,8 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+TODO: Unite the player and kaiju packed scenes for stubs?
+
+
 BUG: After player turn ends, you must queue free the state machines.
 BUG: When using submit, arrows are going weirdly one slot to the right...
 BUG: Type doesn't seem properly enforced during assignment
