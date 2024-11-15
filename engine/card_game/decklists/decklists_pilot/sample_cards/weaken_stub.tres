@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bd5rfp6k3y8ut"]
+
+[ext_resource type="Texture2D" uid="uid://bjlh2ahxxqfds" path="res://engine/card_game/assets/pilot_decks/AI_charge.jpg" id="1_j2w7b"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_m8u5d"]
+
+[resource]
+script = ExtResource("2_m8u5d")
+id = "weaken_stub"
+display_name = "Weaken Stub"
+art = ExtResource("1_j2w7b")
+border = Color(0.583323, 0.487193, 0.975578, 1)
+tier = 0
+limbs = ["pilot"]
+playable_by = "pilot"
+pilot_types = ["all"]
+energy_cost = 1
+instant_effect = "instant_weaken_stub"
+instant_targets = 1
+instant_value = 0
+instant_target_type = 3
+resolve_effect = "no_effect"
+resolve_targets = 0
+resolve_target_type = 0
+resolve_secondary_targets = 0
+resolve_secondary_ttype = 4
+resolve_min = 1
+resolve_max = 1
+types = ["physical"]
+affinities = ["forest"]
+affinity_effects = ["half_price"]
+description = "Flamethrower Description"
+requirements = "\"\""

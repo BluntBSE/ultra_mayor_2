@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StubModifier" load_steps=2 format=3 uid="uid://br6qwnjodu727"]
+
+[ext_resource type="Script" path="res://engine/card_game/cards/stub_modifier.gd" id="1_nhtaf"]
+
+[resource]
+script = ExtResource("1_nhtaf")
+modifier = "weaken_stub"
+category = 1
+types = []
+description = ""
+color = Color(0.828336, 0.653382, 0.163394, 1)

@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_wickk")
-id = "flamethrower"
-display_name = "Flamethrower"
+id = "lethalize_stub"
+display_name = "Lethalize Stub"
 art = ExtResource("1_cmdbj")
 border = Color(0, 1, 0, 1)
 tier = 0

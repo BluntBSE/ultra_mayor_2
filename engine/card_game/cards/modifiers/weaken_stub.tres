@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="CardModifier" load_steps=2 format=3 uid="uid://7vcctr7qbqa"]
+[gd_resource type="Resource" script_class="StubModifier" load_steps=2 format=3 uid="uid://7vcctr7qbqa"]
 
-[ext_resource type="Script" path="res://engine/card_game/cards/card_modifier.gd" id="1_enhw4"]
+[ext_resource type="Script" path="res://engine/card_game/cards/stub_modifier.gd" id="1_sie3l"]
 
 [resource]
-script = ExtResource("1_enhw4")
+script = ExtResource("1_sie3l")
 modifier = "weaken_stub"
 category = 1
 types = []
 description = ""
+color = Color(0.594406, 0.41572, 0.892103, 1)

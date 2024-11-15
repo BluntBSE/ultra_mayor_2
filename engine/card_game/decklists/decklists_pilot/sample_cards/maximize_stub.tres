@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_shuq5")
-id = "flamethrower"
-display_name = "Flamethrower"
+id = "maximize_stub"
+display_name = "Maximize Stub"
 art = ExtResource("1_a7l11")
 border = Color(0, 1, 0, 1)
 tier = 0

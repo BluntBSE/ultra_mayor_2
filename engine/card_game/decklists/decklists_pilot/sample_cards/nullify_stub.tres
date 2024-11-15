@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("2_pew46")
-id = "flamethrower"
-display_name = "Flamethrower"
+id = "nullify_stub"
+display_name = "Nullify Stub"
 art = ExtResource("1_2lwls")
 border = Color(0, 1, 0, 1)
 tier = 0
