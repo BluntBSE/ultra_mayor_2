@@ -96,7 +96,7 @@ func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void
 	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
 	interface.turn_signal.connect(switch_interactivity)
-	connect("was_clicked", interface.broadcast_button) #Currently used, but I forget how.
+	connect("was_clicked", interface.broadcast_button) #Communicates what was clicked on for card targeting
 
 
 

@@ -31,11 +31,12 @@ static func simple_damage(targets_primary:Array = [], _targets_secondary:Array =
 
 static func instant_weaken_stub(targets:Array)->void:
 	print("Called instant weaken stub!")
-	var modifier:StubModifier = load("res://engine/card_game/cards/modifiers/weaken_card.tres")
+	var modifier:StubModifier = load("res://engine/card_game/cards/modifiers/weaken_stub.tres")
 	modifier.duration = 1
 	for target:StubBase in targets: #Player or Kaiju card stub
 		target.modifiers.append(modifier)
 		target.apply_modifier_filter()
+		target.apply_modifiers_effects()
 	#CardHelpers.
 	pass
 

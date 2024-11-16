@@ -9,9 +9,9 @@ var dummy_hand:CardHand
 
 
 
-func stateUpdate(_delta: float) -> void:
-	pass
-
+func stateUpdate(_delta: float) -> void: ##This might go to assignable state? Idk.
+	if is_left_mouse_released():
+		stateHandleInput({"event": "l_click"})
 
 func stateEnter(_args: Dictionary) -> void:
 	var ref:StubBase = _reference
@@ -20,7 +20,7 @@ func stateEnter(_args: Dictionary) -> void:
 		print("HAS NO PLAYER ENTERED")
 		ref.entered = true
 		ref.flash_all_targets()
-		pass
+		ref.execute_instant_effects()
 	highlight = _reference.get_node("HoverBorder")
 
 func stateHandleInput(args:Dictionary)->void:
@@ -30,7 +30,7 @@ func stateHandleInput(args:Dictionary)->void:
 		_reference.hovered = true
 		highlight.visible = true
 		var inspect_node:Node2D = ref.get_tree().root.find_child("InspectCard", true, false)
-		inspect_copy = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
+		inspect_copy = load("res://engine/card_game/cards/rendered_card.tscn").instantiate()
 		inspect_node.add_child(inspect_copy)
 		dummy_hand = CardHand.new()
 		inspect_node.add_child(dummy_hand)
@@ -40,6 +40,7 @@ func stateHandleInput(args:Dictionary)->void:
 
 	if args.event == "l_click" and _reference.hovered == true:
 		print("Clicked on stub!")
+		ref.was_clicked.emit(ref)
 	if args.event == "exit":
 		#NOTE: Clicks qualify as 'exit' too!
 		_reference.hovered = false
@@ -55,3 +56,5 @@ func stateExit() -> void:
 	#TODO: Need to make the card not interactive when tweening back to original position.
 
 	#tween.tween_callback(_reference.back_in_place)
+func is_left_mouse_released() -> bool:
+	return Input.is_action_just_released("left_click")

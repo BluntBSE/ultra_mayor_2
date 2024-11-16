@@ -28,7 +28,7 @@ func draw_card()->void:
 	if cards_left > 0:
 		cards_left -= 1
 		update_count()
-		var card:RenderedCard = load("res://engine/card_game/cards/card_prototype_1.tscn").instantiate()
+		var card:RenderedCard = load("res://engine/card_game/cards/rendered_card.tscn").instantiate()
 		#remove_child(card)
 		hand.add_child(card)
 		card.global_position = self.global_position

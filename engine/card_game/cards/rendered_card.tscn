@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://b3v4y63kb2gyo"]
 
-[ext_resource type="Script" path="res://engine/card_game/cards/rendered_card.gd" id="1_7tn0i"]
-[ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="2_8hygy"]
-[ext_resource type="Texture2D" uid="uid://bjlh2ahxxqfds" path="res://engine/card_game/assets/pilot_decks/AI_charge.jpg" id="2_evy17"]
-[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_b7s34"]
+[ext_resource type="Script" path="res://engine/card_game/cards/rendered_card.gd" id="1_10ec2"]
+[ext_resource type="Texture2D" uid="uid://bjlh2ahxxqfds" path="res://engine/card_game/assets/pilot_decks/AI_charge.jpg" id="2_tv8he"]
+[ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="3_re0em"]
+[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_my4s8"]
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
 
 [node name="RenderedCard" type="Node2D"]
-script = ExtResource("1_7tn0i")
+script = ExtResource("1_10ec2")
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -44,7 +44,7 @@ metadata/_edit_use_anchors_ = true
 [node name="ArtImg" type="Sprite2D" parent="ImgMask"]
 position = Vector2(99, 116)
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_evy17")
+texture = ExtResource("2_tv8he")
 
 [node name="LabelRect" type="ColorRect" parent="."]
 offset_left = -118.0
@@ -64,7 +64,7 @@ offset_top = 2.0
 offset_bottom = 10.006
 mouse_filter = 2
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("2_8hygy")
+theme_override_fonts/normal_font = ExtResource("3_re0em")
 bbcode_enabled = true
 text = "[center]Jiu Jitsu[/center]"
 metadata/_edit_use_anchors_ = true
@@ -78,7 +78,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0.67451)
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="LabelRect2"]
+[node name="CardDescription" type="RichTextLabel" parent="LabelRect2"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -88,7 +88,7 @@ offset_top = 14.0
 offset_right = -12.0
 offset_bottom = 22.027
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_8hygy")
+theme_override_fonts/normal_font = ExtResource("3_re0em")
 bbcode_enabled = true
 text = "Change the target of the limb that you damage with this ability"
 metadata/_edit_use_anchors_ = true
@@ -115,7 +115,7 @@ position = Vector2(95, 149)
 rotation = 0.785398
 color = Color(0.329412, 0.933333, 0.184314, 1)
 polygon = PackedVector2Array(25, 0, 1.53076e-15, 25, -25, 3.06152e-15, -4.59227e-15, -25, 25, 0)
-script = ExtResource("3_b7s34")
+script = ExtResource("4_my4s8")
 sides = 4
 radius = 25.0
 

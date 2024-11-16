@@ -12,7 +12,7 @@ func show_resolve_targets()->void:
 
 
 
-
+"""
 func unpack(_lc: LogicalCard, _played_from:Control) -> void:
 	#Played from is a pilotbutton or a kaiju button
 	played_from = _played_from
@@ -34,7 +34,7 @@ func unpack(_lc: LogicalCard, _played_from:Control) -> void:
 
 	pass
 
-
+"""
 
 
 

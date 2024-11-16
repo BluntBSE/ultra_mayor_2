@@ -60,10 +60,34 @@ var hovered:bool = false
 var entered:bool = false #Is set to false by specific states if we want to do somethign fancy on entry
 var status_mask:ColorRect
 signal was_resolved
+signal was_clicked
 
+func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [], _resolve_targets_2: Array = [], _instant_targets: Array = []) -> void:
+	#Played from is a pilotbutton or a kaiju button
+	played_from = _played_from
+	lc = _lc
+	art = find_child("ArtImg")
+	art.texture = lc.art
+	cost_poly = find_child("EnergyCostPoly")
+	cost_poly.color = lc.border
+	value_label = find_child("ValueLabel")
+	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
+	#TODO: What value label shows probably needs to be modified a bit depending on what kind of card this is
+	resolve_targets = _resolve_targets
+	resolve_targets_secondary = _resolve_targets_2
+	instant_targets = _instant_targets
+	resolve_effect = lc.resolve_effect
+	instant_effect = lc.instant_effect
+	resolve_min = lc.resolve_min
+	resolve_max = lc.resolve_max
+	effects = CardEffects.new()
+
+
+	pass
 
 func _ready()->void:
-	#COMMON - MUST COPY TO CHILDREN BECAUSE ANY OVERRIDE OVERRIDES IT ALL
+	#COMMON - MUST COPY TO CHILDREN IF THEY OVERRIDE BECAUSE ANY OVERRIDE OVERRIDES IT ALL
+	#CONSIDER USING SUPER() if you do? idk!
 	state_machine.Add("inspectable", InspectableStub.new(self, {}))
 	#state_machine.Add("assignable", AssignableStub.new(self,{}))
 	state_machine.Add("normal", GenericState.new(self,{}))
@@ -72,23 +96,22 @@ func _ready()->void:
 	state_machine.Add("resolving", ResolveNodeState.new(self,{}))
 	#state_machine.Change("in_play", {})#NOTE: Should this ever be handled by the things that create it, and not this node?
 	status_mask = %StatusMask
+	var interface:BattleInterface = played_from.interface
+	connect("was_clicked", interface.broadcast_stub)
 
 
 func flash_all_targets()->void:
 	var i_arrows:Array = []
 	var r_arrows:Array = []
 	var r_2_arrows:Array = []
-	print("FLASH ALL TARGETS CALLED")
 
 	for target:Node in instant_targets:
-		print("INSTANT TARGET: ", target)
 		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.BLANCHED_ALMOND)
 		i_arrows.append(arrow)
 		remove_child(arrow)
 		%InstantArrows.add_child(arrow)
 	for target:Node in resolve_targets:
 		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.CYAN)
-		print("RESOLVE TARGET: ", target)
 		r_arrows.append(arrow)
 		remove_child(arrow)
 		%ResolveArrows.add_child(arrow)
@@ -146,3 +169,28 @@ func apply_modifier_filter()->void:
 			status_mask.color.a = mask_alpha
 			pass
 	pass
+
+
+func execute_instant_effects()->void:
+	print("Executing instant effect from ", self.lc.display_name)
+	effects.call(instant_effect, instant_targets)
+
+func undo_instant_effects()->void:
+	var func_name:String = instant_effect+"_undo"
+	effects.call(func_name, instant_targets)
+	pass
+
+func apply_modifiers_effects()->void:
+	print("MODIFIER EFFECTS CALLED")
+	for modifier:StubModifier in modifiers:
+		if modifier.modifier == "weaken_stub":
+			resolve_min = floor(resolve_min/2)
+			resolve_max = floor(resolve_max/2)
+			update_values()
+
+			pass
+		pass
+	pass
+
+func update_values()->void:
+		value_label.text = str(resolve_min) + " - " + str(resolve_max)

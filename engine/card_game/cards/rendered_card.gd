@@ -11,9 +11,10 @@ var art: Sprite2D
 var display_name: RichTextLabel
 var border: ColorRect
 var hover_border: ColorRect
-
+var card_description: RichTextLabel
 var cost_label_poly: Polygon2D
 var value_label: RichTextLabel
+
 
 var state_machine: StateMachine = StateMachine.new()
 
@@ -58,7 +59,9 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 
 	value_label = find_child("ValueLabel")
 	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
-
+	card_description = find_child("CardDescription")
+	card_description.text = parse_description(lc.description, lc.instant_targets, lc.resolve_targets, lc.resolve_secondary_targets, lc.resolve_min, lc.resolve_max)
+	print("DESC SHOULD NOW BE: ", parse_description(lc.description, lc.instant_targets, lc.resolve_targets, lc.resolve_secondary_targets, lc.resolve_min, lc.resolve_max))
 	inspect_area = get_tree().root.find_child("InspectArea", true, false)
 	is_inspection_copy = false
 
@@ -73,10 +76,12 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	connect("energy_spent", interface.handle_spend)
 	interface.connect("turn_signal", set_interactivity_mode)
 	interface.connect("clicked_button", do_clicked_button)
+	interface.connect("clicked_stub", do_clicked_stub)
 	var player_in_play:PlayerInPlay = get_tree().root.find_child("PlayerInPlay", true, false)
 	connect("was_played", player_in_play.handle_played)
 	connect("was_played", interface.find_child("TargetSubmitWindow", true, false).handle_was_played)
 	connect("was_removed", hand.handle_removed)
+
 
 
 
@@ -111,6 +116,11 @@ func do_clicked_button(button:Control)->void:
 	state_machine.handleInput({"event":button})
 	pass
 
+func do_clicked_stub(stub:StubBase)->void:
+	print("Clicked button fired!")
+	state_machine.handleInput({"event":stub})
+	pass
+
 
 func _on_mouse_area_mouse_entered()->void:
 	print("HOVERED! My state is", state_machine.getCurrent())
@@ -139,6 +149,27 @@ func set_interactivity_mode(turn_state:int)->void:
 
 func can_afford()->bool:
 	return (interface.energy - cost >= 0)
+
+func parse_description(str:String, _num_instant:int, _num_resolve:int, _num_resolve_2:int, _resolve_min:int, _resolve_max:int)->String:
+	var num_instant:String = "%ni"
+	var num_resolve:String = "%nr"
+	var num_resolve_2:String = "%nr2"
+	var resolve_min:String = "%rmn"
+	var resolve_max:String = "%rmx"
+	var new_str:String
+	var to_replace:Array = [num_instant, num_resolve, num_resolve_2, resolve_min, resolve_max]
+	new_str=str
+	new_str = new_str.replace(num_instant, str(_num_instant))
+	print(new_str)
+	new_str = new_str.replace(num_resolve, str(_num_resolve))
+	print("NUM RESOLVE WAS", num_resolve)
+	print(new_str)
+	new_str = new_str.replace(num_resolve_2, str(_num_resolve_2))
+	new_str = new_str.replace(resolve_min, str(_resolve_min))
+	new_str = new_str.replace(resolve_max, str(_resolve_max))
+	return new_str
+
+
 
 func _process(delta:float)->void:
 	state_machine.stateUpdate(delta)

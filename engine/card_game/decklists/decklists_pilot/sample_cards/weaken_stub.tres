@@ -28,5 +28,7 @@ resolve_max = 1
 types = ["physical"]
 affinities = ["forest"]
 affinity_effects = ["half_price"]
-description = "Flamethrower Description"
+description = "INSTANT: Weaken 1 card.
+
+RESOLVE: Deal 2 to 4 damage to 2 limbs"
 requirements = "\"\""

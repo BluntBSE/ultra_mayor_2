@@ -106,6 +106,7 @@ func broadcast_button(button: Control) -> void:
 
 
 func broadcast_stub(stub: Node2D) -> void:
+	print("BROADCASTING STUB, ", stub)
 	clicked_stub.emit(stub)
 
 func handle_spend(cost:int)->void:

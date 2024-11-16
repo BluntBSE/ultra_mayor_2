@@ -13,7 +13,7 @@ var player_entered:bool = false
 
 
 
-
+"""
 func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [], _resolve_targets_2: Array = [], _instant_targets: Array = []) -> void:
 	#Played from is a pilotbutton or a kaiju button
 	played_from = _played_from
@@ -34,15 +34,7 @@ func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [
 	effects = CardEffects.new()
 
 	pass
-
-func execute_instant_effects()->void:
-	print("Executing instant effect from ", self.lc.display_name)
-	effects.call(instant_effect, instant_targets)
-
-func undo_instant_effects()->void:
-	var func_name:String = instant_effect+"_undo"
-	effects.call(func_name, instant_targets)
-	pass
+"""
 
 func unplay()->void:
 	#Removes all arrows childed to this stub
@@ -61,10 +53,7 @@ func do_transit(args: Dictionary) -> void:
 	state_machine.Change("in_transit", args)
 
 
-func do_clicked_button(button: Control) -> void:
-	print("Clicked button fired!")
-	state_machine.handleInput({"event": button})
-	pass
+
 
 
 func _on_mouse_area_mouse_entered() -> void:

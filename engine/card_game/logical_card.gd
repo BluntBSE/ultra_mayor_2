@@ -32,7 +32,8 @@ extends Resource
 @export var types: Array
 @export var affinities: Array
 @export var affinity_effects:Array
-@export var description:String
+## 	var num_instant:String = "%ni var num_resolve:String = "%nr" var num_resolve_2:String = "%nr2"var resolve_min:String = "%rmn"var resolve_max:String = "%rmx"
+@export_multiline var description:String
 
 @export var requirements:String
 

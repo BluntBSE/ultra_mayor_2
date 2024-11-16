@@ -48,7 +48,7 @@ func stateHandleInput(args: Dictionary) -> void:
 	#Receives a button or stub as part of {"event": stub}
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
-	if args.event is Control:  #Buttons are controls, stubs are Node2D
+	if args.event is Control:  #Buttons are controls, stubs are Node2D. Probably need a tighter way to check this. Node name might even be fine.
 		#NOTE: The while loops below imply that the job of any "submit X" button to exit early
 		# Does its job by setting these variables to 0 based on the current turn state.
 		if num_instant > 0:
@@ -83,7 +83,41 @@ func stateHandleInput(args: Dictionary) -> void:
 		if num_resolve == 0 and num_resolve_secondary == 0:
 			play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
 			return
-	pass
+
+	if args.event is Node2D: #Stub
+		if num_instant > 0:
+			print("NUM INSTANT CHECK")
+			#Do instants
+			if num_instant > 0:
+				if num_instant >= instant_targets.size():
+					assign_instant([args.event])
+				if num_resolve == 0 and num_resolve_secondary == 0:
+					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+				return
+
+		if num_resolve > 0:
+			print("NUM RESOLVE CHECK", num_resolve)
+			#Treat as one stage
+			if num_resolve >= resolve_targets.size():
+				assign_resolve_primary([args.event])
+				if num_resolve == 0 and num_resolve_secondary == 0:
+					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+				return
+
+
+		if num_resolve_secondary > 0:
+			if num_resolve >= resolve_targets_secondary.size():
+				assign_resolve_secondary([args.event])
+
+				if num_resolve == 0 and num_resolve_secondary == 0:
+					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+				return
+
+
+		if num_resolve == 0 and num_resolve_secondary == 0:
+			play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
+			return
+		pass
 
 
 func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
