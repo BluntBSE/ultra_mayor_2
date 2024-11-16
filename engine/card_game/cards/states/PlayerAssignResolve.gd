@@ -9,13 +9,16 @@ var resolve_targets: Array = []
 var resolve_targets_secondary: Array = []
 var instant_targets: Array = []
 var lc:LogicalCard
+var target_submit_window:TargetSubmitWindow
+var hover_border: ColorRect
 signal submit_response
 signal did_assign
 
 
 func stateEnter(args: Dictionary) -> void:
 	var ref:RenderedCard = _reference
-	var target_submit_window:TargetSubmitWindow = ref.get_tree().root.find_child("TargetSubmitWindow", true, false)
+	ref.being_assigned.emit(ref)
+	target_submit_window = ref.get_tree().root.find_child("TargetSubmitWindow", true, false)
 	target_submit_window.do_visible()
 	var submit_button:SubmitButton = ref.get_tree().root.find_child("SubmitButton", true, false)
 	submit_button.connect("submit", handle_submit)
@@ -32,7 +35,7 @@ func stateEnter(args: Dictionary) -> void:
 
 	_reference.target_signal.emit(targeting_type)
 	_reference.turn_signal.emit(_reference.state_machine._current_state_id)
-	var hover_border: ColorRect = _reference.hover_border
+	hover_border = _reference.hover_border
 	hover_border.visible = true
 	hover_border.color = Color(Color.RED)
 
@@ -122,6 +125,13 @@ func stateHandleInput(args: Dictionary) -> void:
 			return
 		pass
 
+	if args.event is String:
+		if args.event == "change_assigned":
+			hover_border.visible = false
+			_reference.state_machine.Change("interactive", {})
+			_reference.hand.organize_cards()
+			indicator.visible = false
+			indicator.queue_free()
 
 func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.

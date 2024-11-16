@@ -7,6 +7,8 @@ var cards_in_hand: Array = []
 @export var height_curve: Curve = Curve.new()
 @export var rot_curve: Curve = Curve.new()
 
+signal being_assigned
+
 
 
 
@@ -40,8 +42,8 @@ func organize_cards() -> void:
 			"time": 0.25,
 			"fin_z": idx
 		}
-
-		card.do_transit(dest_args)
+		if card.state_machine._current_state_id != "assigning_resolve":
+			card.do_transit(dest_args)
 		idx += 1
 
 		#card.global_position.y = destination.y
@@ -54,3 +56,6 @@ func handle_removed(card:RenderedCard)->void:
 	cards_in_hand.erase(card)
 	organize_cards()
 	pass
+
+func handle_being_assigned(card:RenderedCard)->void:
+	being_assigned.emit(card)

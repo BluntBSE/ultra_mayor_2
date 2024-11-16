@@ -29,7 +29,7 @@ var interactivity_mode:String = "interactive"
 var origin:Control #TODO: Make a shared button class
 
 
-
+signal being_assigned
 signal energy_spent
 signal turn_signal
 signal target_signal
@@ -80,6 +80,8 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	connect("was_played", player_in_play.handle_played)
 	connect("was_played", interface.find_child("TargetSubmitWindow", true, false).handle_was_played)
 	connect("was_removed", hand.handle_removed)
+	connect("being_assigned", hand.handle_being_assigned) #Parent knows which card is being assigned, broadcasts that to other cards
+	hand.connect("being_assigned", handle_being_assigned)
 
 
 
@@ -167,3 +169,12 @@ func parse_description(str:String, _num_instant:int, _num_resolve:int, _num_reso
 
 func _process(delta:float)->void:
 	state_machine.stateUpdate(delta)
+
+func handle_being_assigned(assigned:RenderedCard)->void:
+	print("Received being assigned from", assigned.lc.display_name)
+	## Cards emit 'being assigned' when entering assignment state. The hand listens for this and sends it to other cards
+	## If the signal is not equal to the card, they  leave the assignment state
+	## Prevents you from trying to assign multiple cards at the same time.
+	if assigned != self:
+		state_machine.handleInput({"event":"change_assigned"})
+	pass
