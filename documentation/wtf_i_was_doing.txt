@@ -2,8 +2,11 @@ REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 
 TODO: Enforce correct targeting options during card game
+-As we step through the phases on the rendered_card, we must emit the targeting type permitted by that
+-This will then modify the state of the buttons and allow them to emit their clicked-on-ness or not (clicked on only serves assignment for now)
 TODO: Unite the player and kaiju packed scenes for stubs?
 
+BUG: You can actually put multiple cards in the assigning state at once oops
 
 BUG: After player turn ends, you must queue free the state machines.
 BUG: When using submit, arrows are going weirdly one slot to the right...

@@ -1,5 +1,5 @@
 extends GenericState
-class_name InspectableStub
+class_name AssignableStub
 
 var highlight: ColorRect
 var inspect_copy:RenderedCard
@@ -16,7 +16,6 @@ func stateUpdate(_delta: float) -> void: ##This might go to assignable state? Id
 		stateHandleInput({"event": "r_click"})
 
 func stateEnter(_args: Dictionary) -> void:
-	print("INSPECTABLE ENTERED BY ", _reference.lc.display_name)
 	var ref:StubBase = _reference
 	#The first time a card becomes inspectable, flash its targets
 	if ref.entered == false:
@@ -44,13 +43,9 @@ func stateHandleInput(args:Dictionary)->void:
 		inspect_node.global_position = inspect_node.global_position
 
 	if args.event == "l_click" and _reference.hovered == true:
-		print("Clicked on stub during inspectable state!")
-		#ref.was_clicked.emit(ref)
+		print("Clicked on stub, should assign")
+		ref.was_clicked.emit(ref) #Assign to this bad boy
 
-
-	if _reference.hovered == true:
-		if args.event == "r_click" and ref is PlayerCardStub:
-			ref.unplay()
 
 	if args.event == "exit":
 		#NOTE: Clicks qualify as 'exit' too!

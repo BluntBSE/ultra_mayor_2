@@ -96,6 +96,7 @@ func handle_pcard_sig(state: String) -> void:
 
 
 func handle_pcard_target(type: int) -> void:
+	print("Interface is broadcasting the pcards targets")
 	targeting_state=type
 	targeting_signal.emit(type)  #We might not actually use this, but interrogate it from the buttons
 

@@ -46,6 +46,8 @@ func stateEnter(args: Dictionary) -> void:
 
 
 func stateHandleInput(args: Dictionary) -> void:
+
+
 	#Receives a button or stub as part of {"event": stub}
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
@@ -165,6 +167,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	#TODO
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
 	_reference.do_on_played()
+	_reference.target_signal.emit(LogicalCard.target_types.NONE)
 	queue_free()
 
 	pass

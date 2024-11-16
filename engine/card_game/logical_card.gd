@@ -14,17 +14,14 @@ extends Resource
 @export var instant_effect: String
 @export var instant_targets: int
 @export var instant_value: int
-## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 @export var instant_target_type: int = 4
 
 # Resolve effects take place after the "resolve" button is hit.
 # Player cards resolve first, from left to right. Then kaiju, from left to right.
 @export var resolve_effect: String
 @export var resolve_targets: int
-## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 @export var resolve_target_type: int = 4
 @export var resolve_secondary_targets: int
-## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 @export var resolve_secondary_ttype:int = 4
 @export var resolve_min: int
 @export var resolve_max: int

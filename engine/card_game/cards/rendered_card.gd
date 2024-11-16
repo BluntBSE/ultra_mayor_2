@@ -111,12 +111,10 @@ func do_interactive()->void:
 	state_machine.Change("interactive", {})
 
 func do_clicked_button(button:Control)->void:
-	print("Clicked button fired!")
 	state_machine.handleInput({"event":button})
 	pass
 
 func do_clicked_stub(stub:StubBase)->void:
-	print("Clicked button fired!")
 	state_machine.handleInput({"event":stub})
 	pass
 

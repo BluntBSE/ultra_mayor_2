@@ -57,3 +57,19 @@ func on_exit()->void:
 
 func _process(_delta:float)->void:
 	state_machine.stateUpdate(_delta)
+
+
+func handle_target_signal(sig:int)->void:
+	print("STUB IS HANDLING TARGET SIGNAL, GOT", sig)
+	if sig == LogicalCard.target_types.NONE:
+		print("GOT NONE ALRIGHT")
+		state_machine.Change("inspectable", {})
+		return
+
+	#2 or 5
+	if sig == LogicalCard.target_types.K_STUBS  or sig == LogicalCard.target_types.ALL_STUBS:
+		state_machine.Change("assignable", {})
+		return
+	else:
+		#Do I need to check if it's the player's turn here too?
+		state_machine.Change("normal", {})

@@ -89,7 +89,7 @@ func _ready()->void:
 	#COMMON - MUST COPY TO CHILDREN IF THEY OVERRIDE BECAUSE ANY OVERRIDE OVERRIDES IT ALL
 	#CONSIDER USING SUPER() if you do? idk!
 	state_machine.Add("inspectable", InspectableStub.new(self, {}))
-	#state_machine.Add("assignable", AssignableStub.new(self,{}))
+	state_machine.Add("assignable", AssignableStub.new(self,{}))
 	state_machine.Add("normal", GenericState.new(self,{}))
 	#IF ACTIVE TURN IS TRUE, then interative. ELSE, do non-interactive (or kaiju analogy)
 	state_machine.Add("in_transit", TransitNodeState.new(self, {}))
@@ -98,6 +98,7 @@ func _ready()->void:
 	status_mask = %StatusMask
 	var interface:BattleInterface = played_from.interface
 	connect("was_clicked", interface.broadcast_stub)
+	interface.connect("targeting_signal", handle_target_signal)
 
 func unplay()->void:
 	#Removes all arrows childed to this stub
@@ -231,4 +232,8 @@ func update_values()->void:
 
 func reset_self()->void:
 	self.unpack(lc, played_from, resolve_targets, resolve_targets_secondary, instant_targets)
+	pass
+
+func handle_target_signal(sig:int)->void:
+	#Overriden by pilot or kaiju stubs, here for reference
 	pass
