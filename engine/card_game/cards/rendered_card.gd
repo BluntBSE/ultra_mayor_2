@@ -20,7 +20,7 @@ var state_machine: StateMachine = StateMachine.new()
 
 var mouse_area:ReferenceRect
 #Wherever hovering over this actually displays the card
-var inspect_area: Node
+var inspect_node: Node
 var inspection_copy: RenderedCard
 var is_inspection_copy: bool
 
@@ -61,7 +61,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
 	card_description = find_child("CardDescription")
 	card_description.text = parse_description(lc.description, lc.instant_targets, lc.resolve_targets, lc.resolve_secondary_targets, lc.resolve_min, lc.resolve_max)
-	inspect_area = get_tree().root.find_child("InspectArea", true, false)
+	inspect_node = get_tree().root.find_child("InspectCard", true, false)
 	is_inspection_copy = false
 
 	mouse_area = get_node("MouseArea")
@@ -103,6 +103,8 @@ func do_on_played()->void:
 	#Apply instant speed effects -- part of stub actually
 	turn_signal.emit("interactive") #Why are we using strings here and not the enum? I recall there being a reason...
 	was_removed.emit(self)
+	for child:Node in inspect_node.get_children():
+		child.queue_free()
 	queue_free() #DOES THIS SOMEHOW CHANGE THE POSITION OF THE ARROWS?
 
 func do_transit(args:Dictionary)->void:

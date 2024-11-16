@@ -175,10 +175,10 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	#stub.position = Vector2(0.0, 0.0)
 	stub.global_position = _reference.global_position
 	stub.scale = Vector2(0.25, 0.25)
-	#TODO
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
 	_reference.do_on_played()
 	_reference.target_signal.emit(LogicalCard.target_types.NONE)
+
 	queue_free()
 
 	pass

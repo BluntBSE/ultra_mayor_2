@@ -4,6 +4,7 @@ class_name KCardButtonAssignable
 var highlight: Polygon2D
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_process_input(true)
@@ -22,7 +23,6 @@ func stateUpdate(_delta: float) -> void:
 
 func stateEnter(_args: Dictionary) -> void:
 	highlight = _reference.get_node("HoverPoly")
-
 	pass
 
 
@@ -31,7 +31,7 @@ func stateHandleInput(args: Dictionary) -> void:
 		_reference.hovered = true
 		highlight.visible = true
 	if args.event == "l_click" and _reference.hovered == true:
-		print("EMITTING FROM ASSIGNABLE")
+		pass
 		_reference.was_clicked.emit(_reference)
 	if args.event == "exit":
 		#NOTE: Clicks qualify as 'exit' too!
@@ -45,4 +45,4 @@ func is_left_mouse_released() -> bool:
 
 
 func stateExit() -> void:
-	highlight.visible = false
+	pass

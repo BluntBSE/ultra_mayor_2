@@ -20,7 +20,6 @@ func stateEnter(_args: Dictionary) -> void:
 	var ref:StubBase = _reference
 	#The first time a card becomes inspectable, flash its targets
 	if ref.entered == false:
-		print("HAS NO PLAYER ENTERED")
 		ref.entered = true
 		ref.flash_all_targets()
 		ref.execute_instant_effects()
@@ -56,9 +55,9 @@ func stateHandleInput(args:Dictionary)->void:
 		#NOTE: Clicks qualify as 'exit' too!
 		_reference.hovered = false
 		highlight.visible = false
-		if inspect_copy:
+		if inspect_copy != null:
 			inspect_copy.queue_free()
-		if dummy_hand:
+		if dummy_hand != null:
 			dummy_hand.queue_free()
 		pass
 

@@ -110,19 +110,10 @@ func _ready()->void:
 
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
-	if turn_signal == interface.TURN_STATES.PLAYER:
-		#interaction_mode = "not_interactive"
-		state_machine.Change("inspectable", {})
-	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
-		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.K_BUTTONS:
-			state_machine.Change("assignable", {})
-	else:
-		pass
-
 	pass
 
 func on_hover()->void:
-		get_viewport().set_input_as_handled() #TODO: Is this really the way?
+		#get_viewport().set_input_as_handled() #TODO: Is this really the way?
 		state_machine._current.stateHandleInput({"event": "hover"})
 
 func on_exit()->void:

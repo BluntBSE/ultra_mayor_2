@@ -27,6 +27,7 @@ func stateEnter(_args: Dictionary) -> void:
 
 func stateHandleInput(args: Dictionary) -> void:
 	if args.event == "hover":
+		print("INSPECTABLE BUTTON SETTING HIGHLIGHT TO TRUE")
 		_reference.hovered = true
 		highlight.visible = true
 	if args.event == "l_click" and _reference.hovered == true:

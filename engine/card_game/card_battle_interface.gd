@@ -83,6 +83,7 @@ func unpack_kaiju_buttons(_battle_object: BattleObject) -> void:
 func handle_kaiju_turn_finished() -> void:
 	active_turn = TURN_STATES.PLAYER
 	turn_signal.emit(active_turn)
+	targeting_signal.emit(LogicalCard.target_types.NONE) #This is the one that flips all the buttons
 
 
 func handle_pcard_sig(state: String) -> void:
@@ -96,7 +97,7 @@ func handle_pcard_sig(state: String) -> void:
 
 
 func handle_pcard_target(type: int) -> void:
-	print("Interface is broadcasting the pcards targets")
+	#print("Interface is broadcasting the pcards targets")
 	targeting_state=type
 	targeting_signal.emit(type)  #We might not actually use this, but interrogate it from the buttons
 

@@ -59,7 +59,8 @@ func stateHandleInput(args:Dictionary)->void:
 
 
 func stateExit() -> void:
-	highlight.visible = false
+	pass
+	#highlight.visible = false
 	#TODO: Need to make the card not interactive when tweening back to original position.
 
 	#tween.tween_callback(_reference.back_in_place)
