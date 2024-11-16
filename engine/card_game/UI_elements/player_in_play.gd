@@ -22,7 +22,6 @@ func organize_stubs() -> void:
 	var idx:int = 0
 	for stub:PlayerCardStub in in_play:
 		var destination:Vector2 = self.global_position + Vector2(250.0*(idx),0.0)
-		print("ATTEMPTING TO MOVE ", stub.lc.display_name, "TO ", destination)
 		var dest_args:Dictionary = {
 			"global_position":destination,
 			"scale": Vector2(1.0,1.0),

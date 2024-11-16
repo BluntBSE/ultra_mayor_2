@@ -31,6 +31,7 @@ func stateHandleInput(args: Dictionary) -> void:
 		_reference.hovered = true
 		highlight.visible = true
 	if args.event == "l_click" and _reference.hovered == true:
+		print("EMITTING FROM ASSIGNABLE")
 		_reference.was_clicked.emit(_reference)
 	if args.event == "exit":
 		#NOTE: Clicks qualify as 'exit' too!

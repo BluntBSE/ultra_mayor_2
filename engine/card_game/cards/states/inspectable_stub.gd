@@ -56,7 +56,8 @@ func stateHandleInput(args:Dictionary)->void:
 		#NOTE: Clicks qualify as 'exit' too!
 		_reference.hovered = false
 		highlight.visible = false
-		inspect_copy.queue_free()
+		if inspect_copy:
+			inspect_copy.queue_free()
 		if dummy_hand:
 			dummy_hand.queue_free()
 		pass

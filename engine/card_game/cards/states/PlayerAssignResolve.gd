@@ -33,7 +33,7 @@ func stateEnter(args: Dictionary) -> void:
 	var targeting_type: int = ref_lc.resolve_target_type
 	ref.connect("target_signal", ref.interface.handle_pcard_target)
 
-	_reference.target_signal.emit(targeting_type)
+	#_reference.target_signal.emit(targeting_type)
 	_reference.turn_signal.emit(_reference.state_machine._current_state_id)
 	hover_border = _reference.hover_border
 	hover_border.visible = true
@@ -50,13 +50,14 @@ func stateEnter(args: Dictionary) -> void:
 
 func stateHandleInput(args: Dictionary) -> void:
 
-
+	print("ASSIGNABLE STATE RECEIVED ARGS, ", args)
 	#Receives a button or stub as part of {"event": stub}
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
 	if args.event is Control:  #Buttons are controls, stubs are Node2D. Probably need a tighter way to check this. Node name might even be fine.
 		#NOTE: The while loops below imply that the job of any "submit X" button to exit early
 		# Does its job by setting these variables to 0 based on the current turn state.
+		print ("ARG IS ", args.event)
 		if num_instant > 0:
 			print("NUM INSTANT CHECK")
 			#Do instants
@@ -189,12 +190,15 @@ func stateUpdate(_dt:float)->void:
 	#indicator.scale = Vector2(1.0,1.0)
 	if num_instant > 0:
 		#print("TRYING TO DRAW INSTANT ARROW FROM ", _reference.global_position, "TO ", _reference.get_global_mouse_position())
+		_reference.target_signal.emit(_reference.lc.instant_target_type)
 		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.BLANCHED_ALMOND)
 		return
 	if num_resolve > 0:
+		_reference.target_signal.emit(_reference.lc.resolve_target_type)
 		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.CYAN)
 		return
 	if num_resolve_secondary > 0:
+		_reference.target_signal.emit(_reference.lc.resolve_secondary_ttype)
 		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.ORANGE)
 		return
 

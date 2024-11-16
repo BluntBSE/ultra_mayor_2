@@ -59,6 +59,7 @@ func unpack(pilot: LogicalPilot) -> void:
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
 	active = true
+	interface.connect("targeting_signal", handle_target_signal)
 
 
 
@@ -98,3 +99,15 @@ func on_exit()->void:
 
 func _process(_delta:float)->void:
 	state_machine.stateUpdate(_delta)
+
+func handle_target_signal(sig:int)->void:
+	if sig == LogicalCard.target_types.NONE:
+		state_machine.Change("drawable", {}) #TODO: Do I need to change the color here?
+		return
+
+	if sig == LogicalCard.target_types.P_BUTTONS  or sig == LogicalCard.target_types.ALL_BUTTONS:
+		state_machine.Change("assignable", {})
+		return
+	else:
+		#Do I need to check if it's the player's turn here too?
+		state_machine.Change("normal", {})

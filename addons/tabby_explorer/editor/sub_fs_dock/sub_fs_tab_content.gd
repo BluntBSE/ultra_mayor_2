@@ -90,14 +90,14 @@ func _ready():
 
 	_main_cont = get_node("main")
 	_popup_menu_keeper = get_node("popup_menu_keeper")
-	
+
 	_toolbar = _main_cont.get_node("toolbar")
 	_history_cont = _main_cont.get_node("toolbar/history")
 	_history_prev_btn = _main_cont.get_node("toolbar/history/prev_btn")
 	_history_next_btn = _main_cont.get_node("toolbar/history/next_btn")
-	
+
 	_sel_item_info = _main_cont.get_node("toolbar/item_info")
-	
+
 	var copy_icon := get_theme_icon("ActionCopy","EditorIcons")
 	_sel_item_path_body = _main_cont.get_node("toolbar/item_info/path_body")
 	_sel_item_path_edit = _main_cont.get_node("toolbar/item_info/path_body/res_path_edit")
@@ -105,38 +105,38 @@ func _ready():
 #	_sel_item_path_copy_btn.icon = get_theme_icon("Duplicate","EditorIcons")
 	_sel_item_path_copy_btn.icon = copy_icon
 	_sel_item_path_copy_btn.text = ""
-	
+
 	_pin_btn = _main_cont.get_node("toolbar/item_info/path_body/pin_btn")
 	_pin_btn.icon = get_theme_icon("Pin", "EditorIcons")
 	_pin_btn.text = ""
-	_pin_btn.custom_minimum_size = Vector2(_pin_btn.custom_minimum_size.x, _sel_item_path_edit.size.y) 
-	
+	_pin_btn.custom_minimum_size = Vector2(_pin_btn.custom_minimum_size.x, _sel_item_path_edit.size.y)
+
 	_more_info_cont = _main_cont.get_node("toolbar/item_info/more_info_cont")
 	_sel_item_uid_body = _more_info_cont.get_node("uid_body")
 	_sel_item_uid_edit = _sel_item_uid_body.get_node("edit")
 	_sel_item_uid_copy_btn = _sel_item_uid_body.get_node("copy_btn")
 	_sel_item_uid_copy_btn.icon = copy_icon
 	_sel_item_uid_copy_btn.text = ""
-	
+
 	_sel_item_name_body = _more_info_cont.get_node("name_body")
 	_sel_item_name_edit = _sel_item_name_body.get_node("edit")
 	_sel_item_name_copy_btn = _sel_item_name_body.get_node("copy_btn")
 	_sel_item_name_copy_btn.icon = copy_icon
 	_sel_item_name_copy_btn.text = ""
-	
+
 	var tools_cont:Control = _main_cont.get_node("toolbar/item_info/path_body/tools")
 	_reload_btn = tools_cont.get_node("reload_btn")
 	_reload_btn.icon = get_theme_icon("Reload", "EditorIcons")
 	_reload_btn.text = ""
 	_reload_btn.custom_minimum_size = Vector2(_reload_btn.custom_minimum_size.x, _sel_item_path_edit.size.y)
-	
+
 	_post_selection_fs_dock_btn = tools_cont.get_node("post_selection_fs_dock_btn")
 	#_post_selection_fs_dock_btn.icon = get_theme_icon("Search", "EditorIcons")
 	_post_selection_fs_dock_btn.icon = get_theme_icon("Signals", "EditorIcons")
 	#_post_selection_fs_dock_btn.icon = get_theme_icon("ExternalLink", "EditorIcons")
 	_post_selection_fs_dock_btn.text = ""
 	_post_selection_fs_dock_btn.custom_minimum_size = _reload_btn.custom_minimum_size
-	
+
 	_sel_item_info_expand_btn = tools_cont.get_node("expand_btn")
 	#_sel_item_info_expand_btn.icon = get_theme_icon("GuiTreeArrowRight", "EditorIcons")
 	#_sel_item_info_expand_btn.icon = get_theme_icon("GuiTreeArrowDown", "EditorIcons")
@@ -148,7 +148,7 @@ func _ready():
 	_filter_edit = _main_cont.get_node("filter_cont/filter_edit")
 	_filter_edit.text = ""
 	_filter_edit.text_changed.connect(_on_filter_edit_text_changed)
-	
+
 	_tree = _main_cont.get_node("tree")
 	if _is_multi_selection_mode:
 		_tree.select_mode = Tree.SELECT_MULTI
@@ -162,22 +162,22 @@ func _ready():
 	_tree.item_activated.connect(_on_tree_item_activated)
 	_tree.empty_clicked.connect(_on_tree_empty_clicked)
 	_tree.set_drag_forwarding(_tree_item_get_drag_data, _tree_item_can_drop_data, _tree_item_drop)
-	
+
 	_reload_btn.pressed.connect(_on_reload_btn_pressed)
 	_pin_btn.pressed.connect(_on_pin_btn_pressed)
 	_post_selection_fs_dock_btn.pressed.connect(_on_post_selection_fs_dock_pressed)
 	_sel_item_info_expand_btn.pressed.connect(_on_sel_item_info_expand_btn_pressed)
-	
+
 	_history_prev_btn.pressed.connect(_on_history_prev_btn_pressed)
 	_history_next_btn.pressed.connect(_on_history_next_btn_pressed)
-	
+
 	_sel_item_path_edit.text_submitted.connect(_on_sel_item_path_edit)
 	_sel_item_uid_edit.text_submitted.connect(_on_sel_item_uid_edit)
-	
+
 	_sel_item_path_copy_btn.pressed.connect(_on_sel_item_path_copy_btn_pressed)
 	_sel_item_uid_copy_btn.pressed.connect(_on_sel_item_uid_copy_btn_pressed)
 	_sel_item_name_copy_btn.pressed.connect(_on_sel_item_name_copy_btn_pressed)
-	
+
 	visibility_changed.connect(_on_visibility_changed)
 
 func _on_visibility_changed():
@@ -207,10 +207,10 @@ func _get_filter_text()->String:
 
 func _on_sel_item_path_copy_btn_pressed():
 	DisplayServer.clipboard_set(_sel_item_path_edit.text)
-	
+
 func _on_sel_item_uid_copy_btn_pressed():
 	DisplayServer.clipboard_set(_sel_item_uid_edit.text)
-	
+
 func _on_sel_item_name_copy_btn_pressed():
 	DisplayServer.clipboard_set(_sel_item_name_edit.text)
 
@@ -220,17 +220,17 @@ func _on_tree_gui_input(p_input:InputEvent):
 	var mouse_input:InputEventMouseButton = null
 	if p_input is InputEventMouseButton:
 		mouse_input = p_input as InputEventMouseButton
-	
+
 	if mouse_input == null:
 		return
-	
+
 	if mouse_input.is_command_or_control_pressed():
 		return
 	if mouse_input.shift_pressed:
 		return
 	if !mouse_input.is_pressed():
 		return
-	
+
 	if mouse_input.button_index == MOUSE_BUTTON_WHEEL_UP:
 		return
 	if mouse_input.button_index == MOUSE_BUTTON_WHEEL_DOWN:
@@ -241,14 +241,14 @@ func _on_tree_gui_input(p_input:InputEvent):
 		return
 	if mouse_input.button_index == MOUSE_BUTTON_RIGHT:
 		pass
-		
+
 func _on_tree_item_activated():
 	if !has_selected_item():
 		return
-	
+
 	# this means double clicked!
 	var sel_item:SubFSTreeItemWrapper = get_selected_item()
-	
+
 	if _is_dfs_mode() and !sel_item.is_dir():
 		_default_fs_navigate(get_selected_item().get_path())
 		if _fs_share.dfsi_mode_helper.is_split_mode:
@@ -269,7 +269,7 @@ func _on_tree_item_activated():
 func _on_item_mouse_selected(p_position: Vector2, mouse_button_index: int):
 	if !has_selected_item():
 		return
-	
+
 	if _tab_pref.always_post_selection_to_fs_dock:
 		_default_fs_navigate(get_selected_item().get_path())
 
@@ -284,7 +284,7 @@ func _on_tree_button_clicked(p_item:TreeItem, column: int, id: int, mouse_button
 func _on_tree_empty_clicked(p_position: Vector2, mouse_button_index: int):
 	if mouse_button_index != MOUSE_BUTTON_RIGHT:
 		return
-		
+
 	_select_item_wrapper(_root_wrapper, false, false, true)
 	_handle_rmb_click(p_position, mouse_button_index)
 
@@ -293,7 +293,7 @@ func _on_tree_item_selected():
 		return
 
 	_update_selection(_tree.get_selected(), 0, true, true)
-	
+
 func _on_tree_item_multi_selected(p_item:TreeItem, p_column: int, p_selected: bool):
 	if _ignore_item_selected_signal:
 		return
@@ -303,26 +303,26 @@ func _on_tree_item_multi_selected(p_item:TreeItem, p_column: int, p_selected: bo
 func _update_selection(p_item:TreeItem, p_column: int, p_selected: bool, p_by_click:bool):
 	var wrapper:SubFSTreeItemWrapper = p_item.get_metadata(0) as SubFSTreeItemWrapper
 	#print("update selection : ", wrapper.get_saved_path())
-	
+
 	if p_selected:
 		if !_is_multi_selection_mode:
 			_selected_items.clear()
 
 		_selected_items[wrapper.get_instance_id()] = wrapper
 		_selected_item = wrapper
-		
+
 		set_selected_path(_selected_item.get_path(), p_by_click)
-		
+
 		if p_by_click and _tab_pref.always_post_selection_to_fs_dock:
 			_default_fs_navigate(_selected_item.get_path())
 	else:
 		_selected_items.erase(wrapper.get_instance_id())
-	
+
 	#print("SELECTED ITEMS : ", _selected_items.size(),",", _selected_path)
-		
+
 	if _selected_items.is_empty():
 		_selected_item = null
-		
+
 func _on_reload_btn_pressed():
 	_fs_manager.attempt_reload()
 
@@ -335,7 +335,7 @@ func get_selected_item()->SubFSTreeItemWrapper:
 func _on_pin_btn_pressed():
 	if _selected_item == null:
 		return
-	
+
 	if _tab_pref.pinned_path.is_empty():
 		_tab_pref.pinned_path = get_selected_item().get_path()
 	else:
@@ -351,7 +351,7 @@ func _on_post_selection_fs_dock_pressed():
 func _default_fs_navigate(p_path:String):
 	if FileAccess.file_exists(p_path) or DirAccess.dir_exists_absolute(p_path):
 		_fs_share.get_file_system_dock().navigate_to_path(p_path)
-	
+
 func _on_sel_item_info_expand_btn_pressed():
 	_tab_pref.sel_info_expand = !_tab_pref.sel_info_expand
 	_notify_pref_updated()
@@ -372,13 +372,13 @@ func _on_sel_item_uid_edit(p_text:String):
 
 	if !has_selected_item():
 		return
-	
+
 	if !p_text.begins_with("uid://"):
 		p_text = "uid://" + p_text
 
 	var item:SubFSTreeItemWrapper = _root_wrapper
 	var found_item:SubFSTreeItemWrapper = item.find_item_by_uid_text(p_text)
-	
+
 	if found_item != null:
 		_select_item_wrapper(found_item, true, false, true)
 	else:
@@ -392,7 +392,7 @@ func post_init(p_value:SubFSShare, p_global_pref:SubFSPref, p_main_pref:SubFSMai
 	_selected_path = _global_pref.get_saved_selection(_tab_pref.tab_id)
 	_fs_manager = p_fs_manager
 	_fs_manager.fs_generated.connect(_on_fs_gen)
-	
+
 	if _is_dfs_mode():
 		#print("Turn on DFSI mode...")
 		_register_dfs_events()
@@ -435,7 +435,7 @@ func reset_list(p_tag:String):
 	var root_fs_item := _fs_manager.get_root_item()
 	if root_fs_item == null:
 		return
-		
+
 	#print(get_instance_id(), ", start reset_list : ", p_tag)
 
 	_root_wrapper = null
@@ -450,7 +450,7 @@ func reset_list(p_tag:String):
 
 	if tab_root_item == null:
 		tab_root_item = root_fs_item
-		
+
 	if !tab_root_item.is_valid():
 		return
 
@@ -478,7 +478,7 @@ func reset_list(p_tag:String):
 
 func _notify_pref_updated():
 	pref_updated.emit()
-	
+
 func _notify_saved_tab_selections_updated():
 	saved_tab_selections_updated.emit()
 
@@ -488,9 +488,9 @@ func find_and_select_item(p_target_path:String, p_find_alt_dir:bool, p_expand:bo
 
 	if p_target_path.is_empty():
 		p_target_path = _root_wrapper.get_path()
-		
+
 	#print("find_and_select_item : ", p_target_path, ", expand : ", p_expand, ", reset : ", p_reset)
-		
+
 	var found_item:SubFSTreeItemWrapper = _root_wrapper.find_item(p_target_path, p_find_alt_dir, 0)
 	if found_item == null and p_find_alt_dir:
 		found_item = _root_wrapper
@@ -503,13 +503,13 @@ func _select_item_wrapper(p_item:SubFSTreeItemWrapper, p_expand:bool, p_reset:bo
 
 	if p_reset and p_item.is_dir():
 		p_item.get_fs_item().reset_sub_items()
-	
+
 	if p_expand:
 		if p_item.is_expandable():
 			p_item.get_tree_item().uncollapse_tree()
 		elif p_item.get_parent_tree_item() != null:
 			p_item.get_parent_tree_item().uncollapse_tree()
-				
+
 	if p_notify:
 		# to emit tree.multi_selected signal!
 		# this method has same effect with clicked my mouse!
@@ -526,7 +526,7 @@ func _select_item_wrapper(p_item:SubFSTreeItemWrapper, p_expand:bool, p_reset:bo
 	if p_notify:
 		_tree.scroll_to_item(p_item.get_tree_item())
 	_tree.queue_redraw()
-	
+
 func _clear_selection():
 	_tree.deselect_all()
 	_selected_items.clear()
@@ -535,9 +535,9 @@ func _clear_selection():
 func set_selected_path(p_path:String, p_notify:bool):
 	if _tab_pref == null:
 		return
-	
+
 	#print(_tab_pref.name, ", set_selected_path : ", p_path, ",", p_notify)
-	
+
 	_selected_path = p_path
 	refresh_selected_path()
 
@@ -547,7 +547,7 @@ func set_selected_path(p_path:String, p_notify:bool):
 
 func _on_focus_entered():
 	pass
-	
+
 func _on_focus_exited():
 	pass
 
@@ -573,7 +573,7 @@ func refresh_pin_btn():
 		_pin_btn.set_pressed_no_signal(false)
 		return
 	_pin_btn.set_pressed_no_signal(!_tab_pref.pinned_path.is_empty())
-	
+
 func _refresh_sel_info_expand():
 	if _tab_pref == null:
 		_sel_item_info_expand_btn.set_pressed_no_signal(false)
@@ -585,7 +585,7 @@ func _refresh_sel_info_expand():
 
 func _get_selected_items()->Dictionary:
 	return _selected_items
-	
+
 func _get_selected_items_as_array()->Array[SubFSTreeItemWrapper]:
 	var result:Array[SubFSTreeItemWrapper]
 	result.assign(_selected_items.values())
@@ -604,7 +604,7 @@ func _get_drag_data(at_position):
 	# Variant FileSystemDock::get_drag_data_fw(const Point2 &p_point, Control *p_from) {
 	# see
 	# Variant EditorNode::drag_files_and_dirs(const Vector<String> &p_paths, Control *p_from) {
-	
+
 #	p_from->set_drag_preview(vbox); // Wait until it enters scene.
 #
 #	Dictionary drag_data;
@@ -612,7 +612,7 @@ func _get_drag_data(at_position):
 #	drag_data["files"] = p_paths;
 #	drag_data["from"] = p_from;
 #	return drag_data;
-	
+
 	if _selected_item == null:
 		return null
 
@@ -622,7 +622,7 @@ func _get_drag_data(at_position):
 
 	var items:Array[SubFSTreeItemWrapper] = _get_selected_items_as_array()
 	var file_paths:PackedStringArray = SubFSTreeItemWrapper.as_paths(items)
-	
+
 	var drag_data:Dictionary = {
 		"type":drag_type,
 		"files":file_paths,
@@ -646,7 +646,7 @@ func _notification(what):
 		if _tree.is_visible_in_tree() and dd.has("type"):
 			if String(dd["type"]) == "files" or String(dd["type"]) == "files_and_dirs" or String(dd["type"]) == "resource":
 				_tree.drop_mode_flags = Tree.DROP_MODE_ON_ITEM | Tree.DROP_MODE_INBETWEEN
-		
+
 	elif what == NOTIFICATION_DRAG_END:
 		_tree.drop_mode_flags = Tree.DROP_MODE_DISABLED
 
@@ -655,7 +655,7 @@ func _get_drag_target_folder(p_point:Vector2)->String:
 	var section:int = _tree.get_drop_section_at_position(p_point)
 	if ti == null:
 		return ""
-		
+
 	var wrapper:SubFSTreeItemWrapper = ti.get_metadata(0)
 	var fpath:String = wrapper.get_path()
 	if section == 0:
@@ -677,7 +677,7 @@ func _can_drop_data(at_position: Vector2, drag_data: Variant)->bool:
 	## GD Plugin is so limited to move a files.
 	## Hold until to expose more Godot APIs
 	return false
-	
+
 	if !drag_data.has("type"):
 		return false
 	#bool FileSystemDock::can_drop_data_fw(const Point2 &p_point, const Variant &p_data, Control *p_from) const {
@@ -740,28 +740,28 @@ func get_uncollapsed_paths()->PackedStringArray:
 	var root_item:TreeItem = _tree.get_root()
 	if root_item == null:
 		return result
-		
+
 	var loop_item:Array[TreeItem]
 	loop_item.append(root_item)
-	
+
 	while !loop_item.is_empty():
 		var item:TreeItem = loop_item.pop_back() as TreeItem
 		if !item.collapsed and item.get_child_count() > 0:
 			result.append((item.get_metadata(0) as SubFSTreeItemWrapper).get_saved_path())
-			
+
 		for i in range(item.get_child_count()):
 			loop_item.append(item.get_child(i))
-	
+
 	return result
 
 func restore_uncollapsed_paths():
 	var root_item:TreeItem = _tree.get_root()
 	if root_item == null:
 		return
-		
+
 	var loop_item:Array[TreeItem]
 	loop_item.append(root_item)
-	
+
 	while !loop_item.is_empty() and !_saved_uncollapsed_paths.is_empty():
 		var item:TreeItem = loop_item.pop_back() as TreeItem
 		if item.collapsed and item.get_child_count() > 0:
@@ -779,10 +779,10 @@ func restore_uncollapsed_paths():
 func _is_dfs_mode()->bool:
 	if !_global_pref.use_dfsi_mode:
 		return false
-	
+
 	_fs_share.check_dfsi_mode_availability()
 	return _fs_share.dfsi_mode_helper.is_enabled()
-	
+
 func _register_dfs_events():
 	if _fs_share.dfsi_mode_helper.file_list_popup:
 		#print("file_list_popup : ", _fs_share.dfsi_mode_helper.file_list_popup.name)
@@ -813,7 +813,7 @@ func _on_popup_id_pressed(p_id:int):
 func _has_dfsi_popup():
 	if _fs_share == null:
 		return false
-		
+
 	if !_fs_share.dfsi_mode_helper.is_enabled():
 		return false
 
@@ -822,16 +822,16 @@ func _has_dfsi_popup():
 
 	if _fs_share.dfsi_mode_helper.file_list_popup.get_parent() == _popup_menu_keeper:
 		return true
-		
+
 	return false
-		
+
 func _on_popup_visibility_changed():
 	#print("_on_popup_visibility_changed tree_popup : ", tree_popup.visible, ", file_list_popup : ", file_list_popup.visible)
 	if _fs_share.dfsi_mode_helper.tree_popup.visible or _fs_share.dfsi_mode_helper.file_list_popup.visible:
 		dfs_handle_popup_id_press = false
 
 	var attempt_restore:bool = false
-	
+
 	if _has_dfsi_popup() and !_fs_share.dfsi_mode_helper.tree_popup.visible and !_fs_share.dfsi_mode_helper.file_list_popup.visible:
 		attempt_restore = true
 
@@ -852,21 +852,21 @@ func _handle_rmb_click(p_pos:Vector2, p_mouse_button_index:int):
 		return
 
 	_default_fs_navigate(get_selected_item().get_path())
-	
+
 	var selected_item := get_selected_item()
 	var dfs_dock := _fs_share.get_file_system_dock()
 	var dfs_tree_popup := _fs_share.dfsi_mode_helper.tree_popup
 	var dfs_file_list_popup := _fs_share.dfsi_mode_helper.file_list_popup
-	
+
 	# default FileSystem is in split mode
-	
+
 	if _fs_share.dfsi_mode_helper.is_split_mode and !selected_item.is_dir():
 		var dfs_selection = _fs_share.dfsi_mode_helper.file_list.get_selected_items()
 		if !dfs_selection.is_empty():
 			var cur_pos := _tree.get_screen_position()
 			var dfs_pos := _fs_share.dfsi_mode_helper.file_list.get_screen_position()
 			var emit_pos := p_pos + (cur_pos - dfs_pos)
-		
+
 			dfs_tree_popup.reparent(_popup_menu_keeper, true)
 			dfs_file_list_popup.reparent(_popup_menu_keeper, true)
 			_fs_share.dfsi_mode_helper.file_list.item_clicked.emit(dfs_selection[0], emit_pos, p_mouse_button_index)
@@ -878,9 +878,9 @@ func _handle_rmb_click(p_pos:Vector2, p_mouse_button_index:int):
 		dfs_tree_popup.reparent(_popup_menu_keeper, true)
 		dfs_file_list_popup.reparent(_popup_menu_keeper, true)
 		_fs_share.dfsi_mode_helper.tree.item_mouse_selected.emit(emit_pos, p_mouse_button_index)
-		
+
 		#tree_popup.position = _tree.get_screen_position() + p_pos
-		
+
 		#if selected_item.is_dir():
 			##FileMenu { FILE_OPEN
 			#var indices_to_remove:Array[int]
@@ -897,8 +897,8 @@ func _handle_rmb_click(p_pos:Vector2, p_mouse_button_index:int):
 			##for i in indices_to_remove:
 				##tree_popup.remove_item(i)
 			##tree_popup.reset_size()
-	
-	
+
+
 	var FILE_RENAME:int = 9
 	var black_list:Array = [FILE_RENAME, "FolderColor"]
 	var indices_to_remove:Array[int]

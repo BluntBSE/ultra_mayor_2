@@ -60,9 +60,7 @@ func _process(_delta:float)->void:
 
 
 func handle_target_signal(sig:int)->void:
-	print("STUB IS HANDLING TARGET SIGNAL, GOT", sig)
 	if sig == LogicalCard.target_types.NONE:
-		print("GOT NONE ALRIGHT")
 		state_machine.Change("inspectable", {})
 		return
 
