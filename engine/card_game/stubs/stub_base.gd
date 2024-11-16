@@ -113,8 +113,17 @@ func unplay()->void:
 	card.unpack(lc, hand, interface, played_from)
 	hand.cards_in_hand.append(card)
 	hand.organize_cards()
-	print("UNPLAY DONE, HAND IS", hand)
-	pass
+	interface.handle_gain(lc.energy_cost) #TODO: If we ever get into modified costs, we gotta deal with that here
+	state_machine.queue_free()
+	var in_play_area:Node = get_parent() #Should be reliable. Might want to do this through signals instead
+	in_play_area.in_play.erase(self)
+	var inspect_node:Node2D = get_tree().root.find_child("InspectCard", true, false)
+	for child:Node in inspect_node.get_children():
+		child.queue_free()
+
+
+	queue_free()
+
 
 func flash_all_targets()->void:
 	var i_arrows:Array = []

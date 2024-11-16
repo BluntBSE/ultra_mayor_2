@@ -114,6 +114,9 @@ func handle_spend(cost:int)->void:
 	energy -= cost
 	energy_signal.emit(energy, max_energy)
 
+func handle_gain(gain:int)->void:
+	energy += gain
+	energy_signal.emit(energy, max_energy)
 
 func update_instant_effects() -> void:
 	#TODO: Remove all existing modifiers
