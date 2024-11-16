@@ -36,10 +36,7 @@ func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [
 	pass
 """
 
-func unplay()->void:
-	#Removes all arrows childed to this stub
-	#Undoes all instants
-	pass
+
 
 
 
@@ -55,14 +52,17 @@ func do_transit(args: Dictionary) -> void:
 
 
 
+func _on_mouse_area_mouse_entered()->void:
+	state_machine.handleInput({"event":"hover"})
+	pass # Replace with function body.
 
-func _on_mouse_area_mouse_entered() -> void:
-	print("HOVERED! My state is", state_machine.getCurrent())
-	if interaction_mode == "interactive":
-		state_machine.handleInput({"event": "hover"})
-	pass  # Replace with function body.
-
-
-func _on_mouse_area_exited() -> void:
-	state_machine.handleInput({"event": "exit"})
+func _on_mouse_area_exited()->void:
+	state_machine.handleInput({"event":"exit"})
 	pass
+
+
+func on_exit()->void:
+	state_machine._current.stateHandleInput({"event": "exit"})
+
+func _process(_delta:float)->void:
+	state_machine.stateUpdate(_delta)

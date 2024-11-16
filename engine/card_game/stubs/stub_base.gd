@@ -34,11 +34,11 @@ var instant_target_type:int= 4
 	ALL_STUBS,
 	ALL_BUTTONS
 }"""
-var instant_effect:String = "debug_instant_effect"
+var instant_effect:String = "no_effect"
 var resolve_secondary_targets:Array = []
 #var resolve_seconary_ttype --- Kaiju assign their targets pseudo at random, so this might not be necessary
 #Likely secondary_targets will be any single pilot or the origin of this card since this is kaiju
-var resolve_effect:String = "debug_resolve_effect"
+var resolve_effect:String = "no_effect"
 var instant_targets:Array = []
 var resolve_targets:Array = []
 var resolve_targets_secondary:Array = []
@@ -99,6 +99,22 @@ func _ready()->void:
 	var interface:BattleInterface = played_from.interface
 	connect("was_clicked", interface.broadcast_stub)
 
+func unplay()->void:
+	#Removes all arrows childed to this stub
+	#Undoes all instants
+	undo_instant_effects()
+	var card:RenderedCard = load("res://engine/card_game/cards/rendered_card.tscn").instantiate()
+	remove_child(card)
+	var hand:CardHand = get_tree().root.find_child("Hand", true, false)
+	var interface:BattleInterface = get_tree().root.find_child("BattleInterface", true, false)
+	hand.add_child(card)
+	card.global_position = self.global_position
+	card.scale = Vector2(0.25,0.25)
+	card.unpack(lc, hand, interface, played_from)
+	hand.cards_in_hand.append(card)
+	hand.organize_cards()
+	print("UNPLAY DONE, HAND IS", hand)
+	pass
 
 func flash_all_targets()->void:
 	var i_arrows:Array = []
@@ -176,9 +192,11 @@ func execute_instant_effects()->void:
 	effects.call(instant_effect, instant_targets)
 
 func undo_instant_effects()->void:
+	if instant_effect == "no_effect":
+		return
 	var func_name:String = instant_effect+"_undo"
 	effects.call(func_name, instant_targets)
-	pass
+
 
 func apply_modifiers_effects()->void:
 	print("MODIFIER EFFECTS CALLED")
@@ -192,5 +210,16 @@ func apply_modifiers_effects()->void:
 		pass
 	pass
 
+
+
+func apply_modifiers()->void:
+	apply_modifier_filter()
+	apply_modifiers_effects()
+
+
 func update_values()->void:
 		value_label.text = str(resolve_min) + " - " + str(resolve_max)
+
+func reset_self()->void:
+	self.unpack(lc, played_from, resolve_targets, resolve_targets_secondary, instant_targets)
+	pass

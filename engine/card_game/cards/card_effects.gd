@@ -35,10 +35,14 @@ static func instant_weaken_stub(targets:Array)->void:
 	modifier.duration = 1
 	for target:StubBase in targets: #Player or Kaiju card stub
 		target.modifiers.append(modifier)
-		target.apply_modifier_filter()
-		target.apply_modifiers_effects()
+		target.apply_modifiers()
 	#CardHelpers.
 	pass
 
-static func instant_weaken_stub_undo()->void:
-	pass
+static func instant_weaken_stub_undo(targets:Array)->void:
+	for target:StubBase in targets:
+		for modifier:StubModifier in target.modifiers:
+			if modifier.modifier == "weaken_stub":
+				target.modifiers.erase(modifier)
+		target.reset_self()
+		target.apply_modifiers()

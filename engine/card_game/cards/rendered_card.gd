@@ -61,7 +61,6 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
 	card_description = find_child("CardDescription")
 	card_description.text = parse_description(lc.description, lc.instant_targets, lc.resolve_targets, lc.resolve_secondary_targets, lc.resolve_min, lc.resolve_max)
-	print("DESC SHOULD NOW BE: ", parse_description(lc.description, lc.instant_targets, lc.resolve_targets, lc.resolve_secondary_targets, lc.resolve_min, lc.resolve_max))
 	inspect_area = get_tree().root.find_child("InspectArea", true, false)
 	is_inspection_copy = false
 
@@ -160,10 +159,7 @@ func parse_description(str:String, _num_instant:int, _num_resolve:int, _num_reso
 	var to_replace:Array = [num_instant, num_resolve, num_resolve_2, resolve_min, resolve_max]
 	new_str=str
 	new_str = new_str.replace(num_instant, str(_num_instant))
-	print(new_str)
 	new_str = new_str.replace(num_resolve, str(_num_resolve))
-	print("NUM RESOLVE WAS", num_resolve)
-	print(new_str)
 	new_str = new_str.replace(num_resolve_2, str(_num_resolve_2))
 	new_str = new_str.replace(resolve_min, str(_resolve_min))
 	new_str = new_str.replace(resolve_max, str(_resolve_max))
