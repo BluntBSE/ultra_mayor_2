@@ -14,7 +14,6 @@ signal did_assign
 
 
 func stateEnter(args: Dictionary) -> void:
-	print("MY REFERENCE IS", _reference.lc.display_name)
 	var ref:RenderedCard = _reference
 	var target_submit_window:TargetSubmitWindow = ref.get_tree().root.find_child("TargetSubmitWindow", true, false)
 	target_submit_window.do_visible()
@@ -29,6 +28,8 @@ func stateEnter(args: Dictionary) -> void:
 	lc = ref_lc
 	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
 	var targeting_type: int = ref_lc.resolve_target_type
+	ref.connect("target_signal", ref.interface.handle_pcard_target)
+
 	_reference.target_signal.emit(targeting_type)
 	_reference.turn_signal.emit(_reference.state_machine._current_state_id)
 	var hover_border: ColorRect = _reference.hover_border

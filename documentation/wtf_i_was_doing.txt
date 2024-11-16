@@ -1,5 +1,7 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+
+TODO: Enforce correct targeting options during card game
 TODO: Unite the player and kaiju packed scenes for stubs?
 
 
