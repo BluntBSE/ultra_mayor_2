@@ -43,7 +43,6 @@ func stateUpdate(_delta: float) -> void:
 			next_coord = path.pop_front()
 	if next_coord != {}:
 		t += _delta * 0.4
-		#print("SHOULD BE MOVING TOWARDS NEXT COORD")
 		var next_tile: RenderedTile = map.rendered_grid[next_coord.x][next_coord.y]
 		var next_point: Vector2 = MapHelpers.get_tile_midpoint_global(next_tile)
 		_reference.global_position = _reference.global_position.lerp(next_point, t)

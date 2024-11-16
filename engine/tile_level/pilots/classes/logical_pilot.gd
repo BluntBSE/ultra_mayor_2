@@ -167,19 +167,14 @@ func tile_is_in_reachable_path(_x:int, _y:int)->bool:
 	return false
 
 func p_move(_x:int, _y:int)->void:
-	#print("p_move called! x is currently", self.x, "y is currently", self.y)
 	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
 	rendered_grid[self.x][self.y].apply_highlights()
 	#First off, check if this X_Y is even in the active path!
 	if tile_is_in_reachable_path(_x, _y):
-		#var rt_target:RenderedTile = rendered_grid[x][y]
-		#var lg_target:LogicalTile = logical_grid[x][y]
 		var r_pilot:RenderedPilot = rendered_grid[self.x][self.y].rendered_occupant
-		#var lt_pilot:LogicalTile = logical_grid[self.x][self.y]
 		r_pilot.state_machine.Change("moving", {"path": self.reachable_path, "target": {"x": _x, "y": _y}, "origin": {"x":self.x, "y": self.y},"map":map})
 		logical_grid[self.x][self.y].occupant = null
 		logical_grid[_x][_y].occupant = self
-		#rendered_grid[self.x][self.y].apply_highlights()
 		rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
 		rendered_grid[_x][_y].rendered_occupant = r_pilot
 		self.x = _x

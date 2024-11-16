@@ -1,6 +1,7 @@
 extends Node2D
 class_name BattleInterface
 
+var battle_object:BattleObject
 var active_turn: int = TURN_STATES.PAUSE
 var targeting_state: int = LogicalCard.target_types.K_BUTTONS
 var kaiju: LogicalKaiju
@@ -108,11 +109,9 @@ func broadcast_button(button: Control) -> void:
 
 
 func broadcast_stub(stub: Node2D) -> void:
-	print("BROADCASTING STUB, ", stub)
 	clicked_stub.emit(stub)
 
 func handle_spend(cost:int)->void:
-	print("Handle spend triggered")
 	energy -= cost
 	energy_signal.emit(energy, max_energy)
 
@@ -144,10 +143,13 @@ func _process(_delta: float) -> void:
 
 
 func unpack(_battle_object: BattleObject) -> void:
+	battle_object = _battle_object
 	unpack_pilot_buttons(_battle_object)
 	unpack_kaiju_buttons(_battle_object)
 	get_node("KaijuMain/Polygon2D/Sprite2D").texture = load(_battle_object.kaiju.portrait)
 	#Set and display energy
+	energy = 0
+	max_energy = 0
 	for pilot: LogicalPilot in _battle_object.pilots:
 		energy += pilot.energy
 		max_energy += pilot.energy
@@ -182,6 +184,9 @@ func do_player_turn() -> void:
 	player_resolve_effects()
 	kaiju_resolve_effects()
 	%KaijuMain.do_kaiju_turn()
+	for pilot: LogicalPilot in battle_object.pilots: #TODO: When a pilot is destroyed, then what?
+		energy += pilot.energy
+		max_energy += pilot.energy
 	#Should this be a signal instead of switching to kaiju turn directly?
 	#TODO: Check if player won
 	#Kaiju resolution

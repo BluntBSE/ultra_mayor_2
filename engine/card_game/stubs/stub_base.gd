@@ -95,7 +95,7 @@ func _ready()->void:
 	state_machine.Add("in_transit", TransitNodeState.new(self, {}))
 	state_machine.Add("resolving", ResolveNodeState.new(self,{}))
 	#state_machine.Change("in_play", {})#NOTE: Should this ever be handled by the things that create it, and not this node?
-	status_mask = %StatusMask
+	status_mask = get_node("StatusMask")
 	var interface:BattleInterface = played_from.interface
 	connect("was_clicked", interface.broadcast_stub)
 	interface.connect("targeting_signal", handle_target_signal)
@@ -209,7 +209,6 @@ func undo_instant_effects()->void:
 
 
 func apply_modifiers_effects()->void:
-	print("MODIFIER EFFECTS CALLED")
 	for modifier:StubModifier in modifiers:
 		if modifier.modifier == "weaken_stub":
 			resolve_min = floor(resolve_min/2)

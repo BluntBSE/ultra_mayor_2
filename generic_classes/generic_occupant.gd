@@ -20,7 +20,6 @@ func occupant_unpack()->void:
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
 	x = _x
 	y = _y
-	#print("LOGICAL GRID", _logical_grid)
 	map = _map
 	logical_grid=_logical_grid
 	logical_grid[_x][_y].add_child(self)

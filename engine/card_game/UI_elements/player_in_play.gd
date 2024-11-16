@@ -5,7 +5,6 @@ var in_play:Array = []
 
 
 func handle_played(stub:PlayerCardStub)->void:
-	print("CALLED HANDLE_PLAYED FROM IN PLAY")
 	#Although the emission occurs from a RenderedCard, we actually receive the stub representing the played card.
 	in_play.push_back(stub) #Maybe do push front?
 	organize_stubs()

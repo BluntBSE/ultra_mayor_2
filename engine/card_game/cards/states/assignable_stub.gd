@@ -43,7 +43,7 @@ func stateHandleInput(args:Dictionary)->void:
 		inspect_node.global_position = inspect_node.global_position
 
 	if args.event == "l_click" and _reference.hovered == true:
-		print("Clicked on stub, should assign")
+		print("Clicked on stub, should assign to", _reference.lc.display_name)
 		ref.was_clicked.emit(ref) #Assign to this bad boy
 
 

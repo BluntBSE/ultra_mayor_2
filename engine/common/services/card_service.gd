@@ -4,8 +4,6 @@ var cards: Dictionary = {}
 #worth splitting into kaiju & player cards?
 
 
-func debug() -> void:
-	print("debug CS")
 
 
 func process_directory(dir_path: String) -> Array:

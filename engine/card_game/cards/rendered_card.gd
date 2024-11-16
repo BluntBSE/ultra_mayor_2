@@ -124,7 +124,6 @@ func do_clicked_stub(stub:StubBase)->void:
 
 
 func _on_mouse_area_mouse_entered()->void:
-	print("HOVERED! My state is", state_machine.getCurrent())
 	if interactivity_mode == "interactive": #TODO: Should this be moved to specific states?s
 		state_machine.handleInput({"event":"hover"})
 	pass # Replace with function body.
@@ -138,10 +137,9 @@ func _on_mouse_area_gui_input(event:InputEvent)->void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
-				print("Left button was clicked at ", event.position)
 				state_machine.handleInput({"event":"l_click"})
 			else:
-				print("Left button was released")
+				pass
 	pass # Replace with function body.
 
 
@@ -173,7 +171,6 @@ func _process(delta:float)->void:
 	state_machine.stateUpdate(delta)
 
 func handle_being_assigned(assigned:RenderedCard)->void:
-	print("Received being assigned from", assigned.lc.display_name)
 	## Cards emit 'being assigned' when entering assignment state. The hand listens for this and sends it to other cards
 	## If the signal is not equal to the card, they  leave the assignment state
 	## Prevents you from trying to assign multiple cards at the same time.

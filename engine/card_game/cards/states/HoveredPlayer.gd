@@ -63,7 +63,6 @@ func stateHandleInput(args: Dictionary) -> void:
 	print("State handle input firing with args:", args)
 
 	if args.event == "exit":
-		print("Received an exit event inside of Hover")
 		var tween:Tween = _reference.create_tween()
 		var t_args:Dictionary = {
 			"global_position": original_position,

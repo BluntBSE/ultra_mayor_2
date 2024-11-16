@@ -13,7 +13,6 @@ func _ready() -> void:
 
 
 func do_turn(turn_state: int) -> void:
-	print("DO TURN RECEIVED ARG: ", parent.TURN_STATES.keys()[turn_state])
 	#Turn states are in
 	#BattleInterface.TURN_STATES
 	if turn_state == BattleInterface.TURN_STATES.KAIJU:

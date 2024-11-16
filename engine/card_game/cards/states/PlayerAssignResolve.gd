@@ -29,11 +29,7 @@ func stateEnter(args: Dictionary) -> void:
 	indicator.visible = false
 	var ref_lc: LogicalCard = _reference.lc
 	lc = ref_lc
-	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
-	var targeting_type: int = ref_lc.resolve_target_type
-	ref.connect("target_signal", ref.interface.handle_pcard_target)
-
-	#_reference.target_signal.emit(targeting_type)
+	#_reference.target_signal.emit(targeting_type) -- This actually occurs in stateUpdate
 	_reference.turn_signal.emit(_reference.state_machine._current_state_id)
 	hover_border = _reference.hover_border
 	hover_border.visible = true
@@ -50,7 +46,6 @@ func stateEnter(args: Dictionary) -> void:
 
 func stateHandleInput(args: Dictionary) -> void:
 
-	print("ASSIGNABLE STATE RECEIVED ARGS, ", args)
 	#Receives a button or stub as part of {"event": stub}
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
@@ -59,7 +54,6 @@ func stateHandleInput(args: Dictionary) -> void:
 		# Does its job by setting these variables to 0 based on the current turn state.
 		print ("ARG IS ", args.event)
 		if num_instant > 0:
-			print("NUM INSTANT CHECK")
 			#Do instants
 			if num_instant > 0:
 				if num_instant >= instant_targets.size():
@@ -69,7 +63,6 @@ func stateHandleInput(args: Dictionary) -> void:
 				return
 
 		if num_resolve > 0:
-			print("NUM RESOLVE CHECK", num_resolve)
 			#Treat as one stage
 			if num_resolve >= resolve_targets.size():
 				assign_resolve_primary([args.event])
@@ -139,7 +132,6 @@ func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped vari
 	CardHelpers.arrow_between(_reference, arg[0], Color.CYAN)
 	resolve_targets.append_array(arg)
 	num_resolve = num_resolve - 1
-	print("NUM RESOLVE IS NOW", num_resolve)
 	did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
 
 
@@ -148,7 +140,6 @@ func assign_resolve_secondary(arg: Array) -> void:  #Truly this is an untyped va
 	CardHelpers.arrow_between(_reference, arg[0], Color.ORANGE)
 	resolve_targets_secondary.append_array(arg)
 	num_resolve_secondary = num_resolve_secondary - 1
-	print("NUM SECONDARY IS NOW", num_resolve)
 	did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
 
 
@@ -156,7 +147,6 @@ func assign_instant(arg:Array)->void:#Truly this is an untyped variable of eithe
 	CardHelpers.arrow_between(_reference, arg[0], Color.BLANCHED_ALMOND)
 	instant_targets.append_array(arg)
 	num_instant = num_instant - 1
-	print("INSTANTS IS NOW", num_instant)
 	did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
 
 
@@ -213,7 +203,6 @@ func handle_submit()->void:
 
 
 	if num_instant == 0 and num_resolve == 0 and num_resolve_secondary == 0:
-		print("HELLO FROM SM", self)
 		play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
 		return
 	submit_response.emit(num_instant, num_resolve, num_resolve_secondary, lc)
