@@ -17,6 +17,7 @@ func _process(_delta:float) -> void:
 
 
 func _on_start_game_btn_button_up() -> void:
+	print("Eh?")
 	#Do load resources...
 	var cs:CardService = CardService.new()
 	cs.load_cards("res://engine/card_game/decklists/")

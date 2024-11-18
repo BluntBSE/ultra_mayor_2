@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://blb74de3sygtf"
+path="res://.godot/imported/8Room - Novus Ordo Cyberpunk.mp3-0ea978e93a9e15c12c6a24443053e6b2.mp3str"
+
+[deps]
+
+source_file="res://music/8Room - Novus Ordo Cyberpunk.mp3"
+dest_files=["res://.godot/imported/8Room - Novus Ordo Cyberpunk.mp3-0ea978e93a9e15c12c6a24443053e6b2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

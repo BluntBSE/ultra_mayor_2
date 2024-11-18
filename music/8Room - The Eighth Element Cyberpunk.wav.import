@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c6ciejn41dq2a"
+path="res://.godot/imported/8Room - The Eighth Element Cyberpunk.wav-c6954df8a23cd0603336bbb110ea9a7b.sample"
+
+[deps]
+
+source_file="res://music/8Room - The Eighth Element Cyberpunk.wav"
+dest_files=["res://.godot/imported/8Room - The Eighth Element Cyberpunk.wav-c6954df8a23cd0603336bbb110ea9a7b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cw5ioecv5qcwt"
+path="res://.godot/imported/Lounge Sex Womans Voice.wav-0fd3fc0ca30fa52611df2c489210690d.sample"
+
+[deps]
+
+source_file="res://music/Lounge Sex Womans Voice.wav"
+dest_files=["res://.godot/imported/Lounge Sex Womans Voice.wav-0fd3fc0ca30fa52611df2c489210690d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

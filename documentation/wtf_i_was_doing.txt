@@ -1,5 +1,11 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+COLOR IDEAS
+a2f9ea74
+white
+
+
+
 
 TODO: Enforce correct targeting options during card game
 -As we step through the phases on the rendered_card, we must emit the targeting type permitted by that

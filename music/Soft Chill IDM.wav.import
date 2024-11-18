@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://lrqie7k4yxf6"
+path="res://.godot/imported/Soft Chill IDM.wav-0b50ec184ec54584b7bea918ac1efdcb.sample"
+
+[deps]
+
+source_file="res://music/Soft Chill IDM.wav"
+dest_files=["res://.godot/imported/Soft Chill IDM.wav-0b50ec184ec54584b7bea918ac1efdcb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
