@@ -72,4 +72,3 @@ func handle_map_signal(args:MapSigObj)->void:
 		tile_to_sidebar(args.logical_tile)
 		if args.selection_primary == null:
 			occupant_to_sidebar(args.logical_tile)
-

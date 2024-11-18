@@ -1,14 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://cqgi8y4fqpc4g"]
+[gd_scene load_steps=20 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_fehrg"]
 [ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_w16tx"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_8fpju"]
 [ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_ido7v"]
-[ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="5_is4au"]
+[ext_resource type="Texture2D" uid="uid://d2c67mioydnnn" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/SFCP 1-61.png" id="5_j5j6j"]
 [ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_wnb1o"]
+[ext_resource type="Theme" uid="uid://c1vookhxs5bah" path="res://engine/common/themes/base_theme.tres" id="7_gwdvp"]
 [ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="7_v4yyt"]
-[ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="8_g4pad"]
 [ext_resource type="FontFile" uid="uid://dgwrlf53u1wv7" path="res://engine/common/fonts/fonstars-v3-font/Fonstars-4Bo0p.otf" id="9_5smi0"]
+[ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="9_afvgl"]
 [ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="9_gxl2l"]
 [ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="9_tt11t"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="10_bkjcq"]
@@ -16,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/art_packs/zilla/AI_Zilla.jpg" id="11_dffto"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="14_bwyri"]
 [ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="14_gp7qb"]
+[ext_resource type="AudioStream" uid="uid://cpebpduwkoi7j" path="res://music/Soft Chill IDM.mp3" id="17_0xuux"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
@@ -59,36 +61,61 @@ offset_top = 66.0
 offset_right = 1921.0
 offset_bottom = 1081.0
 theme = SubResource("Theme_nfc0e")
-color = Color(0, 0, 0, 1)
+color = Color(0.101961, 0.0509804, 0.113725, 1)
 script = ExtResource("4_ido7v")
 
-[node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+[node name="ColorRect3" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 1.0
+offset_right = 246.0
+offset_bottom = 288.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 41.0
-offset_top = 47.0
-offset_right = 1136.0
-offset_bottom = 1531.0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 1097.0
+offset_bottom = 1487.0
 scale = Vector2(0.188198, 0.188198)
-texture = ExtResource("5_is4au")
+texture = ExtResource("5_j5j6j")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ColorRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantPort"]
+[node name="ColorRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3"]
 layout_mode = 0
-offset_left = -5.0
-offset_top = 1164.0
-offset_right = 1110.0
-offset_bottom = 1499.0
+offset_left = 1.0
+offset_top = 222.0
+offset_right = 204.0
+offset_bottom = 288.0
 color = Color(0, 0, 0, 0.658824)
+
+[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 225.0
+offset_bottom = 53.0
+
+[node name="OccupantName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3/ColorRect/OccupantData"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Alicia June
+(Public Works)"
+fit_content = true
 
 [node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 43.0
-offset_top = 353.0
+offset_top = 376.0
 offset_right = 1106.0
-offset_bottom = 1203.0
+offset_bottom = 1226.0
 scale = Vector2(0.188198, 0.188198)
 texture = ExtResource("6_wnb1o")
 expand_mode = 1
@@ -97,13 +124,14 @@ expand_mode = 1
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 38.0
-offset_top = 540.0
+offset_top = 605.0
 offset_right = 256.0
-offset_bottom = 752.0
+offset_bottom = 825.0
 
 [node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Building: Coal Plantx"
 fit_content = true
@@ -111,6 +139,7 @@ fit_content = true
 [node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Terrain: Default"
 fit_content = true
@@ -118,6 +147,7 @@ fit_content = true
 [node name="Population" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Population: 696,696"
 fit_content = true
@@ -125,6 +155,7 @@ fit_content = true
 [node name="Development" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Development: X"
 fit_content = true
@@ -132,6 +163,7 @@ fit_content = true
 [node name="Power" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Power: 9"
 fit_content = true
@@ -139,6 +171,7 @@ fit_content = true
 [node name="Services" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Services: 9"
 fit_content = true
@@ -146,6 +179,7 @@ fit_content = true
 [node name="Resilience" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Resilience: 9"
 fit_content = true
@@ -153,49 +187,43 @@ fit_content = true
 [node name="Modifiers" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
+theme = ExtResource("7_gwdvp")
 bbcode_enabled = true
 text = "Modifiers: None"
 fit_content = true
 
-[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 42.0
-offset_top = 277.0
-offset_right = 260.0
-offset_bottom = 325.0
-
-[node name="OccupantName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantData"]
-unique_name_in_owner = true
-layout_mode = 2
-bbcode_enabled = true
-text = "Alicia June
-(Public Works)"
-fit_content = true
-
 [node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 0
-offset_left = 88.0
-offset_top = 876.0
-offset_right = 178.0
-offset_bottom = 907.0
+offset_left = 24.0
+offset_top = 933.0
+offset_right = 264.0
+offset_bottom = 988.0
+theme = ExtResource("7_gwdvp")
 text = "END TURN"
 
-[node name="GoBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
-layout_mode = 0
-offset_left = 88.0
-offset_top = 831.0
-offset_right = 178.0
-offset_bottom = 862.0
-text = "GO"
-
 [node name="ResetBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 0
-offset_left = 88.0
-offset_top = 790.0
-offset_right = 178.0
-offset_bottom = 821.0
+offset_left = 25.0
+offset_top = 860.0
+offset_right = 265.0
+offset_bottom = 915.0
+theme = ExtResource("7_gwdvp")
 text = "RESET"
+
+[node name="ColorRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+layout_mode = 0
+offset_left = -4.0
+offset_bottom = 1011.0
+color = Color(0.866667, 0.588235, 0.976471, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+offset_left = -3.0
+offset_right = 1.0
+offset_bottom = 1642.0
+rotation = 1.5708
+color = Color(0.866667, 0.588235, 0.976471, 1)
 
 [node name="HeaderBar" type="ColorRect" parent="UICanvas/OverworldBattleUI"]
 unique_name_in_owner = true
@@ -203,40 +231,18 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 66.0
 theme = SubResource("Theme_nfc0e")
-color = Color(0, 0, 0, 1)
+color = Color(0.101009, 0.050349, 0.113069, 1)
 script = ExtResource("7_v4yyt")
 
-[node name="debug_builder_button" type="Button" parent="UICanvas/OverworldBattleUI/HeaderBar"]
-layout_mode = 0
-offset_left = 29.0
-offset_top = 12.0
-offset_right = 157.0
-offset_bottom = 43.0
-text = "BUILDER MODE"
-
-[node name="debug_battle_mode" type="Button" parent="UICanvas/OverworldBattleUI/HeaderBar"]
-layout_mode = 0
-offset_left = 196.0
-offset_top = 12.0
-offset_right = 324.0
-offset_bottom = 43.0
-text = "BATTLE MODE"
-
-[node name="mode_label" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/HeaderBar"]
-layout_mode = 0
-offset_left = 694.0
-offset_top = 12.0
-offset_right = 964.0
-offset_bottom = 48.0
-text = "CURRENT MODE: BATTLE MODE"
-
 [node name="TextureButton" type="TextureButton" parent="UICanvas/OverworldBattleUI/HeaderBar"]
+modulate = Color(0.866667, 0.588235, 0.976471, 1)
 layout_mode = 0
-offset_left = 1860.0
-offset_top = 5.0
-offset_right = 1916.0
-offset_bottom = 61.0
-texture_normal = ExtResource("8_g4pad")
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 112.0
+offset_bottom = 109.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("9_afvgl")
 
 [node name="ScreenFilters" type="Control" parent="UICanvas"]
 visible = false
@@ -446,8 +452,12 @@ position = Vector2(948, 540)
 zoom = Vector2(0.75, 0.75)
 script = ExtResource("9_tt11t")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_0xuux")
+volume_db = -15.0
+autoplay = true
+parameters/looping = false
+
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
-[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_builder_button" to="Map" method="set_mode" binds= [0]]
-[connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/debug_battle_mode" to="Map" method="set_mode" binds= [1]]
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]

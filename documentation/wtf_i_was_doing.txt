@@ -1,8 +1,9 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
 COLOR IDEAS
-a2f9ea74
+a2f9ea74 - some kinda green
 white
+dd96f9 - lavendery
 
 
 
