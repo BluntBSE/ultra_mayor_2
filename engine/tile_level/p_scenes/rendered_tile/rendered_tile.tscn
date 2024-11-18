@@ -8,6 +8,7 @@
 radius = 32.0156
 
 [node name="RenderedTile" type="Node2D"]
+modulate = Color(0.963357, 0.892619, 0.992337, 1)
 script = ExtResource("1_0e00g")
 
 [node name="bg_sprite" type="Sprite2D" parent="."]

@@ -1,11 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://cqgi8y4fqpc4g"]
+[gd_scene load_steps=21 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_fehrg"]
 [ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_w16tx"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_8fpju"]
 [ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_ido7v"]
-[ext_resource type="Texture2D" uid="uid://d2c67mioydnnn" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/SFCP 1-61.png" id="5_j5j6j"]
-[ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="6_wnb1o"]
+[ext_resource type="Texture2D" uid="uid://bspla8gw5rr87" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/3 SFCP 1 Super Tone - NEW/carrie_toned_test.png" id="5_oorpu"]
+[ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="6_inyrp"]
 [ext_resource type="Theme" uid="uid://c1vookhxs5bah" path="res://engine/common/themes/base_theme.tres" id="7_gwdvp"]
 [ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="7_v4yyt"]
 [ext_resource type="FontFile" uid="uid://dgwrlf53u1wv7" path="res://engine/common/fonts/fonstars-v3-font/Fonstars-4Bo0p.otf" id="9_5smi0"]
@@ -20,6 +20,17 @@
 [ext_resource type="AudioStream" uid="uid://cpebpduwkoi7j" path="res://music/Soft Chill IDM.mp3" id="17_0xuux"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
+
+[sub_resource type="Environment" id="Environment_7snnj"]
+background_mode = 3
+background_canvas_max_layer = 1
+glow_normalized = true
+glow_intensity = 3.73
+glow_strength = 0.38
+glow_bloom = 0.28
+glow_blend_mode = 0
+glow_hdr_threshold = 0.64
+glow_hdr_luminance_cap = 3.0
 
 [node name="GameMain" type="Node2D"]
 script = ExtResource("1_fehrg")
@@ -75,13 +86,14 @@ color = Color(0, 0, 0, 0)
 
 [node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3"]
 unique_name_in_owner = true
+modulate = Color(0.920854, 0.763964, 0.985502, 1)
 layout_mode = 0
 offset_left = 2.0
 offset_top = 3.0
 offset_right = 1097.0
 offset_bottom = 1487.0
 scale = Vector2(0.188198, 0.188198)
-texture = ExtResource("5_j5j6j")
+texture = ExtResource("5_oorpu")
 expand_mode = 1
 stretch_mode = 5
 
@@ -111,13 +123,14 @@ fit_content = true
 
 [node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
+modulate = Color(0.921569, 0.764706, 0.984314, 1)
 layout_mode = 0
-offset_left = 43.0
-offset_top = 376.0
-offset_right = 1106.0
-offset_bottom = 1226.0
+offset_left = 36.0
+offset_top = 352.0
+offset_right = 1131.0
+offset_bottom = 1352.0
 scale = Vector2(0.188198, 0.188198)
-texture = ExtResource("6_wnb1o")
+texture = ExtResource("6_inyrp")
 expand_mode = 1
 
 [node name="TerrainData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar"]
@@ -219,6 +232,7 @@ offset_bottom = 1011.0
 color = Color(0.866667, 0.588235, 0.976471, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+layout_mode = 0
 offset_left = -3.0
 offset_right = 1.0
 offset_bottom = 1642.0
@@ -237,11 +251,11 @@ script = ExtResource("7_v4yyt")
 [node name="TextureButton" type="TextureButton" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 modulate = Color(0.866667, 0.588235, 0.976471, 1)
 layout_mode = 0
-offset_left = 12.0
-offset_top = 9.0
-offset_right = 112.0
-offset_bottom = 109.0
-scale = Vector2(0.5, 0.5)
+offset_left = 11.0
+offset_top = 12.0
+offset_right = 111.0
+offset_bottom = 112.0
+scale = Vector2(0.35, 0.35)
 texture_normal = ExtResource("9_afvgl")
 
 [node name="ScreenFilters" type="Control" parent="UICanvas"]
@@ -457,6 +471,9 @@ stream = ExtResource("17_0xuux")
 volume_db = -15.0
 autoplay = true
 parameters/looping = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7snnj")
 
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]

@@ -11,7 +11,7 @@ void fragment() {
     vec4 tex_color = texture(TEXTURE, UV + move);
 
     // Define a purple tint color
-    vec4 purple_tint = vec4(0.1, 0.0, 0.1, 1.0); // Adjust the values as needed
+    vec4 purple_tint = vec4(0.15, 0.05, 0.15, 1.0); // Adjust the values as needed
 
     // Apply the purple tint and darken the color
     vec4 tinted_color = tex_color * purple_tint;

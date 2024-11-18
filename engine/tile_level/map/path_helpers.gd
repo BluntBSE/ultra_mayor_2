@@ -191,7 +191,3 @@ static func find_path_basic(grid:Array, origin:Dictionary, target:Dictionary)->v
 	while previous != {}:
 		path.push_front(previous)
 		previous = came_from[previous]
-
-
-
-
