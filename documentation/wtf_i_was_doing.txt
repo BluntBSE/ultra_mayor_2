@@ -4,13 +4,16 @@ COLOR IDEAS
 a2f9ea74 - some kinda green
 white
 dd96f9 - lavendery
-ebc3fb - lavendery modulate
+ebc3fb - lavendery modulate for portraits
+d8acf474 - Button mask with alpha on hover
+
 
 ---Card Categories
 95e0fa  - a kind of light blue
 
 
 
+BUG: ARROWS NOT FLASHING WHEN PLAYER PLAYERS ANYMORE
 
 TODO: Enforce correct targeting options during card game
 -As we step through the phases on the rendered_card, we must emit the targeting type permitted by that

@@ -13,6 +13,7 @@ var player_entered:bool = false
 
 
 
+
 """
 func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [], _resolve_targets_2: Array = [], _instant_targets: Array = []) -> void:
 	#Played from is a pilotbutton or a kaiju button

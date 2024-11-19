@@ -30,6 +30,10 @@ func _on_node_added(node:Node) -> void:
 		node.pressed.connect(_play_pressed)
 
 
+func _play_pop()->void:
+	playback.play_stream(preload('res://engine/tile_level/common/sounds/pop.mp3'), 0, 1.0, randf_range(0.9, 1.1))
+
+
 func _play_hover() -> void:
 	playback.play_stream(preload('res://engine/tile_level/common/sounds/blah.mp3'), 0, -10.0, randf_range(0.9, 1.1))
 

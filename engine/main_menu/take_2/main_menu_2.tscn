@@ -1,14 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://b76fbdw7wngcq"]
+[gd_scene load_steps=9 format=3 uid="uid://b76fbdw7wngcq"]
 
 [ext_resource type="Script" path="res://engine/main_menu/main_menu.gd" id="1_onpob"]
 [ext_resource type="Texture2D" uid="uid://b6pkyprfdfy2f" path="res://engine/main_menu/take_2/assets/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/1.png" id="2_f702j"]
 [ext_resource type="Material" uid="uid://dtc1a2bwq5cek" path="res://engine/main_menu/take_2/assets/test_1.tres" id="2_i65yg"]
-[ext_resource type="AudioStream" uid="uid://cpebpduwkoi7j" path="res://music/Soft Chill IDM.mp3" id="2_rmqac"]
 [ext_resource type="Texture2D" uid="uid://phhyqnhjm7re" path="res://engine/main_menu/take_2/assets/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/3.png" id="3_hl73r"]
 [ext_resource type="Texture2D" uid="uid://b0m04m8wsrtu2" path="res://engine/main_menu/take_2/AI_Mayoral.png" id="5_y7rm1"]
 [ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="6_tq3qu"]
 [ext_resource type="FontFile" uid="uid://1idi5vmmueda" path="res://engine/common/fonts/inversionz/Inversionz Unboxed.otf" id="7_s7e2s"]
-[ext_resource type="Script" path="res://engine/tile_level/common/sounds/sound_test.gd" id="9_goghj"]
 
 [sub_resource type="Environment" id="Environment_ibhrm"]
 background_mode = 3
@@ -23,15 +21,6 @@ fog_height = 9.75
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_onpob")
-
-[node name="SoundConnector" type="Node" parent="."]
-script = ExtResource("9_goghj")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_rmqac")
-volume_db = -15.0
-autoplay = true
-parameters/looping = false
 
 [node name="bg" type="Node2D" parent="."]
 

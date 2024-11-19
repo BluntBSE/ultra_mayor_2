@@ -7,6 +7,7 @@ var card_count: RichTextLabel
 var cards_left: int
 var cards_starting: int
 var hand:CardHand
+var bg_poly:Polygon2D
 var active:bool
 var interaction_mode:String = "interactive"
 var interface:BattleInterface
@@ -50,7 +51,9 @@ func unpack(pilot: LogicalPilot) -> void:
 	#TODO: Consider moving sprite assignment to the button's unpack.
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
 	sprite.texture = load(PilotLib.lib[pilot.id].portrait)
-	sprite.self_modulate = Color(1, 1, 1, 1)
+	sprite.self_modulate = Color("ebc3fb")
+	bg_poly = find_child("BGPoly")
+	bg_poly.visible = true
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	hand = get_tree().root.find_child("Hand", true, false)
 	deck = pilot.deck

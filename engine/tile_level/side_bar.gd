@@ -32,10 +32,12 @@ func occupant_to_sidebar(lt:LogicalTile)->void:
 			occupant_port.texture = load(occupant_portrait)
 			occupant_name.text = lt.occupant.display_name
 			%OccupantData.visible=true
+			%ODataRect.visible=true
 
 	else:
 			occupant_port.texture = null
 			%OccupantData.visible = false
+			%ODataRect.visible=false
 
 
 func tile_to_sidebar(lt:LogicalTile)->void:

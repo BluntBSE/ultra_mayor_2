@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnsl3ikdvgw6d"]
+[gd_scene load_steps=5 format=3 uid="uid://bnsl3ikdvgw6d"]
 
 [ext_resource type="PackedScene" uid="uid://b76fbdw7wngcq" path="res://engine/main_menu/take_2/main_menu_2.tscn" id="1_6naxm"]
 [ext_resource type="Script" path="res://engine/common/services/services.gd" id="2_qp26l"]
+[ext_resource type="Script" path="res://engine/tile_level/common/sounds/sound_test.gd" id="3_mobfb"]
+[ext_resource type="AudioStream" uid="uid://cpebpduwkoi7j" path="res://music/Soft Chill IDM.mp3" id="4_6nqhr"]
 
 [node name="Main" type="Node2D"]
+
+[node name="SoundConnector" type="Node" parent="."]
+script = ExtResource("3_mobfb")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6nqhr")
+volume_db = -15.0
+autoplay = true
+parameters/looping = false
 
 [node name="MainMenu" parent="." instance=ExtResource("1_6naxm")]
 
