@@ -9,6 +9,7 @@ var lc: LogicalCard
 var cost:int
 var art: Sprite2D
 var display_name: RichTextLabel
+var regular_border:ColorRect
 var border: ColorRect
 var hover_border: ColorRect
 var card_description: RichTextLabel
@@ -48,11 +49,13 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 
 	display_name = find_child("DisplayName")
 	display_name.text = lc.display_name
-
+	regular_border = find_child("RegularBorder")
+	regular_border.color = lc.border
 	border = find_child("LabelRect")
 	border.color = lc.border
 
 	hover_border = find_child("HoverBorder")
+	hover_border.color = lc.border
 
 	cost_label_poly = find_child("CostLabelPoly")
 	cost_label_poly.color = lc.border

@@ -10,7 +10,7 @@ static var lib: Dictionary = {
 				"id": "raiju",
 				"display_name": "Raiju",
 				"sprite": "res://engine/tile_level/kaiju/assets/sprites/AI_raiju_sprite.png",
-				"portrait": "res://engine/tile_level/kaiju/assets/sprites/AI_raiju_sprite.png",
+				"portrait": "res://engine/tile_level/kaiju/assets/portraits/dragon.jpg",
 				"move_points": 4,
 				"moves_remaining": 4,
 				"speed_chart": SpeedChart.new({"mountain": 1, "water": 1}),

@@ -6,6 +6,9 @@ white
 dd96f9 - lavendery
 ebc3fb - lavendery modulate
 
+---Card Categories
+95e0fa  - a kind of light blue
+
 
 
 

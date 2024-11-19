@@ -58,28 +58,44 @@ color = Color(0, 0, 0, 1)
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1380.0
-offset_top = 866.0
-offset_right = 1380.0
-offset_bottom = 866.0
+offset_left = 1377.0
+offset_top = 937.0
+offset_right = 1377.0
+offset_bottom = 937.0
 script = ExtResource("6_445jq")
 
 [node name="EnergyText" type="RichTextLabel" parent="EnergyDisplay"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 160.0
-offset_bottom = 66.0
+offset_left = 33.0
+offset_top = 54.0
+offset_right = 193.0
+offset_bottom = 120.0
 theme = ExtResource("3_vtq0s")
 theme_override_fonts/normal_font = ExtResource("4_5wwou")
 theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "[center]7 / 10[/center]"
 
+[node name="EnergyText2" type="RichTextLabel" parent="EnergyDisplay"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 26.0
+offset_top = -14.0
+offset_right = 225.0
+offset_bottom = 52.0
+theme = ExtResource("3_vtq0s")
+theme_override_fonts/normal_font = ExtResource("4_5wwou")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "ENERGY"
+fit_content = true
+
 [node name="PlayArea" type="Node2D" parent="."]
 
 [node name="PilotButtons" type="Node2D" parent="PlayArea"]
 modulate = Color(0.921569, 0.764706, 0.984314, 1)
-position = Vector2(189, 822)
+position = Vector2(250, 822)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PlayArea/PilotButtons"]
 custom_minimum_size = Vector2(1000, 100)
@@ -335,16 +351,13 @@ shape = SubResource("CircleShape2D_y7vs5")
 
 [node name="KaijuButtons" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
-modulate = Color(0.921569, 0.764706, 0.984314, 1)
-position = Vector2(128, 123)
+position = Vector2(250, 200)
 
 [node name="KaijuBox" type="HBoxContainer" parent="PlayArea/KaijuButtons"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1000, 0)
-offset_left = 73.0
-offset_top = 79.0
-offset_right = 1073.0
-offset_bottom = 119.0
+offset_right = 1000.0
+offset_bottom = 40.0
 theme_override_constants/separation = 250
 
 [node name="KaijuButton0" type="Control" parent="PlayArea/KaijuButtons/KaijuBox"]
@@ -589,7 +602,7 @@ script = ExtResource("11_56nqt")
 
 [node name="PlayerInPlay" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
-position = Vector2(466, 622)
+position = Vector2(250, 622)
 script = ExtResource("12_m33nc")
 
 [node name="HandDock" type="ColorRect" parent="PlayArea"]
@@ -617,7 +630,7 @@ icon = ExtResource("14_4wnpi")
 script = ExtResource("15_as42c")
 
 [node name="InspectCard" type="Node2D" parent="."]
-position = Vector2(1308, 350)
+position = Vector2(1466, 328)
 scale = Vector2(1.5, 1.5)
 
 [node name="DebugIndicateArrow" type="Node2D" parent="."]
@@ -627,6 +640,7 @@ position = Vector2(979, 469)
 script = ExtResource("16_q7ccq")
 
 [node name="TargetSubmitWindow" type="ColorRect" parent="."]
+visible = false
 offset_left = 1314.0
 offset_top = 723.0
 offset_right = 1577.0
@@ -666,6 +680,7 @@ script = ExtResource("18_glm4j")
 unique_name_in_owner = true
 offset_right = 1923.0
 offset_bottom = 66.0
+mouse_filter = 2
 theme = SubResource("Theme_la2bc")
 color = Color(0.101009, 0.050349, 0.113069, 1)
 
@@ -731,23 +746,23 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 287.0
-offset_right = -1.0
-offset_bottom = -428.0
+offset_left = 33.0
+offset_top = 255.0
+offset_right = -47.0
+offset_bottom = -687.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SideBar/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 bbcode_enabled = true
-text = "[center]ORGANIC[/center]"
+text = "ORGANIC"
 fit_content = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="SideBar/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 bbcode_enabled = true
-text = "[center]FIRE[/center]"
+text = "FIRE"
 fit_content = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="SideBar"]
@@ -794,9 +809,9 @@ anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 36.0
-offset_top = 793.0
-offset_right = -44.0
-offset_bottom = -118.0
+offset_top = 909.0
+offset_right = -33.0
+offset_bottom = -2.0
 
 [node name="EndTurn" type="Button" parent="SideBar/VBoxContainer3"]
 layout_mode = 2
