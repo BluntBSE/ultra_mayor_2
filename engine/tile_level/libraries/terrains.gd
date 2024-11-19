@@ -14,7 +14,7 @@ static var lib:Dictionary = {
 		{
 		"display_text": "Forest",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/forest_1.png",
-		"portrait": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/forest_1.png",
+		"portrait": "res://engine/tile_level/terrain/assets/portraits/AI_forest_portrait.jpg",
 		"move_cost": 2
 		}
 	),
@@ -22,7 +22,7 @@ static var lib:Dictionary = {
 		{
 		"display_text": "Hills",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_b/PNG/tail_2/hills.png",
-		"portrait": "res://engine/tile_level/terrain/assets/tileset_b/PNG/tail_2/hills.png",
+		"portrait": "res://engine/tile_level/terrain/assets/portraits/AI_hills_portrait.jpg",
 		"move_cost": 2
 		}
 	),
@@ -30,7 +30,7 @@ static var lib:Dictionary = {
 		{
 		"display_text": "Plain",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain.png",
-		"portrait": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain.png",
+		"portrait": "C:/Users/ramne/OneDrive/Desktop/ultra_mayor/ultra_mayor_2/engine/tile_level/terrain/assets/portraits/AI_plains_portrait.jpg",
 		"move_cost": 1
 		}
 	),
@@ -38,7 +38,7 @@ static var lib:Dictionary = {
 		{
 		"display_text": "Mountains",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain.png",
-		"portrait": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain.png",
+		"portrait": "res://engine/tile_level/terrain/assets/portraits/AI_mountain_portrait.jpg",
 		"move_cost": 3
 		}
 	),
@@ -46,7 +46,7 @@ static var lib:Dictionary = {
 		{
 		"display_text": "Water",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/water.png",
-		"portrait": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/water.png",
+		"portrait": "res://engine/tile_level/terrain/assets/portraits/AI_water_portrait.jpg",
 		"move_cost": 3
 		}
 	),
@@ -54,7 +54,7 @@ static var lib:Dictionary = {
 		{
 		"display_text": "Bog",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/bog.png",
-		"portrait": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/bog.png",
+		"portrait": "res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg",
 		"move_cost": 2
 		}
 	),

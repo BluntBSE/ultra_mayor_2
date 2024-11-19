@@ -27,7 +27,7 @@ func assign_battle(idx:int)->void:
 		var btn:Control = pilot_displays[p_idx]
 		var sprite:Sprite2D = btn.get_node("Polygon2D/Sprite2D")
 		sprite.texture = load(PilotLib.lib[pilot.id].portrait)
-		sprite.self_modulate = Color(1,1,1,1)
+		sprite.self_modulate = Color("ebc3fb")
 		p_idx += 1
 	#Range between p_idx and 5 to keep the rest default-looking
 	for i:int in range(p_idx,5): #b is inclusive, n is exclusive

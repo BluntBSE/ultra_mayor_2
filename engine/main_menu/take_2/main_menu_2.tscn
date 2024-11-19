@@ -1,0 +1,93 @@
+[gd_scene load_steps=9 format=3 uid="uid://b76fbdw7wngcq"]
+
+[ext_resource type="Script" path="res://engine/main_menu/main_menu.gd" id="1_onpob"]
+[ext_resource type="Texture2D" uid="uid://b6pkyprfdfy2f" path="res://engine/main_menu/take_2/assets/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/1.png" id="2_f702j"]
+[ext_resource type="Material" uid="uid://dtc1a2bwq5cek" path="res://engine/main_menu/take_2/assets/test_1.tres" id="2_i65yg"]
+[ext_resource type="Texture2D" uid="uid://phhyqnhjm7re" path="res://engine/main_menu/take_2/assets/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/3.png" id="3_hl73r"]
+[ext_resource type="Texture2D" uid="uid://b0m04m8wsrtu2" path="res://engine/main_menu/take_2/AI_Mayoral.png" id="5_y7rm1"]
+[ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="6_tq3qu"]
+[ext_resource type="FontFile" uid="uid://1idi5vmmueda" path="res://engine/common/fonts/inversionz/Inversionz Unboxed.otf" id="7_s7e2s"]
+
+[sub_resource type="Environment" id="Environment_ibhrm"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 2.32
+glow_strength = 0.34
+glow_bloom = 0.5
+glow_blend_mode = 0
+fog_light_energy = 8.45
+fog_sun_scatter = 2.25
+fog_height = 9.75
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_onpob")
+
+[node name="bg" type="Node2D" parent="."]
+
+[node name="bg" type="Sprite2D" parent="bg"]
+texture_repeat = 2
+material = ExtResource("2_i65yg")
+position = Vector2(962.5, 540)
+scale = Vector2(3.38368, 3.41975)
+texture = ExtResource("2_f702j")
+
+[node name="3" type="Sprite2D" parent="bg/bg"]
+texture_repeat = 2
+material = ExtResource("2_i65yg")
+use_parent_material = true
+position = Vector2(0.905182, -2.68261)
+scale = Vector2(1.00105, 0.99264)
+texture = ExtResource("3_hl73r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1560, 796)
+scale = Vector2(0.668945, 0.668945)
+texture = ExtResource("5_y7rm1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 937.0
+offset_top = 283.0
+offset_right = 1884.0
+offset_bottom = 980.0
+theme_override_fonts/normal_font = ExtResource("7_s7e2s")
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "Ultra 
+
+Mayor"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ibhrm")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+offset_left = 153.0
+offset_top = 305.0
+offset_right = 512.0
+offset_bottom = 720.0
+theme = ExtResource("6_tq3qu")
+theme_override_constants/separation = 25
+
+[node name="StartGameBtn" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("6_tq3qu")
+text = "NEW GAME"
+
+[node name="LoadGameBtn" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("6_tq3qu")
+text = "LOAD GAME"
+
+[node name="OptionsBtn" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("6_tq3qu")
+text = "OPTIONS"
+
+[node name="QuitBtn" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("6_tq3qu")
+text = "QUIT
+"
+
+[connection signal="button_up" from="VBoxContainer2/StartGameBtn" to="." method="_on_start_game_btn_button_up"]
+[connection signal="button_up" from="VBoxContainer2/QuitBtn" to="." method="_on_quit_btn_button_up"]

@@ -49,3 +49,7 @@ right_click={
 [layer_names]
 
 2d_physics/layer_1="Default"
+
+[rendering]
+
+viewport/hdr_2d=true

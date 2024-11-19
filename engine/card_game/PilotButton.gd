@@ -7,6 +7,7 @@ var card_count: RichTextLabel
 var cards_left: int
 var cards_starting: int
 var hand:CardHand
+var bg_poly:Polygon2D
 var active:bool
 var interaction_mode:String = "interactive"
 var interface:BattleInterface
@@ -50,7 +51,9 @@ func unpack(pilot: LogicalPilot) -> void:
 	#TODO: Consider moving sprite assignment to the button's unpack.
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
 	sprite.texture = load(PilotLib.lib[pilot.id].portrait)
-	sprite.self_modulate = Color(1, 1, 1, 1)
+	sprite.self_modulate = Color("ebc3fb")
+	bg_poly = find_child("BGPoly")
+	bg_poly.visible = true
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	hand = get_tree().root.find_child("Hand", true, false)
 	deck = pilot.deck
@@ -64,10 +67,12 @@ func unpack(pilot: LogicalPilot) -> void:
 
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
+	print("Pilot buttons received the following turn signal, ", turn_signal)
 	if not active:
 		return
 	if turn_signal == interface.TURN_STATES.PLAYER:
 		#interaction_mode = "not_interactive"
+		print("Pilot button believes it should be drawable now")
 		state_machine.Change("drawable", {})
 	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.P_BUTTONS:
@@ -91,6 +96,7 @@ func _ready()->void:
 
 
 func on_hover()->void:
+		print("Area2D was hovered for sure")
 		get_viewport().set_input_as_handled() #TODO: Is this really the way?
 		state_machine._current.stateHandleInput({"event": "hover"})
 

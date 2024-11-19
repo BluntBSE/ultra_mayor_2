@@ -8,6 +8,7 @@
 radius = 32.0156
 
 [node name="RenderedTile" type="Node2D"]
+modulate = Color(0.963357, 0.892619, 0.992337, 1)
 script = ExtResource("1_0e00g")
 
 [node name="bg_sprite" type="Sprite2D" parent="."]
@@ -42,6 +43,7 @@ shape = SubResource("CircleShape2D_a0ent")
 
 [node name="xy_coords" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = 73.0
 offset_top = 92.0
 offset_right = 124.0
@@ -52,6 +54,7 @@ text = "0 , 0"
 
 [node name="move_cost" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = 74.0
 offset_top = 45.0
 offset_right = 125.0

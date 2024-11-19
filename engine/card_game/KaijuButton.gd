@@ -16,6 +16,7 @@ var active:bool = false
 var interface:BattleInterface
 #var interaction_mode:String = "not_interactive"
 var graveyard:Array = []
+var bg_poly:Polygon2D
 #interactive, assignable, not_interactive
 signal was_clicked
 
@@ -84,6 +85,10 @@ func draw_and_assign()->void:
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
 	sprite.texture = load(KaijuLib.lib[kaiju.id].art_pack[_limb.id]) #Update to limb.art
+	bg_poly = find_child("BGPoly")
+	bg_poly.visible = true
+
+
 	card_count = get_node("Polygon2D/ColorRect/CardCount")
 	sprite.self_modulate = Color(1, 1, 1, 1)
 	limb = _limb

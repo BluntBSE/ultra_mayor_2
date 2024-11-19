@@ -165,4 +165,3 @@ func _on_hover_area_input_event(_viewport:Node, event:InputEvent, shape_idx:int)
 		event_str = "right_click"
 		var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
 		rt_signal.emit(rt_sig_obj)
-

@@ -13,7 +13,7 @@ var energy_cost:int
 var value_label:RichTextLabel
 var cost_poly:Polygon2D
 var cost_label:RichTextLabel
-
+var background:ColorRect
 var state_machine: StateMachine = StateMachine.new()
 
 #Origin
@@ -71,6 +71,8 @@ func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [
 	cost_poly = find_child("EnergyCostPoly")
 	cost_poly.color = lc.border
 	value_label = find_child("ValueLabel")
+	background = find_child("BG")
+	background.color = lc.border
 	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
 	#TODO: What value label shows probably needs to be modified a bit depending on what kind of card this is
 	resolve_targets = _resolve_targets
