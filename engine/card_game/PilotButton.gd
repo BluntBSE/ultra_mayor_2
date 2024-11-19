@@ -64,10 +64,12 @@ func unpack(pilot: LogicalPilot) -> void:
 
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
+	print("Pilot buttons received the following turn signal, ", turn_signal)
 	if not active:
 		return
 	if turn_signal == interface.TURN_STATES.PLAYER:
 		#interaction_mode = "not_interactive"
+		print("Pilot button believes it should be drawable now")
 		state_machine.Change("drawable", {})
 	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.P_BUTTONS:
@@ -91,6 +93,7 @@ func _ready()->void:
 
 
 func on_hover()->void:
+		print("Area2D was hovered for sure")
 		get_viewport().set_input_as_handled() #TODO: Is this really the way?
 		state_machine._current.stateHandleInput({"event": "hover"})
 

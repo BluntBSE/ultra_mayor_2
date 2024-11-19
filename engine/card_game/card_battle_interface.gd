@@ -146,7 +146,7 @@ func unpack(_battle_object: BattleObject) -> void:
 	battle_object = _battle_object
 	unpack_pilot_buttons(_battle_object)
 	unpack_kaiju_buttons(_battle_object)
-	get_node("KaijuMain/Polygon2D/Sprite2D").texture = load(_battle_object.kaiju.portrait)
+	%KaijuPort.texture = load(_battle_object.kaiju.portrait)
 	#Set and display energy
 	energy = 0
 	max_energy = 0

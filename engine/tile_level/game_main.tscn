@@ -231,14 +231,6 @@ offset_left = -4.0
 offset_bottom = 1011.0
 color = Color(0.866667, 0.588235, 0.976471, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
-layout_mode = 0
-offset_left = -3.0
-offset_right = 1.0
-offset_bottom = 1642.0
-rotation = 1.5708
-color = Color(0.866667, 0.588235, 0.976471, 1)
-
 [node name="HeaderBar" type="ColorRect" parent="UICanvas/OverworldBattleUI"]
 unique_name_in_owner = true
 layout_mode = 0
@@ -257,6 +249,15 @@ offset_right = 111.0
 offset_bottom = 112.0
 scale = Vector2(0.35, 0.35)
 texture_normal = ExtResource("9_afvgl")
+
+[node name="ColorRect2" type="ColorRect" parent="UICanvas/OverworldBattleUI/HeaderBar"]
+layout_mode = 0
+offset_left = 1638.0
+offset_top = 66.0
+offset_right = 1642.0
+offset_bottom = 1708.0
+rotation = 1.5708
+color = Color(0.866667, 0.588235, 0.976471, 1)
 
 [node name="ScreenFilters" type="Control" parent="UICanvas"]
 visible = false

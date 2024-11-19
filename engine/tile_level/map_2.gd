@@ -182,7 +182,7 @@ func pass_turn() -> void:
 
 		#Fade to transition screen?
 		#battle_scene.instatiate...()
-		var battle_scene:Node2D = load("res://engine/card_game/card_battle_interface.tscn").instantiate()
+		var battle_scene:Node2D = load("res://engine/card_game/card_battle_interface_proto.tscn").instantiate()
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
 
