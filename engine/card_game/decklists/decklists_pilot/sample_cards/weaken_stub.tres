@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bd5rfp6k3y8ut"]
 
-[ext_resource type="Texture2D" uid="uid://bjlh2ahxxqfds" path="res://engine/card_game/assets/pilot_decks/AI_charge.jpg" id="1_j2w7b"]
+[ext_resource type="Texture2D" uid="uid://b07krbouvkntx" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_12.PNG" id="1_1qnmv"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_m8u5d"]
 
 [resource]
 script = ExtResource("2_m8u5d")
 id = "weaken_stub"
 display_name = "Weaken Stub"
-art = ExtResource("1_j2w7b")
+art = ExtResource("1_1qnmv")
 border = Color(0.583323, 0.487193, 0.975578, 1)
 tier = 0
 limbs = ["pilot"]

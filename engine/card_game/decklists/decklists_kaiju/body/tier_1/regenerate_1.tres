@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://blx8qpc7mkftf"]
 
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_eijvu"]
-[ext_resource type="Texture2D" uid="uid://bsky1d31lgusp" path="res://engine/card_game/assets/kaiju_decks/AI_spike_rupture.jpg" id="1_u3k6p"]
+[ext_resource type="Texture2D" uid="uid://dvfvehiwmwnak" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_27.PNG" id="1_u8anf"]
 
 [resource]
 script = ExtResource("1_eijvu")
 id = "regenerate_1"
 display_name = "Regenerate 1"
-art = ExtResource("1_u3k6p")
+art = ExtResource("1_u8anf")
 border = Color(0, 1, 0, 1)
 tier = 1
 limbs = ["body"]
@@ -17,12 +17,12 @@ energy_cost = 0
 instant_effect = "debug_instant_effect"
 instant_targets = 0
 instant_value = 0
-instant_target_type = "none"
+instant_target_type = 4
 resolve_effect = "debug_resolve_effect"
 resolve_targets = 1
 resolve_target_type = 0
 resolve_secondary_targets = 1
-resolve_secondary_ttype = "any"
+resolve_secondary_ttype = 4
 resolve_min = 1
 resolve_max = 3
 types = ["physical"]

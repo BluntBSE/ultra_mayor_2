@@ -13,8 +13,8 @@ class_name SideBar
 
 #Building & Terrain
 @onready var building_port: TextureRect = %BuildingPort
-@onready var building_name:RichTextLabel = %TerrainData/BuildingName
-@onready var terrain_name:RichTextLabel = %TerrainData/TerrainName
+@onready var building_name:RichTextLabel = %BuildingName
+@onready var terrain_name:RichTextLabel = %TerrainName
 @onready var population:RichTextLabel = %TerrainData/Population
 @onready var power: RichTextLabel = %TerrainData/Power
 @onready var development: RichTextLabel = %TerrainData/Development

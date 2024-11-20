@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://b0dlpbsgnitxv"]
 
-[ext_resource type="Texture2D" uid="uid://dqqrimplpxwy6" path="res://engine/card_game/assets/kaiju_decks/AI_kaiju_tail.jpg" id="1_48uqp"]
+[ext_resource type="Texture2D" uid="uid://b1tigdphpu2ek" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_35.PNG" id="1_bombk"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_vt3sg"]
 
 [resource]
 script = ExtResource("1_vt3sg")
 id = "tail_swipe_1"
 display_name = "Tail Swipe 1"
-art = ExtResource("1_48uqp")
+art = ExtResource("1_bombk")
 border = Color(0.584314, 0.878431, 0.980392, 1)
 tier = 1
 limbs = ["tail"]

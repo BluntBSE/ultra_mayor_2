@@ -1,8 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://dfo0uwnljfk0c"]
+[gd_scene load_steps=28 format=3 uid="uid://douqsnla17e1t"]
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_vjke8"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="3_qmsyn"]
-[ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="3_vtq0s"]
+[ext_resource type="Theme" path="res://engine/common/themes/main_menu_theme_2.tres" id="3_vtq0s"]
 [ext_resource type="FontFile" uid="uid://buvxuvat0ignr" path="res://engine/common/fonts/symtext/Symtext.ttf" id="4_5wwou"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_lmw6b"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/energy_display.gd" id="6_445jq"]
@@ -419,7 +419,7 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D"]
-scale = Vector2(0.17, 0.17)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("8_f2hld")
 
 [node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton0/Polygon2D"]
@@ -473,7 +473,7 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D"]
-scale = Vector2(0.17, 0.17)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("8_f2hld")
 
 [node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton1/Polygon2D"]
@@ -527,7 +527,7 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D"]
-scale = Vector2(0.17, 0.17)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("8_f2hld")
 
 [node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton2/Polygon2D"]
@@ -581,7 +581,7 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D"]
-scale = Vector2(0.17, 0.17)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("8_f2hld")
 
 [node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton3/Polygon2D"]
@@ -635,7 +635,7 @@ sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D"]
-scale = Vector2(0.17, 0.17)
+scale = Vector2(0.55, 0.55)
 texture = ExtResource("8_f2hld")
 
 [node name="ColorRect" type="ColorRect" parent="PlayArea/KaijuButtons/KaijuBox/KaijuButton4/Polygon2D"]

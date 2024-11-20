@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://df8oq2ok1n447"]
 
-[ext_resource type="Texture2D" uid="uid://bjlh2ahxxqfds" path="res://engine/card_game/assets/pilot_decks/AI_charge.jpg" id="1_xxphb"]
+[ext_resource type="Texture2D" uid="uid://d0ajss3pwdamb" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_13.PNG" id="1_f3q80"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_oenue"]
 
 [resource]
 script = ExtResource("2_oenue")
 id = "weaken_button"
 display_name = "Weaken Button"
-art = ExtResource("1_xxphb")
+art = ExtResource("1_f3q80")
 border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["pilot"]

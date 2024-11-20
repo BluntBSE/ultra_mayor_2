@@ -1,0 +1,116 @@
+[gd_scene load_steps=7 format=3 uid="uid://3kct15x8wk3f"]
+
+[ext_resource type="Script" path="res://engine/card_game/stubs/p_card_stub.gd" id="1_33dmn"]
+[ext_resource type="Texture2D" uid="uid://81bajkb5s0vc" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_23.PNG" id="2_r5x1n"]
+[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_e3t5q"]
+[ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="4_tnxd1"]
+
+[sub_resource type="Theme" id="Theme_ni6wk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ybe1g"]
+radius = 73.0616
+
+[node name="CardStub" type="Node2D"]
+script = ExtResource("1_33dmn")
+
+[node name="HoverBorder" type="ColorRect" parent="."]
+visible = false
+offset_left = -110.0
+offset_top = -107.0
+offset_right = 98.0
+offset_bottom = 71.0
+mouse_filter = 2
+color = Color(0.329412, 0.933333, 0.184314, 1)
+
+[node name="BG" type="ColorRect" parent="."]
+offset_left = -96.0
+offset_top = -95.0
+offset_right = 80.0
+offset_bottom = 61.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ImgMask" type="ColorRect" parent="."]
+clip_children = 1
+offset_left = -92.0
+offset_top = -92.0
+offset_right = 78.0
+offset_bottom = 58.0
+mouse_filter = 2
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+
+[node name="ArtImg" type="Sprite2D" parent="ImgMask"]
+position = Vector2(84.625, 86.5)
+texture = ExtResource("2_r5x1n")
+
+[node name="ValueLabelPoly" type="Polygon2D" parent="."]
+position = Vector2(59, -73)
+rotation = -0.785398
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(30, 0, 1.83691e-15, 30, -30, 3.67382e-15, -5.51073e-15, -30, 30, 0)
+script = ExtResource("3_e3t5q")
+sides = 4
+radius = 30.0
+
+[node name="ValueLabel" type="RichTextLabel" parent="ValueLabelPoly"]
+offset_left = -0.707117
+offset_top = -30.4056
+offset_right = 43.2929
+offset_bottom = 9.59441
+rotation = 0.785398
+theme = SubResource("Theme_ni6wk")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[center]1-3[/center]"
+
+[node name="EnergyCostPoly" type="Polygon2D" parent="."]
+position = Vector2(66, 45)
+rotation = 0.785398
+color = Color(0.329412, 0.933333, 0.184314, 1)
+polygon = PackedVector2Array(18, 0, 1.10215e-15, 18, -18, 2.20429e-15, -3.30644e-15, -18, 18, 0)
+script = ExtResource("3_e3t5q")
+sides = 4
+radius = 18.0
+
+[node name="CostLabel" type="RichTextLabel" parent="EnergyCostPoly"]
+offset_left = -26.163
+offset_top = 2.12132
+offset_right = 15.837
+offset_bottom = 42.1213
+rotation = -0.785398
+theme = SubResource("Theme_ni6wk")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]1[/center]"
+
+[node name="Arrows" type="Node2D" parent="."]
+
+[node name="InstantArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
+
+[node name="ResolveArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
+
+[node name="ResolveSecondaryArrows" type="Node2D" parent="Arrows"]
+unique_name_in_owner = true
+
+[node name="Area2D" type="Area2D" parent="."]
+z_index = 100
+position = Vector2(-10, -21)
+script = ExtResource("4_tnxd1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ybe1g")
+
+[node name="StatusMask" type="ColorRect" parent="."]
+visible = false
+offset_left = -95.0
+offset_top = -94.0
+offset_right = 81.0
+offset_bottom = 60.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.207843)
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_mouse_area_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_mouse_area_exited"]

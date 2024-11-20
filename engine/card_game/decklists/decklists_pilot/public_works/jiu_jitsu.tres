@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://cpnj4u5bar5fo"]
 
-[ext_resource type="Texture2D" uid="uid://bqvbgsqr3dnbr" path="res://engine/card_game/assets/pilot_decks/AI_judo.jpg" id="1_1i1iw"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_tk08l"]
+[ext_resource type="Texture2D" uid="uid://f0xham07p21n" path="res://engine/common/assets/Red_Icons/JPG/1.jpg" id="1_x5kul"]
 
 [resource]
 script = ExtResource("1_tk08l")
 id = "jiu_jitsu"
 display_name = "Jiu Jitsu"
-art = ExtResource("1_1i1iw")
+art = ExtResource("1_x5kul")
 border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["pilot"]
