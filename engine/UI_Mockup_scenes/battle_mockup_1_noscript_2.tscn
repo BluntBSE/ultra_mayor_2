@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cso3lvv05kn64"]
+[gd_scene load_steps=10 format=3 uid="uid://cgf3sx0qg3eod"]
 
 [ext_resource type="Texture2D" uid="uid://ccw0yh23jc7eo" path="res://engine/UI_Mockup_scenes/mockup.png" id="1_pfj40"]
 [ext_resource type="Texture2D" uid="uid://ggshss4u8w8s" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Character_select/Character_select_0001_text.png" id="2_rpbtw"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
-[node name="GameMain" type="Node2D"]
+[node name="GameMain2" type="Node2D"]
 
 [node name="Map" type="Node2D" parent="."]
 unique_name_in_owner = true

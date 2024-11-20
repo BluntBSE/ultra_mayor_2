@@ -4,18 +4,18 @@
 [ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_w16tx"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_8fpju"]
 [ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_ido7v"]
-[ext_resource type="Texture2D" uid="uid://bspla8gw5rr87" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/3 SFCP 1 Super Tone - NEW/carrie_toned_test.png" id="5_oorpu"]
+[ext_resource type="Texture2D" uid="uid://d1qakg8u0h24w" path="res://engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png" id="5_cwb5n"]
 [ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="6_inyrp"]
-[ext_resource type="Theme" uid="uid://c1vookhxs5bah" path="res://engine/common/themes/base_theme.tres" id="7_gwdvp"]
+[ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="7_gwdvp"]
 [ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="7_v4yyt"]
 [ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="9_afvgl"]
 [ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="9_gxl2l"]
 [ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="9_tt11t"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="10_bkjcq"]
 [ext_resource type="Script" path="res://engine/tile_level/UI/BattleFilter.gd" id="10_tf7nj"]
-[ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/art_packs/zilla/AI_Zilla.jpg" id="11_dffto"]
 [ext_resource type="FontFile" uid="uid://c802ryvuygkyn" path="res://engine/common/fonts/inversionz/Inversionz Unboxed.ttf" id="12_yfxuy"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="14_bwyri"]
+[ext_resource type="Texture2D" uid="uid://bdh5d7drt457d" path="res://engine/tile_level/kaiju/assets/portraits/magmar_youngsilithar.jpg" id="14_gcsrs"]
 [ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="14_gp7qb"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
@@ -74,39 +74,37 @@ theme = SubResource("Theme_nfc0e")
 color = Color(0.101961, 0.0509804, 0.113725, 1)
 script = ExtResource("4_ido7v")
 
-[node name="ColorRect3" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+[node name="OccupantRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
 layout_mode = 0
 offset_left = 35.0
-offset_top = 1.0
-offset_right = 246.0
-offset_bottom = 288.0
+offset_top = 3.0
+offset_right = 235.0
+offset_bottom = 203.0
 mouse_filter = 2
-color = Color(0, 0, 0, 0)
+color = Color(0.984314, 0.529412, 0.478431, 0)
 
-[node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3"]
+[node name="OccupantPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect"]
 unique_name_in_owner = true
 modulate = Color(0.920854, 0.763964, 0.985502, 1)
-layout_mode = 0
-offset_left = 2.0
-offset_top = 3.0
-offset_right = 1097.0
-offset_bottom = 1487.0
-scale = Vector2(0.188198, 0.188198)
-texture = ExtResource("5_oorpu")
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("5_cwb5n")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ODataRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3"]
+[node name="ODataRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 0
 offset_left = 1.0
-offset_top = 222.0
-offset_right = 204.0
-offset_bottom = 288.0
+offset_top = 202.0
+offset_right = 201.0
+offset_bottom = 252.0
+theme = ExtResource("7_gwdvp")
 color = Color(0, 0, 0, 0.658824)
 
-[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3/ODataRect"]
+[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/ODataRect"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 7.0
@@ -114,7 +112,7 @@ offset_top = 5.0
 offset_right = 225.0
 offset_bottom = 53.0
 
-[node name="OccupantName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/ColorRect3/ODataRect/OccupantData"]
+[node name="OccupantName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/ODataRect/OccupantData"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
@@ -122,17 +120,50 @@ text = "Alicia June
 (Public Works)"
 fit_content = true
 
-[node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar"]
+[node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect"]
 unique_name_in_owner = true
 modulate = Color(0.921569, 0.764706, 0.984314, 1)
 layout_mode = 0
-offset_left = 36.0
-offset_top = 352.0
-offset_right = 1131.0
-offset_bottom = 1352.0
+offset_left = 1.0
+offset_top = 315.0
+offset_right = 1096.0
+offset_bottom = 1315.0
 scale = Vector2(0.188198, 0.188198)
 texture = ExtResource("6_inyrp")
 expand_mode = 1
+
+[node name="TileDataRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1.0
+offset_top = 502.0
+offset_right = 206.0
+offset_bottom = 563.0
+theme = ExtResource("7_gwdvp")
+color = Color(0, 0, 0, 0.658824)
+
+[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/TileDataRect"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 225.0
+offset_bottom = 53.0
+
+[node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/TileDataRect/OccupantData"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("7_gwdvp")
+bbcode_enabled = true
+text = "Coal Plant"
+fit_content = true
+
+[node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/TileDataRect/OccupantData"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("7_gwdvp")
+bbcode_enabled = true
+text = "Bog"
+fit_content = true
 
 [node name="TerrainData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar"]
 unique_name_in_owner = true
@@ -141,22 +172,6 @@ offset_left = 38.0
 offset_top = 605.0
 offset_right = 256.0
 offset_bottom = 825.0
-
-[node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("7_gwdvp")
-bbcode_enabled = true
-text = "Building: Coal Plantx"
-fit_content = true
-
-[node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("7_gwdvp")
-bbcode_enabled = true
-text = "Terrain: Default"
-fit_content = true
 
 [node name="Population" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
@@ -261,7 +276,6 @@ rotation = 1.5708
 color = Color(0.866667, 0.588235, 0.976471, 1)
 
 [node name="ScreenFilters" type="Control" parent="UICanvas"]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -309,17 +323,17 @@ text = "[center]VS[/center]"
 
 [node name="KaijuPoly" type="Polygon2D" parent="UICanvas/ScreenFilters/Battle"]
 clip_children = 1
-position = Vector2(1314, 599)
-polygon = PackedVector2Array(180, 0, 90, 155.885, -90, 155.885, -180, 2.20429e-14, -90, -155.885, 90, -155.885, 180, 0)
+position = Vector2(1312, 565)
+polygon = PackedVector2Array(160, 0, 80, 138.564, -80, 138.564, -160, 1.95937e-14, -80, -138.564, 80, -138.564, 160, 0)
 script = ExtResource("10_bkjcq")
 sides = 6
-radius = 180.0
+radius = 160.0
 
 [node name="KaijuSprite" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/KaijuPoly"]
 modulate = Color(0.921569, 0.764706, 0.984314, 1)
-position = Vector2(14, 62)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_dffto")
+position = Vector2(14, 3)
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("14_gcsrs")
 
 [node name="AllPilots" type="Control" parent="UICanvas/ScreenFilters/Battle"]
 anchors_preset = 0

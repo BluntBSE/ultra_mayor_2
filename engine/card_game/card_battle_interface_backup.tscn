@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://du646iddyw3rh"]
+[gd_scene load_steps=25 format=3 uid="uid://cyfgrubkkrbc4"]
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_qr7um"]
 [ext_resource type="Texture2D" uid="uid://b3jdb1u3m35oy" path="res://engine/card_game/assets/backgrounds/AI_city_bg.jpg" id="2_tjs0l"]
@@ -41,7 +41,7 @@ min_value = -1.0
 _data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="BattleInterface" type="Node2D"]
+[node name="BattleInterface2" type="Node2D"]
 script = ExtResource("1_qr7um")
 
 [node name="BGTexture" type="TextureRect" parent="."]

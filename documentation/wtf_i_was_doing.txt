@@ -12,7 +12,8 @@ d8acf474 - Button mask with alpha on hover
 95e0fa  - a kind of light blue
 
 
-
+BUG: Kaiju  limbs are drawing inappropriate cards
+BUG: Energy is getting incorrectly added every turn
 BUG: ARROWS NOT FLASHING WHEN PLAYER PLAYERS ANYMORE
 
 TODO: Enforce correct targeting options during card game

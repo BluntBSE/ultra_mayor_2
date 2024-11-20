@@ -4,10 +4,10 @@ static var lib: Dictionary = {
 	"raiju":
 	ArtPack.new(
 		{
-			"head": "res://engine/card_game/assets/art_packs/raiju/AI_raiju_head.jpg",
-			"claws": "res://engine/card_game/assets/art_packs/raiju/AI_raiju_claws.jpg",
-			"legs": "res://engine/card_game/assets/art_packs/raiju/AI_raiju_legs.jpg",
-			"tail": "res://engine/card_game/assets/art_packs/raiju/AI_raiju_tail.jpg"
+			"head": "C:/Users/ramne/OneDrive/Desktop/ultra_mayor/ultra_mayor_2/engine/common/assets/RPG_Skills_Icons_15/slz_34.PNG",
+			"claws": "C:/Users/ramne/OneDrive/Desktop/ultra_mayor/ultra_mayor_2/engine/common/assets/RPG_Skills_Icons_15/slz_32.PNG",
+			"legs": "C:/Users/ramne/OneDrive/Desktop/ultra_mayor/ultra_mayor_2/engine/common/assets/RPG_Skills_Icons_15/slz_36.PNG",
+			"tail": "C:/Users/ramne/OneDrive/Desktop/ultra_mayor/ultra_mayor_2/engine/common/assets/RPG_Skills_Icons_15/slz_26.PNG"
 		}
 	),
 	"dragon":

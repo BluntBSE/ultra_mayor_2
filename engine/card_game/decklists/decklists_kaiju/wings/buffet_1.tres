@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://cpcg83318eyss"]
 
-[ext_resource type="Texture2D" uid="uid://bsky1d31lgusp" path="res://engine/card_game/assets/kaiju_decks/AI_spike_rupture.jpg" id="1_rs6fy"]
+[ext_resource type="Texture2D" uid="uid://b1tigdphpu2ek" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_35.PNG" id="1_gdpnv"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_wwjtb"]
 
 [resource]
 script = ExtResource("1_wwjtb")
 id = "buffet_1"
 display_name = "Buffet 1"
-art = ExtResource("1_rs6fy")
+art = ExtResource("1_gdpnv")
 border = Color(0.583447, 0.877902, 0.98217, 1)
 tier = 1
 limbs = ["wings"]
