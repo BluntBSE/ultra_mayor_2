@@ -5,11 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://djovg7unm6lyr" path="res://icon.svg" id="3_b6h6r"]
 [ext_resource type="Texture2D" uid="uid://b7fkggmhox2q3" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/High scores/High_Scores_0016_X_button.png" id="4_iv5nu"]
 [ext_resource type="FontFile" uid="uid://dgwrlf53u1wv7" path="res://engine/common/fonts/fonstars-v3-font/Fonstars-4Bo0p.otf" id="5_rab7n"]
-[ext_resource type="Texture2D" uid="uid://bgfgjaxd3ujus" path="res://engine/card_game/assets/art_packs/zilla/AI_Zilla.jpg" id="6_pslhx"]
 [ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="7_j5p6k"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="8_imt0b"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7naf"]
+load_path = "res://.godot/imported/AI_Zilla.jpg-292c0c134117de720226478676ed963b.ctex"
 
 [node name="GameMain2" type="Node2D"]
 
@@ -277,7 +279,7 @@ polygon = PackedVector2Array(180, 0, 90, 155.885, -90, 155.885, -180, 2.20429e-1
 [node name="KaijuSprite" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/KaijuPoly"]
 position = Vector2(14, 62)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_pslhx")
+texture = SubResource("CompressedTexture2D_v7naf")
 
 [node name="AllPilots" type="Control" parent="UICanvas/ScreenFilters/Battle"]
 anchors_preset = 0

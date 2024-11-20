@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://cu7neqhfb5r14"]
 
-[ext_resource type="Texture2D" uid="uid://ccii28ctvgx3k" path="res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg" id="1_a7l11"]
+[ext_resource type="Texture2D" uid="uid://2sn1tksmguri" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_30.png" id="1_vip10"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_shuq5"]
 
 [resource]
 script = ExtResource("2_shuq5")
 id = "maximize_stub"
 display_name = "Maximize Stub"
-art = ExtResource("1_a7l11")
+art = ExtResource("1_vip10")
 border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["pilot"]
