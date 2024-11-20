@@ -276,6 +276,7 @@ rotation = 1.5708
 color = Color(0.866667, 0.588235, 0.976471, 1)
 
 [node name="ScreenFilters" type="Control" parent="UICanvas"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
