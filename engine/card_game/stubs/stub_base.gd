@@ -142,7 +142,6 @@ func flash_all_targets()->void:
 	for target:Node in resolve_targets_secondary:
 		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.ORANGE)
 		r_2_arrows.append(arrow)
-	print("Flash all targets was called with", i_arrows, r_arrows, r_2_arrows)
 
 	for arrow:IndicateArrow in i_arrows:
 		arrow.soft_double_fade()

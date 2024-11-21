@@ -160,6 +160,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	var player_in_play: PlayerInPlay = _reference.get_tree().root.find_child("PlayerInPlay", true, false)
 	player_in_play.add_child(stub)
 	stub.connect("was_resolved", player_in_play.handle_resolved)
+	stub.state_machine.Change("normal", {})#Do not allow any state changes until the in_play completes transit
 
 	#TODO: Stubs may need a transit state like the cards did.
 	#stub.position = Vector2(0.0, 0.0)

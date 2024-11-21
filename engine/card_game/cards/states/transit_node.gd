@@ -41,7 +41,6 @@ func stateEnter(args:Dictionary)->void:
 
 
 	finished_transit.emit()
-
 	if final_state != null:
 		if final_state == "free":
 			_reference.queue_free()
