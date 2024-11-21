@@ -27,7 +27,7 @@ var is_inspection_copy: bool
 
 var interface:BattleInterface
 var interactivity_mode:String = "interactive"
-var origin:Control #TODO: Make a shared button class
+var origin:Node2D #TODO: Make a shared button class
 
 
 signal being_assigned
@@ -41,7 +41,7 @@ signal was_removed
 
 
 
-func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:Control) -> void:
+func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:Node2D) -> void:
 	hand = _hand
 	lc = _lc
 	art = find_child("ArtImg")
@@ -116,7 +116,7 @@ func do_transit(args:Dictionary)->void:
 func do_interactive()->void:
 	state_machine.Change("interactive", {})
 
-func do_clicked_button(button:Control)->void:
+func do_clicked_button(button:Node2D)->void:
 	state_machine.handleInput({"event":button})
 	pass
 

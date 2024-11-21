@@ -62,7 +62,7 @@ var status_mask:ColorRect
 signal was_resolved
 signal was_clicked
 
-func unpack(_lc: LogicalCard, _played_from: Control, _resolve_targets: Array = [], _resolve_targets_2: Array = [], _instant_targets: Array = []) -> void:
+func unpack(_lc: LogicalCard, _played_from: Node2D, _resolve_targets: Array = [], _resolve_targets_2: Array = [], _instant_targets: Array = []) -> void:
 	#Played from is a pilotbutton or a kaiju button
 	played_from = _played_from
 	lc = _lc
