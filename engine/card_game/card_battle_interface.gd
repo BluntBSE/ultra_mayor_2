@@ -42,11 +42,10 @@ func log_turn_signal(sig: int) -> void:
 
 func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 	pilots = _battle_object.pilots
-	var pilot_button_node: Node2D = get_node("PlayArea/PilotButtons")
+	var pilot_button_node: Node2D = %PilotButtons
 	var pilot_idx: int = 0
 	#Set energy
-	var p_button_node: Node2D = get_node("PlayArea/PilotButtons")
-	var p_button_list: Array = pilot_button_node.get_node("HBoxContainer").get_children()
+	var p_button_list: Array = pilot_button_node.get_children()
 	pilot_buttons = p_button_list
 	for pilot: LogicalPilot in pilots:
 		var matching_button: PilotButton = p_button_list[pilot_idx]
@@ -55,7 +54,7 @@ func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 		matching_button.unpack(pilot)
 		pilot_idx += 1
 	for i: int in range(pilot_idx, 5):  #b is inclusive, n is exclusive
-		var btn: Control = p_button_list[i]
+		var btn: Node2D = p_button_list[i]
 		var sprite: Sprite2D = btn.get_node("Polygon2D/Sprite2D")
 		sprite.texture = load("res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png")
 		sprite.self_modulate = Color(0.2, 0.1, 0.2, 1)
@@ -64,7 +63,7 @@ func unpack_pilot_buttons(_battle_object: BattleObject) -> void:
 func unpack_kaiju_buttons(_battle_object: BattleObject) -> void:
 	var k_button_node: Node2D = get_node("PlayArea/KaijuButtons")
 	var k_button_idx: int = 0
-	var k_button_list: Array = k_button_node.get_node("KaijuBox").get_children()
+	var k_button_list: Array = %KaijuButtons.get_children()
 	kaiju_buttons = k_button_list
 	var limbs: Array = _battle_object.kaiju.limbs
 	for limb: Limb in limbs:
@@ -73,7 +72,7 @@ func unpack_kaiju_buttons(_battle_object: BattleObject) -> void:
 		k_button_idx += 1
 	#Gray out unused limbs
 	for i: int in range(k_button_idx, 5):
-		var btn: Control = k_button_list[i]
+		var btn: Node2D = k_button_list[i]
 		var sprite: Sprite2D = btn.get_node("Polygon2D/Sprite2D")
 		sprite.texture = load("res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png")
 		sprite.self_modulate = Color(0.2, 0.1, 0.2, 1)
@@ -104,7 +103,7 @@ func handle_pcard_target(type: int) -> void:
 
 
 ##SIGNAL RELAYS
-func broadcast_button(button: Control) -> void:
+func broadcast_button(button: Node2D) -> void:
 	clicked_button.emit(button)
 
 

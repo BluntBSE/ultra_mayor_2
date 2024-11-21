@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 class_name KaijuButton
 
 var hovered:bool = false
@@ -50,7 +50,7 @@ func draw_and_assign()->void:
 	card.played_from = self
 	var num_resolve_targets:int = card.lc.resolve_targets
 	var num_instant_targets:int = card.lc.instant_targets
-	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_node("HBoxContainer").get_children()
+	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_children()
 	var valid_targets:Array = []
 	for target:PilotButton in pilot_targets:
 		if target.active == true:

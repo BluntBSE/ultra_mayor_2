@@ -6,7 +6,7 @@ signal finished
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	kaiju_buttons = %KaijuBox.get_children()
+	kaiju_buttons = %KaijuButtons.get_children()
 	parent = get_tree().root.find_child("BattleInterface", true, false)
 	parent.connect("turn_signal", do_turn)
 	connect("finished", parent.handle_kaiju_turn_finished)

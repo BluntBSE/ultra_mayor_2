@@ -65,6 +65,8 @@ func _process(_delta:float)->void:
 
 
 func handle_target_signal(sig:int)->void:
+	if entered == false:
+		return #Do not respond to any signals until in position. This is to avoid responding to the signal emitted by playing this stub.ds
 	if sig == LogicalCard.target_types.NONE:
 		state_machine.Change("inspectable", {})
 		return
