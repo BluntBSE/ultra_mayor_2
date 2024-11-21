@@ -11,7 +11,6 @@
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7naf"]
-load_path = "res://.godot/imported/AI_Zilla.jpg-292c0c134117de720226478676ed963b.ctex"
 
 [node name="GameMain2" type="Node2D"]
 

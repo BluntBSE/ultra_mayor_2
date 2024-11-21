@@ -18,10 +18,8 @@
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/submit_assign_button.gd" id="18_pi0ev"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cwlh6"]
-load_path = "res://.godot/imported/AI_city_bg.jpg-161fd7f961b6447490a9a850df5ee18c.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v7naf"]
-load_path = "res://.godot/imported/AI_Zilla.jpg-292c0c134117de720226478676ed963b.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8pplf"]
 

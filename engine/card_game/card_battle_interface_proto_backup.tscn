@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dopxbwev4hqps"]
+[gd_scene load_steps=28 format=3 uid="uid://c8de52m0kgy8m"]
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_f43dt"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/energy_display.gd" id="2_gc44i"]

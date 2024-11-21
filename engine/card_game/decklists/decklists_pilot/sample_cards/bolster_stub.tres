@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bc2u1ihclod4m"]
 
-[ext_resource type="Texture2D" uid="uid://djcgpk5jxej4c" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_28.PNG" id="1_r72br"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_jyftj"]
+
+[sub_resource type="Resource" id="Resource_r720g"]
+metadata/__load_path__ = "res://engine/card_game/assets/pilot_decks/AI_psychic.jpg"
 
 [resource]
 script = ExtResource("2_jyftj")
 id = "bolster_stub"
 display_name = "Bolster Stub"
-art = ExtResource("1_r72br")
+art = SubResource("Resource_r720g")
 border = Color(0.959119, 0.360652, 0.761797, 1)
 tier = 0
 limbs = ["pilot"]

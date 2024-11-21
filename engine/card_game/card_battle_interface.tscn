@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://daoer3necfaqq"]
+[gd_scene load_steps=24 format=3 uid="uid://mmvul0qji0nt"]
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_yimvu"]
 [ext_resource type="Script" path="res://engine/card_game/Hand.gd" id="3_66mb1"]
@@ -18,7 +18,6 @@
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="18_ujnq3"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1v6sp"]
-load_path = "res://.godot/imported/AI_Zilla.jpg-292c0c134117de720226478676ed963b.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8pplf"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_vjke8"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="3_qmsyn"]
-[ext_resource type="Theme" path="res://engine/common/themes/main_menu_theme_2.tres" id="3_vtq0s"]
+[ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="3_vtq0s"]
 [ext_resource type="FontFile" uid="uid://buvxuvat0ignr" path="res://engine/common/fonts/symtext/Symtext.ttf" id="4_5wwou"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_lmw6b"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/energy_display.gd" id="6_445jq"]

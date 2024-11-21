@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://c4cuiuite3txj"]
 
-[ext_resource type="Texture2D" uid="uid://bp5f4a1dmsgbh" path="res://engine/card_game/assets/kaiju_decks/whistling_blade@2x.jpg" id="1_s28m6"]
 [ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_u1gyy"]
+
+[sub_resource type="Resource" id="Resource_wynmu"]
+metadata/__load_path__ = "res://engine/card_game/assets/kaiju_decks/AI_spike_rupture.jpg"
 
 [resource]
 script = ExtResource("1_u1gyy")
 id = "wing_block_1"
 display_name = "Wing Block 1"
-art = ExtResource("1_s28m6")
+art = SubResource("Resource_wynmu")
 border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["wings"]

@@ -1,5 +1,6 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
+
 COLOR IDEAS
 a2f9ea74 - some kinda green
 white
@@ -11,29 +12,13 @@ d8acf474 - Button mask with alpha on hover
 ---Card Categories
 95e0fa  - a kind of light blue
 
+CONSIDER: Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder
 
 BUG: Kaiju  limbs are drawing inappropriate cards
 BUG: Energy is getting incorrectly added every turn
 BUG: ARROWS NOT FLASHING WHEN PLAYER PLAYERS ANYMORE
 
-TODO: Enforce correct targeting options during card game
--As we step through the phases on the rendered_card, we must emit the targeting type permitted by that
--This will then modify the state of the buttons and allow them to emit their clicked-on-ness or not (clicked on only serves assignment for now)
-TODO: Unite the player and kaiju packed scenes for stubs?
 
-BUG: You can actually put multiple cards in the assigning state at once oops
-
-BUG: After player turn ends, you must queue free the state machines.
-BUG: When using submit, arrows are going weirdly one slot to the right...
-BUG: Type doesn't seem properly enforced during assignment
-BUG: Deck doesn't seem properly shuffled between playthroughs. Randomize seed somehow?
-
-NEXT:
-SHARED CLASS FOR BUTTONS FOR INSPECT/RENDERED CARD UNPACK TO HAVE A REAL TYPE idk
-Can probably put card inspection in there aghhh
-Have an energy requirement
-Multiple rounds of assignment
-Unplay cards
 
 
 
