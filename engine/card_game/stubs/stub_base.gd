@@ -129,25 +129,21 @@ func unplay()->void:
 
 
 func flash_all_targets()->void:
+
 	var i_arrows:Array = []
 	var r_arrows:Array = []
 	var r_2_arrows:Array = []
-
 	for target:Node in instant_targets:
 		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.BLANCHED_ALMOND)
 		i_arrows.append(arrow)
-		remove_child(arrow)
-		%InstantArrows.add_child(arrow)
 	for target:Node in resolve_targets:
 		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.CYAN)
 		r_arrows.append(arrow)
-		remove_child(arrow)
-		%ResolveArrows.add_child(arrow)
 	for target:Node in resolve_targets_secondary:
 		var arrow:IndicateArrow = CardHelpers.arrow_between(self, target, Color.ORANGE)
-		remove_child(arrow)
 		r_2_arrows.append(arrow)
-		%ResolveSecondaryArrows.add_child(arrow)
+	print("Flash all targets was called with", i_arrows, r_arrows, r_2_arrows)
+
 	for arrow:IndicateArrow in i_arrows:
 		arrow.soft_double_fade()
 	for arrow:IndicateArrow in r_arrows:

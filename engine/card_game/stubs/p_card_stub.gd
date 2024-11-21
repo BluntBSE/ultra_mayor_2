@@ -47,11 +47,6 @@ func do_input(_event: InputEvent) -> void:
 	pass
 
 
-func do_transit(args: Dictionary) -> void:
-	state_machine.Change("in_transit", args)
-
-
-
 
 func _on_mouse_area_mouse_entered()->void:
 	state_machine.handleInput({"event":"hover"})

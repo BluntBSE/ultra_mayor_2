@@ -15,7 +15,6 @@ d8acf474 - Button mask with alpha on hover
 CONSIDER: Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder
 
 BUG: Kaiju  limbs are drawing inappropriate cards
-BUG: Energy is getting incorrectly added every turn
 BUG: ARROWS NOT FLASHING WHEN PLAYER PLAYERS ANYMORE
 
 

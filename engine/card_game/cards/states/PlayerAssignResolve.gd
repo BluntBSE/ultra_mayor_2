@@ -163,7 +163,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 
 	#TODO: Stubs may need a transit state like the cards did.
 	#stub.position = Vector2(0.0, 0.0)
-	stub.global_position = _reference.global_position
+	stub.global_position = _reference.hand.global_position
 	stub.scale = Vector2(0.25, 0.25)
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
 	_reference.do_on_played()

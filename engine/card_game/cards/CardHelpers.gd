@@ -36,6 +36,7 @@ static func arrow_between(origin:Node, target:Node, color:Color = Color.CYAN)->I
 
 	var origin_pos:Vector2 = origin.global_position
 	var target_pos:Vector2 = target.global_position
+	print("Attempting to draw arrow between ", origin_pos, target_pos)
 	arrow.unpack(origin_pos, target_pos, color)
 	return arrow
 

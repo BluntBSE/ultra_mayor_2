@@ -29,6 +29,5 @@ func organize_stubs() -> void:
 			"fin_z": idx,
 			"final_state": "inspectable"
 		}
-
 		stub.do_transit(dest_args)
 		idx += 1
