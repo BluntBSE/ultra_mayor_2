@@ -30,6 +30,7 @@ func generate_limbs(limb_arr:Array)->void:
 	assign_limb_types(types, limbs)
 
 	for limb:Limb in limbs:
+		print("INSPECTING LIMB ", limb.label, " WHICH HAS TYPES ", limb.types)
 		build_limb_decklist_2(limb, health_factor)
 
 
@@ -109,11 +110,12 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	var decklist:Array = []
 	var services:Services = get_tree().root.find_child("Services", true, false)
 	var cs:CardService = services.card_service
+	print("I THINK ALL LEGAL CARDS ARE", cs.cards)
 	for type:String in types:
 		for key:String in cs.cards.keys():
 			var resource:LogicalCard = cs.cards[key] as LogicalCard
 
-			if type in cs.cards[key].types and cs.cards[key].tier == _limb.tier:
+			if type in cs.cards[key].types and cs.cards[key].tier == _limb.tier and _limb.id in cs.cards[key].limbs:
 				valid_cards.append(cs.cards[key])
 
 	while decklist.size() < deck_size:
@@ -121,6 +123,10 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 		decklist.append(valid_cards[idx])
 
 	decklist = CardHelpers.shuffle_array(decklist)
+	var printable:Array = []
+	for item:LogicalCard in decklist:
+		printable.append(item.display_name)
+	print("I THINK AN APPROPRIATE DECK FOR ", _limb.label, " IS ", printable)
 	_limb.deck = decklist
 
 
