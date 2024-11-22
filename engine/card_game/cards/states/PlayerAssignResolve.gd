@@ -38,6 +38,7 @@ func stateEnter(args: Dictionary) -> void:
 	num_resolve = ref_lc.resolve_targets
 	num_instant = ref_lc.instant_targets
 	num_resolve_secondary = ref_lc.resolve_secondary_targets
+	submit_response.emit(num_instant, num_resolve, num_resolve_secondary, lc)
 
 	#did_assign.emit(num_instant, num_resolve, num_resolve_secondary, _reference.lc)
 

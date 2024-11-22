@@ -9,12 +9,15 @@ ebc3fb - lavendery modulate for portraits
 d8acf474 - Button mask with alpha on hover
 
 
----Card Categories
+---Card Color Categories--
 95e0fa  - a kind of light blue
+----
 
-CONSIDER: Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder
+TODO:Assignment tab appearance
+TODO: Show modifiers on stubs while inspecting them
 
-BUG: Kaiju  limbs are drawing inappropriate cards
+
+STRONGLY CONSIDER (TODO): Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder
 
 
 	-
@@ -22,7 +25,6 @@ BUG: Kaiju  limbs are drawing inappropriate cards
 
 
 MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?
-
 POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
 
 

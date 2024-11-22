@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://douqsnla17e1t"]
+[gd_scene load_steps=29 format=3 uid="uid://douqsnla17e1t"]
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_vjke8"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="3_qmsyn"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cj1tqu7anljih" path="res://engine/common/ui_assets/sci-fi-robot-gui/PNG/Level_selection/Level_Selection_0056_x_button.png" id="14_4wnpi"]
 [ext_resource type="Script" path="res://engine/common/ui_nodes/quit_btn.gd" id="15_as42c"]
 [ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="16_q7ccq"]
+[ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="17_m5sqm"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/target_submit_window.gd" id="17_rker8"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/submit_assign_button.gd" id="18_glm4j"]
 [ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="19_e700v"]
@@ -49,8 +50,10 @@ script = ExtResource("1_vjke8")
 
 [node name="BGTexture" type="ColorRect" parent="."]
 self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
-offset_right = 1923.0
-offset_bottom = 1075.0
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 1924.0
+offset_bottom = 1073.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
@@ -687,11 +690,25 @@ script = ExtResource("16_q7ccq")
 
 [node name="TargetSubmitWindow" type="ColorRect" parent="."]
 visible = false
-offset_left = 1314.0
-offset_top = 723.0
-offset_right = 1577.0
-offset_bottom = 810.0
-color = Color(0, 0, 0, 1)
+offset_left = 1357.0
+offset_top = 837.0
+offset_right = 1620.0
+offset_bottom = 924.0
+color = Color(0.866667, 0.588235, 0.976471, 1)
+script = ExtResource("17_rker8")
+
+[node name="BG" type="ColorRect" parent="TargetSubmitWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.0509804, 0.113725, 1)
 script = ExtResource("17_rker8")
 
 [node name="SubmitText" type="RichTextLabel" parent="TargetSubmitWindow"]
@@ -704,6 +721,8 @@ offset_left = -2.0
 offset_top = 9.0
 offset_right = 0.0319672
 offset_bottom = -43.0
+theme = ExtResource("17_m5sqm")
+theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
 text = "[center]Assign up to 2 limbs[/center]"
 
@@ -719,6 +738,8 @@ offset_right = -90.0
 offset_bottom = -18.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("17_m5sqm")
+theme_override_font_sizes/font_size = 16
 text = "SUBMIT 1"
 script = ExtResource("18_glm4j")
 

@@ -14,15 +14,19 @@ func do_submit()->void:
 	submit.emit()
 
 func handle_submit_response(num_instant:int, num_resolve:int, num_resolve_secondary:int, lc:LogicalCard)->void:
-	print("Handle submit response called!")
+	#BUG: This has to happen when you're about to play a card, too.
+	print("Handle submit response called for: ", lc.display_name, num_instant, num_resolve, num_resolve_secondary)
 	if num_instant > 0:
-		text_box.text = "Assign up to " + str(num_instant) + " " + parse_target_type(lc.instant_target_type)
+		print("FOO!")
+		print("I RECEIVED AN INSTANT TARGET TYPE OF ", lc.instant_target_type)
+		text_box.text = "[center]Assign up to " + str(num_instant) + " " + parse_target_type(lc.instant_target_type) + "[/center]"
 		return
 	if num_resolve > 0:
-		text_box.text = "Assign up to " + str(num_resolve)  + " " + parse_target_type(lc.resolve_target_type)
+		print("FI")
+		text_box.text = "[center]Assign up to " + str(num_resolve)  + " " + parse_target_type(lc.resolve_target_type) + "[/center]"
 		return
 	if num_resolve_secondary >0:
-		text_box.text = "Assign up to " + str(num_resolve_secondary)  + " final " + parse_target_type(lc.resolve_secondary_ttype)
+		text_box.text = "[center]Assign up to " + str(num_resolve_secondary)  + " final " + parse_target_type(lc.resolve_secondary_ttype) + "[/center]"
 		return
 	pass
 
