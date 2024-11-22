@@ -13,9 +13,9 @@ d8acf474 - Button mask with alpha on hover
 95e0fa  - a kind of light blue
 ----
 
-TODO:Assignment tab appearance
-TODO: Show modifiers on stubs while inspecting them
 
+TODO: Show modifiers on stubs while inspecting them
+TODO: Angry energy noise when you don't have enough energy
 
 STRONGLY CONSIDER (TODO): Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder
 

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=17 format=4 uid="uid://bg5tlpydbsukx"]
+[gd_resource type="Theme" load_steps=18 format=4 uid="uid://bg5tlpydbsukx"]
 
 [ext_resource type="FontFile" uid="uid://buvxuvat0ignr" path="res://engine/common/fonts/symtext/Symtext.ttf" id="1_qr74y"]
 [ext_resource type="Texture2D" uid="uid://cowqafxkdkh3u" path="res://engine/main_menu/take_2/border.png" id="2_hhkpe"]
@@ -70,6 +70,14 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cy171"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.000693898, 0.000693898, 0.000693897, 1)
+corner_detail = 3
 
 [sub_resource type="Image" id="Image_icb3r"]
 data = {
@@ -2040,6 +2048,11 @@ Button/styles/focus = SubResource("StyleBoxFlat_o5gyf")
 Button/styles/hover = SubResource("StyleBoxFlat_gieir")
 Button/styles/normal = SubResource("StyleBoxTexture_qp5kd")
 Button/styles/pressed = SubResource("StyleBoxFlat_hqug5")
+MarginContainer/constants/margin_bottom = 0
+MarginContainer/constants/margin_left = 0
+MarginContainer/constants/margin_right = 0
+MarginContainer/constants/margin_top = 0
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_cy171")
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
 RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
 RichTextLabel/colors/font_selected_color = Color(0, 0, 0, 0)
