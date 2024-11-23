@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3v4y63kb2gyo"]
+[gd_scene load_steps=8 format=3 uid="uid://b3v4y63kb2gyo"]
 
 [ext_resource type="Script" path="res://engine/card_game/cards/rendered_card.gd" id="1_10ec2"]
 [ext_resource type="Texture2D" uid="uid://f0xham07p21n" path="res://engine/common/assets/Red_Icons/JPG/1.jpg" id="2_rqt2t"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="3_re0em"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_my4s8"]
+[ext_resource type="Script" path="res://engine/card_game/cards/modifier_display.gd" id="5_t7tf1"]
 [ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="5_ws1wp"]
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
@@ -150,34 +151,48 @@ border_color = Color(0.85098, 0, 0, 0)
 border_width = 20.0
 editor_only = false
 
-[node name="RegularBorder2" type="ColorRect" parent="."]
+[node name="ModifierDisplay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
 offset_left = -120.0
 offset_top = 172.0
 offset_right = 119.0
 offset_bottom = 520.0
 color = Color(0.584314, 0.878431, 0.980392, 1)
+script = ExtResource("5_t7tf1")
 
-[node name="PanelContainer" type="PanelContainer" parent="RegularBorder2"]
-layout_mode = 0
+[node name="Panel" type="PanelContainer" parent="ModifierDisplay"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 2.0
-offset_right = 236.0
-offset_bottom = 52.0
+offset_right = -3.0
+offset_bottom = -296.0
 theme = ExtResource("5_ws1wp")
 
-[node name="MarginContainer" type="MarginContainer" parent="RegularBorder2/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 30
-
-[node name="VBoxContainer" type="VBoxContainer" parent="RegularBorder2/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="RegularBorder2/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="RichTextTemplate" type="RichTextLabel" parent="ModifierDisplay/Panel"]
+visible = false
 layout_mode = 2
 theme = ExtResource("5_ws1wp")
 text = "LETHAL"
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="RegularBorder2/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ModifierDisplay/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ModifierDisplay/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ModifierDisplay/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_ws1wp")
+text = "LETHAL"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="ModifierDisplay/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_ws1wp")
 text = "ELECTRIFIED"
