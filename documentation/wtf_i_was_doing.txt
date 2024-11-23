@@ -15,7 +15,8 @@ d8acf474 - Button mask with alpha on hover
 ----
 
 
-TODO: Show modifiers on stubs while inspecting them
+TODO: Win/lose state for battles
+TODO: Button modifier cards
 TODO: Angry energy noise when you don't have enough energy
 
 STRONGLY CONSIDER (TODO): Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder

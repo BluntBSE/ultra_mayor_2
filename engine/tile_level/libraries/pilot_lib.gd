@@ -12,7 +12,7 @@ static var lib: Dictionary = {
 			"move_points": 4,
 			"moves_remaining": 4,
 			"speed_chart": SpeedChart.new({"mountain": 1, "water": 1}),
-			"default_deck": ["flamethrower", "weaken_stub", "flamethrower", "weaken_stub", "flamethrower", "weaken_stub", "flamethrower", "jiu_jitsu"]
+			"default_deck": ["counterattack", "weaken_stub", "counterattack", "weaken_stub", "flamethrower", "weaken_stub", "flamethrower"]
 		}
 	),
 	"demo_pilot_2":

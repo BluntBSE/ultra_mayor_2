@@ -50,7 +50,7 @@ func stateHandleInput(args: Dictionary) -> void:
 	#Receives a button or stub as part of {"event": stub}
 	#Before doing the below, determine what kind of target the card wants.
 	#Stubs or buttons?
-	if (args.event is PilotButton) or (args.event is KaijuButton):  #Buttons are controls, stubs are Node2D. Probably need a tighter way to check this. Node name might even be fine.
+	if (args.event is PilotButton) or (args.event is KaijuButton):
 		#NOTE: The while loops below imply that the job of any "submit X" button to exit early
 		# Does its job by setting these variables to 0 based on the current turn state.
 		print ("ARG IS ", args.event)
@@ -85,16 +85,23 @@ func stateHandleInput(args: Dictionary) -> void:
 			play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
 			return
 
-	if (args.event is KaijuCardStub) or (args.event is PlayerCardStub): #Stub
+	if (args.event is KaijuCardStub) or (args.event is PlayerCardStub):
 		if num_instant > 0:
 			print("NUM INSTANT CHECK")
 			#Do instants
 			if num_instant > 0:
+				if args.event in instant_targets: #Can't assign to the same target twice.
+					return
 				if num_instant >= instant_targets.size():
 					assign_instant([args.event])
+					#If a LogicalCard has "hits_origin" flagged, assign the instant targets played_from to resolve_targets
+					var lc:LogicalCard =  _reference.lc
+					if lc.hits_origin == true:
+						assign_resolve_primary([args.event.played_from])
 				if num_resolve == 0 and num_resolve_secondary == 0:
 					play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
 				return
+
 
 		if num_resolve > 0:
 			print("NUM RESOLVE CHECK", num_resolve)

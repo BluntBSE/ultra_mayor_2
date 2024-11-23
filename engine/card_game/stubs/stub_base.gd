@@ -159,7 +159,7 @@ func do_transit(args: Dictionary) -> void:
 
 func execute_resolve() -> void:
 	was_resolved.emit(self)
-	effects.call(resolve_effect, resolve_targets, resolve_targets_secondary, resolve_min, resolve_max)
+	effects.call(resolve_effect, resolve_targets, resolve_targets_secondary, resolve_min, resolve_max, modifiers)
 	played_from.graveyard.append(lc)
 	var t_args: Dictionary = {
 		"global_position": played_from.global_position,
@@ -211,8 +211,25 @@ func apply_modifiers_effects()->void:
 			resolve_min = floor(resolve_min/2)
 			resolve_max = floor(resolve_max/2)
 			update_values()
-
+		if modifier.modifier == "nullify_stub":
+			resolve_min = 0
+			resolve_max = 0
+			update_values()
 			pass
+		if modifier.modifier == "lethalize_stub":
+			resolve_min = max(resolve_min * 3)
+			resolve_max = max(resolve_max * 3)
+			update_values()
+		if modifier.modifier == "bolster_stub":
+			resolve_min = max(resolve_min * 2)
+			resolve_max = max(resolve_max * 2)
+			update_values()
+		if modifier.modifier == "maximize_stub":
+			resolve_min = resolve_max
+			update_values()
+		if modifier.modifier == "minimize_stub":
+			resolve_max = resolve_min
+			update_values()
 		pass
 	pass
 
