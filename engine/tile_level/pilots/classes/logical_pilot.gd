@@ -3,8 +3,8 @@ class_name LogicalPilot extends Occupant
 
 var reachable_path:Array = []
 #Deck, etc.
+var deck_path:String
 var deck:Array = []
-var deck_strings:Array = []
 var energy:int
 var services:Services
 signal pilot_path
@@ -21,8 +21,9 @@ func _init(args:Dictionary)->void:
 	display_name = args.display_name
 	move_points = args.move_points
 	moves_remaining = args.moves_remaining
-	deck_strings  = args.default_deck
 	energy = args.energy
+	deck_path  = args.default_deck #args.default_deck
+
 
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
@@ -35,11 +36,11 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 
 
 
-	var deck_arr:Array = []
-	var cs:CardService = services.get_card_service()
-	for card_name:String in deck_strings:
-		deck_arr.append(cs.cards[card_name])
-	deck = deck_arr
+	var temp: Resource = load(deck_path)
+	print("PATH WAS ", deck_path)
+	print("DECK EXISTST? ", temp)
+	deck = temp.cards
+
 
 
 #Determine whether or not a rendered tile signal concerns this occupant.

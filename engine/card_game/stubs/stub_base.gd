@@ -206,6 +206,8 @@ func undo_instant_effects()->void:
 
 
 func apply_modifiers_effects()->void:
+	reset_self()
+	print("Applying the following modifiers to ", lc.display_name, " ", modifiers)
 	for modifier:StubModifier in modifiers:
 		if modifier.modifier == "weaken_stub":
 			resolve_min = floor(resolve_min/2)
@@ -217,12 +219,12 @@ func apply_modifiers_effects()->void:
 			update_values()
 			pass
 		if modifier.modifier == "lethalize_stub":
-			resolve_min = max(resolve_min * 3)
-			resolve_max = max(resolve_max * 3)
+			resolve_min = resolve_min * 3
+			resolve_max = resolve_max * 3
 			update_values()
 		if modifier.modifier == "bolster_stub":
-			resolve_min = max(resolve_min * 2)
-			resolve_max = max(resolve_max * 2)
+			resolve_min = resolve_min * 2
+			resolve_max = resolve_max * 2
 			update_values()
 		if modifier.modifier == "maximize_stub":
 			resolve_min = resolve_max

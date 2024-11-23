@@ -13,11 +13,17 @@ d8acf474 - Button mask with alpha on hover
 ---Card Color Categories--
 95e0fa  - a kind of light blue
 ----
-
-
+BUG: Modifiers did not appear on stub when applying a second buff card
+TODO: Angry energy noise when you don't have enough energy
+TODO: Scaling text down if it doesn't fit
+TODO: Updating inspect copies with updated data
+TODO: Disable damaged pilots
+TODO: Disable damaged Kaiju
+TODO: Inspect graveyards/pilots/limbs?
+TODO: Damage effect that shows a glimpse of what's lost?
+TODO: Flee/Commit cycle for card battles
 TODO: Win/lose state for battles
 TODO: Button modifier cards
-TODO: Angry energy noise when you don't have enough energy
 
 STRONGLY CONSIDER (TODO): Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder
 

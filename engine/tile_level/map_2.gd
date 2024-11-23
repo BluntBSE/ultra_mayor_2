@@ -138,7 +138,7 @@ func add_test_elements() -> void:
 	var tt_1: LogicalTile = logical_grid[10][10]
 	var tt_2: LogicalTile = logical_grid[23][12]
 	var tt_3: LogicalTile = logical_grid[24][13]
-	var tt_4: LogicalTile = logical_grid[20][20]
+	var tt_4: LogicalTile = logical_grid[23][23]
 	var tt_5: LogicalTile = logical_grid[24][12]
 	var tt_6: LogicalTile = logical_grid[24][11]
 	tt_1.building = BuildingsLib.lib["coal_plant"]

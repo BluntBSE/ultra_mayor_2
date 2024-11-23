@@ -18,9 +18,11 @@ func process_directory(dir_path: String) -> Array:
 				card_paths = card_paths + (process_directory(new_path))
 
 			else:
+
 				var current_dir: String = dir.get_current_dir()
 				var file_path: String = current_dir + "/" + file_name
-				card_paths.append(file_path)
+				if file_name.begins_with("card_"):
+					card_paths.append(file_path)
 
 			file_name = dir.get_next()
 		return card_paths

@@ -1,4 +1,4 @@
-extends Node2D
+extends CardButton
 class_name PilotButton
 
 var state_machine:StateMachine
@@ -20,7 +20,8 @@ func count_string(left: int, starting: int) -> String:
 	return str(left) + "/" + str(starting)
 
 func update_count()->void:
-	card_count.text = count_string(cards_left, cards_starting)
+		cards_left = deck.size()
+		card_count.text = count_string(cards_left, cards_starting)
 
 
 #TODO: Put draw_card in the interactive state.
@@ -30,18 +31,12 @@ func draw_card()->void:
 		cards_left -= 1
 		update_count()
 		var card:RenderedCard = load("res://engine/card_game/cards/rendered_card.tscn").instantiate()
-		#remove_child(card)
 		hand.add_child(card)
 		card.global_position = self.global_position
 		card.scale = Vector2(0.25,0.25)
-		#card.position=Vector2(0.0,0.0)
 		card.unpack(logical_card, hand, interface, self)
-		#card.hand_exited.connect(hand.organize_cards)
 		hand.cards_in_hand.append(card)
-		#hand.reorganize()
 		hand.organize_cards()
-
-		#The way this SHOULD work is by reorganizing the hand subtly first (if there are any cards), and then by using slide_to_point to move the new card from the player_button to the hand
 
 
 

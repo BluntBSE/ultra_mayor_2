@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bi0qqc02cxt0t"]
 
-[ext_resource type="Texture2D" uid="uid://bimvfk5ctwm86" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_58.PNG" id="1_6nbjl"]
-[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_0nuf3"]
+[ext_resource type="Texture2D" uid="uid://bimvfk5ctwm86" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_58.PNG" id="1_bsu20"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_w4gdw"]
 
 [resource]
-script = ExtResource("2_0nuf3")
-id = "nullify_stub"
-display_name = "Nullify Stub"
-art = ExtResource("1_6nbjl")
+script = ExtResource("2_w4gdw")
+id = "card_counterattack"
+display_name = "Counterattack"
+art = ExtResource("1_bsu20")
 border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["pilot"]

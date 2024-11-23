@@ -1,15 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://blkxo5m4unhvn"]
 
-[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_wickk"]
-
-[sub_resource type="Resource" id="Resource_u3fye"]
-metadata/__load_path__ = "res://engine/card_game/assets/pilot_decks/AI_flamethrower.jpg"
+[ext_resource type="Texture2D" uid="uid://b2b4tenbamrxi" path="res://engine/common/assets/Red_Icons/JPG/2.jpg" id="1_8sify"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_b0yo5"]
 
 [resource]
-script = ExtResource("2_wickk")
-id = "lethalize_stub"
-display_name = "Lethalize Stub"
-art = SubResource("Resource_u3fye")
+script = ExtResource("2_b0yo5")
+id = "card_overclock"
+display_name = "Overclock"
+art = ExtResource("1_8sify")
 border = Color(0, 1, 0, 1)
 tier = 0
 limbs = ["pilot"]
@@ -31,5 +29,5 @@ resolve_max = 1
 types = ["physical"]
 affinities = ["forest"]
 affinity_effects = ["half_price"]
-description = "Flamethrower Description"
+description = "INSTANT: Apply LETHAL to %ni friendly cards. LETHAL cards multiply their resolve values by three."
 requirements = "\"\""

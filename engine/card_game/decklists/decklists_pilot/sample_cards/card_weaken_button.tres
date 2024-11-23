@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://df8oq2ok1n447"]
 
-[ext_resource type="Texture2D" uid="uid://d0ajss3pwdamb" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_13.PNG" id="1_f3q80"]
-[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_oenue"]
+[ext_resource type="Texture2D" uid="uid://d0ajss3pwdamb" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_13.PNG" id="1_ogj4p"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_hsofv"]
 
 [resource]
-script = ExtResource("2_oenue")
-id = "weaken_button"
+script = ExtResource("2_hsofv")
+id = "card_weaken_button"
 display_name = "Weaken Button"
-art = ExtResource("1_f3q80")
+art = ExtResource("1_ogj4p")
 border = Color(0.857011, 0.321961, 0.76151, 1)
 tier = 0
 limbs = ["pilot"]
@@ -18,6 +18,7 @@ instant_effect = "weaken_button"
 instant_targets = 0
 instant_value = 0
 instant_target_type = 4
+hits_origin = false
 resolve_effect = "weaken_button"
 resolve_targets = 1
 resolve_target_type = 1

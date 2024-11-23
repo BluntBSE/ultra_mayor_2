@@ -4,7 +4,8 @@
 
 [resource]
 script = ExtResource("1_nhtaf")
-modifier = "weaken_stub"
+modifier = "maximize_stub"
+modified_name = "Maximized"
 category = 1
 types = []
 description = ""

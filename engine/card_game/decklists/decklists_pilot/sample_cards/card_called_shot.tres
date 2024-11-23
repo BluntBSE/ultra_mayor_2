@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://cu7neqhfb5r14"]
+
+[ext_resource type="Texture2D" uid="uid://chtbai8is4emg" path="res://engine/common/assets/Blue_Icons/JPG/9.jpg" id="1_3kjpp"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_wwel1"]
+
+[resource]
+script = ExtResource("2_wwel1")
+id = "card_called_shot"
+display_name = "Called Shot"
+art = ExtResource("1_3kjpp")
+border = Color(0.15658, 0.780079, 0.891204, 1)
+tier = 0
+limbs = ["pilot"]
+playable_by = "pilot"
+pilot_types = ["all"]
+energy_cost = 1
+instant_effect = "maximize_stub"
+instant_targets = 1
+instant_value = 0
+instant_target_type = 0
+hits_origin = false
+resolve_effect = "no_effect"
+resolve_targets = 0
+resolve_target_type = 0
+resolve_secondary_targets = 0
+resolve_secondary_ttype = 4
+resolve_min = 1
+resolve_max = 1
+types = ["physical"]
+affinities = ["forest"]
+affinity_effects = ["half_price"]
+description = "INSTANT: Apply MAXIMIZE to %ni friendly cards. Maximized cards always resolve with their highest possible value."
+requirements = "\"\""
