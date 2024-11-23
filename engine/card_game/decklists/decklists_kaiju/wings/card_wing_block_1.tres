@@ -7,7 +7,7 @@ metadata/__load_path__ = "res://engine/card_game/assets/kaiju_decks/AI_spike_rup
 
 [resource]
 script = ExtResource("1_u1gyy")
-id = "wing_block_1"
+id = "card_wing_block_1"
 display_name = "Wing Block 1"
 art = SubResource("Resource_wynmu")
 border = Color(0, 1, 0, 1)
@@ -20,7 +20,8 @@ instant_effect = "debug_instant_effect"
 instant_targets = 0
 instant_value = 0
 instant_target_type = 1
-resolve_effect = "debug_resolve_effect"
+hits_origin = false
+resolve_effect = "simple_damage"
 resolve_targets = 1
 resolve_target_type = 0
 resolve_secondary_targets = 1

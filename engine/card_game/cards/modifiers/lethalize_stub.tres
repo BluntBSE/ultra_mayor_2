@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StubModifier" load_steps=2 format=3 uid="uid://chnw3j5865sif"]
+
+[ext_resource type="Script" path="res://engine/card_game/cards/stub_modifier.gd" id="1_klpfw"]
+
+[resource]
+script = ExtResource("1_klpfw")
+modifier = "lethalize_stub"
+modified_name = "Lethal"
+category = 1
+types = []
+description = ""
+color = Color(0.544965, 0.108391, 0.127718, 1)

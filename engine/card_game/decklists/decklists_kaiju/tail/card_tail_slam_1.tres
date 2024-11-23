@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_vt3sg")
-id = "tail_swipe_1"
+id = "card_tail_swipe_1"
 display_name = "Tail Swipe 1"
 art = ExtResource("1_bombk")
 border = Color(0.584314, 0.878431, 0.980392, 1)
@@ -18,7 +18,8 @@ instant_effect = "debug_instant_effect"
 instant_targets = 0
 instant_value = 0
 instant_target_type = 4
-resolve_effect = "debug_resolve_effect"
+hits_origin = false
+resolve_effect = "simple_damage"
 resolve_targets = 1
 resolve_target_type = 0
 resolve_secondary_targets = 1

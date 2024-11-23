@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://bknq4t542r74d"]
+[gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://da0hva5pdb0u8"]
 
-[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_3br77"]
-[ext_resource type="Texture2D" uid="uid://bemek27mxlucj" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_48.png" id="1_b7gij"]
+[ext_resource type="Texture2D" uid="uid://cnbvqhfavb2ri" path="res://engine/common/assets/RPG_Skills_Icons_15/slz_24.PNG" id="1_1d3hw"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_iw436"]
 
 [resource]
-script = ExtResource("1_3br77")
-id = "stomp_1"
+script = ExtResource("1_iw436")
+id = "card_stomp_1"
 display_name = "Stomp 1"
-art = ExtResource("1_b7gij")
+art = ExtResource("1_1d3hw")
 border = Color(0, 1, 0, 1)
 tier = 1
 limbs = ["legs"]
@@ -18,7 +18,8 @@ instant_effect = "debug_instant_effect"
 instant_targets = 0
 instant_value = 0
 instant_target_type = 1
-resolve_effect = "debug_resolve_effect"
+hits_origin = false
+resolve_effect = "simple_damage"
 resolve_targets = 1
 resolve_target_type = 0
 resolve_secondary_targets = 1

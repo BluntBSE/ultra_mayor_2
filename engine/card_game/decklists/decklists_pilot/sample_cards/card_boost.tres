@@ -7,7 +7,7 @@ metadata/__load_path__ = "res://engine/card_game/assets/pilot_decks/AI_psychic.j
 
 [resource]
 script = ExtResource("2_jyftj")
-id = "bolster_stub"
+id = "card_bolster_stub"
 display_name = "Bolster Stub"
 art = SubResource("Resource_r720g")
 border = Color(0.959119, 0.360652, 0.761797, 1)
@@ -20,6 +20,7 @@ instant_effect = "debug_instant_effect"
 instant_targets = 1
 instant_value = 0
 instant_target_type = 3
+hits_origin = false
 resolve_effect = "simple_damage"
 resolve_targets = 0
 resolve_target_type = 0

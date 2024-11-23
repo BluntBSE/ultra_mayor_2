@@ -1,4 +1,4 @@
-extends Node2D
+extends CardButton
 class_name KaijuButton
 
 var hovered:bool = false

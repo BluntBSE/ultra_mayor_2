@@ -192,11 +192,11 @@ func do_player_turn() -> void:
 	player_resolve_effects()
 	kaiju_resolve_effects()
 	%KaijuMain.do_kaiju_turn()
+	energy = 0
+	max_energy = 0
 	for pilot: LogicalPilot in battle_object.pilots:
 		#We do this loop because downed pilots don't contribute.
 		#TODO: Modify to check for downed pilots.
-		energy = 0
-		max_energy = 0
 		energy += pilot.energy
 		max_energy += pilot.energy
 		energy_signal.emit(energy, max_energy)

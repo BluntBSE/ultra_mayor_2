@@ -12,32 +12,6 @@ func show_resolve_targets()->void:
 
 
 
-"""
-func unpack(_lc: LogicalCard, _played_from:Control) -> void:
-	#Played from is a pilotbutton or a kaiju button
-	played_from = _played_from
-	lc = _lc
-	art = find_child("ArtImg")
-	art.texture = lc.art
-
-	cost_poly = find_child("EnergyCostPoly")
-	cost_poly.color = lc.border
-
-	#cost_poly = find_child("CostLabelPoly")
-	#cost_poly.color = lc.border
-
-	value_label = find_child("ValueLabel")
-	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
-
-
-	effects = CardEffects.new()
-
-	pass
-
-"""
-
-
-
 
 func do_input(_event:InputEvent)->void:
 	pass

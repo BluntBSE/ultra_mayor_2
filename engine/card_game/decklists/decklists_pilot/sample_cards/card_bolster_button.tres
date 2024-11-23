@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="LogicalCard" load_steps=3 format=3 uid="uid://cfx43bgcnflqa"]
 
-[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="2_goqcn"]
+[ext_resource type="Script" path="res://engine/card_game/logical_card.gd" id="1_mxlll"]
 
 [sub_resource type="Resource" id="Resource_8rlx0"]
 metadata/__load_path__ = "res://engine/card_game/assets/pilot_decks/AI_psychic.jpg"
 
 [resource]
-script = ExtResource("2_goqcn")
-id = "bolster_button"
+script = ExtResource("1_mxlll")
+id = "card_bolster_button"
 display_name = "Bolster Button"
 art = SubResource("Resource_8rlx0")
 border = Color(0.0650561, 0.486191, 0.628437, 1)
@@ -20,6 +20,7 @@ instant_effect = "nullify_stub"
 instant_targets = 0
 instant_value = 0
 instant_target_type = 4
+hits_origin = false
 resolve_effect = "bolster_button"
 resolve_targets = 1
 resolve_target_type = 1

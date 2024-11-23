@@ -15,6 +15,7 @@ extends Resource
 @export var instant_targets: int
 @export var instant_value: int
 @export var instant_target_type: int = 4
+@export var hits_origin:bool = false
 
 # Resolve effects take place after the "resolve" button is hit.
 # Player cards resolve first, from left to right. Then kaiju, from left to right.
