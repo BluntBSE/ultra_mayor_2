@@ -37,8 +37,10 @@ func stateHandleInput(args:Dictionary)->void:
 		inspect_node.add_child(dummy_hand)
 		var interface:BattleInterface = ref.get_tree().root.find_child("BattleInterface", true, false)
 		inspect_copy.unpack(ref.lc, dummy_hand, interface, ref.played_from)
+		inspect_copy.modifier_display.display_modifiers(_reference.modifiers)
 		inspect_copy.card_description.text = inspect_copy.parse_description(ref.lc.description, ref.lc.instant_targets, ref.lc.resolve_targets, ref.lc.resolve_secondary_targets, ref.lc.resolve_min, ref.lc.resolve_max)
 		inspect_node.global_position = inspect_node.global_position
+
 
 	if args.event == "l_click" and _reference.hovered == true:
 		pass		#ref.was_clicked.emit(ref)
@@ -57,7 +59,6 @@ func stateHandleInput(args:Dictionary)->void:
 		if dummy_hand != null:
 			dummy_hand.queue_free()
 		pass
-
 
 
 func stateExit() -> void:

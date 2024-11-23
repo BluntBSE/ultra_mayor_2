@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_sie3l")
 modifier = "weaken_stub"
+modified_name = "Weakened"
 category = 1
 types = []
 description = ""

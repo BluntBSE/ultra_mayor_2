@@ -216,6 +216,8 @@ func apply_modifiers_effects()->void:
 		pass
 	pass
 
+func do_uninteractive()->void:
+	state_machine.Change("normal", {})
 
 
 func apply_modifiers()->void:

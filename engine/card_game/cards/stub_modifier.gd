@@ -3,6 +3,7 @@ extends Resource
 
 @export var modifier:String
 ## enum CATEGORIES {buff, debuff, terrain, building}
+@export var modified_name:String
 @export var category:int
 ## enum TYPES {physical, electric, water, fire, organic, psychic}
 @export var types:Array

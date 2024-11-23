@@ -168,7 +168,16 @@ func unpack(_battle_object: BattleObject) -> void:
 #####TURN MANAGER -- CONSIDER MOVING TO ITS OWN NODE?
 func player_resolve_effects() -> void:
 	var p_in_play_node: PlayerInPlay = %PlayerInPlay
+	var k_in_play_node: KaijuInPlay = %KaijuInPlay
+
 	var player_stubs: Array = p_in_play_node.get_children()
+	#Two loops here because execute_resolve takes time.
+	for stub: PlayerCardStub in player_stubs:
+		stub.do_uninteractive()#Make player unable to hover over anything during this time
+
+	for stub: KaijuCardStub in k_in_play_node.get_children():
+		stub.do_uninteractive()
+
 	for stub: PlayerCardStub in player_stubs:
 		stub.execute_resolve()
 
