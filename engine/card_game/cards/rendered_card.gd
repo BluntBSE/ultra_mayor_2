@@ -29,7 +29,7 @@ var interface:BattleInterface
 var interactivity_mode:String = "interactive"
 var origin:Node2D #TODO: Make a shared button class
 
-var modifier_display:ColorRect
+var modifier_display:ModifierPanelContainer
 
 
 signal being_assigned
@@ -74,8 +74,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	interface = _interface
 	origin = _origin
 	cost = lc.energy_cost
-	modifier_display = %ModifierDisplay
-	modifier_display.color = lc.border
+	modifier_display = %ModifierPanelContainer
 
 	connect("turn_signal", interface.handle_pcard_sig)
 	connect("target_signal", interface.handle_pcard_target)

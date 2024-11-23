@@ -4,10 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://f0xham07p21n" path="res://engine/common/assets/Red_Icons/JPG/1.jpg" id="2_rqt2t"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="3_re0em"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_my4s8"]
-[ext_resource type="Script" path="res://engine/card_game/cards/modifier_display.gd" id="5_t7tf1"]
-[ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="5_ws1wp"]
+[ext_resource type="Script" path="res://engine/card_game/cards/modifier_panel_container.gd" id="7_pxmjb"]
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16xwl"]
+content_margin_left = 30.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.866667, 0.588235, 0.976471, 1)
 
 [node name="RenderedCard" type="Node2D"]
 script = ExtResource("1_10ec2")
@@ -151,52 +159,20 @@ border_color = Color(0.85098, 0, 0, 0)
 border_width = 20.0
 editor_only = false
 
-[node name="ModifierDisplay" type="ColorRect" parent="."]
+[node name="ModifierPanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 visible = false
-offset_left = -120.0
-offset_top = 172.0
-offset_right = 119.0
-offset_bottom = 520.0
-color = Color(0.584314, 0.878431, 0.980392, 1)
-script = ExtResource("5_t7tf1")
-
-[node name="Panel" type="PanelContainer" parent="ModifierDisplay"]
-unique_name_in_owner = true
-layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = -3.0
-offset_bottom = -296.0
-theme = ExtResource("5_ws1wp")
+offset_left = -120.0
+offset_top = 173.0
+offset_right = 119.0
+offset_bottom = 173.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_16xwl")
+script = ExtResource("7_pxmjb")
 
-[node name="RichTextTemplate" type="RichTextLabel" parent="ModifierDisplay/Panel"]
-visible = false
+[node name="ModifierVBox" type="VBoxContainer" parent="ModifierPanelContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("5_ws1wp")
-text = "LETHAL"
-fit_content = true
-
-[node name="MarginContainer" type="MarginContainer" parent="ModifierDisplay/Panel"]
-layout_mode = 2
-theme_override_constants/margin_left = 30
-
-[node name="VBoxContainer" type="VBoxContainer" parent="ModifierDisplay/Panel/MarginContainer"]
-layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ModifierDisplay/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("5_ws1wp")
-text = "LETHAL"
-fit_content = true
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="ModifierDisplay/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("5_ws1wp")
-text = "ELECTRIFIED"
-fit_content = true
 
 [connection signal="gui_input" from="MouseArea" to="." method="_on_mouse_area_gui_input"]
 [connection signal="mouse_entered" from="MouseArea" to="." method="_on_mouse_area_mouse_entered"]
