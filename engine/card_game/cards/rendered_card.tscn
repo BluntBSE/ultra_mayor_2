@@ -112,18 +112,18 @@ metadata/_edit_use_anchors_ = true
 [node name="Polygon2D4" type="Polygon2D" parent="."]
 position = Vector2(44, -152)
 color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(73, 5, 12.5, 5, 12, 5, 11, 4, -12.5, -21.6506, 72, -21.6506, 73, 0)
+polygon = PackedVector2Array(73, 5, 12.5, 5, 12, 5, -5, 5, -20, -21.6506, 72, -21.6506, 73, 0)
 
 [node name="ValueLabel" type="RichTextLabel" parent="Polygon2D4"]
-offset_left = 8.0
-offset_top = -25.0
-offset_right = 71.0
-offset_bottom = 9.0
+offset_left = -6.0
+offset_top = -23.0
+offset_right = 74.0
+offset_bottom = 11.0
 mouse_filter = 2
 theme = SubResource("Theme_ni6wk")
-theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
-text = "[center]6 - 9[/center]"
+text = "[center]60 - 90[/center]"
 metadata/_edit_use_anchors_ = true
 
 [node name="CostLabelPoly" type="Polygon2D" parent="."]

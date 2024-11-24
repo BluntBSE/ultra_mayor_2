@@ -13,6 +13,7 @@ var target_submit_window:TargetSubmitWindow
 var hover_border: ColorRect
 signal submit_response
 signal did_assign
+signal did_cancel
 
 
 func stateEnter(args: Dictionary) -> void:
@@ -24,6 +25,7 @@ func stateEnter(args: Dictionary) -> void:
 	submit_button.connect("submit", handle_submit)
 	connect("submit_response", target_submit_window.handle_submit_response)
 	connect("did_assign", target_submit_window.handle_assign)
+	connect("did_cancel", target_submit_window.handle_canceled)
 	indicator = IndicateArrow.new()
 	_reference.add_child(indicator)
 	indicator.visible = false
@@ -128,12 +130,21 @@ func stateHandleInput(args: Dictionary) -> void:
 		pass
 
 	if args.event is String:
+		print("EVENT RECEIVED WAS ", args.event)
 		if args.event == "change_assigned":
 			hover_border.visible = false
 			_reference.state_machine.Change("interactive", {})
 			_reference.hand.organize_cards()
 			indicator.visible = false
 			indicator.queue_free()
+		if args.event == "cancel":
+			print("Right click detected from playerassignresolve")
+			hover_border.visible = false
+			_reference.state_machine.Change("interactive", {})
+			_reference.hand.organize_cards()
+			indicator.visible = false
+			indicator.queue_free()
+			did_cancel.emit()
 
 func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
@@ -170,8 +181,6 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	stub.connect("was_resolved", player_in_play.handle_resolved)
 	stub.state_machine.Change("normal", {})#Do not allow any state changes until the in_play completes transit
 
-	#TODO: Stubs may need a transit state like the cards did.
-	#stub.position = Vector2(0.0, 0.0)
 	stub.global_position = _reference.hand.global_position
 	stub.scale = Vector2(0.25, 0.25)
 	_reference.was_played.emit(stub)  #Emits the stub that represents the card, not the card itself
@@ -183,6 +192,8 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 	pass
 
 func stateUpdate(_dt:float)->void:
+	if is_right_mouse_released():
+		stateHandleInput({"event":"cancel"})
 	#Regenrating this arrow every frame might be bad.
 	#indicator.queue_free()
 	indicator.visible = true
@@ -215,3 +226,7 @@ func handle_submit()->void:
 		play_card(_reference, resolve_targets, resolve_targets_secondary, instant_targets)
 		return
 	submit_response.emit(num_instant, num_resolve, num_resolve_secondary, lc)
+
+
+func is_right_mouse_released() -> bool:
+	return Input.is_action_just_released("right_click")

@@ -13,7 +13,9 @@ d8acf474 - Button mask with alpha on hover
 ---Card Color Categories--
 95e0fa  - a kind of light blue
 ----
-BUG: Modifiers did not appear on stub when applying a second buff card
+TODO: When doing another thing that requires input, try using _unhandled_input instead
+Learn about why that's better
+TODO: When hovering over a card in play, indicate what it is targeting.
 TODO: Angry energy noise when you don't have enough energy
 TODO: Scaling text down if it doesn't fit
 TODO: Updating inspect copies with updated data
@@ -23,6 +25,7 @@ TODO: Inspect graveyards/pilots/limbs?
 TODO: Damage effect that shows a glimpse of what's lost?
 TODO: Flee/Commit cycle for card battles
 TODO: Win/lose state for battles
+TODO: Add type interactions, and types to rendered_cards, including local terrain
 TODO: Button modifier cards
 
 STRONGLY CONSIDER (TODO): Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder

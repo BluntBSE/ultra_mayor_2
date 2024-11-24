@@ -143,8 +143,7 @@ func _on_mouse_area_gui_input(event:InputEvent)->void:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.pressed:
 				state_machine.handleInput({"event":"l_click"})
-			else:
-				pass
+
 	pass # Replace with function body.
 
 
@@ -170,8 +169,10 @@ func parse_description(str:String, _num_instant:int, _num_resolve:int, _num_reso
 	new_str = new_str.replace(resolve_max, str(_resolve_max))
 	return new_str
 
-
-
+func update_vals_and_desc(str:String, _num_instant:int, _num_resolve:int, _num_resolve_2:int, _resolve_min:int, _resolve_max:int)->void:
+		value_label.text = str(_resolve_min) + " - " + str(_resolve_max)
+		card_description.text = parse_description(lc.description, _num_instant, _num_resolve, _num_resolve_2, _resolve_min, _resolve_max)
+		#If the card has resolve values of 0/0,
 func _process(delta:float)->void:
 	state_machine.stateUpdate(delta)
 
