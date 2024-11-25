@@ -30,5 +30,6 @@ types = ["physical"]
 affinities = ["forest"]
 affinity_effects = ["half_price"]
 description = "INSTANT: NULLIFY the target card.
-RESOLVE: Deal damage to that card's origin."
+
+RESOLVE: Deal %rmn - %rmx damage to that card's origin."
 requirements = "\"\""
