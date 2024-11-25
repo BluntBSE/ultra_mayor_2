@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dvvd7bbd40115"]
+
+[ext_resource type="FontFile" uid="uid://c06sl4fhg8vm2" path="res://engine/common/fonts/forced_square/FORCED SQUARE.ttf" id="1_5euyn"]
+
+[resource]
+default_font = ExtResource("1_5euyn")

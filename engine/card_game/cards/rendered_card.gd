@@ -50,7 +50,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	art.texture = lc.art
 
 	display_name = find_child("DisplayName")
-	display_name.text = lc.display_name
+	display_name.text = "[center]"+lc.display_name+"[/center]"
 	regular_border = find_child("RegularBorder")
 	regular_border.color = lc.border
 	border = find_child("LabelRect")
@@ -59,11 +59,9 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	hover_border = find_child("HoverBorder")
 	hover_border.color = lc.border
 
-	cost_label_poly = find_child("CostLabelPoly")
-	cost_label_poly.color = lc.border
 
 	value_label = find_child("ValueLabel")
-	value_label.text = str(lc.resolve_min) + " - " + str(lc.resolve_max)
+	value_label.text = "[center]"+str(lc.resolve_min) + " - " + str(lc.resolve_max)+"[/center]"
 	card_description = find_child("CardDescription")
 	card_description.text = parse_description(lc.description, lc.instant_targets, lc.resolve_targets, lc.resolve_secondary_targets, lc.resolve_min, lc.resolve_max)
 	inspect_node = get_tree().root.find_child("InspectCard", true, false)
@@ -170,7 +168,7 @@ func parse_description(str:String, _num_instant:int, _num_resolve:int, _num_reso
 	return new_str
 
 func update_vals_and_desc(str:String, _num_instant:int, _num_resolve:int, _num_resolve_2:int, _resolve_min:int, _resolve_max:int)->void:
-		value_label.text = str(_resolve_min) + " - " + str(_resolve_max)
+		value_label.text = "[center]"+str(_resolve_min) + " - " + str(_resolve_max)+"[/center]"
 		card_description.text = parse_description(lc.description, _num_instant, _num_resolve, _num_resolve_2, _resolve_min, _resolve_max)
 		#If the card has resolve values of 0/0,
 func _process(delta:float)->void:

@@ -1,12 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3v4y63kb2gyo"]
+[gd_scene load_steps=9 format=3 uid="uid://b3v4y63kb2gyo"]
 
 [ext_resource type="Script" path="res://engine/card_game/cards/rendered_card.gd" id="1_10ec2"]
 [ext_resource type="Texture2D" uid="uid://f0xham07p21n" path="res://engine/common/assets/Red_Icons/JPG/1.jpg" id="2_rqt2t"]
-[ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="3_re0em"]
-[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_my4s8"]
+[ext_resource type="Theme" uid="uid://dvvd7bbd40115" path="res://card_theme.tres" id="3_dp482"]
+[ext_resource type="FontFile" uid="uid://c06sl4fhg8vm2" path="res://engine/common/fonts/forced_square/FORCED SQUARE.ttf" id="4_bvvat"]
+[ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="5_ws1wp"]
+[ext_resource type="FontFile" uid="uid://dfp7cb40l2l15" path="res://engine/common/fonts/oxanium/Oxanium-Medium.ttf" id="6_jrveq"]
 [ext_resource type="Script" path="res://engine/card_game/cards/modifier_panel_container.gd" id="7_pxmjb"]
-
-[sub_resource type="Theme" id="Theme_ni6wk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16xwl"]
 content_margin_left = 30.0
@@ -39,7 +39,7 @@ mouse_filter = 2
 color = Color(0.996078, 0.964706, 0.909804, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="UpperBorder" type="ColorRect" parent="."]
 offset_left = -118.0
 offset_top = -173.0
 offset_right = 117.0
@@ -50,39 +50,65 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ImgMask" type="ColorRect" parent="."]
 clip_children = 1
-offset_left = -90.0
-offset_top = -146.0
-offset_right = 85.0
-offset_bottom = 29.0
+anchors_preset = -1
+offset_left = -118.0
+offset_top = -153.0
+offset_right = 117.0
+offset_bottom = 22.0
 mouse_filter = 2
 color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="ArtImg" type="Sprite2D" parent="ImgMask"]
-position = Vector2(88, 66)
+position = Vector2(113, 66)
 texture = ExtResource("2_rqt2t")
 
 [node name="LabelRect" type="ColorRect" parent="."]
 offset_left = -118.0
 offset_top = -173.0
 offset_right = 99.0
-offset_bottom = -147.0
+offset_bottom = -153.0
 mouse_filter = 2
+theme = ExtResource("3_dp482")
 color = Color(0.329412, 0.933333, 0.184314, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CostLabel" type="RichTextLabel" parent="LabelRect"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0425533
+anchor_top = 0.0290698
+anchor_right = 0.106383
+anchor_bottom = 0.0726745
+offset_left = -4.23406
+offset_top = 2.24418
+offset_right = 1.76594
+offset_bottom = 21.1105
+mouse_filter = 2
+theme = ExtResource("3_dp482")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_bvvat")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]1[/center]"
+fit_content = true
 metadata/_edit_use_anchors_ = true
 
 [node name="DisplayName" type="RichTextLabel" parent="LabelRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.769
+anchor_left = 0.119816
+anchor_top = 0.1
+anchor_right = 0.737327
+anchor_bottom = 0.8497
 offset_top = 2.0
 offset_bottom = 10.006
 mouse_filter = 2
+theme = ExtResource("3_dp482")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_re0em")
 bbcode_enabled = true
-text = "[center]Jiu Jitsu[/center]"
+text = "Jiu Jitsu"
 metadata/_edit_use_anchors_ = true
 
 [node name="LabelRect2" type="ColorRect" parent="."]
@@ -95,58 +121,63 @@ color = Color(0, 0, 0, 0.67451)
 metadata/_edit_use_anchors_ = true
 
 [node name="CardDescription" type="RichTextLabel" parent="LabelRect2"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.769
+anchor_left = -0.112821
+anchor_top = -0.17094
+anchor_right = 1.15385
+anchor_bottom = 0.461308
 offset_left = 9.0
 offset_top = 14.0
 offset_right = -12.0
 offset_bottom = 22.027
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("3_re0em")
+theme = ExtResource("5_ws1wp")
+theme_override_fonts/normal_font = ExtResource("6_jrveq")
+theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
-text = "Change the target of the limb that you damage with this ability"
+text = "INSTANT: Apply MAXIMIZE to %ni friendly cards. 
+
+Maximized cards always resolve with their highest possible value.
+
+This card has forest affinity."
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="TypeDescription" type="RichTextLabel" parent="LabelRect2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0599551
+anchor_top = 2.81538
+anchor_right = 1.08363
+anchor_bottom = 2.87516
+offset_left = -0.308758
+offset_top = -212.4
+offset_right = -0.308762
+offset_bottom = -204.394
+mouse_filter = 2
+theme = ExtResource("3_dp482")
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "Fire, Physical"
 metadata/_edit_use_anchors_ = true
 
 [node name="Polygon2D4" type="Polygon2D" parent="."]
 position = Vector2(44, -152)
 color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(73, 5, 12.5, 5, 12, 5, -5, 5, -20, -21.6506, 72, -21.6506, 73, 0)
+polygon = PackedVector2Array(55, -1, 3, -1, -9, -21.6506, 72, -21.6506, 73, -1)
 
 [node name="ValueLabel" type="RichTextLabel" parent="Polygon2D4"]
-offset_left = -6.0
-offset_top = -23.0
-offset_right = 74.0
-offset_bottom = 11.0
+offset_left = -3.0
+offset_top = -20.0
+offset_right = 77.0
 mouse_filter = 2
-theme = SubResource("Theme_ni6wk")
+theme = ExtResource("3_dp482")
 theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[center]60 - 90[/center]"
-metadata/_edit_use_anchors_ = true
-
-[node name="CostLabelPoly" type="Polygon2D" parent="."]
-position = Vector2(95, 149)
-rotation = 0.785398
-color = Color(0.329412, 0.933333, 0.184314, 1)
-polygon = PackedVector2Array(25, 0, 1.53076e-15, 25, -25, 3.06152e-15, -4.59227e-15, -25, 25, 0)
-script = ExtResource("4_my4s8")
-sides = 4
-radius = 25.0
-
-[node name="CostLabel" type="RichTextLabel" parent="CostLabelPoly"]
-offset_left = -28.2843
-offset_top = 1.41421
-offset_right = 13.7157
-offset_bottom = 41.4142
-rotation = -0.785398
-mouse_filter = 2
-theme = SubResource("Theme_ni6wk")
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "[center]1[/center]"
 metadata/_edit_use_anchors_ = true
 
 [node name="MouseArea" type="ReferenceRect" parent="."]
