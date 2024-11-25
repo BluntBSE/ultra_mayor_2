@@ -87,6 +87,7 @@ func handle_kaiju_turn_finished() -> void:
 
 
 func handle_pcard_sig(state: String) -> void:
+	print("Interface received ", state)
 	if state == "interactive":
 		active_turn = TURN_STATES.PLAYER
 	if state == "assigning_instant":
@@ -97,7 +98,7 @@ func handle_pcard_sig(state: String) -> void:
 
 
 func handle_pcard_target(type: int) -> void:
-	#print("Interface is broadcasting the pcards targets")
+	print("Interface is broadcasting the pcards targets", type)
 	targeting_state=type
 	targeting_signal.emit(type)  #We might not actually use this, but interrogate it from the buttons
 

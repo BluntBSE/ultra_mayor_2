@@ -100,7 +100,7 @@ func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void
 	card_count.text = count_string(cards_starting, cards_left)
 	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
-	interface.turn_signal.connect(switch_interactivity)
+	#interface.turn_signal.connect(switch_interactivity)
 	connect("was_clicked", interface.broadcast_button) #Communicates what was clicked on for card targeting
 	interface.connect("targeting_signal", handle_target_signal)
 

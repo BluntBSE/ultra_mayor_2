@@ -101,6 +101,14 @@ func _ready() -> void:
 	state_machine.Change("interactive", {})
 	pass
 
+func handle_canceled()->void:
+	print("Hello from handlecancel in rc")
+	state_machine.Change("interactive", {})
+	hand.organize_cards()
+	target_signal.emit(LogicalCard.target_types.NONE)
+	#turn_signal.emit("interactive") #Why are we using strings here and not the enum? I recall there being a reason...
+	pass
+
 func do_on_played()->void:
 	#Whenever a card is played, it should emit that the turn is back to the player state.
 	energy_spent.emit(cost) #TODO: Once we get into modifiers, energy cost can change.

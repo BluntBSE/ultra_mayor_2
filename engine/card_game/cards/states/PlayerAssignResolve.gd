@@ -26,6 +26,7 @@ func stateEnter(args: Dictionary) -> void:
 	connect("submit_response", target_submit_window.handle_submit_response)
 	connect("did_assign", target_submit_window.handle_assign)
 	connect("did_cancel", target_submit_window.handle_canceled)
+	connect("did_cancel", ref.handle_canceled)
 	indicator = IndicateArrow.new()
 	_reference.add_child(indicator)
 	indicator.visible = false
@@ -140,11 +141,11 @@ func stateHandleInput(args: Dictionary) -> void:
 		if args.event == "cancel":
 			print("Right click detected from playerassignresolve")
 			hover_border.visible = false
-			_reference.state_machine.Change("interactive", {})
-			_reference.hand.organize_cards()
+
 			indicator.visible = false
 			indicator.queue_free()
 			did_cancel.emit()
+
 
 func assign_resolve_primary(arg: Array) -> void:  #Truly this is an untyped variable of either Button or Stub.
 	#However, resolutions can only have cards or stubs at once and not both, so this is not an issue.
@@ -194,6 +195,7 @@ func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: 
 func stateUpdate(_dt:float)->void:
 	if is_right_mouse_released():
 		stateHandleInput({"event":"cancel"})
+		return
 	#Regenrating this arrow every frame might be bad.
 	#indicator.queue_free()
 	indicator.visible = true

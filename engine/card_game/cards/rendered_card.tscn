@@ -50,7 +50,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ImgMask" type="ColorRect" parent="."]
 clip_children = 1
-anchors_preset = -1
 offset_left = -118.0
 offset_top = -153.0
 offset_right = 117.0

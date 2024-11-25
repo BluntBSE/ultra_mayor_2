@@ -13,7 +13,7 @@ d8acf474 - Button mask with alpha on hover
 ---Card Color Categories--
 95e0fa  - a kind of light blue
 ----
-BUG: Can't draw cards if you right click to cancel a card play
+BUG: Can't draw cards if you right click to cancel a card play--- Where's that mystery 3 coming from
 TODO: When doing another thing that requires input, try using _unhandled_input instead
 Learn about why that's better
 SCRATCHED: Scaling text down if it doesn't fit
