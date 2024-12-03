@@ -1,12 +1,49 @@
-[gd_scene load_steps=9 format=3 uid="uid://b76fbdw7wngcq"]
+[gd_scene load_steps=17 format=3 uid="uid://b76fbdw7wngcq"]
 
 [ext_resource type="Script" path="res://engine/main_menu/main_menu.gd" id="1_onpob"]
 [ext_resource type="Texture2D" uid="uid://b6pkyprfdfy2f" path="res://engine/main_menu/take_2/assets/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Night/1.png" id="2_f702j"]
 [ext_resource type="Material" uid="uid://dtc1a2bwq5cek" path="res://engine/main_menu/take_2/assets/test_1.tres" id="2_i65yg"]
 [ext_resource type="Texture2D" uid="uid://phhyqnhjm7re" path="res://engine/main_menu/take_2/assets/craftpix-net-832833-free-scrolling-city-backgrounds-pixel-art/1 Backgrounds/1/Day/3.png" id="3_hl73r"]
-[ext_resource type="Texture2D" uid="uid://b0m04m8wsrtu2" path="res://engine/main_menu/take_2/AI_Mayoral.png" id="5_y7rm1"]
-[ext_resource type="Theme" path="res://engine/common/themes/main_menu_theme_2.tres" id="6_tq3qu"]
+[ext_resource type="Shader" path="res://engine/common/shaders/pixel_explode.gdshader" id="5_lr1cd"]
+[ext_resource type="Texture2D" uid="uid://bcew4613sy3rt" path="res://engine/common/1x1.png" id="6_bp6su"]
+[ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="6_tq3qu"]
 [ext_resource type="FontFile" uid="uid://1idi5vmmueda" path="res://engine/common/fonts/inversionz/Inversionz Unboxed.otf" id="7_s7e2s"]
+[ext_resource type="Shader" path="res://engine/common/shaders/text_glitch_1.gdshader" id="7_t1o10"]
+[ext_resource type="Shader" path="res://engine/common/shaders/checkerboard_1.gdshader" id="10_htvjb"]
+[ext_resource type="Texture2D" uid="uid://cnk6xj34tbjdd" path="res://engine/common/assets/Blue_Icons/JPG/1.jpg" id="10_l35k3"]
+[ext_resource type="Texture2D" uid="uid://cd548t1g0ox1t" path="res://engine/common/assets/Pink_Seals/PNG/6.png" id="11_qtygu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xjy5q"]
+shader = ExtResource("5_lr1cd")
+shader_parameter/spread = 180.0
+shader_parameter/inherit_emitter_velocity_ratio = 0.0
+shader_parameter/initial_linear_velocity_min = 100.0
+shader_parameter/initial_linear_velocity_max = 120.0
+shader_parameter/orbit_velocity_min = 100.0
+shader_parameter/orbit_velocity_max = 120.0
+shader_parameter/radial_velocity_min = 100.0
+shader_parameter/radial_velocity_max = 120.0
+shader_parameter/linear_accel_min = 100.0
+shader_parameter/linear_accel_max = 120.0
+shader_parameter/radial_accel_min = 100.0
+shader_parameter/radial_accel_max = 120.0
+shader_parameter/tangent_accel_min = 100.0
+shader_parameter/tangent_accel_max = 120.0
+shader_parameter/damping_min = 100.0
+shader_parameter/damping_max = 120.0
+shader_parameter/scale_min = 1.0
+shader_parameter/scale_max = 2.0
+shader_parameter/lifetime_randomness = null
+shader_parameter/emission_shape_offset = Vector3(0, 0, 0)
+shader_parameter/emission_shape_scale = Vector3(1, 1, 1)
+shader_parameter/emission_box_extents = Vector3(100, 100, 0)
+shader_parameter/sprite = ExtResource("6_bp6su")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_db1qd"]
+shader = ExtResource("7_t1o10")
+shader_parameter/size = Vector2(947, 697)
+shader_parameter/speed = null
+shader_parameter/custom_resolution = Vector2(5, 5)
 
 [sub_resource type="Environment" id="Environment_ibhrm"]
 background_mode = 3
@@ -18,6 +55,15 @@ glow_blend_mode = 0
 fog_light_energy = 8.45
 fog_sun_scatter = 2.25
 fog_height = 9.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6g1ko"]
+shader = ExtResource("10_htvjb")
+shader_parameter/progress = 0.16
+shader_parameter/sprite_scale_begin = 0.255
+shader_parameter/sprite_scale_end = 5.0
+shader_parameter/particle_scale_begin = 0.67
+shader_parameter/particle_scale_end = 5.0
+shader_parameter/dissolve_texture = ExtResource("11_qtygu")
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_onpob")
@@ -39,13 +85,17 @@ position = Vector2(0.905182, -2.68261)
 scale = Vector2(1.00105, 0.99264)
 texture = ExtResource("3_hl73r")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="4" type="Sprite2D" parent="bg"]
 visible = false
-position = Vector2(1560, 796)
-scale = Vector2(0.668945, 0.668945)
-texture = ExtResource("5_y7rm1")
+texture_repeat = 2
+material = SubResource("ShaderMaterial_xjy5q")
+use_parent_material = true
+position = Vector2(965.563, 530.826)
+scale = Vector2(3.38723, 3.39458)
+texture = ExtResource("3_hl73r")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
+material = SubResource("ShaderMaterial_db1qd")
 offset_left = 937.0
 offset_top = 283.0
 offset_right = 1884.0
@@ -54,8 +104,9 @@ theme_override_fonts/normal_font = ExtResource("7_s7e2s")
 theme_override_font_sizes/normal_font_size = 200
 bbcode_enabled = true
 text = "Ultra 
+Mayor
 
-Mayor"
+BONUS"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ibhrm")
@@ -88,6 +139,11 @@ layout_mode = 2
 theme = ExtResource("6_tq3qu")
 text = "QUIT
 "
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6g1ko")
+position = Vector2(277, 1083)
+texture = ExtResource("10_l35k3")
 
 [connection signal="button_up" from="VBoxContainer2/StartGameBtn" to="." method="_on_start_game_btn_button_up"]
 [connection signal="button_up" from="VBoxContainer2/QuitBtn" to="." method="_on_quit_btn_button_up"]
