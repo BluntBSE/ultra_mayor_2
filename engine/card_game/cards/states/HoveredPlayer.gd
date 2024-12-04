@@ -80,6 +80,10 @@ func stateHandleInput(args: Dictionary) -> void:
 			#TODO: Replace with a better cancel function on RenderedCard
 			_reference.state_machine.Change("interactive", {})
 			_reference.hand.organize_cards()
+			#Make the energy display jitter
+			var interface:BattleInterface = _reference.interface
+			#TODO: Consider making this a signal if need be
+			interface.energy_display.do_cant_afford()
 
 
 		"""

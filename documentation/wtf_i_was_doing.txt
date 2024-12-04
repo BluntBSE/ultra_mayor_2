@@ -18,6 +18,8 @@ Learn about why that's better
 SCRATCHED: Scaling text down if it doesn't fit
 TODO: Angry energy noise when you don't have enough energy
 
+---WHERE DO I ACCESS VIEW_MATRIX, ETC?
+
 TODO: Disable damaged pilots
 TODO: Disable damaged Kaiju
 TODO: Inspect graveyards/pilots/limbs?

@@ -11,6 +11,7 @@ var terrain_modifiers: Array = []
 var battle_modifiers: Array = []
 var pilot_buttons: Array = []
 var kaiju_buttons: Array = []
+var energy_display: EnergyDisplay
 #Split these variables into InPlay?
 var kaiju_i_modifiers: Array = []
 var pilot_i_modifiers: Array = []
@@ -148,6 +149,7 @@ func unpack(_battle_object: BattleObject) -> void:
 	unpack_kaiju_buttons(_battle_object)
 	%KaijuPort.texture = load(_battle_object.kaiju.portrait)
 	#Set and display energy
+	energy_display = %EnergyDisplay
 	energy = 0
 	max_energy = 0
 	for pilot: LogicalPilot in _battle_object.pilots:
