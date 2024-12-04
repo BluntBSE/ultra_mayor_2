@@ -19,10 +19,9 @@ func _process(_delta:float) -> void:
 func _on_start_game_btn_button_up() -> void:
 	print("Eh?")
 	#Do load resources...
-	var cs:CardService = CardService.new()
+	var cs:CardService = %Services.get_card_service()
 	cs.load_cards("res://engine/card_game/decklists/")
 	var services:Services = main.get_node("Services")
-	services.register_service(cs)
 	var game_main:Node = load("res://engine/tile_level/game_main.tscn").instantiate()
 
 

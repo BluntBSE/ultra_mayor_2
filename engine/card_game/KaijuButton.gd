@@ -1,5 +1,6 @@
 extends CardButton
 class_name KaijuButton
+var services:Services
 
 var hovered:bool = false
 var state_machine:StateMachine
@@ -61,8 +62,6 @@ func draw_and_assign()->void:
 		var target:PilotButton = valid_targets[rand_index]
 		card.resolve_targets.append(target)
 
-	#CardHelpers.flash_resolve_targets(card)
-
 	#Play instant effects. Probably do this before resolve_targets()
 	if card.lc.instant_target_type == LogicalCard.target_types.P_BUTTONS:
 		for i in range(num_instant_targets):
@@ -80,7 +79,9 @@ func draw_and_assign()->void:
 		"final_state": "inspectable"
 	}
 	card.do_transit(dest_args)
-	#card.queue_instant_effects() - Possibly attach this to  kaiju stubs instead
+	services = get_tree().root.find_child("Services", true, false)
+	print("I think sound service is", services.get_sound_service())
+	services.get_sound_service().play("card_play")
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
@@ -111,6 +112,8 @@ func _ready()->void:
 	state_machine.Add("inspectable", KCardButtonInspectable.new(self,{}))
 	state_machine.Add("normal", KCardButtonNormal.new(self, {}))
 	state_machine.Change("normal", {})
+	services = get_tree().root.get_node("Main/Services")
+
 	pass
 
 
