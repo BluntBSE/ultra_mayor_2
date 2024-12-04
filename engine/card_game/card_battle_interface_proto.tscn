@@ -1,10 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://douqsnla17e1t"]
+[gd_scene load_steps=33 format=3 uid="uid://douqsnla17e1t"]
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_vjke8"]
+[ext_resource type="Shader" path="res://engine/common/shaders/text_glitch_1.gdshader" id="2_w4cgu"]
 [ext_resource type="Script" path="res://engine/card_game/KaijuMain.gd" id="3_qmsyn"]
 [ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="3_vtq0s"]
 [ext_resource type="FontFile" uid="uid://buvxuvat0ignr" path="res://engine/common/fonts/symtext/Symtext.ttf" id="4_5wwou"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_lmw6b"]
+[ext_resource type="Shader" path="res://engine/common/shaders/godot_glitch.gdshader" id="5_siw01"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/energy_display.gd" id="6_445jq"]
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="7_rt0je"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="8_f2hld"]
@@ -22,6 +24,27 @@
 [ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="19_e700v"]
 [ext_resource type="Texture2D" uid="uid://bv6gf76st55sb" path="res://engine/tile_level/kaiju/assets/portraits/golem_2.jpg" id="22_qy00j"]
 [ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="23_c8gaw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_co1dh"]
+shader = ExtResource("2_w4cgu")
+shader_parameter/progress = 0.0
+shader_parameter/sprite_scale_begin = 1.0
+shader_parameter/sprite_scale_end = 1.0
+shader_parameter/x_displacement = 10.0
+shader_parameter/y_displacement = 10.0
+shader_parameter/speed = 10.0
+shader_parameter/color_1 = Vector4(0.9, 1, 0.9, 0)
+shader_parameter/color_2 = Vector4(0, 0, 0, 0)
+shader_parameter/custom_resolution = Vector2(1, 500)
+shader_parameter/active = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jo8sk"]
+shader = ExtResource("5_siw01")
+shader_parameter/shake_power = 0.001
+shader_parameter/shake_rate = 0.015
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 20.5
+shader_parameter/shake_color_rate = 0.005
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y7vs5"]
 radius = 73.0616
@@ -59,6 +82,7 @@ color = Color(0, 0, 0, 1)
 
 [node name="EnergyDisplay" type="Control" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_co1dh")
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1377.0
@@ -69,6 +93,7 @@ script = ExtResource("6_445jq")
 
 [node name="EnergyText" type="RichTextLabel" parent="EnergyDisplay"]
 unique_name_in_owner = true
+use_parent_material = true
 layout_mode = 0
 offset_left = 33.0
 offset_top = 54.0
@@ -82,6 +107,7 @@ text = "[center]7 / 10[/center]"
 
 [node name="EnergyText2" type="RichTextLabel" parent="EnergyDisplay"]
 unique_name_in_owner = true
+use_parent_material = true
 layout_mode = 0
 offset_left = 26.0
 offset_top = -14.0
@@ -93,6 +119,15 @@ theme_override_font_sizes/normal_font_size = 40
 bbcode_enabled = true
 text = "ENERGY"
 fit_content = true
+
+[node name="ShaderMask" type="ColorRect" parent="EnergyDisplay"]
+visible = false
+material = SubResource("ShaderMaterial_jo8sk")
+layout_mode = 0
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 228.0
+offset_bottom = 105.0
 
 [node name="PlayArea" type="Node2D" parent="."]
 
