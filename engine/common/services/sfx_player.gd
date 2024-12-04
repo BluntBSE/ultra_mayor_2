@@ -15,7 +15,7 @@ func _ready()->void:
 		var p := AudioStreamPlayer.new()
 		add_child(p)
 		available.append(p)
-		p.connect("finished", _on_stream_finished)
+		p.connect("finished", _on_stream_finished.bind(p))
 		p.bus = bus
 	%Services.register_service(self)
 	sound_lib = load("res://engine/common/libs/sound_lib.tres")
@@ -29,17 +29,6 @@ func _on_stream_finished(stream:AudioStreamPlayer)->void:
 
 func play(sound_id:String)->void:
 	queue.append(sound_id)
-
-
-#Crude, but allows things that call into this to ask to stop any instances of their own sound.
-#Use sparingly, and only for continuous sounds that will be interrupted.
-func stop(sound_id:String)->void:
-	AudioStream
-	for dict:Dictionary in in_use:
-		if dict["sound_id"] == sound_id:
-			var player:AudioStreamPlayer = dict["player"]
-			player.stop()
-			player.finished.emit()
 
 
 
