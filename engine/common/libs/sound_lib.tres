@@ -1,9 +1,14 @@
-[gd_resource type="Resource" script_class="SoundLib" load_steps=3 format=3 uid="uid://c2iipcgx34i61"]
+[gd_resource type="Resource" script_class="SoundLib" load_steps=6 format=3 uid="uid://c2iipcgx34i61"]
 
-[ext_resource type="AudioStream" uid="uid://cvjwp78766ksc" path="res://engine/tile_level/common/sounds/mah.mp3" id="1_aaey0"]
+[ext_resource type="AudioStream" uid="uid://cvjwp78766ksc" path="res://engine/common/sounds/mah.mp3" id="1_aaey0"]
+[ext_resource type="AudioStream" uid="uid://bucy6ive6f6pl" path="res://engine/common/sounds/sweep.mp3" id="1_gya7i"]
 [ext_resource type="Script" path="res://engine/common/libs/sound_lib.gd" id="1_v3lii"]
+[ext_resource type="AudioStream" uid="uid://3byf2d2qew28" path="res://engine/common/sounds/ui-beep-negative.mp3" id="2_hoyyi"]
+[ext_resource type="AudioStream" uid="uid://cv15ck7qjm238" path="res://engine/common/sounds/blah.mp3" id="2_kxitr"]
 
 [resource]
 script = ExtResource("1_v3lii")
-button_hover = ExtResource("1_aaey0")
+button_hover = ExtResource("2_kxitr")
+button_press = ExtResource("1_gya7i")
 card_play = ExtResource("1_aaey0")
+negative = ExtResource("2_hoyyi")

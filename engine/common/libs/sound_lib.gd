@@ -8,3 +8,4 @@ class_name SoundLib
 @export var card_hover:AudioStream
 @export var assign_card:AudioStream
 @export var no_energy:AudioStream
+@export var negative:AudioStream

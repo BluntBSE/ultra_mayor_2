@@ -4,6 +4,11 @@ class_name SoundConnector
 
 
 var playback:AudioStreamPlaybackPolyphonic
+@export var sound_lib:SoundLib
+@export var hello:int
+
+func _ready()->void:
+	sound_lib = preload("res://engine/common/libs/sound_lib.tres")
 
 
 func _enter_tree() -> void:
@@ -31,12 +36,12 @@ func _on_node_added(node:Node) -> void:
 
 
 func _play_pop()->void:
-	playback.play_stream(preload('res://engine/tile_level/common/sounds/pop.mp3'), 0, 1.0, randf_range(0.9, 1.1))
+	playback.play_stream(sound_lib.button_hover, 0, 1.0, randf_range(0.9, 1.1))
 
 
 func _play_hover() -> void:
-	playback.play_stream(preload('res://engine/tile_level/common/sounds/blah.mp3'), 0, -10.0, randf_range(0.9, 1.1))
+	playback.play_stream(sound_lib.button_hover, 0, -10.0, randf_range(0.9, 1.1))
 
 
 func _play_pressed() -> void:
-	playback.play_stream(preload('res://engine/tile_level/common/sounds/sweep.mp3'), 0, 0, randf_range(0.9, 1.1))
+	playback.play_stream(sound_lib.button_press, 0, 0, randf_range(0.9, 1.1))
