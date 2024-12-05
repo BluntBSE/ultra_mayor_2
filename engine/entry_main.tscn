@@ -3,14 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://b76fbdw7wngcq" path="res://engine/main_menu/take_2/main_menu_2.tscn" id="1_6naxm"]
 [ext_resource type="Script" path="res://engine/common/services/services.gd" id="2_qp26l"]
 [ext_resource type="Script" path="res://engine/common/sounds/sound_test.gd" id="3_mobfb"]
-[ext_resource type="Script" path="res://engine/common/services/sfx_player.gd" id="3_y2520"]
+[ext_resource type="Script" path="res://engine/common/services/sound_service.gd" id="3_y2520"]
 
 [node name="Main" type="Node2D"]
 
 [node name="SoundConnector" type="Node" parent="."]
 script = ExtResource("3_mobfb")
 
-[node name="SFXPlayer" type="Node" parent="."]
+[node name="SoundService" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_y2520")
 
