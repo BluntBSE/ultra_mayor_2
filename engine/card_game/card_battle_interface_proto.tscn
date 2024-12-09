@@ -999,4 +999,5 @@ expand_mode = 1
 [connection signal="button_up" from="Button" to="Button" method="quit"]
 [connection signal="button_up" from="TargetSubmitWindow/SubmitButton" to="TargetSubmitWindow/SubmitButton" method="do_submit"]
 [connection signal="button_up" from="SideBar/TurnActions/EndTurn" to="." method="do_player_turn"]
+[connection signal="button_up" from="SideBar/CommitActions/Retreat" to="." method="handle_retreat"]
 [connection signal="button_up" from="SideBar/CommitActions/Commit" to="." method="handle_commit"]

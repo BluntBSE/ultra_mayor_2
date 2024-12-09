@@ -35,6 +35,7 @@ signal targeting_signal
 signal clicked_button
 signal clicked_stub
 signal energy_signal
+signal battle_finished
 
 
 func log_turn_signal(sig: int) -> void:
@@ -225,6 +226,21 @@ func handle_commit()->void:
 
 
 func handle_retreat()->void:
+	print("Handling retreat")
+	var resolve_object := BattleResolveObject.new()
+	for button:PilotButton in %PilotButtons.get_children():
+		if button.disabled == true:
+			resolve_object.disabled_pilots.append(button.logical_pilot)
+		else:
+			resolve_object.surviving_pilots.append(button.logical_pilot)
+		pass
+	for button:KaijuButton in %KaijuButtons.get_children():
+		if button.disabled == true:
+			resolve_object.disabled_limbs.append(button.limb)
+		else:
+			resolve_object.surviving_limbs.append(button.limb)
+		pass
+	battle_finished.emit(resolve_object)
 	#TODO:This must be modified. But for now, pass it back out
 	# Diff between battle_object and original_battle_object
 
