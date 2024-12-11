@@ -48,7 +48,6 @@ func assign_battle(idx:int)->void:
 
 func start_battle()->void:
 	#TODO:
-	canvas.get_node("OverworldBattleUI").visible = false
 	battle_interface.unpack(active_battle)
 	var screen_filters: Control = get_parent()
 	screen_filters.fade_out("Battle")

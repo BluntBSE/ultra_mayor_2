@@ -182,7 +182,7 @@ func pass_turn() -> void:
 
 		#Fade to transition screen?
 		#battle_scene.instatiate...()
-		var battle_scene:Node2D = load("res://engine/card_game/card_battle_interface_proto.tscn").instantiate()
+		var battle_scene:BattleInterface = load("res://engine/card_game/card_battle_interface_proto.tscn").instantiate()
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
 
@@ -192,39 +192,47 @@ func pass_turn() -> void:
 		filters.fade_in("Battle", [battles])
 		await filters.finished
 		self.visible = false
+		get_tree().root.find_child("OverworldBattleUI", true, false).visible = false
+
+		var original_camera_position := camera.position
+		var original_camera_zoom := camera.zoom
 		camera.position = battle_scene.global_position
 		camera.position += Vector2(1923.0/2, 1075.0/2)
 		camera.zoom = Vector2(1.0,1.0)
-	#TODO Process end of battle here
+		#TODO Process end of battle here
+		#BATTLE OVER
+		await battle_scene.battle_finished
+		#BATTLE OVER
+
+		camera.position = original_camera_position
+		camera.zoom = original_camera_zoom
+		self.visible = true
+		get_tree().root.find_child("OverworldBattleUI", true, false).visible = true
+		for pilot:LogicalPilot in pilots:
+			pilot.cleanup_UI()
+
+		battle_scene.queue_free() #TODO: Replace with a fadeout. Possibly a filter showing the recap.
+		for _kaiju:LogicalKaiju in kaijus:
+			_kaiju.battling = [] #Possibly replace with a cleanup function on Kaiju
+
+		move_kaijus(kaijus)
+
 	if battles.size()==0:
 
-		for _kaiju: LogicalKaiju in kaijus:
-			if _kaiju.reachable_path.size() > 0:
-				var destination: Dictionary = _kaiju.reachable_path[-1]
-				_kaiju.k_move(self, destination.x, destination.y)
-				#Reset move points
-				_kaiju.moves_remaining = _kaiju.move_points
-				draw_kaiju_paths()
+		move_kaijus(kaijus)
 
 
 		pass
 
-
-	#TODO: Make function part of logicalKaiju instead?
-	"""
+func move_kaijus(kaijus:Array)->void:
+	#TODO: Move behavior to kaiju instead?
 	for _kaiju: LogicalKaiju in kaijus:
 		if _kaiju.reachable_path.size() > 0:
 			var destination: Dictionary = _kaiju.reachable_path[-1]
 			_kaiju.k_move(self, destination.x, destination.y)
 			#Reset move points
 			_kaiju.moves_remaining = _kaiju.move_points
-	draw_kaiju_paths()
-	"""
-	#Start a battle, if any is happening
-
-	#End Battle
-
-	#Move kaiju
+			draw_kaiju_paths()
 
 	#Restore moves remaining
 	for _pilot: LogicalPilot in pilots:

@@ -2,6 +2,7 @@ extends Node2D
 class_name BattleInterface
 
 var battle_object:BattleObject
+var original_battle_object:BattleObject #Compared against to see what was lost
 var active_turn: int = TURN_STATES.PAUSE
 var targeting_state: int = LogicalCard.target_types.K_BUTTONS
 var kaiju: LogicalKaiju
@@ -27,13 +28,14 @@ var max_energy: int = 0
 #State machine states:
 
 # Called when the node enters the scene tree for the first time.
-enum TURN_STATES { PAUSE, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_2ND_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
+enum TURN_STATES { PAUSE, COMMITTING, PLAYER, ASSIGNING_RESOLVE, ASSIGNING_2ND_RESOLVE, ASSIGNING_INSTANT, KAIJU, RESOLVING }
 enum SEEKING_TARGET { KAIJU_BUTTON, KAIJU_CARD, PLAYER_BUTTON, PLAYER_CARD }
 signal turn_signal
 signal targeting_signal
 signal clicked_button
 signal clicked_stub
 signal energy_signal
+signal battle_finished
 
 
 func log_turn_signal(sig: int) -> void:
@@ -145,6 +147,7 @@ func _process(_delta: float) -> void:
 
 func unpack(_battle_object: BattleObject) -> void:
 	battle_object = _battle_object
+	original_battle_object = _battle_object
 	unpack_pilot_buttons(_battle_object)
 	unpack_kaiju_buttons(_battle_object)
 	%KaijuPort.texture = load(_battle_object.kaiju.portrait)
@@ -194,7 +197,6 @@ func kaiju_resolve_effects() -> void:
 func do_player_turn() -> void:
 	player_resolve_effects()
 	kaiju_resolve_effects()
-	%KaijuMain.do_kaiju_turn()
 	energy = 0
 	max_energy = 0
 	for pilot: LogicalPilot in battle_object.pilots:
@@ -204,8 +206,42 @@ func do_player_turn() -> void:
 		max_energy += pilot.energy
 		energy_signal.emit(energy, max_energy)
 	#Should this be a signal instead of switching to kaiju turn directly?
+	active_turn = TURN_STATES.COMMITTING
+	%CommitActions.visible = true
+	%TurnActions.visible = false
+	%TerrainInfo.visible = false
 	#TODO: Check if player won
 	#Kaiju resolution
 	#CHeck if player lost
 	#Kaiju turn
+	pass
+
+func handle_commit()->void:
+	%KaijuMain.do_kaiju_turn()
+	#active_turn = TURN_STATES.PLAYER
+	%CommitActions.visible = false
+	%TurnActions.visible = true
+	%TerrainInfo.visible = true
+	pass
+
+
+func handle_retreat()->void:
+	print("Handling retreat")
+	var resolve_object := BattleResolveObject.new()
+	for button:PilotButton in %PilotButtons.get_children():
+		if button.disabled == true:
+			resolve_object.disabled_pilots.append(button.logical_pilot)
+		else:
+			resolve_object.surviving_pilots.append(button.logical_pilot)
+		pass
+	for button:KaijuButton in %KaijuButtons.get_children():
+		if button.disabled == true:
+			resolve_object.disabled_limbs.append(button.limb)
+		else:
+			resolve_object.surviving_limbs.append(button.limb)
+		pass
+	battle_finished.emit(resolve_object)
+	#TODO:This must be modified. But for now, pass it back out
+	# Diff between battle_object and original_battle_object
+
 	pass

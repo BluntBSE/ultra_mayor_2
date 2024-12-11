@@ -2,6 +2,7 @@ extends CardButton
 class_name PilotButton
 
 var state_machine:StateMachine
+var logical_pilot:LogicalPilot;
 var deck: Array = []
 var card_count: RichTextLabel
 var cards_left: int
@@ -9,6 +10,7 @@ var cards_starting: int
 var hand:CardHand
 var bg_poly:Polygon2D
 var active:bool
+var disabled:bool = false
 var interaction_mode:String = "interactive"
 var interface:BattleInterface
 var graveyard:Array = []
@@ -56,22 +58,18 @@ func unpack(pilot: LogicalPilot) -> void:
 	cards_starting = deck.size()
 	cards_left = cards_starting
 	card_count.text = count_string(cards_starting, cards_left)
+	logical_pilot = pilot
 	active = true
 	interface.connect("targeting_signal", handle_target_signal)
 
 
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
-	print("Pilot buttons received the following turn signal, ", turn_signal)
 	if not active:
 		return
 	if turn_signal == interface.TURN_STATES.PLAYER:
-		#interaction_mode = "not_interactive"
-
-		print("Pilot button believes it should be drawable now thanks to turn signal")
 		state_machine.Change("drawable", {})
 	elif turn_signal == interface.TURN_STATES.ASSIGNING_RESOLVE:
-		print("BUTTONS GO ASSIGNABLE DUE TO TURN SIGNAL")
 		if interface.targeting_state == LogicalCard.target_types.ALL_BUTTONS or LogicalCard.target_types.P_BUTTONS:
 			state_machine.Change("assignable", {})
 	else:
@@ -106,15 +104,12 @@ func _process(_delta:float)->void:
 func handle_target_signal(sig:int)->void:
 	print("Handle target_signal got", sig)
 	if sig == LogicalCard.target_types.NONE:
-		print("BUTTONS THINK THEY ARE DRAWABLE THANKS TO TARGET SIGNAL")
 		state_machine.Change("drawable", {}) #TODO: Do I need to change the color here?
 		return
 
 	elif sig == LogicalCard.target_types.P_BUTTONS  or sig == LogicalCard.target_types.ALL_BUTTONS:
-		print("BUTTONS THINK THEY ARE ASSIGNABLE THANKS TO TARGET SIGNAL")
 		state_machine.Change("assignable", {})
 		return
 	else:
 		#Do I need to check if it's the player's turn here too?
-		print("BUTTON WENT INERT")
 		state_machine.Change("normal", {})

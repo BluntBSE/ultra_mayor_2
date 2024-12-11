@@ -14,6 +14,7 @@ var in_play: Node2D
 var targets:Array = []
 var arrows:Array = []
 var active:bool = false
+var disabled:bool = true
 var interface:BattleInterface
 #var interaction_mode:String = "not_interactive"
 var graveyard:Array = []

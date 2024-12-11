@@ -7,6 +7,8 @@ var deck_path:String
 var deck:Array = []
 var energy:int
 var services:Services
+var active_context:PilotTargetContext
+var arrows:Array = []
 signal pilot_path
 
 
@@ -194,11 +196,19 @@ func target_context(_x:int, _y:int)->void:
 	#p_target_menu.new()
 	var new_menu:PilotTargetContext = load("res://engine/tile_level/p_scenes/map_UI/pilot_target_context.tscn").instantiate()
 	new_menu.unpack(actions, self, target_lt, target_rt)
+	active_context=new_menu
 	target_rt.add_child(new_menu)
 
 
 
 	pass
+
+func cleanup_UI()->void:
+	for arrow:IndicateArrow in arrows:
+		arrow.queue_free()
+	arrows = []
+	#active_context.queue_free()
+	#active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	kaiju.battling.append(pilot)
@@ -214,6 +224,7 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)
 
 	arrow.unpack(start_point, end_point, Color.RED, 5)
+	arrows.append(arrow)
 	var camera:Camera2D = GameMain.get_node("MainCamera")
 	camera.position = end_point
 

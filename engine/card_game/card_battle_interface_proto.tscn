@@ -868,7 +868,9 @@ bbcode_enabled = true
 text = "FIRE"
 fit_content = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="SideBar"]
+[node name="TerrainInfo" type="VBoxContainer" parent="SideBar"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -878,35 +880,36 @@ offset_top = 601.0
 offset_right = -44.0
 offset_bottom = -310.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="SideBar/VBoxContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="SideBar/TerrainInfo"]
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 bbcode_enabled = true
 text = "WATER"
 fit_content = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="SideBar/VBoxContainer2"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="SideBar/TerrainInfo"]
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 bbcode_enabled = true
 text = "ENERGIZED"
 fit_content = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="SideBar/VBoxContainer2"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="SideBar/TerrainInfo"]
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 bbcode_enabled = true
 text = "POPULATION: 696969"
 fit_content = true
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="SideBar/VBoxContainer2"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="SideBar/TerrainInfo"]
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 bbcode_enabled = true
 text = "CANNONS"
 fit_content = true
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="SideBar"]
+[node name="TurnActions" type="VBoxContainer" parent="SideBar"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -916,10 +919,40 @@ offset_top = 909.0
 offset_right = -33.0
 offset_bottom = -2.0
 
-[node name="EndTurn" type="Button" parent="SideBar/VBoxContainer3"]
+[node name="EndTurn" type="Button" parent="SideBar/TurnActions"]
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 text = "END TURN"
+
+[node name="CommitActions" type="VBoxContainer" parent="SideBar"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = 741.0
+offset_right = -33.0
+offset_bottom = -24.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SideBar/CommitActions"]
+layout_mode = 2
+theme = ExtResource("17_m5sqm")
+text = "Commit to another round of combat?
+
+"
+fit_content = true
+
+[node name="Retreat" type="Button" parent="SideBar/CommitActions"]
+layout_mode = 2
+theme = ExtResource("3_vtq0s")
+text = "RETREAT"
+
+[node name="Commit" type="Button" parent="SideBar/CommitActions"]
+layout_mode = 2
+theme = ExtResource("3_vtq0s")
+text = "COMMIT"
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="SideBar"]
 layout_mode = 2
@@ -965,4 +998,6 @@ expand_mode = 1
 [connection signal="mouse_exited" from="PlayArea/KaijuButtons/KaijuButton4/Area2D" to="PlayArea/KaijuButtons/KaijuButton4" method="on_exit"]
 [connection signal="button_up" from="Button" to="Button" method="quit"]
 [connection signal="button_up" from="TargetSubmitWindow/SubmitButton" to="TargetSubmitWindow/SubmitButton" method="do_submit"]
-[connection signal="button_up" from="SideBar/VBoxContainer3/EndTurn" to="." method="do_player_turn"]
+[connection signal="button_up" from="SideBar/TurnActions/EndTurn" to="." method="do_player_turn"]
+[connection signal="button_up" from="SideBar/CommitActions/Retreat" to="." method="handle_retreat"]
+[connection signal="button_up" from="SideBar/CommitActions/Commit" to="." method="handle_commit"]
