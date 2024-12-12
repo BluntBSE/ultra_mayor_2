@@ -9,6 +9,7 @@ var energy:int
 var services:Services
 var active_context:PilotTargetContext
 var arrows:Array = []
+var disabled:bool = false
 signal pilot_path
 
 

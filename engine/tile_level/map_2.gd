@@ -210,7 +210,6 @@ func pass_turn() -> void:
 		get_tree().root.find_child("OverworldBattleUI", true, false).visible = true
 		for pilot:LogicalPilot in pilots:
 			pilot.cleanup_UI()
-
 		battle_scene.queue_free() #TODO: Replace with a fadeout. Possibly a filter showing the recap.
 		for _kaiju:LogicalKaiju in kaijus:
 			_kaiju.battling = [] #Possibly replace with a cleanup function on Kaiju

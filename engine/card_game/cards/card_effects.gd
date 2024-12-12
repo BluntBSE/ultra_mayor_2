@@ -18,8 +18,6 @@ static func simple_damage(targets_primary:Array = [], _targets_secondary:Array =
 		print("SIMPLE DAMAGE HAS DECLARED A DAMAGE OF", damage)
 		for i in range(damage):
 			var milled:LogicalCard = target.deck.pop_front()
-			print("DECK IS", target.deck)
-			print("MILLED ", milled)
 			target.update_count()
 			target.graveyard.append(milled)
 

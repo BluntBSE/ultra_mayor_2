@@ -105,6 +105,7 @@ static func draw_occupants(rendered_grid: Array, tile: LogicalTile) -> void:
 			var pilot: LogicalPilot = tile.occupant
 			var pilot_texture: Resource = load(pilot.sprite)
 			var rp: RenderedPilot = load("res://engine/tile_level/p_scenes/rendered_pilot/rendered_pilot.tscn").instantiate()
+			rp.unpack(pilot) #Binds the sprite to the abstract pilot
 			rendered_tile.add_child(rp)
 			rendered_tile.rendered_occupant = rp
 			rp.z_index = 4000  #TODO: This makes the context menus weird
@@ -118,6 +119,7 @@ static func draw_occupants(rendered_grid: Array, tile: LogicalTile) -> void:
 			var kaiju_texture: Resource = load(kaiju.sprite)
 			#Right now this is renderedpilot. Bad!
 			var rp: RenderedKaiju = load("res://engine/tile_level/p_scenes/rendered_kaiju/rendered_kaiju.tscn").instantiate()
+			rp.unpack(kaiju) #Binds the sprite to the abstract pilot
 			rendered_tile.add_child(rp)
 			rendered_tile.rendered_occupant = rp
 			rp.z_index = 4000 #TODO: Check on this

@@ -159,6 +159,9 @@ func set_interactivity_mode(turn_state:int)->void:
 func can_afford()->bool:
 	return (interface.energy - cost >= 0)
 
+func play_is_legal()->bool:
+	return (interface.active_turn != interface.TURN_STATES.COMMITTING)
+
 func parse_description(str:String, _num_instant:int, _num_resolve:int, _num_resolve_2:int, _resolve_min:int, _resolve_max:int)->String:
 	var num_instant:String = "%ni"
 	var num_resolve:String = "%nr"

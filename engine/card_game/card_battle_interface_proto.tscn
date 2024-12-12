@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://douqsnla17e1t"]
+[gd_scene load_steps=34 format=3 uid="uid://douqsnla17e1t"]
 
 [ext_resource type="Script" path="res://engine/card_game/card_battle_interface.gd" id="1_vjke8"]
 [ext_resource type="Shader" path="res://engine/common/shaders/text_glitch_1.gdshader" id="2_w4cgu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="4_lmw6b"]
 [ext_resource type="Shader" path="res://engine/common/shaders/godot_glitch.gdshader" id="5_siw01"]
 [ext_resource type="Script" path="res://engine/card_game/UI_elements/energy_display.gd" id="6_445jq"]
+[ext_resource type="Material" uid="uid://dtc1a2bwq5cek" path="res://engine/main_menu/take_2/assets/test_1.tres" id="7_qd75t"]
 [ext_resource type="Script" path="res://engine/card_game/PilotButton.gd" id="7_rt0je"]
 [ext_resource type="Texture2D" uid="uid://6chflyrmavr3" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/pop/SFCP 1-70.png" id="8_f2hld"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="9_ycjj0"]
@@ -70,6 +71,29 @@ point_count = 2
 
 [node name="BattleInterface" type="Node2D"]
 script = ExtResource("1_vjke8")
+
+[node name="KaijuMain" type="Control" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.921569, 0.764706, 0.984314, 1)
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1785.0
+offset_top = 220.0
+offset_right = 1935.0
+offset_bottom = 370.0
+scale = Vector2(0.6, 0.6)
+script = ExtResource("3_qmsyn")
+
+[node name="KaijuPort" type="TextureRect" parent="KaijuMain"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -177.0
+offset_top = -195.0
+offset_right = 847.0
+offset_bottom = 829.0
+scale = Vector2(0.325056, 0.325056)
+texture = ExtResource("22_qy00j")
 
 [node name="BGTexture" type="ColorRect" parent="."]
 self_modulate = Color(0.168627, 0.168627, 0.168627, 1)
@@ -136,6 +160,7 @@ unique_name_in_owner = true
 position = Vector2(250, 822)
 
 [node name="PilotButton0" type="Node2D" parent="PlayArea/PilotButtons"]
+material = ExtResource("7_qd75t")
 script = ExtResource("7_rt0je")
 
 [node name="BGPoly" type="Polygon2D" parent="PlayArea/PilotButtons/PilotButton0"]
@@ -190,7 +215,16 @@ script = ExtResource("9_ycjj0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/PilotButton0/Area2D"]
 shape = SubResource("CircleShape2D_y7vs5")
 
+[node name="ShaderMask" type="ColorRect" parent="PlayArea/PilotButtons/PilotButton0"]
+visible = false
+material = SubResource("ShaderMaterial_jo8sk")
+offset_left = -85.0
+offset_top = -76.0
+offset_right = 76.0
+offset_bottom = 79.0
+
 [node name="PilotButton1" type="Node2D" parent="PlayArea/PilotButtons"]
+material = ExtResource("7_qd75t")
 position = Vector2(250, 0)
 script = ExtResource("7_rt0je")
 
@@ -246,7 +280,16 @@ script = ExtResource("9_ycjj0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/PilotButton1/Area2D"]
 shape = SubResource("CircleShape2D_y7vs5")
 
+[node name="ShaderMask" type="ColorRect" parent="PlayArea/PilotButtons/PilotButton1"]
+visible = false
+material = SubResource("ShaderMaterial_jo8sk")
+offset_left = -85.0
+offset_top = -76.0
+offset_right = 76.0
+offset_bottom = 79.0
+
 [node name="PilotButton2" type="Node2D" parent="PlayArea/PilotButtons"]
+material = ExtResource("7_qd75t")
 position = Vector2(500, 0)
 script = ExtResource("7_rt0je")
 
@@ -302,7 +345,16 @@ script = ExtResource("9_ycjj0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/PilotButton2/Area2D"]
 shape = SubResource("CircleShape2D_y7vs5")
 
+[node name="ShaderMask" type="ColorRect" parent="PlayArea/PilotButtons/PilotButton2"]
+visible = false
+material = SubResource("ShaderMaterial_jo8sk")
+offset_left = -85.0
+offset_top = -76.0
+offset_right = 76.0
+offset_bottom = 79.0
+
 [node name="PilotButton3" type="Node2D" parent="PlayArea/PilotButtons"]
+material = ExtResource("7_qd75t")
 position = Vector2(750, 0)
 script = ExtResource("7_rt0je")
 
@@ -358,7 +410,16 @@ script = ExtResource("9_ycjj0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/PilotButton3/Area2D"]
 shape = SubResource("CircleShape2D_y7vs5")
 
+[node name="ShaderMask" type="ColorRect" parent="PlayArea/PilotButtons/PilotButton3"]
+visible = false
+material = SubResource("ShaderMaterial_jo8sk")
+offset_left = -85.0
+offset_top = -76.0
+offset_right = 76.0
+offset_bottom = 79.0
+
 [node name="PilotButton4" type="Node2D" parent="PlayArea/PilotButtons"]
+material = ExtResource("7_qd75t")
 position = Vector2(1000, 0)
 script = ExtResource("7_rt0je")
 
@@ -413,6 +474,14 @@ script = ExtResource("9_ycjj0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea/PilotButtons/PilotButton4/Area2D"]
 shape = SubResource("CircleShape2D_y7vs5")
+
+[node name="ShaderMask" type="ColorRect" parent="PlayArea/PilotButtons/PilotButton4"]
+visible = false
+material = SubResource("ShaderMaterial_jo8sk")
+offset_left = -85.0
+offset_top = -76.0
+offset_right = 76.0
+offset_bottom = 79.0
 
 [node name="KaijuButtons" type="Node2D" parent="PlayArea"]
 unique_name_in_owner = true
@@ -820,29 +889,6 @@ layout_mode = 0
 offset_left = -4.0
 offset_bottom = 1011.0
 color = Color(0.866667, 0.588235, 0.976471, 1)
-
-[node name="KaijuMain" type="Control" parent="SideBar"]
-unique_name_in_owner = true
-modulate = Color(0.921569, 0.764706, 0.984314, 1)
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 3
-anchors_preset = 0
-offset_left = 144.0
-offset_top = 154.0
-offset_right = 294.0
-offset_bottom = 304.0
-scale = Vector2(0.6, 0.6)
-script = ExtResource("3_qmsyn")
-
-[node name="KaijuPort" type="TextureRect" parent="SideBar/KaijuMain"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = -177.0
-offset_top = -195.0
-offset_right = 847.0
-offset_bottom = 829.0
-scale = Vector2(0.325056, 0.325056)
-texture = ExtResource("22_qy00j")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SideBar"]
 layout_mode = 1

@@ -20,8 +20,7 @@ TODO: Angry energy noise when you don't have enough energy
 
 ---CONSIDER: Your SFX player implements queues you can use for city builder's command pattern
 --Just make a difference between adding for the first time and restoring for re-drawing or placing by hand
-
-BUG: Can't clear the context menu properly?
+BUG: Can play cards during the commit decision.
 
 TODO: Disable damaged pilots
 TODO: Disable damaged Kaiju
