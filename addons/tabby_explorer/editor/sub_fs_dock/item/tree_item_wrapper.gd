@@ -39,7 +39,7 @@ func _set_fs_item(p_fs_item:SubFSItem):
 	_fs_item = p_fs_item
 	_saved_path = _fs_item.get_path()
 	_fs_item.invalid.connect(_on_fs_item_invalid)
-	
+
 	if _fs_item.is_dir():
 		var dir_item:SubFSItemDir = _fs_item as SubFSItemDir
 		dir_item.sub_items_updated.connect(_on_sub_items_updated)
@@ -52,10 +52,10 @@ func _on_sub_items_updated(p_item:SubFSItem):
 
 func get_fs_item()->SubFSItem:
 	return _fs_item
-	
+
 func get_id()->String:
 	return _saved_path
-	
+
 func get_saved_path()->String:
 	return _saved_path
 
@@ -65,7 +65,7 @@ func _set_tree_item(p_tree_item:TreeItem):
 	_tree_item = weakref(p_tree_item)
 	if !has_tree_item():
 		return
-	
+
 	var ti:TreeItem = get_tree_item()
 
 	ti.set_metadata(0, self)
@@ -73,7 +73,7 @@ func _set_tree_item(p_tree_item:TreeItem):
 #	ti.disable_folding = !_fs_item.is_expandable()
 #	ti.disable_folding = false
 	ti.set_structured_text_bidi_override(0, TextServer.STRUCTURED_TEXT_FILE)
-	ti.set_icon(0, SubFSThemeHelper.find_tree_item_icon(_ref_control, self)) 
+	ti.set_icon(0, SubFSThemeHelper.find_tree_item_icon(_ref_control, self))
 	ti.set_icon_modulate(0, SubFSThemeHelper.find_tree_item_icon_color(_ref_control, self))
 	ti.collapsed = true
 
@@ -91,9 +91,9 @@ func is_visible_in_filter()->bool:
 
 	if _is_filter_match:
 		return true
-		
+
 	var ti:TreeItem = get_tree_item()
-	
+
 	for child_ti in ti.get_children():
 		var child_wrapper:SubFSTreeItemWrapper = child_ti.get_metadata(0)
 		if child_wrapper.is_visible_in_filter():
@@ -105,17 +105,17 @@ func _fetch_preview():
 		return
 
 	_fs_share.get_resource_previewer().queue_resource_preview(get_path(), self, "_tree_thumbnail_done", null)
-	
+
 func reset_post_state():
 	if !has_tree_item():
 		return
-		
+
 	var ti:TreeItem = get_tree_item()
 	if ti.get_parent() == null:
 		ti.visible = true
 		_fetch_preview()
 		return
-		
+
 	if !_context.has_filter_text() or ti.get_parent() == null:
 		ti.visible = true
 		_fetch_preview()
@@ -141,14 +141,14 @@ func get_tree_item()->TreeItem:
 	if _tree_item == null:
 		return null
 	return _tree_item.get_ref()
-	
+
 func has_tree_item()->bool:
 	return get_tree_item() != null
 
 func _tree_thumbnail_done(p_path:String, p_preview:Texture2D, p_small_preview:Texture2D, p_udata:Variant):
 #	if !p_small_preview.is_valid():
 #		return
-	
+
 	if p_small_preview == null:
 		return
 
@@ -164,7 +164,7 @@ func _clear_tree_item():
 		return
 
 	var ti := get_tree_item()
-	
+
 	if ti.get_parent() != null:
 		ti.get_parent().remove_child(ti)
 		ti.free()
@@ -181,10 +181,10 @@ func _clear_sub_tree_items():
 
 func _reset_sub_tree_items():
 	_clear_sub_tree_items()
-	
+
 	if !has_tree_item():
 		return
-	
+
 	var ti := get_tree_item()
 	if _fs_item.is_dir():
 		var dir_item:SubFSItemDir = _fs_item as SubFSItemDir
@@ -201,7 +201,7 @@ func is_dir()->bool:
 func get_tree_item_children()->Array[TreeItem]:
 	if !has_tree_item():
 		return []
-		
+
 	return get_tree_item().get_children()
 
 func get_parent_tree_item()->TreeItem:
@@ -212,13 +212,13 @@ func is_expandable()->bool:
 
 func get_path()->String:
 	return _fs_item.get_path()
-	
+
 func get_os_path()->String:
 	return _fs_item.get_os_path()
-	
+
 func get_name()->String:
 	return _fs_item.get_name()
-	
+
 func _inter_find_item(p_target_path:String, p_find_alt_dir:bool, p_search_depth:int)->SubFSSearchResult:
 	if !_fs_item.is_starts_with(p_target_path):
 		return SubFSSearchResult.new(p_search_depth, null)
@@ -228,11 +228,11 @@ func _inter_find_item(p_target_path:String, p_find_alt_dir:bool, p_search_depth:
 
 	if !_fs_item.is_dir():
 		return SubFSSearchResult.new(p_search_depth, null)
-	
+
 	if _fs_item.is_expandable():
 		var next_depth:int = p_search_depth + 1
 		var deepest_depth:int = next_depth
-		
+
 		var sub_item_result:SubFSSearchResult = null
 		for sub_item in get_tree_item_children():
 			var sub_item_wrapper:SubFSTreeItemWrapper = sub_item.get_metadata(0)
@@ -244,7 +244,7 @@ func _inter_find_item(p_target_path:String, p_find_alt_dir:bool, p_search_depth:
 
 		if sub_item_result != null and sub_item_result.has_item():
 			return sub_item_result
-		
+
 		if p_find_alt_dir and deepest_depth == next_depth:
 			return SubFSSearchResult.new(p_search_depth, self)
 
@@ -255,7 +255,7 @@ func _inter_find_item(p_target_path:String, p_find_alt_dir:bool, p_search_depth:
 
 func find_item(p_target_path:String, p_find_alt_dir:bool, p_search_depth:int)->SubFSTreeItemWrapper:
 	return _inter_find_item(p_target_path, p_find_alt_dir, p_search_depth).get_item()
-	
+
 func find_tree_item(p_target_path:String, p_find_alt_dir:bool, p_search_depth:int)->TreeItem:
 	return find_item(p_target_path, p_find_alt_dir, p_search_depth).get_tree_item()
 
@@ -265,7 +265,7 @@ func is_uid_owner(p_uid_text:String)->bool:
 func find_item_by_uid_text(p_uid_text:String)->SubFSTreeItemWrapper:
 	if is_uid_owner(p_uid_text):
 		return self
-	
+
 	for sub_tree_item in get_tree_item_children():
 		var sub_item_wrapper:SubFSTreeItemWrapper = sub_tree_item.get_metadata(0)
 		var sub_item_result:SubFSTreeItemWrapper = sub_item_wrapper.find_item_by_uid_text(p_uid_text)
