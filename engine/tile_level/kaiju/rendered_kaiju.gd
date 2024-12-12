@@ -13,7 +13,7 @@ var og_height:int
 var state_machine:StateMachine = StateMachine.new()
 var path:Array = [] #Used to store tiles that this rendered pilot has to travel to.
 var paused:bool = false #Used to syncopate the moving animation.
-
+var logical_kaiju:LogicalKaiju
 
 func update_sprite(texture:CompressedTexture2D)->void:
 	#sprite = %sprite
@@ -33,11 +33,10 @@ func _ready() -> void:
 	state_machine.Change("basic",{})
 
 
-
+func unpack(lk:LogicalKaiju)->void:
+	logical_kaiju = lk
+	lk.rendered_kaiju = self
 
 
 func _process(d:float) ->void:
 	state_machine.stateUpdate(d)
-
-
-

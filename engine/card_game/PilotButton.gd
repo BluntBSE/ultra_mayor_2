@@ -15,6 +15,7 @@ var interaction_mode:String = "interactive"
 var interface:BattleInterface
 var graveyard:Array = []
 var hovered:bool = false
+var services:Services
 #interactive, assignable, not_interactive
 
 
@@ -24,8 +25,30 @@ func count_string(left: int, starting: int) -> String:
 func update_count()->void:
 		cards_left = deck.size()
 		card_count.text = count_string(cards_left, cards_starting)
+		if cards_left == 0:
+			disable_button()
+			pass
 
+func disable_button()->void:
+	modulate = Color(0.2,0.2,0.2,1.0);
+	print("Button disabled")
+	disabled = true
+	var timer := Timer.new()
+	add_child(timer)
+	timer.wait_time = 1.0
+	timer.one_shot = true
+	timer.start()
+	timer.connect("timeout", on_disable_timeout)
+	get_node("ShaderMask").visible=true;
+	material.set_shader_parameter("active", true)
+	services.get_sound_service().play("negative")
+	pass
 
+func on_disable_timeout()->void:
+	print("Can't afford timeout was called!")
+	material.set_shader_parameter("active", false)
+	get_node("ShaderMask").visible=false
+	pass
 #TODO: Put draw_card in the interactive state.
 func draw_card()->void:
 	var logical_card:LogicalCard = deck.pop_front()
@@ -47,6 +70,7 @@ func draw_card()->void:
 func unpack(pilot: LogicalPilot) -> void:
 	#TODO: Consider moving sprite assignment to the button's unpack.
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
+	services = get_tree().root.get_node("Main/Services")
 	sprite.texture = load(PilotLib.lib[pilot.id].portrait)
 	sprite.self_modulate = Color("ebc3fb")
 	bg_poly = find_child("BGPoly")
@@ -93,7 +117,10 @@ func _ready()->void:
 func on_hover()->void:
 		print("Area2D was hovered for sure")
 		get_viewport().set_input_as_handled() #TODO: Is this really the way?
-		state_machine._current.stateHandleInput({"event": "hover"})
+		if disabled == false:
+			state_machine._current.stateHandleInput({"event": "hover"})
+
+
 
 func on_exit()->void:
 	state_machine._current.stateHandleInput({"event": "exit"})
@@ -102,6 +129,8 @@ func _process(_delta:float)->void:
 	state_machine.stateUpdate(_delta)
 
 func handle_target_signal(sig:int)->void:
+	if disabled == true:
+		return
 	print("Handle target_signal got", sig)
 	if sig == LogicalCard.target_types.NONE:
 		state_machine.Change("drawable", {}) #TODO: Do I need to change the color here?
@@ -113,3 +142,7 @@ func handle_target_signal(sig:int)->void:
 	else:
 		#Do I need to check if it's the player's turn here too?
 		state_machine.Change("normal", {})
+
+func do_disabled()->void:
+	#Updates the pilot to be disabled.
+	disabled=true

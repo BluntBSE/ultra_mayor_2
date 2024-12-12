@@ -12,6 +12,8 @@ var og_height: int
 var state_machine: StateMachine = StateMachine.new()
 var path: Array = []  #Used to store tiles that this rendered pilot has to travel to.
 var paused: bool = false  #Used to syncopate the moving animation.
+var rendered_disabled:bool = false
+var logical_pilot:LogicalPilot
 
 
 func update_sprite(texture: CompressedTexture2D) -> void:
@@ -30,6 +32,19 @@ func _ready() -> void:
 
 	state_machine.Change("basic", {})
 
+func unpack(lp:LogicalPilot)->void:
+	logical_pilot = lp
+	lp.rendered_pilot = self
+
+func match_state()->void:
+	#Interrogate the current state of the LP. Render accordingly
+	print("MATCH STATE THINKS...", logical_pilot.disabled)
+	if logical_pilot.disabled == true:
+		do_disabled()
 
 func _process(d: float) -> void:
 	state_machine.stateUpdate(d)
+
+func do_disabled()->void:
+	print("DISABLED PILOT: ", logical_pilot.name)
+	modulate = Color(0.2,0.2,0.2,1.0)

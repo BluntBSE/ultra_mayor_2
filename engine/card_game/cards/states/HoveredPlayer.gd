@@ -75,7 +75,8 @@ func stateHandleInput(args: Dictionary) -> void:
 
 	if args.event == "l_click":
 		if _reference.can_afford():
-			_reference.state_machine.Change("assigning_resolve", {})
+			if _reference.play_is_legal():
+				_reference.state_machine.Change("assigning_resolve", {})
 		else:
 			#TODO: Replace with a better cancel function on RenderedCard
 			_reference.state_machine.Change("interactive", {})

@@ -55,7 +55,7 @@ func draw_and_assign()->void:
 	var pilot_targets:Array = get_tree().root.find_child("PilotButtons", true, false).get_children()
 	var valid_targets:Array = []
 	for target:PilotButton in pilot_targets:
-		if target.active == true:
+		if ( target.active == true ) and target.disabled == false:
 			valid_targets.append(target)
 
 	for i in range(num_resolve_targets):
