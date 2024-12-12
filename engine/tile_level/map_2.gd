@@ -153,6 +153,13 @@ func add_test_elements() -> void:
 	#tt_4.occupant= KaijuLib.lib["bird"]
 	#tt_4.occupant.unpack(self, tt_4.x, tt_4.y, logical_grid, rendered_grid)
 
+func process_battle_outcome(ro:BattleResolveObject)->void:
+	print("Processing battle outcome")
+	for pilot:LogicalPilot in pilots:
+		if pilot in ro.disabled_pilots:
+			pilot.disabled = true
+	#TODO: Kaiju half
+
 
 func pass_turn() -> void:
 	#var pilots: Array = []
@@ -201,6 +208,7 @@ func pass_turn() -> void:
 		camera.zoom = Vector2(1.0,1.0)
 		#TODO Process end of battle here
 		#BATTLE OVER
+		battle_scene.battle_finished.connect(process_battle_outcome)
 		await battle_scene.battle_finished
 		#BATTLE OVER
 
@@ -209,10 +217,13 @@ func pass_turn() -> void:
 		self.visible = true
 		get_tree().root.find_child("OverworldBattleUI", true, false).visible = true
 		for pilot:LogicalPilot in pilots:
+
 			pilot.cleanup_UI()
+			pilot.rendered_pilot.match_state()
 		battle_scene.queue_free() #TODO: Replace with a fadeout. Possibly a filter showing the recap.
 		for _kaiju:LogicalKaiju in kaijus:
 			_kaiju.battling = [] #Possibly replace with a cleanup function on Kaiju
+			#TODO: Add Kaiju Match State
 
 		move_kaijus(kaijus)
 

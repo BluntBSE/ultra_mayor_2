@@ -35,6 +35,7 @@ func _ready() -> void:
 
 func unpack(lk:LogicalKaiju)->void:
 	logical_kaiju = lk
+	lk.rendered_kaiju = self
 
 
 func _process(d:float) ->void:

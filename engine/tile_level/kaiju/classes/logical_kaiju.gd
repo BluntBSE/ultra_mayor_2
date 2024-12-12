@@ -15,6 +15,7 @@ var limbs:Array
 var health_factor:float
 var art_pack:ArtPack
 var disabled:bool = false
+var rendered_kaiju:RenderedKaiju
 """
 The limbs dictionary takes in a list of string names from the kaiju definition
 Then randomly distributes tiers and types to the limbs.

@@ -10,6 +10,7 @@ var services:Services
 var active_context:PilotTargetContext
 var arrows:Array = []
 var disabled:bool = false
+var rendered_pilot:RenderedPilot
 signal pilot_path
 
 

@@ -34,9 +34,11 @@ func _ready() -> void:
 
 func unpack(lp:LogicalPilot)->void:
 	logical_pilot = lp
+	lp.rendered_pilot = self
 
 func match_state()->void:
 	#Interrogate the current state of the LP. Render accordingly
+	print("MATCH STATE THINKS...", logical_pilot.disabled)
 	if logical_pilot.disabled == true:
 		do_disabled()
 
@@ -44,4 +46,5 @@ func _process(d: float) -> void:
 	state_machine.stateUpdate(d)
 
 func do_disabled()->void:
+	print("DISABLED PILOT: ", logical_pilot.name)
 	modulate = Color(0.2,0.2,0.2,1.0)
