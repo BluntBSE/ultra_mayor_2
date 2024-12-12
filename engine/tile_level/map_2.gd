@@ -85,7 +85,7 @@ func process_rt_signal(args: RTSigObj) -> void:
 
 		if selection_primary == null:
 			if lt.occupant != null:
-				if lt.occupant.id in PilotLib.lib:
+				if lt.occupant.id in PilotLib.lib and lt.occupant.disabled == false:
 					selection_primary = lt
 					rt.active_highlights.append("pilot_move_origin")
 		if selection_primary:
