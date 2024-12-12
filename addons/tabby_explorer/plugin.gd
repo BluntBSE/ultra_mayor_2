@@ -16,7 +16,7 @@ const SubFSFavDock := preload("./editor/sub_fs_dock/sub_fs_fav_dock.gd")
 
 var _pref:SubFSPref
 var _user_docks_pref:SubFSMainPref
-var _project_shared_docks_pref:SubFSMainPref 
+var _project_shared_docks_pref:SubFSMainPref
 
 const PREF_FILE_NAME:String ="tabby_explorer_pref.tres"
 
@@ -58,7 +58,7 @@ func _save_pref():
 
 func _save_user_docks_pref():
 	ResourceSaver.save(_get_user_docks_pref())
-	
+
 func _save_project_shared_docks_pref():
 	ResourceSaver.save(_get_project_shared_docks_pref())
 
@@ -77,16 +77,16 @@ func _get_user_docks_pref_save_dir()->String:
 #	print("get_cache_dir : ", ep.get_cache_dir())
 #	print("get_config_dir : ", ep.get_config_dir())
 #	print("get_data_dir : ", ep.get_data_dir())
-	
+
 	return ep.get_project_settings_dir() + "/" + PREF_DIR_NAME
-	
+
 func _get_user_docks_pref_save_path()->String:
 	return _get_user_docks_pref_save_dir() + "/" + MAIN_PREF_FILE_NAME
 
 func _get_user_docks_pref()->SubFSMainPref:
 	if _user_docks_pref != null:
 		return _user_docks_pref
-		
+
 	var target_dir:String = _get_user_docks_pref_save_dir()
 	if !DirAccess.dir_exists_absolute(target_dir):
 		DirAccess.make_dir_recursive_absolute(target_dir)
@@ -108,7 +108,7 @@ func _get_project_shared_docks_pref()->SubFSMainPref:
 	var target_file:String = _get_project_shared_docks_pref_save_path()
 	_project_shared_docks_pref = _load_main_pref(target_file)
 	return _project_shared_docks_pref
-		
+
 func _load_main_pref(p_path:String)->SubFSMainPref:
 	var result:SubFSMainPref = null
 	if ResourceLoader.exists(p_path):
@@ -117,7 +117,7 @@ func _load_main_pref(p_path:String)->SubFSMainPref:
 		result = SubFSMainPref.new()
 		result.resource_path = p_path
 		ResourceSaver.save(result)
-	
+
 	var save:bool = result.fix_empty_docks()
 	if save:
 		ResourceSaver.save(result)
@@ -127,7 +127,7 @@ func _load_main_pref(p_path:String)->SubFSMainPref:
 func _migrate_old_version():
 	var ei:EditorInterface = get_editor_interface()
 	var ep:EditorPaths = ei.get_editor_paths()
-	
+
 	var old_user_pref_path := ep.get_project_settings_dir() + "/" + OLD_PREF_DIR_NAME + "/" + MAIN_PREF_FILE_NAME
 	if ResourceLoader.exists(old_user_pref_path):
 		var old_pref:SubFSMainPref = ResourceLoader.load(old_user_pref_path)
@@ -138,7 +138,7 @@ func _migrate_old_version():
 				var migrated_pref:SubFSMainPref = old_pref.duplicate(true) as SubFSMainPref
 				migrated_pref.resource_path = new_pref_path
 				ResourceSaver.save(migrated_pref)
-				
+
 		DirAccess.remove_absolute(old_user_pref_path)
 
 	if DirAccess.dir_exists_absolute(OLD_PREF_DIR):
@@ -152,7 +152,7 @@ func _migrate_old_version():
 					migrated_pref.fix_error()
 					migrated_pref.resource_path = new_pref_path
 					ResourceSaver.save(migrated_pref)
-					
+
 		var old_proj_pref_path = OLD_PREF_DIR + "/" + MAIN_PREF_FILE_NAME
 		if ResourceLoader.exists(old_proj_pref_path):
 			var old_proj_pref:SubFSMainPref = ResourceLoader.load(old_proj_pref_path)
@@ -172,13 +172,13 @@ func _migrate_old_version():
 				err = OS.move_to_trash(ProjectSettings.globalize_path(remove_target))
 				if err:
 					print("Tabby explorer: migration error occured on delete file. You can remove this file yourself. ", remove_target)
-					
+
 		DirAccess.remove_absolute(OLD_PREF_DIR)
 
 func _enter_tree():
 	if !DirAccess.dir_exists_absolute(_get_pref_dir()):
 		DirAccess.make_dir_recursive_absolute(_get_pref_dir())
-	
+
 	if !DirAccess.dir_exists_absolute(_get_user_docks_pref_save_dir()):
 		DirAccess.make_dir_recursive_absolute(_get_user_docks_pref_save_dir())
 
@@ -200,7 +200,7 @@ func _exit_tree():
 
 func _generate_all_docks():
 	_clear_docks()
-	
+
 	var p := _get_pref()
 
 	if _get_pref().use_user_config:
@@ -208,14 +208,14 @@ func _generate_all_docks():
 
 	if _get_pref().use_project_shared_config:
 		_generate_docks(_get_project_shared_docks_pref(), p.project_shared_config_prefix)
-	
+
 	if p.use_favorite_dock:
 		var fav_docks_pref:SubFSMainPref = SubFSMainPref.new()
 		var fav_dock_pref:SubFSDockPref = SubFSDockPref.new()
 		fav_docks_pref.docks.append(fav_dock_pref)
 		var fav_dock:SubFSFavDock = SubFsFavDockPackedScene.instantiate()
 		_all_docks.append(fav_dock)
-		fav_dock.post_init(_sub_fs_share, p, fav_docks_pref, "", fav_dock_pref, _fs_manager_node, 
+		fav_dock.post_init(_sub_fs_share, p, fav_docks_pref, "", fav_dock_pref, _fs_manager_node,
 				_get_user_docks_pref(), _get_project_shared_docks_pref())
 		fav_dock.saved_tab_selections_updated.connect(_on_saved_tab_selections_updated)
 		fav_dock.settings_updated.connect(_on_settings_updated)
@@ -226,8 +226,8 @@ func _generate_docks(p_main_pref:SubFSMainPref, p_prefix:String):
 	for dock_pref in p_main_pref.docks:
 		var sub_fs_dock:SubFSDock = SubFsDockPackedScene.instantiate()
 		_all_docks.append(sub_fs_dock)
-		sub_fs_dock.post_init(_sub_fs_share, p, p_main_pref, 
-			p_prefix, dock_pref, _fs_manager_node, 
+		sub_fs_dock.post_init(_sub_fs_share, p, p_main_pref,
+			p_prefix, dock_pref, _fs_manager_node,
 			_get_user_docks_pref(), _get_project_shared_docks_pref())
 		sub_fs_dock.pref_updated.connect(_on_dock_pref_updated)
 		sub_fs_dock.saved_tab_selections_updated.connect(_on_saved_tab_selections_updated)

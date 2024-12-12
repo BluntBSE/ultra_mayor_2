@@ -207,8 +207,9 @@ func cleanup_UI()->void:
 	for arrow:IndicateArrow in arrows:
 		arrow.queue_free()
 	arrows = []
-	#active_context.queue_free()
-	#active_context = null
+	if active_context != null:
+		active_context.queue_free()
+		active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	kaiju.battling.append(pilot)
