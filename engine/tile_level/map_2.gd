@@ -13,11 +13,13 @@ var kaiju: Array = []
 var kaiju_blocks: Array = []
 var turn_counter: int = 0
 var camera:Camera2D
-enum { CITY_BUILDER, BATTLE_MODE }
+enum map_modes { CITY_BUILDER, BATTLE_MODE }
+enum valid_targets { ANY, KAIJU, PILOTS, OCCUPANTS, BUILDINGS, NONE}
+
 
 #REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED  A REAL STATE MACHINE?
-var map_mode: int = BATTLE_MODE
-
+var map_mode: int = map_modes.BATTLE_MODE
+var valid_target: int = valid_targets.ANY
 var selection_primary: LogicalTile
 var selection_secondary: LogicalTile
 
@@ -25,10 +27,12 @@ var selection_secondary: LogicalTile
 @onready var header: TileMapHeaderBar = %HeaderBar
 @onready var side_bar: SideBar = %SideBar
 
-signal map_signal  #Deprecate?
+signal map_signal  #Currently used to populate sidebar with what you hover over
 signal map_select_occ_signal
 signal map_hover_signal
 signal map_target_signal
+signal reset_rts
+signal lock_camera
 
 const SELECTION_HIGHLIGHTS:Array = [
 	"pilot_move_origin",
@@ -108,18 +112,6 @@ func process_rt_signal(args: RTSigObj) -> void:
 	map_signal.emit(map_sig)  #Emit the current state of what's happened so the sidebars, etc. can decide what to display
 
 
-func set_selection_primary(args: LogicalTile) -> void:
-	selection_primary = args
-	#Experimentally...
-
-
-func set_selection_secondary(args: LogicalTile) -> void:
-	#See if it's even legal...This is for battle mdoe only.
-	kaiju_blocks = []
-	selection_secondary = args
-	var rt: RenderedTile = rendered_grid[args.x][args.y]
-	rt.handle_input({"event": RTInputs.SELECT_2})
-
 
 func set_mode(mode: int) -> void:
 	#Linked to signals from the buttons or other sources that set the map into city or battle mode.
@@ -127,31 +119,6 @@ func set_mode(mode: int) -> void:
 
 
 
-func add_pilot(id: String, lt: LogicalTile) -> void:
-	var pilot: LogicalPilot = PilotLib.lib[id]
-	lt.add_child(pilot)
-	lt.occupant = pilot
-	pilot.unpack(self, lt.x, lt.y, logical_grid, rendered_grid)
-
-
-func add_test_elements() -> void:
-	var tt_1: LogicalTile = logical_grid[10][10]
-	var tt_2: LogicalTile = logical_grid[23][12]
-	var tt_3: LogicalTile = logical_grid[24][13]
-	var tt_4: LogicalTile = logical_grid[23][23]
-	var tt_5: LogicalTile = logical_grid[24][12]
-	var tt_6: LogicalTile = logical_grid[24][11]
-	tt_1.building = BuildingsLib.lib["coal_plant"]
-
-
-	add_pilot("demo_pilot", tt_2)
-	add_pilot("demo_pilot_2", tt_4)
-
-
-	tt_3.occupant = KaijuLib.lib["raiju"]
-	tt_3.occupant.unpack(self, tt_3.x, tt_3.y, logical_grid, rendered_grid)
-	#tt_4.occupant= KaijuLib.lib["bird"]
-	#tt_4.occupant.unpack(self, tt_4.x, tt_4.y, logical_grid, rendered_grid)
 
 func process_battle_outcome(ro:BattleResolveObject)->void:
 	print("Processing battle outcome")
@@ -161,11 +128,11 @@ func process_battle_outcome(ro:BattleResolveObject)->void:
 	#TODO: Kaiju half
 
 
-func pass_turn() -> void:
+func end_turn() -> void:
 	#var pilots: Array = []
 	var kaijus: Array = []
 	var battles:Array = []
-	for column: Array in logical_grid:
+	for column: Array in logical_grid: #TODO: Maybe don't perform this lookup every time.
 		for tile: LogicalTile in column:
 			if tile.occupant != null:
 				if tile.occupant.id in PilotLib.lib:
@@ -187,19 +154,17 @@ func pass_turn() -> void:
 
 	if battles.size()>0:
 
-		#Fade to transition screen?
-		#battle_scene.instatiate...()
 		var battle_scene:BattleInterface = load("res://engine/card_game/card_battle_interface_proto.tscn").instantiate()
 		var parent_node:Node2D = get_parent() #If we make this GameMain, GameMain kind of becomes our singleton. Which could be okay...
 		parent_node.add_child(battle_scene)
 
-		#set hide GameMain.
 		#Move camera to instantiated scene and limit camera movement?
 		var filters:ScreenFilters =  parent_node.get_node("UICanvas/ScreenFilters")
 		filters.fade_in("Battle", [battles])
 		await filters.finished
 		self.visible = false
 		get_tree().root.find_child("OverworldBattleUI", true, false).visible = false
+		#TODO: Signal a camera lock
 
 		var original_camera_position := camera.position
 		var original_camera_zoom := camera.zoom
@@ -211,13 +176,15 @@ func pass_turn() -> void:
 		battle_scene.battle_finished.connect(process_battle_outcome)
 		await battle_scene.battle_finished
 		#BATTLE OVER
-
 		camera.position = original_camera_position
 		camera.zoom = original_camera_zoom
 		self.visible = true
+		reset_rts.emit()
+		unselect_all()
 		get_tree().root.find_child("OverworldBattleUI", true, false).visible = true
-		for pilot:LogicalPilot in pilots:
 
+		#Any disabled pilots should appear disabled on the screen
+		for pilot:LogicalPilot in pilots:
 			pilot.cleanup_UI()
 			pilot.rendered_pilot.match_state()
 		battle_scene.queue_free() #TODO: Replace with a fadeout. Possibly a filter showing the recap.
@@ -260,12 +227,12 @@ func _ready() -> void:
 	logical_grid = MapHelpers.generate_logical_grid(grid_width, grid_height, self)
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
 	rendered_grid = MapHelpers.generate_rendered_grid(self, logical_grid, rendered_grid, x_offset, y_offset)
-
-	add_test_elements()
-
+	#DEBUG POPULATION
+	%DebugManager.unpack(self, logical_grid, rendered_grid)
+	%DebugManager.add_test_elements()
 	MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
 	MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
-
+	#END DEBUG POPULATION
 	draw_kaiju_paths()
 	#kaiju.find_target()
 

@@ -1,9 +1,15 @@
 extends Control
 class_name PilotTargetContext
 
+var map:Map_2
+var previous_targets:int #An open context menu locks tile interactions. What was allowed to be selected before?
+
 
 func unpack(actions: Array, pilot: LogicalPilot, l_target: LogicalTile, r_target: RenderedTile) -> void:
+	map = l_target.map
+	previous_targets = map.valid_target
 	#global_position = MapHelpers.get_tile_midpoint_global(r_target)
+	map.valid_target = map.valid_targets.NONE
 	position = MapHelpers.get_tile_midpoint(r_target) + Vector2(50, -30)
 	for action: int in actions:
 		var action_btn: Button = Button.new()
@@ -58,6 +64,12 @@ func do_shove(pilot:LogicalPilot, l_origin:LogicalTile, l_end:LogicalTile)->void
 	self.y = y
 	"""
 	l_origin.map.unselect_all()
+	cleanup()
+	pass
+
+func cleanup()->void:
+	map.valid_target = map.valid_targets.ANY #TODO: Might need a better way to check what's a valid target.
+	#Can probably just run the selection logic on map again and get there. For now, just "ANY"
 	self.queue_free()
 	pass
 

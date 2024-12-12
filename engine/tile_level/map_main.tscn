@@ -1,22 +1,22 @@
 [gd_scene load_steps=20 format=3 uid="uid://cqgi8y4fqpc4g"]
 
-[ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_fehrg"]
-[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_w16tx"]
-[ext_resource type="Script" path="res://engine/common/tools/indicate_arrow.gd.gd" id="3_8fpju"]
-[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="4_ido7v"]
-[ext_resource type="Texture2D" uid="uid://d1qakg8u0h24w" path="res://engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png" id="5_cwb5n"]
-[ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="6_inyrp"]
-[ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="7_gwdvp"]
-[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="7_v4yyt"]
-[ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="9_afvgl"]
-[ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="9_gxl2l"]
-[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="9_tt11t"]
-[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="10_bkjcq"]
-[ext_resource type="Script" path="res://engine/tile_level/UI/BattleFilter.gd" id="10_tf7nj"]
-[ext_resource type="FontFile" uid="uid://c802ryvuygkyn" path="res://engine/common/fonts/inversionz/Inversionz Unboxed.ttf" id="12_yfxuy"]
-[ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="14_bwyri"]
-[ext_resource type="Texture2D" uid="uid://bdh5d7drt457d" path="res://engine/tile_level/kaiju/assets/portraits/magmar_youngsilithar.jpg" id="14_gcsrs"]
-[ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="14_gp7qb"]
+[ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_crbal"]
+[ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nwkov"]
+[ext_resource type="Script" path="res://engine/tile_level/debug_manager.gd" id="4_gbicw"]
+[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="5_hbcjr"]
+[ext_resource type="Texture2D" uid="uid://d1qakg8u0h24w" path="res://engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png" id="6_w682q"]
+[ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="7_mjg08"]
+[ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="8_8eogd"]
+[ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="9_5i1fu"]
+[ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="10_7kf5a"]
+[ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="11_dsoel"]
+[ext_resource type="Script" path="res://engine/tile_level/UI/BattleFilter.gd" id="12_ebqm5"]
+[ext_resource type="FontFile" uid="uid://c802ryvuygkyn" path="res://engine/common/fonts/inversionz/Inversionz Unboxed.ttf" id="13_agh8w"]
+[ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="14_2rx4j"]
+[ext_resource type="Texture2D" uid="uid://bdh5d7drt457d" path="res://engine/tile_level/kaiju/assets/portraits/magmar_youngsilithar.jpg" id="15_qgssp"]
+[ext_resource type="Texture2D" uid="uid://c6g17rs14baph" path="res://engine/tile_level/pilots/assets/portraits/faces/SFCP 1 - 2024 Update/tv/nopilot_default.png" id="16_gj1to"]
+[ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="17_myo54"]
+[ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="18_pba3o"]
 
 [sub_resource type="Theme" id="Theme_nfc0e"]
 
@@ -32,20 +32,20 @@ glow_hdr_threshold = 0.64
 glow_hdr_luminance_cap = 3.0
 
 [node name="GameMain" type="Node2D"]
-script = ExtResource("1_fehrg")
+script = ExtResource("1_crbal")
 
 [node name="Map" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_w16tx")
+script = ExtResource("2_nwkov")
 x_offset = 185
-
-[node name="test_arrow" type="Node2D" parent="Map"]
-visible = false
-script = ExtResource("3_8fpju")
 
 [node name="arrows" type="Node2D" parent="Map"]
 
 [node name="LogicalTiles" type="Node" parent="Map"]
+
+[node name="DebugManager" type="Node" parent="Map"]
+unique_name_in_owner = true
+script = ExtResource("4_gbicw")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
@@ -72,7 +72,7 @@ offset_right = 1921.0
 offset_bottom = 1081.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0.101961, 0.0509804, 0.113725, 1)
-script = ExtResource("4_ido7v")
+script = ExtResource("5_hbcjr")
 
 [node name="OccupantRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
 layout_mode = 0
@@ -90,7 +90,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource("5_cwb5n")
+texture = ExtResource("6_w682q")
 expand_mode = 1
 stretch_mode = 5
 
@@ -101,7 +101,7 @@ offset_left = 1.0
 offset_top = 202.0
 offset_right = 201.0
 offset_bottom = 252.0
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 color = Color(0, 0, 0, 0.658824)
 
 [node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/ODataRect"]
@@ -129,7 +129,7 @@ offset_top = 315.0
 offset_right = 1096.0
 offset_bottom = 1315.0
 scale = Vector2(0.188198, 0.188198)
-texture = ExtResource("6_inyrp")
+texture = ExtResource("8_8eogd")
 expand_mode = 1
 
 [node name="TileDataRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect"]
@@ -139,7 +139,7 @@ offset_left = 1.0
 offset_top = 502.0
 offset_right = 206.0
 offset_bottom = 563.0
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 color = Color(0, 0, 0, 0.658824)
 
 [node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/TileDataRect"]
@@ -152,7 +152,7 @@ offset_bottom = 53.0
 [node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/TileDataRect/OccupantData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Coal Plant"
 fit_content = true
@@ -160,7 +160,7 @@ fit_content = true
 [node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/OccupantRect/TileDataRect/OccupantData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Bog"
 fit_content = true
@@ -176,7 +176,7 @@ offset_bottom = 825.0
 [node name="Population" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Population: 696,696"
 fit_content = true
@@ -184,7 +184,7 @@ fit_content = true
 [node name="Development" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Development: X"
 fit_content = true
@@ -192,7 +192,7 @@ fit_content = true
 [node name="Power" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Power: 9"
 fit_content = true
@@ -200,7 +200,7 @@ fit_content = true
 [node name="Services" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Services: 9"
 fit_content = true
@@ -208,7 +208,7 @@ fit_content = true
 [node name="Resilience" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Resilience: 9"
 fit_content = true
@@ -216,7 +216,7 @@ fit_content = true
 [node name="Modifiers" type="RichTextLabel" parent="UICanvas/OverworldBattleUI/SideBar/TerrainData"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Modifiers: None"
 fit_content = true
@@ -228,7 +228,7 @@ offset_left = 24.0
 offset_top = 933.0
 offset_right = 264.0
 offset_bottom = 988.0
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 text = "END TURN"
 
 [node name="ResetBtn" type="Button" parent="UICanvas/OverworldBattleUI/SideBar"]
@@ -238,7 +238,7 @@ offset_left = 25.0
 offset_top = 860.0
 offset_right = 265.0
 offset_bottom = 915.0
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 text = "RESET"
 
 [node name="ColorRect" type="ColorRect" parent="UICanvas/OverworldBattleUI/SideBar"]
@@ -254,7 +254,7 @@ offset_right = 1920.0
 offset_bottom = 66.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0.101009, 0.050349, 0.113069, 1)
-script = ExtResource("7_v4yyt")
+script = ExtResource("9_5i1fu")
 
 [node name="TextureButton" type="TextureButton" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 modulate = Color(0.866667, 0.588235, 0.976471, 1)
@@ -264,7 +264,7 @@ offset_top = 12.0
 offset_right = 111.0
 offset_bottom = 112.0
 scale = Vector2(0.35, 0.35)
-texture_normal = ExtResource("9_afvgl")
+texture_normal = ExtResource("10_7kf5a")
 
 [node name="ColorRect2" type="ColorRect" parent="UICanvas/OverworldBattleUI/HeaderBar"]
 layout_mode = 0
@@ -281,14 +281,14 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("9_gxl2l")
+script = ExtResource("11_dsoel")
 
 [node name="Battle" type="ColorRect" parent="UICanvas/ScreenFilters"]
 layout_mode = 0
 offset_right = 1919.0
 offset_bottom = 1081.0
 color = Color(0, 0, 0, 1)
-script = ExtResource("10_tf7nj")
+script = ExtResource("12_ebqm5")
 
 [node name="Battle" type="RichTextLabel" parent="UICanvas/ScreenFilters/Battle"]
 layout_mode = 1
@@ -301,7 +301,7 @@ offset_right = -553.0
 offset_bottom = -759.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("12_yfxuy")
+theme_override_fonts/normal_font = ExtResource("13_agh8w")
 theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true
 text = "[center]Battle ONE OF ONE[/center]"
@@ -317,7 +317,7 @@ offset_right = -837.0
 offset_bottom = -464.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("12_yfxuy")
+theme_override_fonts/normal_font = ExtResource("13_agh8w")
 theme_override_font_sizes/normal_font_size = 120
 bbcode_enabled = true
 text = "[center]VS[/center]"
@@ -326,7 +326,7 @@ text = "[center]VS[/center]"
 clip_children = 1
 position = Vector2(1312, 565)
 polygon = PackedVector2Array(160, 0, 80, 138.564, -80, 138.564, -160, 1.95937e-14, -80, -138.564, 80, -138.564, 160, 0)
-script = ExtResource("10_bkjcq")
+script = ExtResource("14_2rx4j")
 sides = 6
 radius = 160.0
 
@@ -334,7 +334,7 @@ radius = 160.0
 modulate = Color(0.921569, 0.764706, 0.984314, 1)
 position = Vector2(14, 3)
 scale = Vector2(1.6, 1.6)
-texture = ExtResource("14_gcsrs")
+texture = ExtResource("15_qgssp")
 
 [node name="AllPilots" type="Control" parent="UICanvas/ScreenFilters/Battle"]
 anchors_preset = 0
@@ -355,14 +355,14 @@ offset_bottom = -17.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("10_bkjcq")
+script = ExtResource("14_2rx4j")
 sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("14_gp7qb")
+texture = ExtResource("16_gj1to")
 
 [node name="PilotButton2" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
@@ -377,14 +377,14 @@ offset_bottom = 59.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("10_bkjcq")
+script = ExtResource("14_2rx4j")
 sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton2/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("14_gp7qb")
+texture = ExtResource("16_gj1to")
 
 [node name="PilotButton3" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
@@ -399,14 +399,14 @@ offset_bottom = 123.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("10_bkjcq")
+script = ExtResource("14_2rx4j")
 sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton3/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("14_gp7qb")
+texture = ExtResource("16_gj1to")
 
 [node name="PilotButton4" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
@@ -421,14 +421,14 @@ offset_bottom = 268.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("10_bkjcq")
+script = ExtResource("14_2rx4j")
 sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton4/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("14_gp7qb")
+texture = ExtResource("16_gj1to")
 
 [node name="PilotButton5" type="Control" parent="UICanvas/ScreenFilters/Battle/AllPilots"]
 custom_minimum_size = Vector2(150, 150)
@@ -443,14 +443,14 @@ offset_bottom = 196.0
 clip_children = 1
 position = Vector2(75, 73)
 polygon = PackedVector2Array(75, 0, 37.5, 64.9519, -37.5, 64.9519, -75, 9.18455e-15, -37.5, -64.9519, 37.5, -64.9519, 75, 0)
-script = ExtResource("10_bkjcq")
+script = ExtResource("14_2rx4j")
 sides = 6
 radius = 75.0
 
 [node name="Sprite2D" type="Sprite2D" parent="UICanvas/ScreenFilters/Battle/AllPilots/PilotButton5/Polygon2D"]
 self_modulate = Color(0.117647, 0.0784314, 0.117647, 1)
 scale = Vector2(0.17, 0.17)
-texture = ExtResource("14_gp7qb")
+texture = ExtResource("16_gj1to")
 
 [node name="Button" type="Button" parent="UICanvas/ScreenFilters/Battle"]
 layout_mode = 0
@@ -458,7 +458,7 @@ offset_left = 1167.0
 offset_top = 841.0
 offset_right = 1448.0
 offset_bottom = 896.0
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 text = "Next Battle"
 
 [node name="BattleButton" type="Button" parent="UICanvas/ScreenFilters/Battle"]
@@ -467,8 +467,8 @@ offset_left = 904.0
 offset_top = 720.0
 offset_right = 1009.0
 offset_bottom = 822.0
-theme = ExtResource("7_gwdvp")
-theme_override_fonts/font = ExtResource("14_bwyri")
+theme = ExtResource("7_mjg08")
+theme_override_fonts/font = ExtResource("17_myo54")
 theme_override_font_sizes/font_size = 80
 text = "GO"
 
@@ -478,18 +478,18 @@ offset_left = 406.0
 offset_top = 840.0
 offset_right = 757.0
 offset_bottom = 895.0
-theme = ExtResource("7_gwdvp")
+theme = ExtResource("7_mjg08")
 text = "Previous Battle"
 
 [node name="MainCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(948, 540)
 zoom = Vector2(0.75, 0.75)
-script = ExtResource("9_tt11t")
+script = ExtResource("18_pba3o")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7snnj")
 
-[connection signal="button_up" from="UICanvas/OverworldBattleUI/SideBar/EndTurnBtn" to="Map" method="pass_turn"]
+[connection signal="button_up" from="UICanvas/OverworldBattleUI/SideBar/EndTurnBtn" to="Map" method="end_turn"]
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]

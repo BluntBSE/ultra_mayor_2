@@ -22,7 +22,7 @@ func _on_start_game_btn_button_up() -> void:
 	var cs:CardService = %Services.get_card_service()
 	cs.load_cards("res://engine/card_game/decklists/")
 	var services:Services = main.get_node("Services")
-	var game_main:Node = load("res://engine/tile_level/game_main.tscn").instantiate()
+	var game_main:Node = load("res://engine/tile_level/map_main.tscn").instantiate()
 
 
 	main.add_child(game_main)

@@ -210,7 +210,7 @@ func cleanup_UI()->void:
 		arrow.queue_free()
 	arrows = []
 	if active_context != null:
-		active_context.queue_free()
+		active_context.cleanup()
 		active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
@@ -231,16 +231,4 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var camera:Camera2D = GameMain.get_node("MainCamera")
 	camera.position = end_point
 
-	##Not necessarily within this function but:
-	#For each Kaiju, see if there is anything in the 'battling' property.
-	#If so, create a BattleObject containing {"kaiju":the_kaiju, "pilots": [all_the_pilots], "modifiers": build_terrain_mods + modifiers on terrain
-	#Assign this battle object to an array of battle objects held by the singleton (or game_main, idk)
-	#On turn end, if there is a battle, pop the first one off
-	#Hide the map and all.
-	#Create a battle_instance with the battle object data. Shuffle the pilot decks. Not the kaiju ones.
-	#...When battle finishes...
-	#Create an BattleOutcomes object containing..
-	#Deck (and order) remaining on Kaiju
-	#See if any battles remain in the tile_level/singleton array. If yes, do that battle next. Maybe put a transition screen ... "Battle 1...Battle 2"
-	#When no battles remain, return to tile level. Apply
 	pass
