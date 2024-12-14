@@ -11,6 +11,7 @@ var active_context:PilotTargetContext
 var arrows:Array = []
 var disabled:bool = false
 var rendered_pilot:RenderedPilot
+var battling:LogicalKaiju
 signal pilot_path
 
 
@@ -186,14 +187,16 @@ func p_move(_x:int, _y:int)->void:
 		self.y = _y
 		apply_kaiju_block(logical_grid[_x][_y])
 		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
-
+	battling.battling.erase(self) #Kaiju's list of battles
+	battling = null
+	cleanup_UI()
 	clear_path()
 
 func target_context(_x:int, _y:int)->void:
 	var target_lt:LogicalTile = logical_grid[_x][_y]
 	var target_rt:RenderedTile = rendered_grid[_x][_y]
 	#TODO: Get pilot options from the pilot definition, as these might change with tech tree...Should probably be a global enum
-	var actions:Array = [PilotActions.ACTIONS.BATTLE, PilotActions.ACTIONS.SHOVE]
+	var actions:Array = [PilotActions.ACTIONS.BATTLE, PilotActions.ACTIONS.SHOVE, PilotActions.ACTIONS.UNBATTLE]
 	#For action in actions
 	#p_target_menu.new()
 	var new_menu:PilotTargetContext = load("res://engine/tile_level/p_scenes/map_UI/pilot_target_context.tscn").instantiate()
@@ -214,7 +217,11 @@ func cleanup_UI()->void:
 		active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
+	if (pilot in kaiju.battling):
+		#Nope!
+		return
 	kaiju.battling.append(pilot)
+	pilot.battling = kaiju
 	#Draw a line...s
 	var arrow:IndicateArrow = IndicateArrow.new()
 	var p_rt:RenderedTile = pilot.rendered_grid[pilot.x][pilot.y]
@@ -228,7 +235,7 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 
 	arrow.unpack(start_point, end_point, Color.RED, 5)
 	arrows.append(arrow)
-	var camera:Camera2D = GameMain.get_node("MainCamera")
-	camera.position = end_point
+	#var camera:Camera2D = GameMain.get_node("MainCamera")
+	#camera.position = end_point
 
 	pass

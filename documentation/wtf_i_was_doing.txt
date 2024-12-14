@@ -21,9 +21,7 @@ TODO: Angry energy noise when you don't have enough energy
 ---CONSIDER: Your SFX player implements queues you can use for city builder's command pattern
 --Just make a difference between adding for the first time and restoring for re-drawing or placing by hand
 BUG: Can play cards during the commit decision.
-
-
-NOW: How to handle procedurally generated but also...resource driven? Kaiju?
+BUG: Tile beneath kaiju remains dark after context window popup
 
 Event queue to handle card resolution & effects specifically? Doesn't all have to be a fat queue.
 

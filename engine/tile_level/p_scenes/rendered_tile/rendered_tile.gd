@@ -125,6 +125,9 @@ func handle_input(args:Dictionary)->void:
 
 	if args.event == RTInputs.CLEAR:
 		state_machine.Change("basic", {})
+		active_highlights = []
+		apply_highlights()
+
 		return
 
 	if args.event == RTInputs.REVERT:

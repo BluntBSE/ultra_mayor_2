@@ -57,7 +57,7 @@ func draw_and_assign()->void:
 	for target:PilotButton in pilot_targets:
 		if ( target.active == true ) and target.disabled == false:
 			valid_targets.append(target)
-
+	
 	for i in range(num_resolve_targets):
 		var rand_index:int = randi() % valid_targets.size()
 		var target:PilotButton = valid_targets[rand_index]
