@@ -30,7 +30,7 @@ static var lib:Dictionary = {
 		{
 		"display_text": "Plain",
 		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain.png",
-		"portrait": "C:/Users/ramne/OneDrive/Desktop/ultra_mayor/ultra_mayor_2/engine/tile_level/terrain/assets/portraits/AI_plains_portrait.jpg",
+		"portrait": "res://engine/tile_level/terrain/assets/portraits/AI_plains_portrait.jpg",
 		"move_cost": 1
 		}
 	),

@@ -46,6 +46,15 @@ func unselect_all()->void:
 		rt.apply_highlights()
 	selection_primary = null
 	selection_secondary = null
+	
+func unselect_secondary()->void:
+	if selection_secondary:
+		var rt:RenderedTile = rendered_grid[selection_secondary.x][selection_primary.y]
+		for highlight:String in SELECTION_HIGHLIGHTS:
+			rt.active_highlights.erase(highlight)
+		rt.apply_highlights()
+		rt.handle_input({"event":RTInputs.CLEAR})
+		selection_secondary = null
 
 func get_kaiju() -> Array:
 	var kaijus: Array = []

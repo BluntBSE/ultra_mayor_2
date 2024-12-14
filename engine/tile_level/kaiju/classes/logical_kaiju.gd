@@ -16,11 +16,16 @@ var health_factor:float
 var art_pack:String
 var disabled:bool = false
 var rendered_kaiju:RenderedKaiju
+
+
+func reset_battles()->void:
+	battling=[]
 """
 The limbs dictionary takes in a list of string names from the kaiju definition
 Then randomly distributes tiers and types to the limbs.
 a limb is therefore something like " {"arm":{"types":["electric", "physical"], "tier":4, "deck":[], "art":"path"}
 """
+
 func generate_limbs(limb_arr:Array)->void:
 	for limb_name:String in limb_arr:
 		var _limb:Limb = Limb.new()

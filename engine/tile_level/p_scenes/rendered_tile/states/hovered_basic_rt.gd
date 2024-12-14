@@ -20,7 +20,6 @@ func stateHandleInput(args:Dictionary)->void:
 		tile.state_machine.Change("basic", {})
 	if args.event == RTInputs.SELECT:
 		_reference.state_machine.Change("selection_primary", {})
-
 	pass
 
 
@@ -30,5 +29,3 @@ func stateHandleInput(args:Dictionary)->void:
 
 func stateUpdate(_delta:float) -> void:
 	pass
-
-
