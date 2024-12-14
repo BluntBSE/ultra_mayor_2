@@ -8,7 +8,7 @@ static var lib: Dictionary = {
 			"display_name": "Demo Pilot",
 			"energy": 2,
 			"sprite": "res://engine/tile_level/pilots/assets/sprites/test_mech.png",
-			"portrait": "C:/Users/ramne/OneDrive/Desktop/ultra_mayor/ultra_mayor_2/engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png",
+			"portrait": "res://engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png",
 			"move_points": 4,
 			"moves_remaining": 4,
 			"speed_chart": SpeedChart.new({"mountain": 1, "water": 1}),

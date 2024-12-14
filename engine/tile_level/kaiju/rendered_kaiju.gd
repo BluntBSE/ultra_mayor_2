@@ -18,7 +18,7 @@ var logical_kaiju:LogicalKaiju
 func update_sprite(texture:CompressedTexture2D)->void:
 	#sprite = %sprite
 	%sprite.texture = texture
-	og_width = float(%sprite.texture.get_height())
+	og_width =+ float(%sprite.texture.get_height())
 	og_height = float(%sprite.texture.get_width())
 	var h_scale:float = float(occupant_sprite_height) / og_height
 	var w_scale:float = float(occupant_sprite_width) / og_width

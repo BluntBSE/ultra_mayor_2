@@ -86,7 +86,7 @@ func draw_and_assign()->void:
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
 	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
-	sprite.texture = load(KaijuLib.lib[kaiju.id].art_pack[_limb.id]) #Update to limb.art
+	sprite.texture = KaijuLib.fetch_art_pack(KaijuLib.lib[kaiju.id].art_pack)[_limb.id] #Update to limb.art
 	bg_poly = find_child("BGPoly")
 	bg_poly.visible = true
 

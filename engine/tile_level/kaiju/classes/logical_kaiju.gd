@@ -13,7 +13,7 @@ var types:Array
 var limb_names:Array
 var limbs:Array
 var health_factor:float
-var art_pack:ArtPack
+var art_pack:String
 var disabled:bool = false
 var rendered_kaiju:RenderedKaiju
 """
