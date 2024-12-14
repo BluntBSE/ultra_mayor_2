@@ -23,6 +23,8 @@ TODO: Angry energy noise when you don't have enough energy
 BUG: Can play cards during the commit decision.
 
 
+NOW: How to handle procedurally generated but also...resource driven? Kaiju?
+
 Event queue to handle card resolution & effects specifically? Doesn't all have to be a fat queue.
 
 BUG: Shoving a kaiju after assigning keeps you assigned to the battle
