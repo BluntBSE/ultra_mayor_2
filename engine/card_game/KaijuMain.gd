@@ -16,7 +16,6 @@ func do_turn(turn_state: int) -> void:
 	#Turn states are in
 	#BattleInterface.TURN_STATES
 	if turn_state == BattleInterface.TURN_STATES.KAIJU:
-		print("Doing kaiju turn!")
 		do_kaiju_turn()
 
 
@@ -31,7 +30,6 @@ func do_kaiju_turn() -> void:
 		var interval: float = i * time
 		var timer: SceneTreeTimer = get_tree().create_timer(interval)
 		timer.connect("timeout", kaiju_button.draw_and_assign)
-
 
 
 

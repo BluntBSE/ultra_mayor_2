@@ -23,7 +23,6 @@ func _ready()->void:
 
 func _on_stream_finished(player:AudioStreamPlayer)->void:
 	# When finished playing a stream, make the player available again.
-	print("I think a sound finished!")
 	player.pitch_scale = 1.0
 	available.append(player)
 

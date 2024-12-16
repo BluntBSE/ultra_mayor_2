@@ -1000,6 +1000,56 @@ layout_mode = 2
 theme = ExtResource("3_vtq0s")
 text = "COMMIT"
 
+[node name="LossActions" type="VBoxContainer" parent="SideBar"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 741.0
+offset_right = -22.0
+offset_bottom = -24.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SideBar/LossActions"]
+layout_mode = 2
+theme = ExtResource("17_m5sqm")
+text = "No pilots remain
+
+"
+fit_content = true
+
+[node name="EndBattle" type="Button" parent="SideBar/LossActions"]
+layout_mode = 2
+theme = ExtResource("3_vtq0s")
+theme_override_font_sizes/font_size = 26
+text = "LOSE FOREVER"
+
+[node name="VictoryActions" type="VBoxContainer" parent="SideBar"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 741.0
+offset_right = -22.0
+offset_bottom = -24.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SideBar/VictoryActions"]
+layout_mode = 2
+theme = ExtResource("17_m5sqm")
+text = "Kaiju defeated!"
+fit_content = true
+
+[node name="EndBattle" type="Button" parent="SideBar/VictoryActions"]
+layout_mode = 2
+theme = ExtResource("3_vtq0s")
+theme_override_font_sizes/font_size = 26
+text = "END BATTLE"
+
 [node name="RichTextLabel3" type="RichTextLabel" parent="SideBar"]
 layout_mode = 2
 offset_left = 1.0
@@ -1047,3 +1097,5 @@ expand_mode = 1
 [connection signal="button_up" from="SideBar/TurnActions/EndTurn" to="." method="do_player_turn"]
 [connection signal="button_up" from="SideBar/CommitActions/Retreat" to="." method="handle_retreat"]
 [connection signal="button_up" from="SideBar/CommitActions/Commit" to="." method="handle_commit"]
+[connection signal="button_up" from="SideBar/LossActions/EndBattle" to="." method="handle_retreat"]
+[connection signal="button_up" from="SideBar/VictoryActions/EndBattle" to="." method="handle_retreat"]

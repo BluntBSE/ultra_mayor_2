@@ -36,6 +36,7 @@ signal clicked_button
 signal clicked_stub
 signal energy_signal
 signal battle_finished
+signal all_kaiju_resolved
 
 
 func log_turn_signal(sig: int) -> void:
@@ -193,10 +194,15 @@ func kaiju_resolve_effects() -> void:
 	for stub: KaijuCardStub in kaiju_stubs:
 		stub.execute_resolve()
 		await stub.was_resolved
-
+	all_kaiju_resolved.emit()
 func do_player_turn() -> void:
+	%CommitActions.visible = false
+	%TurnActions.visible = false
+	%LossActions.visible = false
+	%VictoryActions.visible = false
 	player_resolve_effects()
 	kaiju_resolve_effects()
+	await all_kaiju_resolved
 	energy = 0
 	max_energy = 0
 	for pilot: LogicalPilot in battle_object.pilots:
@@ -206,10 +212,38 @@ func do_player_turn() -> void:
 		max_energy += pilot.energy
 		energy_signal.emit(energy, max_energy)
 	#Should this be a signal instead of switching to kaiju turn directly?
-	active_turn = TURN_STATES.COMMITTING
-	%CommitActions.visible = true
-	%TurnActions.visible = false
-	%TerrainInfo.visible = false
+	var surviving_pilots:Array = []
+	var surviving_limbs:Array = []
+	for pilot_button:PilotButton in %PilotButtons.get_children():
+		if pilot_button.active and !pilot_button.disabled:
+			surviving_pilots.append(pilot_button.logical_pilot)
+
+	for limb:KaijuButton in %KaijuButtons.get_children():
+		print("Detecting limb: ", limb.name)
+		if limb.active:
+			print("Limb ", limb.name, "is active")
+			if limb.disabled == false:
+				print("Limb, ", limb.name, " is disabled")
+				surviving_limbs.append(limb)
+	if surviving_limbs.size() < 1:
+		print("Victory should be visible")
+		print("Surviving limbs: ", surviving_limbs)
+		%VictoryActions.visible
+		return
+	
+	if surviving_pilots.size()>0:
+		print("There are surviving pilots")
+		active_turn = TURN_STATES.COMMITTING
+		%CommitActions.visible = true
+		%TurnActions.visible = false
+		%TerrainInfo.visible = false
+		return
+	else:
+		print("There are no surviving pilots")
+		%CommitActions.visible = false
+		%TurnActions.visible = false
+		%LossActions.visible = true
+		return
 	#TODO: Check if player won
 	#Kaiju resolution
 	#CHeck if player lost

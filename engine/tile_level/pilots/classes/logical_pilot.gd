@@ -187,8 +187,10 @@ func p_move(_x:int, _y:int)->void:
 		self.y = _y
 		apply_kaiju_block(logical_grid[_x][_y])
 		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
-	battling.battling.erase(self) #Kaiju's list of battles
-	battling = null
+	if battling:
+		if battling.battling.size()>0:
+			battling.battling.erase(self) #Kaiju's list of battles
+			battling = null
 	cleanup_UI()
 	clear_path()
 
