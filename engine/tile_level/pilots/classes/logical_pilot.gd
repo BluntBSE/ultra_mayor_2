@@ -220,7 +220,7 @@ func cleanup_UI()->void:
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	if (pilot in kaiju.battling):
-		#Nope!
+		#Nope!f
 		return
 	kaiju.battling.append(pilot)
 	pilot.battling = kaiju
@@ -230,6 +230,7 @@ func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
 	var k_rt:RenderedTile = kaiju.rendered_grid[kaiju.x][kaiju.y]
 	var GameMain:Node2D = pilot.map.get_parent()
 	arrow.z_index = 4000
+	pilot.map.unselect_all()
 	pilot.map.get_node("arrows").add_child(arrow)#?
 	var start_point:Vector2 = MapHelpers.get_tile_midpoint_global(p_rt)
 

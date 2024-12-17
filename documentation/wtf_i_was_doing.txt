@@ -25,7 +25,7 @@ BUG: Tile beneath kaiju remains dark after context window popup
 
 Event queue to handle card resolution & effects specifically? Doesn't all have to be a fat queue.
 
-
+TODO: Undo selection after assignment.
 BUG: Unable to assign second pilot now
 BUG: Shoving a kaiju after assigning keeps you assigned to the battle
 BUG: RT reset still keeps the hover appearance on the kaiju you battled.

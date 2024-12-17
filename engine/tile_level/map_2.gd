@@ -46,6 +46,8 @@ func unselect_all()->void:
 		rt.apply_highlights()
 	selection_primary = null
 	selection_secondary = null
+	reset_rts.emit()
+	draw_kaiju_paths()
 	
 func unselect_secondary()->void:
 	if selection_secondary:
@@ -71,8 +73,9 @@ func process_rt_signal(args: RTSigObj) -> void:
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
 	var lt: LogicalTile = logical_grid[args.x][args.y]
 	var pilot_1: LogicalPilot
-
-
+	if args.event == "right_click":
+		unselect_all()
+		
 	if selection_primary:
 		if selection_primary.occupant:
 			if selection_primary.occupant.id in PilotLib.lib:
