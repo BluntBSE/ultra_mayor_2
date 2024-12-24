@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cqgi8y4fqpc4g"]
+[gd_scene load_steps=21 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_crbal"]
 [ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nwkov"]
-[ext_resource type="Script" path="res://engine/tile_level/debug_manager.gd" id="4_gbicw"]
+[ext_resource type="Script" path="res://engine/tile_level/MapEventBuses/debug_manager.gd" id="4_gbicw"]
+[ext_resource type="Script" path="res://engine/tile_level/MapEventBuses/attack_event_bus.gd" id="4_w7po0"]
 [ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="5_hbcjr"]
 [ext_resource type="Texture2D" uid="uid://d1qakg8u0h24w" path="res://engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png" id="6_w682q"]
 [ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="7_mjg08"]
@@ -46,6 +47,10 @@ x_offset = 185
 [node name="DebugManager" type="Node" parent="Map"]
 unique_name_in_owner = true
 script = ExtResource("4_gbicw")
+
+[node name="AttackEventBus" type="Node" parent="Map"]
+unique_name_in_owner = true
+script = ExtResource("4_w7po0")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
