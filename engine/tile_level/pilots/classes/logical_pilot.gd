@@ -38,12 +38,7 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 	logical_grid=_logical_grid
 	rendered_grid=_rendered_grid
 	services = get_tree().root.get_node("Main/Services")
-
-
-
 	var temp: Resource = load(deck_path)
-	print("PATH WAS ", deck_path)
-	print("DECK EXISTST? ", temp)
 	deck = temp.cards
 
 
@@ -69,7 +64,7 @@ func clear_origin()->void:
 	origin.apply_highlights()
 
 func preview_highlight(path:Array)->void:
-
+	print("HIGHLIGHTING PILOT PREVIEW")
 	for coords:Dictionary in path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.active_highlights.append("pilot_move_preview")

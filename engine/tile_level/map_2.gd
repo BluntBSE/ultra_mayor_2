@@ -22,7 +22,7 @@ var map_mode: int = map_modes.BATTLE_MODE
 var valid_target: int = valid_targets.ANY
 var selection_primary: LogicalTile
 var selection_secondary: LogicalTile
-
+var pilot_1: LogicalPilot
 #Observers
 @onready var header: TileMapHeaderBar = %HeaderBar
 @onready var side_bar: SideBar = %SideBar
@@ -47,7 +47,7 @@ func unselect_all()->void:
 	selection_primary = null
 	selection_secondary = null
 	reset_rts.emit()
-	draw_kaiju_paths()
+	#draw_kaiju_paths()
 	
 func unselect_secondary()->void:
 	if selection_secondary:
@@ -67,20 +67,45 @@ func get_kaiju() -> Array:
 					kaijus.append(tile.occupant)
 	return kaijus
 
+func clear_pilot_preview(pilot_1:LogicalPilot)->void:
+		if pilot_1 != null:
+			pilot_1.clear_path()
+			pilot_1.clear_origin()
+			selection_primary = null
+			selection_secondary = null
+			pilot_1 = null
 
+func _input(event:InputEvent)->void:
+	if selection_primary:
+		if selection_primary.occupant:
+			if selection_primary.occupant.id in PilotLib.lib:
+				pilot_1 = selection_primary.occupant
+				
+	if event is InputEventMouseButton:
+		print("Right mouse clicked")
+		if event.button_index == 2 and event.pressed:
+			clear_pilot_preview(pilot_1)
 #What about a dictionary containing a path for every entity that might need one?
 func process_rt_signal(args: RTSigObj) -> void:
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
 	var lt: LogicalTile = logical_grid[args.x][args.y]
-	var pilot_1: LogicalPilot
-	if args.event == "right_click":
-		unselect_all()
+
+
 		
 	if selection_primary:
 		if selection_primary.occupant:
 			if selection_primary.occupant.id in PilotLib.lib:
 				pilot_1 = selection_primary.occupant
-
+	else:
+		pilot_1 = null
+	
+	#EXRA HUGE TODO: This shouldn't be a click on a tile, but any right click unhandled input.
+	if args.event == "right_click": 		 #TODO: I don't think we currently ever null this ever. Should be.
+		if pilot_1 != null:
+			clear_pilot_preview(pilot_1)
+			
+		
+				
 	if args.event == "hover_enter":
 		#DetermineHoverBehavior()?
 		rt.active_highlights.append("basic_hovered")
@@ -89,6 +114,7 @@ func process_rt_signal(args: RTSigObj) -> void:
 	if args.event == "hover_exit":
 		rt.active_highlights.erase("basic_hovered")
 	if args.event == "left_click":
+		print("LEFT CLICK")
 
 		if selection_primary and selection_secondary:
 			var secondary_rt:RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
