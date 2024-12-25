@@ -2,7 +2,7 @@ extends Node
 class_name AttackCommand #Attack as in "Kaiju attack" not attack generally.
 signal finished
 
-func do(map:Map_2, tile:LogicalTile)->void:
+func do()->void:
 	#Pure virtual
 	pass
 	

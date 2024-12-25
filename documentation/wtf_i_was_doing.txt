@@ -33,6 +33,8 @@ BUG: Tile beneath kaiju remains dark after context window popup
 
 Event queue to handle card resolution & effects specifically? Doesn't all have to be a fat queue.
 
+TODO - BUT LATER?: Panning the camera with a pilot selected will continuously rerun the pathfinding mechanism
+#Which can cause stuttering. Try running it only after the camera is still.
 TODO: Undo selection after assignment.
 BUG: Unable to assign second pilot now
 BUG: Shoving a kaiju after assigning keeps you assigned to the battle

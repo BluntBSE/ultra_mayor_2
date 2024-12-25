@@ -167,27 +167,6 @@ func tile_is_in_reachable_path(_x:int, _y:int)->bool:
 			return true
 	return false
 
-func p_move(_x:int, _y:int)->void:
-	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
-	rendered_grid[self.x][self.y].apply_highlights()
-	#First off, check if this X_Y is even in the active path!
-	if tile_is_in_reachable_path(_x, _y):
-		var r_pilot:RenderedPilot = rendered_grid[self.x][self.y].rendered_occupant
-		r_pilot.state_machine.Change("moving", {"path": self.reachable_path, "target": {"x": _x, "y": _y}, "origin": {"x":self.x, "y": self.y},"map":map})
-		logical_grid[self.x][self.y].occupant = null
-		logical_grid[_x][_y].occupant = self
-		rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
-		rendered_grid[_x][_y].rendered_occupant = r_pilot
-		self.x = _x
-		self.y = _y
-		apply_kaiju_block(logical_grid[_x][_y])
-		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
-	if battling:
-		if battling.battling.size()>0:
-			battling.battling.erase(self) #Kaiju's list of battles
-			battling = null
-	cleanup_UI()
-	clear_path()
 
 func target_context(_x:int, _y:int)->void:
 	var target_lt:LogicalTile = logical_grid[_x][_y]

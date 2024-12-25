@@ -39,6 +39,7 @@ const SELECTION_HIGHLIGHTS:Array = [
 ]
 
 func unselect_all()->void:
+	print("Unselected everything")
 	if selection_primary:
 		var rt:RenderedTile = rendered_grid[selection_primary.x][selection_primary.y]
 		for highlight:String in SELECTION_HIGHLIGHTS:
@@ -89,9 +90,7 @@ func _input(event:InputEvent)->void:
 func process_rt_signal(args: RTSigObj) -> void:
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
 	var lt: LogicalTile = logical_grid[args.x][args.y]
-
-
-		
+	
 	if selection_primary:
 		if selection_primary.occupant:
 			if selection_primary.occupant.id in PilotLib.lib:
@@ -99,13 +98,12 @@ func process_rt_signal(args: RTSigObj) -> void:
 	else:
 		pilot_1 = null
 	
-	#EXRA HUGE TODO: This shouldn't be a click on a tile, but any right click unhandled input.
-	if args.event == "right_click": 		 #TODO: I don't think we currently ever null this ever. Should be.
+	#This shouldn't just be a click on a tile, but any right click unhandled input. This duplication is intentional
+	if args.event == "right_click":
 		if pilot_1 != null:
 			clear_pilot_preview(pilot_1)
 			
 		
-				
 	if args.event == "hover_enter":
 		#DetermineHoverBehavior()?
 		rt.active_highlights.append("basic_hovered")
@@ -114,8 +112,8 @@ func process_rt_signal(args: RTSigObj) -> void:
 	if args.event == "hover_exit":
 		rt.active_highlights.erase("basic_hovered")
 	if args.event == "left_click":
-		print("LEFT CLICK")
-
+		
+		#You've already got two active selections and probably a context menu open. Remove them.
 		if selection_primary and selection_secondary:
 			var secondary_rt:RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
 			secondary_rt.remove_child(secondary_rt.get_node("PilotTargetContext"))
@@ -135,7 +133,10 @@ func process_rt_signal(args: RTSigObj) -> void:
 				var pilot: LogicalPilot = selection_primary.occupant
 				#Move a pilot selection to the target point if possible
 				if lt.occupant == null:
-					pilot.p_move(args.x, args.y)
+					print("SHOULD BE MOVING HERE")
+					var target_tile:LogicalTile = logical_grid[args.x][args.y]
+					var command:AttackMoveTo = AttackMoveTo.new(self, selection_primary, target_tile)
+					%AttackEventBus.add_do(command)
 					unselect_all()
 					draw_kaiju_paths()
 				if lt.occupant != null:
