@@ -30,6 +30,10 @@ BUG: Tile beneath kaiju remains dark after context window popup
 1. Remove state machine from renderedtile for now (or leave as 'basic')
 2. The RTSig/MapSig thing is mostly good, but we need to catch unhandled right clicks.
 
+----
+
+BUG: Moving to break assignment doesn't actually break assignment
+BUG: ASsign, move (and cancel assign), assign again doesn't produce the arrows as expected
 
 Event queue to handle card resolution & effects specifically? Doesn't all have to be a fat queue.
 

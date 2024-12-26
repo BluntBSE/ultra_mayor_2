@@ -43,7 +43,7 @@ func pilot_move(map:Map_2, from:LogicalTile, to:LogicalTile)->void:
 	var l_pilot:LogicalPilot = logical_grid[from.x][from.y].occupant
 	var r_pilot:RenderedPilot = rendered_grid[from.x][from.y].rendered_occupant
 	
-	if l_pilot.moves_remaining < 1:
+	if l_pilot.moves_remaining < 1 or l_pilot.reachable_path.size() == 0:
 		return
 
 	rendered_grid[from.x][from.y].active_highlights.erase("pilot_move_origin")
@@ -58,14 +58,10 @@ func pilot_move(map:Map_2, from:LogicalTile, to:LogicalTile)->void:
 	print("Assigned ", r_pilot, "to ", to.x," - ", to.y)
 	#apply_kaiju_block(logical_grid[_x][_y]) - We're probably not going to have the pilots fully block the kaiju anymore.
 	l_pilot.moves_remaining = l_pilot.moves_remaining - l_pilot.reachable_path[-1].reach_cost
-	if l_pilot.battling: # References a kaiju
-		if l_pilot.battling.battling.size()>0: # List of pilots a kaiju is fighting
-			l_pilot.battling.battling.erase(self) #Remove pilot from Kaiju's list of battles
-			l_pilot.battling = null
 	l_pilot.x = to.x
 	l_pilot.y = to.y
-	l_pilot.cleanup_UI()
-	l_pilot.clear_path()
+	l_pilot.clear_everything()
+
 
 func pilot_unmove()->void:
 	#rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")

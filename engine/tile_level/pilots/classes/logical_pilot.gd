@@ -48,6 +48,10 @@ func process_rt_signal()->void:
 	pass
 
 
+func clear_everything()->void:
+	clear_path()
+	cleanup_UI()
+	remove_from_battles()
 
 func clear_path()->void:
 	#Should this be a signal instead?
@@ -62,6 +66,12 @@ func clear_origin()->void:
 	var origin:RenderedTile = rendered_grid[self.x][self.y]
 	origin.active_highlights.erase("pilot_move_origin")
 	origin.apply_highlights()
+
+func remove_from_battles()->void:
+	print("Called remove from battles!")
+	if battling:
+		print("A battling kaiju was found! Attemptign to remove, ", self)
+		battling.battling.erase(self)
 
 func preview_highlight(path:Array)->void:
 	print("HIGHLIGHTING PILOT PREVIEW")

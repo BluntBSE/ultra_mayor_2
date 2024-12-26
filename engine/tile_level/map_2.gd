@@ -47,6 +47,7 @@ func unselect_all()->void:
 		rt.apply_highlights()
 	selection_primary = null
 	selection_secondary = null
+	valid_target = valid_targets.ANY
 	reset_rts.emit()
 	#draw_kaiju_paths()
 	
@@ -115,13 +116,14 @@ func process_rt_signal(args: RTSigObj) -> void:
 		
 		#You've already got two active selections and probably a context menu open. Remove them.
 		if selection_primary and selection_secondary:
+			print("This is the path alright")
 			var secondary_rt:RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
 			secondary_rt.remove_child(secondary_rt.get_node("PilotTargetContext"))
 			if pilot_1:
 				pilot_1.clear_path()
 				pilot_1.clear_origin()
-			selection_primary = null
-			selection_secondary = null
+				pilot_1.remove_from_battles()
+			unselect_all()
 
 		if selection_primary == null:
 			if lt.occupant != null:
@@ -133,15 +135,15 @@ func process_rt_signal(args: RTSigObj) -> void:
 				var pilot: LogicalPilot = selection_primary.occupant
 				#Move a pilot selection to the target point if possible
 				if lt.occupant == null:
-					print("SHOULD BE MOVING HERE")
 					var target_tile:LogicalTile = logical_grid[args.x][args.y]
 					var command:AttackMoveTo = AttackMoveTo.new(self, selection_primary, target_tile)
 					%AttackEventBus.add_do(command)
+					pilot.clear_everything()
 					unselect_all()
 					draw_kaiju_paths()
+					
 				if lt.occupant != null:
 					if lt.occupant.id in KaijuLib.lib:
-						#pilot.open_target_context_menu -- auto assigning should be a check after p_move
 						pilot.target_context(args.x, args.y)
 						selection_secondary=logical_grid[args.x][args.y]
 
@@ -180,6 +182,7 @@ func end_turn() -> void:
 					kaijus.append(tile.occupant)
 
 	for _kaiju:LogicalKaiju in kaijus:
+		print("KAIJU IS BATTLING", _kaiju.battling)
 		if _kaiju.battling.size() > 0:
 			var battle_object:BattleObject = BattleObject.new()
 			battle_object.kaiju = _kaiju
