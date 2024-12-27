@@ -22,7 +22,7 @@ var map_mode: int = map_modes.BATTLE_MODE
 var valid_target: int = valid_targets.ANY
 var selection_primary: LogicalTile
 var selection_secondary: LogicalTile
-
+var pilot_1: LogicalPilot
 #Observers
 @onready var header: TileMapHeaderBar = %HeaderBar
 @onready var side_bar: SideBar = %SideBar
@@ -46,8 +46,9 @@ func unselect_all()->void:
 		rt.apply_highlights()
 	selection_primary = null
 	selection_secondary = null
+	valid_target = valid_targets.ANY
 	reset_rts.emit()
-	draw_kaiju_paths()
+	#draw_kaiju_paths()
 	
 func unselect_secondary()->void:
 	if selection_secondary:
@@ -67,20 +68,41 @@ func get_kaiju() -> Array:
 					kaijus.append(tile.occupant)
 	return kaijus
 
+func clear_pilot_preview(pilot_1:LogicalPilot)->void:
+		if pilot_1 != null:
+			pilot_1.clear_path()
+			pilot_1.clear_origin()
+			selection_primary = null
+			selection_secondary = null
+			pilot_1 = null
 
-#What about a dictionary containing a path for every entity that might need one?
-func process_rt_signal(args: RTSigObj) -> void:
-	var rt: RenderedTile = rendered_grid[args.x][args.y]
-	var lt: LogicalTile = logical_grid[args.x][args.y]
-	var pilot_1: LogicalPilot
-	if args.event == "right_click":
-		unselect_all()
-		
+func _input(event:InputEvent)->void:
 	if selection_primary:
 		if selection_primary.occupant:
 			if selection_primary.occupant.id in PilotLib.lib:
 				pilot_1 = selection_primary.occupant
-
+				
+	if event is InputEventMouseButton:
+		if event.button_index == 2 and event.pressed:
+			clear_pilot_preview(pilot_1)
+#What about a dictionary containing a path for every entity that might need one?
+func process_rt_signal(args: RTSigObj) -> void:
+	var rt: RenderedTile = rendered_grid[args.x][args.y]
+	var lt: LogicalTile = logical_grid[args.x][args.y]
+	
+	if selection_primary:
+		if selection_primary.occupant:
+			if selection_primary.occupant.id in PilotLib.lib:
+				pilot_1 = selection_primary.occupant
+	else:
+		pilot_1 = null
+	
+	#This shouldn't just be a click on a tile, but any right click unhandled input. This duplication is intentional
+	if args.event == "right_click":
+		if pilot_1 != null:
+			clear_pilot_preview(pilot_1)
+			
+		
 	if args.event == "hover_enter":
 		#DetermineHoverBehavior()?
 		rt.active_highlights.append("basic_hovered")
@@ -89,15 +111,16 @@ func process_rt_signal(args: RTSigObj) -> void:
 	if args.event == "hover_exit":
 		rt.active_highlights.erase("basic_hovered")
 	if args.event == "left_click":
-
+		
+		#You've already got two active selections and probably a context menu open. Remove them.
 		if selection_primary and selection_secondary:
 			var secondary_rt:RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
 			secondary_rt.remove_child(secondary_rt.get_node("PilotTargetContext"))
 			if pilot_1:
 				pilot_1.clear_path()
 				pilot_1.clear_origin()
-			selection_primary = null
-			selection_secondary = null
+				pilot_1.remove_from_battles()
+			unselect_all()
 
 		if selection_primary == null:
 			if lt.occupant != null:
@@ -109,12 +132,15 @@ func process_rt_signal(args: RTSigObj) -> void:
 				var pilot: LogicalPilot = selection_primary.occupant
 				#Move a pilot selection to the target point if possible
 				if lt.occupant == null:
-					pilot.p_move(args.x, args.y)
+					var target_tile:LogicalTile = logical_grid[args.x][args.y]
+					var command:AttackMoveTo = AttackMoveTo.new(self, selection_primary, target_tile)
+					%AttackEventBus.add_do(command)
+					pilot.clear_everything()
 					unselect_all()
 					draw_kaiju_paths()
+					
 				if lt.occupant != null:
 					if lt.occupant.id in KaijuLib.lib:
-						#pilot.open_target_context_menu -- auto assigning should be a check after p_move
 						pilot.target_context(args.x, args.y)
 						selection_secondary=logical_grid[args.x][args.y]
 
@@ -133,7 +159,6 @@ func set_mode(mode: int) -> void:
 
 
 func process_battle_outcome(ro:BattleResolveObject)->void:
-	print("Processing battle outcome")
 	for pilot:LogicalPilot in pilots:
 		if pilot in ro.disabled_pilots:
 			pilot.disabled = true

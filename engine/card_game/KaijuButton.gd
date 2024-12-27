@@ -81,7 +81,6 @@ func draw_and_assign()->void:
 	}
 	card.do_transit(dest_args)
 	services = get_tree().root.find_child("Services", true, false)
-	print("I think sound service is", services.get_sound_service())
 	services.get_sound_service().play("card_play")
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:

@@ -30,5 +30,3 @@ func stateHandleInput(args:Dictionary)->void:
 
 func stateUpdate(_delta:float) -> void:
 	pass
-
-

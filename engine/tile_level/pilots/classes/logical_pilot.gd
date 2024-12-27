@@ -38,12 +38,7 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 	logical_grid=_logical_grid
 	rendered_grid=_rendered_grid
 	services = get_tree().root.get_node("Main/Services")
-
-
-
 	var temp: Resource = load(deck_path)
-	print("PATH WAS ", deck_path)
-	print("DECK EXISTST? ", temp)
 	deck = temp.cards
 
 
@@ -53,6 +48,10 @@ func process_rt_signal()->void:
 	pass
 
 
+func clear_everything()->void:
+	clear_path()
+	cleanup_UI()
+	remove_from_battles()
 
 func clear_path()->void:
 	#Should this be a signal instead?
@@ -68,8 +67,11 @@ func clear_origin()->void:
 	origin.active_highlights.erase("pilot_move_origin")
 	origin.apply_highlights()
 
-func preview_highlight(path:Array)->void:
+func remove_from_battles()->void:
+	if battling:
+		battling.battling.erase(self)
 
+func preview_highlight(path:Array)->void:
 	for coords:Dictionary in path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.active_highlights.append("pilot_move_preview")
@@ -172,27 +174,6 @@ func tile_is_in_reachable_path(_x:int, _y:int)->bool:
 			return true
 	return false
 
-func p_move(_x:int, _y:int)->void:
-	rendered_grid[self.x][self.y].active_highlights.erase("pilot_move_origin")
-	rendered_grid[self.x][self.y].apply_highlights()
-	#First off, check if this X_Y is even in the active path!
-	if tile_is_in_reachable_path(_x, _y):
-		var r_pilot:RenderedPilot = rendered_grid[self.x][self.y].rendered_occupant
-		r_pilot.state_machine.Change("moving", {"path": self.reachable_path, "target": {"x": _x, "y": _y}, "origin": {"x":self.x, "y": self.y},"map":map})
-		logical_grid[self.x][self.y].occupant = null
-		logical_grid[_x][_y].occupant = self
-		rendered_grid[self.x][self.y].rendered_occupant = null #Move to render move state?
-		rendered_grid[_x][_y].rendered_occupant = r_pilot
-		self.x = _x
-		self.y = _y
-		apply_kaiju_block(logical_grid[_x][_y])
-		moves_remaining = moves_remaining - reachable_path[-1].reach_cost
-	if battling:
-		if battling.battling.size()>0:
-			battling.battling.erase(self) #Kaiju's list of battles
-			battling = null
-	cleanup_UI()
-	clear_path()
 
 func target_context(_x:int, _y:int)->void:
 	var target_lt:LogicalTile = logical_grid[_x][_y]
@@ -219,26 +200,6 @@ func cleanup_UI()->void:
 		active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
-	if (pilot in kaiju.battling):
-		#Nope!f
-		return
-	kaiju.battling.append(pilot)
-	pilot.battling = kaiju
-	#Draw a line...s
-	var arrow:IndicateArrow = IndicateArrow.new()
-	var p_rt:RenderedTile = pilot.rendered_grid[pilot.x][pilot.y]
-	var k_rt:RenderedTile = kaiju.rendered_grid[kaiju.x][kaiju.y]
-	var GameMain:Node2D = pilot.map.get_parent()
-	arrow.z_index = 4000
-	pilot.map.unselect_all()
-	pilot.map.get_node("arrows").add_child(arrow)#?
-	var start_point:Vector2 = MapHelpers.get_tile_midpoint_global(p_rt)
-
-	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)
-
-	arrow.unpack(start_point, end_point, Color.RED, 5)
-	arrows.append(arrow)
-	#var camera:Camera2D = GameMain.get_node("MainCamera")
-	#camera.position = end_point
-
-	pass
+	var bus:AttackEventBus = map.get_node("AttackEventBus")
+	var command:AttackAssignPilot = AttackAssignPilot.new(map, map.logical_grid[pilot.x][pilot.y], map.logical_grid[kaiju.x][kaiju.y])
+	bus.add_do(command)

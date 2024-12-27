@@ -195,7 +195,6 @@ func apply_modifier_filter()->void:
 
 
 func execute_instant_effects()->void:
-	print("Executing instant effect from ", self.lc.display_name)
 	effects.call(instant_effect, instant_targets)
 
 func undo_instant_effects()->void:
@@ -207,7 +206,6 @@ func undo_instant_effects()->void:
 
 func apply_modifiers_effects()->void:
 	reset_self()
-	print("Applying the following modifiers to ", lc.display_name, " ", modifiers)
 	for modifier:StubModifier in modifiers:
 		if modifier.modifier == "weaken_stub":
 			resolve_min = floor(resolve_min/2)

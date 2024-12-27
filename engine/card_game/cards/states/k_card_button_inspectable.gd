@@ -30,8 +30,7 @@ func stateHandleInput(args: Dictionary) -> void:
 		_reference.hovered = true
 		highlight.visible = true
 	if args.event == "l_click" and _reference.hovered == true:
-		#_reference.was_clicked.emit(_reference)
-		print("INSPECTION SHOULD BE TRIGGERED HERE")
+		pass
 	if args.event == "exit":
 		#NOTE: Clicks qualify as 'exit' too!
 		_reference.hovered = false

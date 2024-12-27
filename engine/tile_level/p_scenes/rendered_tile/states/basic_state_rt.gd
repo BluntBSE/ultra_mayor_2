@@ -23,4 +23,3 @@ func stateHandleInput(args:Dictionary)->void:
 
 func stateExit()->void:
 	pass
-

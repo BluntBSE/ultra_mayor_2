@@ -219,15 +219,10 @@ func do_player_turn() -> void:
 			surviving_pilots.append(pilot_button.logical_pilot)
 
 	for limb:KaijuButton in %KaijuButtons.get_children():
-		print("Detecting limb: ", limb.name)
 		if limb.active:
-			print("Limb ", limb.name, "is active")
 			if limb.disabled == false:
-				print("Limb, ", limb.name, " is disabled")
 				surviving_limbs.append(limb)
 	if surviving_limbs.size() < 1:
-		print("Victory should be visible")
-		print("Surviving limbs: ", surviving_limbs)
 		%VictoryActions.visible
 		return
 	

@@ -62,23 +62,11 @@ func apply_highlights()->void:
 		do_modulate(Color.WHITE)
 
 signal rt_signal
-signal rt_request_selection_primary#:LogicalTile
-signal rt_request_selection_secondary#:LogicalTile
-signal rt_request_clear_all
-signal rt_pilot_path
-signal rt_pilot_move
-signal rt_kaiju_move
+
 
 var occupant_sprite_width: int = 128
 var occupant_sprite_height: int = 128
 
-func is_self(args:MapSigObj)->bool:
-	#POSSIBLY OBSOLETE?
-	#Determine if the map signal concerns this rendered tile.
-	if args.x == x:
-		if args.y == y:
-			return true
-	return false
 
 
 func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
@@ -89,7 +77,7 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		logical_parent = logical_grid[x][y]
 		#Connect map to RT signal
 		connect("rt_signal", map.process_rt_signal)
-		map.reset_rts.connect(handle_input.bind({"event":RTInputs.CLEAR}))
+		map. reset_rts.connect(handle_input.bind({"event":RTInputs.CLEAR}))
 
 
 		%xy_coords.text = str(x) + ", " + str(y)
@@ -124,9 +112,10 @@ func handle_input(args:Dictionary)->void:
 		return
 
 	if args.event == RTInputs.CLEAR:
-		state_machine.Change("basic", {})
-		active_highlights = []
-		apply_highlights()
+		if state_machine._current_state_id != "basic":
+			state_machine.Change("basic", {})
+			active_highlights = []
+			apply_highlights()
 
 		return
 
@@ -142,6 +131,7 @@ func handle_input(args:Dictionary)->void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float) -> void:
+	pass
 	state_machine._current.stateUpdate(_delta)
 
 
