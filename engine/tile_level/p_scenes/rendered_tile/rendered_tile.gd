@@ -142,14 +142,14 @@ func custom_hover_exit()  -> void:
 	if map.valid_target == map.valid_targets.NONE:
 		return
 	var event_str:String = "hover_exit"
-	var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+	var rt_sig_obj:RTSigObj = RTSigObj.new(self, x,y,event_str)
 	rt_signal.emit(rt_sig_obj)
 
 func custom_hover_enter()  -> void:
 	if map.valid_target == map.valid_targets.NONE:
 		return
 	var event_str:String = "hover_enter"
-	var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+	var rt_sig_obj:RTSigObj = RTSigObj.new(self, x,y,event_str)
 	rt_signal.emit(rt_sig_obj)
 
 
@@ -158,11 +158,11 @@ func _on_hover_area_input_event(_viewport:Node, event:InputEvent, shape_idx:int)
 	var event_str:String = ""
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 		event_str  = "left_click"
-		var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+		var rt_sig_obj:RTSigObj = RTSigObj.new(self, x,y,event_str)
 		rt_signal.emit(rt_sig_obj)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
 		event_str = "right_click"
-		var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
+		var rt_sig_obj:RTSigObj = RTSigObj.new(self, x,y,event_str)
 		rt_signal.emit(rt_sig_obj)
 
 

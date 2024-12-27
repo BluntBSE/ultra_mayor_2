@@ -117,7 +117,6 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	var decklist:Array = []
 	var services:Services = get_tree().root.find_child("Services", true, false)
 	var cs:CardService = services.card_service
-	print("I THINK ALL LEGAL CARDS ARE", cs.cards)
 	for type:String in types:
 		for key:String in cs.cards.keys():
 			var resource:LogicalCard = cs.cards[key] as LogicalCard
@@ -133,7 +132,6 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	var printable:Array = []
 	for item:LogicalCard in decklist:
 		printable.append(item.display_name)
-	print("I THINK AN APPROPRIATE DECK FOR ", _limb.label, " IS ", printable)
 	_limb.deck = decklist
 
 

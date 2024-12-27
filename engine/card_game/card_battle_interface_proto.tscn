@@ -1002,7 +1002,6 @@ text = "COMMIT"
 
 [node name="LossActions" type="VBoxContainer" parent="SideBar"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -1024,7 +1023,7 @@ fit_content = true
 layout_mode = 2
 theme = ExtResource("3_vtq0s")
 theme_override_font_sizes/font_size = 26
-text = "LOSE FOREVER"
+text = "END BATTLE"
 
 [node name="VictoryActions" type="VBoxContainer" parent="SideBar"]
 unique_name_in_owner = true

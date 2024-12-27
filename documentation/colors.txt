@@ -1,0 +1,14 @@
+
+
+COLOR IDEAS
+a2f9ea74 - some kinda green
+white
+dd96f9 - lavendery
+ebc3fb - lavendery modulate for portraits
+d8acf474 - Button mask with alpha on hover
+1a0d1d - darrrk purple
+
+
+---Card Color Categories--
+95e0fa  - a kind of light blue
+----

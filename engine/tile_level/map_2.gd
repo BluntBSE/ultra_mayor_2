@@ -82,9 +82,11 @@ func _input(event:InputEvent)->void:
 			if selection_primary.occupant.id in PilotLib.lib:
 				pilot_1 = selection_primary.occupant
 				
-	if event is InputEventMouseButton:
-		if event.button_index == 2 and event.pressed:
-			clear_pilot_preview(pilot_1)
+	if event is InputEventMouseButton: #Unhandled right click handler
+		if event.button_index == 2 and event.pressed: #Right click
+			if pilot_1:
+				clear_pilot_preview(pilot_1)
+				pilot_1.clear_everything()
 #What about a dictionary containing a path for every entity that might need one?
 func process_rt_signal(args: RTSigObj) -> void:
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
@@ -100,7 +102,9 @@ func process_rt_signal(args: RTSigObj) -> void:
 	#This shouldn't just be a click on a tile, but any right click unhandled input. This duplication is intentional
 	if args.event == "right_click":
 		if pilot_1 != null:
+			print("This where we at")
 			clear_pilot_preview(pilot_1)
+			pilot_1.clear_everything()
 			
 		
 	if args.event == "hover_enter":
@@ -116,10 +120,9 @@ func process_rt_signal(args: RTSigObj) -> void:
 		if selection_primary and selection_secondary:
 			var secondary_rt:RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
 			secondary_rt.remove_child(secondary_rt.get_node("PilotTargetContext"))
+			secondary_rt.active_highlights.erase("basic_hovered")
 			if pilot_1:
-				pilot_1.clear_path()
-				pilot_1.clear_origin()
-				pilot_1.remove_from_battles()
+				pilot_1.clear_everything()
 			unselect_all()
 
 		if selection_primary == null:
@@ -143,6 +146,7 @@ func process_rt_signal(args: RTSigObj) -> void:
 					if lt.occupant.id in KaijuLib.lib:
 						pilot.target_context(args.x, args.y)
 						selection_secondary=logical_grid[args.x][args.y]
+						rt.active_highlights.erase("basic_hovered")
 
 
 	rt.apply_highlights()

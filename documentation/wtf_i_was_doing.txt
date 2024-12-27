@@ -1,79 +1,18 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 
-
-COLOR IDEAS
-a2f9ea74 - some kinda green
-white
-dd96f9 - lavendery
-ebc3fb - lavendery modulate for portraits
-d8acf474 - Button mask with alpha on hover
-1a0d1d - darrrk purple
-
-
----Card Color Categories--
-95e0fa  - a kind of light blue
-----
-TODO: When doing another thing that requires input, try using _unhandled_input instead
-Learn about why that's better
-SCRATCHED: Scaling text down if it doesn't fit
-TODO: Angry energy noise when you don't have enough energy
-
----CONSIDER: Your SFX player implements queues you can use for city builder's command pattern
---Just make a difference between adding for the first time and restoring for re-drawing or placing by hand
-BUG: Can play cards during the commit decision.
-BUG: Tile beneath kaiju remains dark after context window popup
-
-
-
----New map system nonsense---
-
-1. Remove state machine from renderedtile for now (or leave as 'basic')
-2. The RTSig/MapSig thing is mostly good, but we need to catch unhandled right clicks.
-
-----
-
-TODO:
-	Make battle assignment a command like pilot movement now is
-	
-Event queue to handle card resolution & effects specifically? Doesn't all have to be a fat queue.
-
-TODO - BUT LATER?: Panning the camera with a pilot selected will continuously rerun the pathfinding mechanism
-#Which can cause stuttering. Try running it only after the camera is still.
-TODO: Undo selection after assignment.
-BUG: Unable to assign second pilot now
-BUG: Shoving a kaiju after assigning keeps you assigned to the battle
-BUG: RT reset still keeps the hover appearance on the kaiju you battled.
-TODO: Add "determine legal selections" type function to Map BECAUSE we rerun it when we close context menus
-TODO: Disable damaged pilots
-TODO: Disable damaged Kaiju
-TODO: Inspect graveyards/pilots/limbs?
-TODO: Damage effect that shows a glimpse of what's lost?
-TODO: Flee/Commit cycle for card battles
-TODO: Win/lose state for battles
-TODO: Add type interactions, and types to rendered_cards, including local terrain
-TODO: Button modifier cards
-
-STRONGLY CONSIDER (TODO): Implementing Memento and/or Command pattern. Possibly not needed in cards. Probably needed in city builder
-
-
-	-
-
-
-
 MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?
 POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
-
 
 LogicalTiles currently parent themselves directly to the map. Is it worth putting them in a dummy node called LogicalTiles?
 We mostly access them through the variable on the map.
 
-TODO:
-	-Consider consolidating your string events into a global enum
-	-When entering battle mode...Hide tilemain? Don't save/reload?
-	-Some cleanup logic for context menus is living in TileMain. Probably shouldn't be.
 
+--QUEUE--
 
-DONE: How to reparent RPilot without changing position -- it's probably okay if it's part of the movingpilot state.
+BUG: Tile beneath kaiju remains dark after context window popup
+BUG: Tile beneath kaiju remains dark after fight starts
+BUG: Right mouse does not close any open contexts
 
-probably need to go A* instead of breadth-first cuz it's slow
-act
+TODO: Animate cards as they resolve
+
+POSSIBLY: Put card events in a bus so you can have good pauses after them and stuff.
