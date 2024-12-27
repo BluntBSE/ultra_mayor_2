@@ -5,7 +5,6 @@ class_name KaijuLib
 static func fetch_art_pack(key:String)->Resource:
 	var dir:String = "res://engine/tile_level/kaiju/art_packs/"
 	var path:String = dir+key+".tres"
-	print("FETCH ART PACK IS LOADING FROM ", path)
 	return load(path)
 	
 static var lib: Dictionary = {

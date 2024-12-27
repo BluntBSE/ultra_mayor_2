@@ -30,7 +30,6 @@ func _init(_map:Map_2, tile_1:LogicalTile, tile_2:LogicalTile)->void:
 # HELPERS 
 
 func determine_occupant_type(tile:LogicalTile)->String:
-	print("CALLED THIS SHIT")
 	if tile.occupant.id in PilotLib.lib:
 		return "pilot"
 	if tile.occupant.id in KaijuLib.lib:
@@ -55,7 +54,6 @@ func pilot_move(map:Map_2, from:LogicalTile, to:LogicalTile)->void:
 	rendered_grid[to.x][to.y].rendered_occupant = r_pilot
 
 	rendered_grid[from.x][from.y].rendered_occupant = null 
-	print("Assigned ", r_pilot, "to ", to.x," - ", to.y)
 	#apply_kaiju_block(logical_grid[_x][_y]) - We're probably not going to have the pilots fully block the kaiju anymore.
 	l_pilot.moves_remaining = l_pilot.moves_remaining - l_pilot.reachable_path[-1].reach_cost
 	l_pilot.x = to.x

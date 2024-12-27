@@ -31,7 +31,6 @@ func update_count()->void:
 
 func disable_button()->void:
 	modulate = Color(0.2,0.2,0.2,1.0);
-	print("Button disabled")
 	disabled = true
 	var timer := Timer.new()
 	add_child(timer)
@@ -45,7 +44,6 @@ func disable_button()->void:
 	pass
 
 func on_disable_timeout()->void:
-	print("Can't afford timeout was called!")
 	material.set_shader_parameter("active", false)
 	get_node("ShaderMask").visible=false
 	pass
@@ -115,7 +113,6 @@ func _ready()->void:
 
 
 func on_hover()->void:
-		print("Area2D was hovered for sure")
 		get_viewport().set_input_as_handled() #TODO: Is this really the way?
 		if disabled == false:
 			state_machine._current.stateHandleInput({"event": "hover"})
@@ -131,7 +128,6 @@ func _process(_delta:float)->void:
 func handle_target_signal(sig:int)->void:
 	if disabled == true:
 		return
-	print("Handle target_signal got", sig)
 	if sig == LogicalCard.target_types.NONE:
 		state_machine.Change("drawable", {}) #TODO: Do I need to change the color here?
 		return

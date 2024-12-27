@@ -38,7 +38,6 @@ func unpack(lp:LogicalPilot)->void:
 
 func match_state()->void:
 	#Interrogate the current state of the LP. Render accordingly
-	print("MATCH STATE THINKS...", logical_pilot.disabled)
 	if logical_pilot.disabled == true:
 		do_disabled()
 

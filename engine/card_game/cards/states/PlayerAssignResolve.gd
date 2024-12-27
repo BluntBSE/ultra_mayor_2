@@ -90,7 +90,6 @@ func stateHandleInput(args: Dictionary) -> void:
 
 	if (args.event is KaijuCardStub) or (args.event is PlayerCardStub):
 		if num_instant > 0:
-			print("NUM INSTANT CHECK")
 			#Do instants
 			if num_instant > 0:
 				if args.event in instant_targets: #Can't assign to the same target twice.
@@ -107,7 +106,6 @@ func stateHandleInput(args: Dictionary) -> void:
 
 
 		if num_resolve > 0:
-			print("NUM RESOLVE CHECK", num_resolve)
 			#Treat as one stage
 			if num_resolve >= resolve_targets.size():
 				assign_resolve_primary([args.event])
@@ -201,7 +199,6 @@ func stateUpdate(_dt:float)->void:
 	indicator.visible = true
 	#indicator.scale = Vector2(1.0,1.0)
 	if num_instant > 0:
-		#print("TRYING TO DRAW INSTANT ARROW FROM ", _reference.global_position, "TO ", _reference.get_global_mouse_position())
 		_reference.target_signal.emit(_reference.lc.instant_target_type)
 		indicator = CardHelpers.drag_arrow(_reference, indicator, Color.BLANCHED_ALMOND)
 		return

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://engine/common/services/services.gd" id="2_qp26l"]
 [ext_resource type="Script" path="res://engine/common/sounds/sound_test.gd" id="3_mobfb"]
 [ext_resource type="Script" path="res://engine/common/services/sound_service.gd" id="3_y2520"]
-[ext_resource type="AudioStream" uid="uid://lrqie7k4yxf6" path="res://music/Soft Chill IDM.wav" id="5_k6xdw"]
+[ext_resource type="AudioStream" uid="uid://cpebpduwkoi7j" path="res://music/Soft Chill IDM.mp3" id="5_vbu1u"]
 
 [node name="Main" type="Node2D"]
 
@@ -21,7 +21,7 @@ script = ExtResource("3_y2520")
 unique_name_in_owner = true
 script = ExtResource("2_qp26l")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_k6xdw")
-volume_db = -15.0
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vbu1u")
+volume_db = -20.0
 autoplay = true

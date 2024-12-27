@@ -32,9 +32,9 @@ BUG: Tile beneath kaiju remains dark after context window popup
 
 ----
 
-BUG: Moving to break assignment doesn't actually break assignment
-BUG: ASsign, move (and cancel assign), assign again doesn't produce the arrows as expected
-
+TODO:
+	Make battle assignment a command like pilot movement now is
+	
 Event queue to handle card resolution & effects specifically? Doesn't all have to be a fat queue.
 
 TODO - BUT LATER?: Panning the camera with a pilot selected will continuously rerun the pathfinding mechanism

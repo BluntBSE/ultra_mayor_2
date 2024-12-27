@@ -23,8 +23,7 @@ func stateHandleInput(args: Dictionary) -> void:
 		_reference.hovered = false
 		highlight.visible = false
 	if args.event == "l_click" and _reference.hovered == true:
-		print("SHOULD HAVE ASSIGNED TO PILOT BUTTON HERE")
-
+		pass
 
 func is_left_mouse_released() -> bool:
 	return Input.is_action_just_released("left_click")

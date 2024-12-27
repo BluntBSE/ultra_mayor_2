@@ -68,13 +68,10 @@ func clear_origin()->void:
 	origin.apply_highlights()
 
 func remove_from_battles()->void:
-	print("Called remove from battles!")
 	if battling:
-		print("A battling kaiju was found! Attemptign to remove, ", self)
 		battling.battling.erase(self)
 
 func preview_highlight(path:Array)->void:
-	print("HIGHLIGHTING PILOT PREVIEW")
 	for coords:Dictionary in path:
 		var rt:RenderedTile = rendered_grid[coords.x][coords.y]
 		rt.active_highlights.append("pilot_move_preview")
@@ -203,26 +200,6 @@ func cleanup_UI()->void:
 		active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
-	if (pilot in kaiju.battling):
-		#Nope!f
-		return
-	kaiju.battling.append(pilot)
-	pilot.battling = kaiju
-	#Draw a line...s
-	var arrow:IndicateArrow = IndicateArrow.new()
-	var p_rt:RenderedTile = pilot.rendered_grid[pilot.x][pilot.y]
-	var k_rt:RenderedTile = kaiju.rendered_grid[kaiju.x][kaiju.y]
-	var GameMain:Node2D = pilot.map.get_parent()
-	arrow.z_index = 4000
-	pilot.map.unselect_all()
-	pilot.map.get_node("arrows").add_child(arrow)#?
-	var start_point:Vector2 = MapHelpers.get_tile_midpoint_global(p_rt)
-
-	var end_point:Vector2 = MapHelpers.get_tile_midpoint_global(k_rt)
-
-	arrow.unpack(start_point, end_point, Color.RED, 5)
-	arrows.append(arrow)
-	#var camera:Camera2D = GameMain.get_node("MainCamera")
-	#camera.position = end_point
-
-	pass
+	var bus:AttackEventBus = map.get_node("AttackEventBus")
+	var command:AttackAssignPilot = AttackAssignPilot.new(map, map.logical_grid[pilot.x][pilot.y], map.logical_grid[kaiju.x][kaiju.y])
+	bus.add_do(command)

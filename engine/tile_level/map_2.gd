@@ -39,7 +39,6 @@ const SELECTION_HIGHLIGHTS:Array = [
 ]
 
 func unselect_all()->void:
-	print("Unselected everything")
 	if selection_primary:
 		var rt:RenderedTile = rendered_grid[selection_primary.x][selection_primary.y]
 		for highlight:String in SELECTION_HIGHLIGHTS:
@@ -84,7 +83,6 @@ func _input(event:InputEvent)->void:
 				pilot_1 = selection_primary.occupant
 				
 	if event is InputEventMouseButton:
-		print("Right mouse clicked")
 		if event.button_index == 2 and event.pressed:
 			clear_pilot_preview(pilot_1)
 #What about a dictionary containing a path for every entity that might need one?
@@ -116,7 +114,6 @@ func process_rt_signal(args: RTSigObj) -> void:
 		
 		#You've already got two active selections and probably a context menu open. Remove them.
 		if selection_primary and selection_secondary:
-			print("This is the path alright")
 			var secondary_rt:RenderedTile = rendered_grid[selection_secondary.x][selection_secondary.y]
 			secondary_rt.remove_child(secondary_rt.get_node("PilotTargetContext"))
 			if pilot_1:
@@ -162,7 +159,6 @@ func set_mode(mode: int) -> void:
 
 
 func process_battle_outcome(ro:BattleResolveObject)->void:
-	print("Processing battle outcome")
 	for pilot:LogicalPilot in pilots:
 		if pilot in ro.disabled_pilots:
 			pilot.disabled = true
@@ -182,7 +178,6 @@ func end_turn() -> void:
 					kaijus.append(tile.occupant)
 
 	for _kaiju:LogicalKaiju in kaijus:
-		print("KAIJU IS BATTLING", _kaiju.battling)
 		if _kaiju.battling.size() > 0:
 			var battle_object:BattleObject = BattleObject.new()
 			battle_object.kaiju = _kaiju

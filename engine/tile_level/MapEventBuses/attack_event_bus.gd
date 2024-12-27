@@ -1,10 +1,12 @@
 extends Node
+class_name AttackEventBus
 
 #Not a ring buffer. This array gets cleared at the end of the turn
 #It can be traversed to provide undo effects.
 var queue:Array
 var head:int
 var tail:int
+signal just_did
 
 #EVENT QUEUE NEEDS TO BATCH REQUESTS THAT ARE ALIKE EACH OTHER: 
 
@@ -27,12 +29,14 @@ func add_do(command:AttackCommand)->void:
 		queue.append(command)
 		command.do()
 		head += 1
+		just_did.emit(command)
 	else:
 		var sliced:Array = queue.slice(0, head+1)
 		queue = sliced
 		queue.append(command)
 		command.do()
 		head += 1
+		just_did.emit(command)
 		
 	# If the head is at the end of the array, append a new command and do it immediately.
 	# If the head is NOT at the end of the array, delete all commands after the head.

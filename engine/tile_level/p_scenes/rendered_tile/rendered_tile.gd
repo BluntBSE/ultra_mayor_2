@@ -113,7 +113,6 @@ func handle_input(args:Dictionary)->void:
 
 	if args.event == RTInputs.CLEAR:
 		if state_machine._current_state_id != "basic":
-			print("CLEARING PILOT PREVIEW")
 			state_machine.Change("basic", {})
 			active_highlights = []
 			apply_highlights()
@@ -162,12 +161,10 @@ func _on_hover_area_input_event(_viewport:Node, event:InputEvent, shape_idx:int)
 		var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
 		rt_signal.emit(rt_sig_obj)
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
-		print("How many right click emissions?")
 		event_str = "right_click"
 		var rt_sig_obj:RTSigObj = RTSigObj.new(x,y,event_str)
 		rt_signal.emit(rt_sig_obj)
 
 
 func reset_self()->void:
-	#print("RESET SELF CALLED")
 	handle_input({"event": RTInputs.CLEAR})
