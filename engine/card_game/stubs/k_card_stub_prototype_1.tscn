@@ -1,9 +1,44 @@
-[gd_scene load_steps=7 format=3 uid="uid://4042qebjvnsi"]
+[gd_scene load_steps=10 format=3 uid="uid://4042qebjvnsi"]
 
 [ext_resource type="Script" path="res://engine/card_game/stubs/k_card_stub.gd" id="1_g8gyn"]
 [ext_resource type="Texture2D" uid="uid://b2bd2q7sk18lw" path="res://engine/common/assets/Red_Icons/PNG/4.png" id="2_6dktd"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_kcoxw"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="4_dijmc"]
+
+[sub_resource type="Animation" id="Animation_lbhgu"]
+resource_name = "tremble_1"
+length = 0.7
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0.05, -0.05, 0, 0.05, 0, -0.03, -0.05, 0, 0.05, 0, 0.01, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667)
+}
+
+[sub_resource type="Animation" id="Animation_jom4g"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qme7x"]
+_data = {
+"RESET": SubResource("Animation_jom4g"),
+"tremble_1": SubResource("Animation_lbhgu")
+}
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
 
@@ -12,6 +47,11 @@ radius = 73.0616
 
 [node name="CardStub2" type="Node2D"]
 script = ExtResource("1_g8gyn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qme7x")
+}
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 visible = false

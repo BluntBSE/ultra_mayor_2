@@ -1,6 +1,8 @@
 extends Node
 class_name StubBase
 
+var animation_player:AnimationPlayer
+
 ##Card stats
 var lc: LogicalCard
 var art: Sprite2D
@@ -64,6 +66,7 @@ signal was_clicked
 
 func unpack(_lc: LogicalCard, _played_from: Node2D, _resolve_targets: Array = [], _resolve_targets_2: Array = [], _instant_targets: Array = []) -> void:
 	#Played from is a pilotbutton or a kaiju button
+	animation_player = find_child("AnimationPlayer")
 	played_from = _played_from
 	lc = _lc
 	art = find_child("ArtImg")
@@ -160,7 +163,16 @@ func do_transit(args: Dictionary) -> void:
 func execute_resolve() -> void:
 	was_resolved.emit(self)
 	effects.call(resolve_effect, resolve_targets, resolve_targets_secondary, resolve_min, resolve_max, modifiers)
+	#Animation goes here
+	var player:AnimationPlayer = AnimHelpers.qp_animation(animation_player, "tremble_1")
+	#Used 'connect' instead of 'await' because TheDuriel and co told me to.
+	player.connect("animation_finished", post_animation_resolve)
+
+
+func post_animation_resolve(animation:String)->void:
+	#We don't consume the animation name, it's just returned by the player.
 	played_from.graveyard.append(lc)
+	#Returns to the button from which this stub was spawned
 	var t_args: Dictionary = {
 		"global_position": played_from.global_position,
 		"scale": Vector2(0.1, 0.1),

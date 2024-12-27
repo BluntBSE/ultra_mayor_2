@@ -1,6 +1,7 @@
 extends Node2D
 class_name RenderedCard
 
+var animation_player:AnimationPlayer
 var hand:CardHand
 var hand_position: Vector2
 var hand_rotation: float
@@ -44,6 +45,7 @@ signal was_removed
 
 
 func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origin:Node2D) -> void:
+	animation_player = %AnimationPlayer
 	hand = _hand
 	lc = _lc
 	art = find_child("ArtImg")
@@ -184,6 +186,7 @@ func update_vals_and_desc(str:String, _num_instant:int, _num_resolve:int, _num_r
 		#If the card has resolve values of 0/0,
 func _process(delta:float)->void:
 	state_machine.stateUpdate(delta)
+
 
 func handle_being_assigned(assigned:RenderedCard)->void:
 	## Cards emit 'being assigned' when entering assignment state. The hand listens for this and sends it to other cards

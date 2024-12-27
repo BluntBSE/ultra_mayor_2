@@ -9,10 +9,11 @@ We mostly access them through the variable on the map.
 
 --QUEUE--
 
-BUG: Tile beneath kaiju remains dark after context window popup
-BUG: Tile beneath kaiju remains dark after fight starts
+
 BUG: Right mouse does not close any open contexts
 
 TODO: Animate cards as they resolve
+TODO: Kaiju damage persists
+TODO: Win the kaiju battle  - does an event bus, if any, precede this?
 
 POSSIBLY: Put card events in a bus so you can have good pauses after them and stuff.
