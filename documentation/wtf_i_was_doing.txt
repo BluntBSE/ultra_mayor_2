@@ -12,7 +12,9 @@ We mostly access them through the variable on the map.
 
 BUG: Right mouse does not close any open contexts
 
-TODO: Animate cards as they resolve
+TODO: Animate cards as they resolve - done primitively	
+-Subtask: Separate player animations and Kaiju animations
+
 TODO: Kaiju damage persists
 TODO: Win the kaiju battle  - does an event bus, if any, precede this?
 

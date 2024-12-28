@@ -28,7 +28,7 @@ func count_string(left: int, starting: int) -> String:
 
 func update_count()->void:
 	cards_left = deck.size()
-	card_count.text = count_string(cards_left, cards_starting)
+	card_count.text = count_string(cards_left, limb.original_size)
 
 
 
@@ -98,7 +98,7 @@ func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void
 	#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
 	cards_starting = deck.size()
 	cards_left = cards_starting
-	card_count.text = count_string(cards_starting, cards_left)
+	card_count.text = count_string(cards_starting, limb.original_size)
 	interface = _interface
 	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
 	#interface.turn_signal.connect(switch_interactivity)

@@ -37,6 +37,7 @@ signal clicked_stub
 signal energy_signal
 signal battle_finished
 signal all_kaiju_resolved
+signal all_player_resolved
 
 
 func log_turn_signal(sig: int) -> void:
@@ -161,6 +162,9 @@ func unpack(_battle_object: BattleObject) -> void:
 		max_energy += pilot.energy
 	connect("energy_signal", %EnergyDisplay.update_energy)
 	energy_signal.emit(energy, max_energy)
+	#THE BELOW MIGHT BE REPLACED BY AN EVENT QUEUE.
+	#CURRENTLY WE USE THE ORDER OF NODES AS CHILDREN AS THE QUEUE.
+	connect("all_player_resolved", kaiju_resolve_effects )
 
 
 
@@ -174,6 +178,7 @@ func unpack(_battle_object: BattleObject) -> void:
 
 #####TURN MANAGER -- CONSIDER MOVING TO ITS OWN NODE?
 func player_resolve_effects() -> void:
+	print("Entered player resolve effects")
 	var p_in_play_node: PlayerInPlay = %PlayerInPlay
 	var k_in_play_node: KaijuInPlay = %KaijuInPlay
 
@@ -184,9 +189,15 @@ func player_resolve_effects() -> void:
 
 	for stub: KaijuCardStub in k_in_play_node.get_children():
 		stub.do_uninteractive()
-
-	for stub: PlayerCardStub in player_stubs:
-		stub.execute_resolve()
+	
+	if player_stubs.size()>1:
+		for stub: PlayerCardStub in player_stubs:
+			stub.execute_resolve()
+			print("We're awaiting in the stub loop")
+			await stub.was_resolved
+			print("We made it past awaiting	")
+	all_player_resolved.emit()
+	print("Emitted all_player_resolved")
 
 func kaiju_resolve_effects() -> void:
 	var k_in_play_node: KaijuInPlay = %KaijuInPlay
@@ -201,7 +212,9 @@ func do_player_turn() -> void:
 	%LossActions.visible = false
 	%VictoryActions.visible = false
 	player_resolve_effects()
-	kaiju_resolve_effects()
+	#The old masters mention not using 'await' but this seems appropriate.
+	print("If this shows, you're confused")
+	#kaiju_resolve_effects()
 	await all_kaiju_resolved
 	energy = 0
 	max_energy = 0

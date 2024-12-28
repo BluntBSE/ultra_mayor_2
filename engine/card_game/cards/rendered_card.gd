@@ -69,7 +69,7 @@ func unpack(_lc: LogicalCard, _hand:CardHand, _interface:BattleInterface, _origi
 	inspect_node = get_tree().root.find_child("InspectCard", true, false)
 	is_inspection_copy = false
 
-	mouse_area = get_node("MouseArea")
+	mouse_area = find_child("MouseArea")
 
 	interface = _interface
 	origin = _origin

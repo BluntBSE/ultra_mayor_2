@@ -1,9 +1,28 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxiikvq5sd0os"]
+[gd_scene load_steps=9 format=3 uid="uid://cxiikvq5sd0os"]
 
 [ext_resource type="Script" path="res://engine/card_game/stubs/p_card_stub.gd" id="1_jbetc"]
 [ext_resource type="Texture2D" uid="uid://b2bd2q7sk18lw" path="res://engine/common/assets/Red_Icons/PNG/4.png" id="2_kiiq3"]
 [ext_resource type="Script" path="res://engine/common/tools/regular_polygon.gd" id="3_aw3h7"]
 [ext_resource type="Script" path="res://engine/card_game/Area2DTest.gd" id="4_bi5pn"]
+
+[sub_resource type="Animation" id="Animation_4t0uy"]
+resource_name = "tremble_1"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.05, 0, 0.05, 0, 0.05, -0.05, 0, 0.05, 0, -0.03, -0.05, 0, 0.05, 0, 0.01, -0.05, 0, 0.05, 0, 0, -0.05, 0, 0.05, 0),
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_42k6j"]
+_data = {
+"tremble_1": SubResource("Animation_4t0uy")
+}
 
 [sub_resource type="Theme" id="Theme_ni6wk"]
 
@@ -12,6 +31,11 @@ radius = 73.0616
 
 [node name="CardStub" type="Node2D"]
 script = ExtResource("1_jbetc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_42k6j")
+}
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 visible = false

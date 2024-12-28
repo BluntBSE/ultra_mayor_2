@@ -133,6 +133,7 @@ func build_limb_decklist_2(_limb:Limb, factor:float)->void:
 	for item:LogicalCard in decklist:
 		printable.append(item.display_name)
 	_limb.deck = decklist
+	_limb.original_size = decklist.size()
 
 
 

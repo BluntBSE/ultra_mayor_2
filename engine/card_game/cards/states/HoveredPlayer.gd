@@ -46,7 +46,7 @@ func stateEnter(_args: Dictionary) -> void:
 	original_rotation = _reference.rotation
 	original_z = _reference.z_index
 	original_scale = _reference.scale
-	highlight = _reference.get_node("HoverBorder")
+	highlight = _reference.find_child("HoverBorder")
 	highlight.visible = true
 	var hover_pos:Vector2 = find_bottom(_reference)
 	_reference.z_index = 100
