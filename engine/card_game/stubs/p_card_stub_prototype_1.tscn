@@ -36,6 +36,7 @@ script = ExtResource("1_jbetc")
 libraries = {
 "": SubResource("AnimationLibrary_42k6j")
 }
+speed_scale = 3.0
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 visible = false
