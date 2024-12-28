@@ -19,7 +19,6 @@ func stateEnter(_args: Dictionary) -> void:
 	var ref:StubBase = _reference
 	#The first time a card becomes inspectable, flash its targets
 	if ref.entered == false:
-		print("HAS NO PLAYER ENTERED")
 		ref.entered = true
 		ref.flash_all_targets()
 		ref.execute_instant_effects()
@@ -41,12 +40,10 @@ func stateHandleInput(args:Dictionary)->void:
 		var interface:BattleInterface = ref.get_tree().root.find_child("BattleInterface", true, false)
 		inspect_copy.unpack(ref.lc, dummy_hand, interface, ref.played_from)
 		inspect_copy.modifier_display.display_modifiers(_reference.modifiers)
-		print("I'm the inspect copy! I think the modifiers are ", _reference.modifiers)
 		inspect_copy.update_vals_and_desc(ref.lc.description, ref.lc.instant_targets, ref.lc.resolve_targets, ref.lc.resolve_secondary_targets, ref.resolve_min, ref.resolve_max )
 		inspect_node.global_position = inspect_node.global_position
 
 	if args.event == "l_click" and _reference.hovered == true:
-		print("Clicked on stub, should assign to", _reference.lc.display_name)
 		ref.was_clicked.emit(ref) #Assign to this bad boy
 
 

@@ -29,7 +29,8 @@ func count_string(left: int, starting: int) -> String:
 func update_count()->void:
 	cards_left = deck.size()
 	card_count.text = count_string(cards_left, limb.original_size)
-
+	if cards_left == 0:
+		disable_button()
 
 
 #TODO: Put draw_card in the interactive state.
@@ -84,26 +85,48 @@ func draw_and_assign()->void:
 	services.get_sound_service().play("card_play")
 
 func unpack(kaiju: LogicalKaiju, _limb:Limb, _interface:BattleInterface) -> void:
-	var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
-	sprite.texture = KaijuLib.fetch_art_pack(KaijuLib.lib[kaiju.id].art_pack)[_limb.id] #Update to limb.art
-	bg_poly = find_child("BGPoly")
-	bg_poly.visible = true
+	#If the limb is not disabled, do the following:
+	if _limb.disabled == false:
+		var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
+		sprite.texture = KaijuLib.fetch_art_pack(KaijuLib.lib[kaiju.id].art_pack)[_limb.id] #Update to limb.art
+		bg_poly = find_child("BGPoly")
+		bg_poly.visible = true
 
 
-	card_count = get_node("Polygon2D/ColorRect/CardCount")
-	sprite.self_modulate = Color(1, 1, 1, 1)
-	limb = _limb
-	deck = limb.deck
-	active = true
-	#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
-	cards_starting = deck.size()
-	cards_left = cards_starting
-	card_count.text = count_string(cards_starting, limb.original_size)
-	interface = _interface
-	in_play = get_tree().root.find_child("KaijuInPlay", true, false)
-	#interface.turn_signal.connect(switch_interactivity)
-	connect("was_clicked", interface.broadcast_button) #Communicates what was clicked on for card targeting
-	interface.connect("targeting_signal", handle_target_signal)
+		card_count = get_node("Polygon2D/ColorRect/CardCount")
+		sprite.self_modulate = Color(1, 1, 1, 1)
+		limb = _limb
+		deck = limb.deck
+		active = true
+		#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
+		cards_starting = deck.size()
+		cards_left = cards_starting
+		card_count.text = count_string(cards_starting, limb.original_size)
+		interface = _interface
+		in_play = get_tree().root.find_child("KaijuInPlay", true, false)
+		#interface.turn_signal.connect(switch_interactivity)
+		connect("was_clicked", interface.broadcast_button) #Communicates what was clicked on for card targeting
+		interface.connect("targeting_signal", handle_target_signal)
+		
+	if _limb.disabled == true:
+		var sprite: Sprite2D = get_node("Polygon2D/Sprite2D")
+		sprite.texture = KaijuLib.fetch_art_pack(KaijuLib.lib[kaiju.id].art_pack)[_limb.id] #Update to limb.art
+		bg_poly = find_child("BGPoly")
+		bg_poly.visible = true
+		disabled = true
+
+
+		card_count = get_node("Polygon2D/ColorRect/CardCount")
+		sprite.self_modulate = Color(0.25, 0.25, 0.25, 1)
+		limb = _limb
+		deck = limb.deck
+		active = true
+		#deck = CardHelpers.shuffle_array(deck) - Kaiju decks do NOT shuffle between battles.
+		cards_starting = deck.size()
+		cards_left = cards_starting
+		card_count.text = count_string(0, limb.original_size)
+		interface = _interface
+		in_play = get_tree().root.find_child("KaijuInPlay", true, false)
 
 
 func _ready()->void:
@@ -118,6 +141,26 @@ func _ready()->void:
 
 
 func switch_interactivity(turn_signal:int)->void: #Turn State enum on BattleInterface
+	pass
+
+
+func disable_button()->void:
+	modulate = Color(0.2,0.2,0.2,1.0);
+	disabled = true
+	var timer := Timer.new()
+	add_child(timer)
+	timer.wait_time = 1.0
+	timer.one_shot = true
+	timer.start()
+	timer.connect("timeout", on_disable_timeout)
+	get_node("ShaderMask").visible=true;
+	material.set_shader_parameter("active", true)
+	services.get_sound_service().play("negative")
+	pass
+	
+func on_disable_timeout()->void:
+	material.set_shader_parameter("active", false)
+	get_node("ShaderMask").visible=false
 	pass
 
 func on_hover()->void:

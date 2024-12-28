@@ -22,14 +22,15 @@ func do_turn(turn_state: int) -> void:
 func do_kaiju_turn() -> void:
 	var time: float = 0.25
 	var active_buttons:Array = []
+	var idx:int = 1 #For interval timing
 	for button:KaijuButton in kaiju_buttons:
-		if button.active == true:
-			active_buttons.append(button)
-	for i in range(active_buttons.size()): #Needs to be number of ACTIVE buttons
-		var kaiju_button: KaijuButton = kaiju_buttons[i]
-		var interval: float = i * time
-		var timer: SceneTreeTimer = get_tree().create_timer(interval)
-		timer.connect("timeout", kaiju_button.draw_and_assign)
+		if  button.active == true:
+			if button.disabled == false:
+				active_buttons.append(button)
+				var interval: float = idx * time
+				var timer: SceneTreeTimer = get_tree().create_timer(interval)
+				timer.connect("timeout", button.draw_and_assign)
+				idx += 1
 
 
 
@@ -38,6 +39,8 @@ func do_kaiju_turn() -> void:
 	finished.emit()
 
 	pass
+
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

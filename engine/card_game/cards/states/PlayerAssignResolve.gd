@@ -129,7 +129,6 @@ func stateHandleInput(args: Dictionary) -> void:
 		pass
 
 	if args.event is String:
-		print("EVENT RECEIVED WAS ", args.event)
 		if args.event == "change_assigned":
 			hover_border.visible = false
 			_reference.state_machine.Change("interactive", {})
@@ -137,7 +136,6 @@ func stateHandleInput(args: Dictionary) -> void:
 			indicator.visible = false
 			indicator.queue_free()
 		if args.event == "cancel":
-			print("Right click detected from playerassignresolve")
 			hover_border.visible = false
 
 			indicator.visible = false

@@ -77,42 +77,8 @@ func assign_limb_types(types: Array, _limbs: Array) -> void:
 			limb_types.append(types[0])
 		limb.types = limb_types
 
-
-func build_limb_decklist(_limb:Limb,  factor:float)->void:
-	#A given deck's size is equal to its tier, * the factor * 10 + 40
-	var deck_size:int = roundi(_limb.tier * factor) + 40
-	var valid_cards:Array = []
-	var decklist:Array = []
-	#TODO: Maybe the CardService should break these up...But does that actually help me?
-	#That is, instead of searching by path specifically.
-	var decklist_path:String = "res://engine/card_game/decklists/decklists_kaiju/"
-	var body_path:String = decklist_path + _limb.id
-	var file_path:String = body_path + "/" + _limb.id + "_tier_" + str(_limb.tier) + ".gd"
-	var file:Script = load(file_path)
-	var lib:Dictionary = file.lib
-	var file_keys:Array = file.lib.keys()
-	for card_key:String in file_keys:
-		var card:LogicalCard = lib[card_key]
-		for type:String in card.types:
-			if type in types:
-				valid_cards.append(card)
-				break
-
-
-
-	while decklist.size() < deck_size:
-		var idx:int = randi() % valid_cards.size()
-		decklist.append(valid_cards[idx])
-
-	var card_names:Array
-	for card:LogicalCard in decklist:
-		card_names.append(card.id)
-
-	decklist = CardHelpers.shuffle_array(decklist)
-	_limb.deck = decklist
-
 func build_limb_decklist_2(_limb:Limb, factor:float)->void:
-	var deck_size:int = roundi(_limb.tier * factor) + 40
+	var deck_size:int = roundi(_limb.tier * factor) + 3
 	var valid_cards:Array = []
 	var decklist:Array = []
 	var services:Services = get_tree().root.find_child("Services", true, false)

@@ -24,7 +24,6 @@ func do_cant_afford()->void:
 	pass
 
 func on_cant_afford_timeout()->void:
-	print("Can't afford timeout was called!")
 	material.set_shader_parameter("active", false)
 	get_node("ShaderMask").visible=false
 	pass

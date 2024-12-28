@@ -19,7 +19,6 @@ func organize_stubs() -> void:
 		return
 
 	var idx:int = 0
-	print("ORGANIZE STUBS ABOUT TO INITIATE TRANSIT")
 	for stub:PlayerCardStub in in_play:
 		var destination:Vector2 = self.global_position + Vector2(250.0*(idx),0.0)
 		var dest_args:Dictionary = {

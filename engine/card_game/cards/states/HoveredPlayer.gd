@@ -60,7 +60,6 @@ func stateEnter(_args: Dictionary) -> void:
 
 
 func stateHandleInput(args: Dictionary) -> void:
-	print("State handle input firing with args:", args)
 
 	if args.event == "exit":
 		var tween:Tween = _reference.create_tween()

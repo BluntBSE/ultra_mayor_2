@@ -9,7 +9,7 @@ var grid_height: int = 30
 var rendered_grid: Array = []  #Possibly maintaining both the visual nodes and decoupled logic is excessive. Oh well.
 var occupants: Array = []  # Might be useful to just hold a reference to all occupants.
 var pilots: Array = []
-var kaiju: Array = []
+var kaijus: Array = []
 var kaiju_blocks: Array = []
 var turn_counter: int = 0
 var camera:Camera2D
@@ -163,22 +163,38 @@ func set_mode(mode: int) -> void:
 
 
 func process_battle_outcome(ro:BattleResolveObject)->void:
+	print("Process battle outcome happened")
 	for pilot:LogicalPilot in pilots:
 		if pilot in ro.disabled_pilots:
 			pilot.disabled = true
 	#TODO: Kaiju half
+	print("Are there any fucking kaijus? ", kaijus)
+	for _kaiju:LogicalKaiju in kaijus:
+		print("Inspecting ", _kaiju.id)
+		print("Disabled limbs is currently: ", ro.disabled_limbs)
+		if _kaiju == ro.kaiju:
+			print("kaiju match in PBO")
+			for limb:Limb in _kaiju.limbs:
+				print("Checking limbs:", limb.id)
+				if limb in ro.disabled_limbs:
+					print("limb located in the disabled limbs")
+					limb.disabled = true
 
 
 func end_turn() -> void:
-	#var pilots: Array = []
-	var kaijus: Array = []
+	#Don't do this v
+	pilots = []
+	kaijus = []
+	#This ^
 	var battles:Array = []
 	for column: Array in logical_grid: #TODO: Maybe don't perform this lookup every time.
 		for tile: LogicalTile in column:
 			if tile.occupant != null:
 				if tile.occupant.id in PilotLib.lib:
+					print("Appending to pilots")
 					pilots.append(tile.occupant)
 				if tile.occupant.id in KaijuLib.lib:
+					print("Appending to kaijus")
 					kaijus.append(tile.occupant)
 
 	for _kaiju:LogicalKaiju in kaijus:

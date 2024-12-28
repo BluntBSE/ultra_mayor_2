@@ -104,7 +104,6 @@ func _ready() -> void:
 	pass
 
 func handle_canceled()->void:
-	print("Hello from handlecancel in rc")
 	state_machine.Change("interactive", {})
 	hand.organize_cards()
 	target_signal.emit(LogicalCard.target_types.NONE)

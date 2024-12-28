@@ -190,12 +190,12 @@ func player_resolve_effects() -> void:
 	for stub: KaijuCardStub in k_in_play_node.get_children():
 		stub.do_uninteractive()
 	
-	if player_stubs.size()>1:
-		for stub: PlayerCardStub in player_stubs:
-			stub.execute_resolve()
-			print("We're awaiting in the stub loop")
-			await stub.was_resolved
-			print("We made it past awaiting	")
+
+	for stub: PlayerCardStub in player_stubs:
+		stub.execute_resolve()
+		print("We're awaiting in the stub loop")
+		await stub.was_resolved
+		print("We made it past awaiting	")
 	all_player_resolved.emit()
 	print("Emitted all_player_resolved")
 
@@ -213,7 +213,6 @@ func do_player_turn() -> void:
 	%VictoryActions.visible = false
 	player_resolve_effects()
 	#The old masters mention not using 'await' but this seems appropriate.
-	print("If this shows, you're confused")
 	#kaiju_resolve_effects()
 	await all_kaiju_resolved
 	energy = 0
@@ -270,6 +269,7 @@ func handle_commit()->void:
 func handle_retreat()->void:
 	print("Handling retreat")
 	var resolve_object := BattleResolveObject.new()
+	resolve_object.kaiju = original_battle_object.kaiju
 	for button:PilotButton in %PilotButtons.get_children():
 		if button.disabled == true:
 			resolve_object.disabled_pilots.append(button.logical_pilot)
@@ -282,6 +282,8 @@ func handle_retreat()->void:
 		else:
 			resolve_object.surviving_limbs.append(button.limb)
 		pass
+		
+	
 	battle_finished.emit(resolve_object)
 	#TODO:This must be modified. But for now, pass it back out
 	# Diff between battle_object and original_battle_object

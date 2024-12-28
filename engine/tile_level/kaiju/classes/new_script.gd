@@ -7,4 +7,4 @@ var original_size:int
 var types:Array = []
 var art:String = ""
 var tier:int = 1
-var active:bool = true
+var disabled:bool = false

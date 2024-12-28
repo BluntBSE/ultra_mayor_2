@@ -38,7 +38,7 @@ script = ExtResource("1_g8gyn")
 libraries = {
 "": SubResource("AnimationLibrary_qme7x")
 }
-speed_scale = 2.0
+speed_scale = 3.0
 
 [node name="HoverBorder" type="ColorRect" parent="."]
 visible = false
