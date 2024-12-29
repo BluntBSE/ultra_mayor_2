@@ -1,5 +1,5 @@
 extends ColorRect
-class_name SideBar
+class_name AttackSideBar
 
 @onready var map:Map_2 = %Map
 #Rendering nodes

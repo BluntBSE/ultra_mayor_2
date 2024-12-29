@@ -25,7 +25,7 @@ var selection_secondary: LogicalTile
 var pilot_1: LogicalPilot
 #Observers
 @onready var header: TileMapHeaderBar = %HeaderBar
-@onready var side_bar: SideBar = %SideBar
+@onready var side_bar: AttackSideBar = %AttackSideBar
 
 signal map_signal  #Currently used to populate sidebar with what you hover over
 signal map_select_occ_signal

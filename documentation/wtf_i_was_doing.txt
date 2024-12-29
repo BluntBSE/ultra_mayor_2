@@ -1,4 +1,6 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
+CONSIDER: Maybe not every pilot gets "Shove?" The ability to daisy chain shoves is pretty beefy.
+Maybe a kaiju can only be shoved once or something?
 
 MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?
 POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
@@ -8,16 +10,11 @@ We mostly access them through the variable on the map.
 
 
 --QUEUE--
+TODO: Really show what happens if the Kaiju has to move through a pilot
 
 
-BUG: Right mouse does not close any open contexts
-
-TODO: Animate cards as they resolve - done primitively	
-TODO:
--Subtask: Separate player animations and Kaiju animations
-
-TODO: Limbs can be disabled
-TODO: Kaiju can go down.
+TODO: Make a decision about Kaiju pathing. Can they go through pilots or not?
+Ideas: Maybe if a pilot goes down, the Kaiju moves into the pilots' space before continuing movement?
 	
 TODO: Win the kaiju battle  - does an event bus, if any, precede this?
 
