@@ -4,6 +4,7 @@ var display_text:String
 var sprite:String
 var portrait:String
 var category:String
+var tier:int #Kaiju will tend to go for the highest tier?
 var ap_cost:int
 var effects:Dictionary
 #Effects are of the following form:

@@ -10,16 +10,32 @@ We mostly access them through the variable on the map.
 
 
 --QUEUE--
+
+####PLACING BUILDINGS####
 TODO: Make the "construct" button open up the building menu
 -Make it clear that clicking it again will close it
 -Make clicking in the world close it (and right clicking if we don't want closer inspection)
 -Make the menu close
+-Upon hovering, open the tooltip panel
 -Upon clicking a button, check to make sure the player has enough AP
+-If not, make angry noise around AP.
 -Make the buttons make a building outline follow the cursor as it hovers over tiles
+-While the outline hovers over different terrain, update the tooltip panel accordingly.
+-e.g: Most buildings require a development level of at least 1.
+-While the outline hovers over terrain, update the radius of its effect in a hollow aura around the hexes
 -Probably by having a stored "placing:..." variable
 -This makes the button highlighted until it's placed
 -Make right-clicking or an unhandled left click dismiss the placement.
--Upon left clicking,
+-Upon left clicking, create a build command, add it to the event queue, then execute from queue
+-Command must have: The building being placed, the location where it is being placed, the amount of AP spent, and the turn in which it was placed (for campaign reasons)
+-Whence executed, put the real building down
+-Development & Buildings are their own layer
+-Apply its effect layer to the terrain in the given radius
+-When mousing over a placed building, create a hollow outline of its effect radius.
+-If the building is a power
+
+
+####OVERLAYS###
 
 
 
