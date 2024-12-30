@@ -13,12 +13,12 @@ var kaijus: Array = []
 var kaiju_blocks: Array = []
 var turn_counter: int = 0
 var camera:Camera2D
-enum map_modes { CITY_BUILDER, BATTLE_MODE }
+enum map_modes { CITY_BUILDER, ATTACK, PLACING_BUILDING }
 enum valid_targets { ANY, KAIJU, PILOTS, OCCUPANTS, BUILDINGS, NONE}
 
 
 #REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED  A REAL STATE MACHINE?
-var map_mode: int = map_modes.BATTLE_MODE
+var map_mode: int = map_modes.CITY_BUILDER
 var valid_target: int = valid_targets.ANY
 var selection_primary: LogicalTile
 var selection_secondary: LogicalTile
@@ -88,7 +88,9 @@ func _input(event:InputEvent)->void:
 				clear_pilot_preview(pilot_1)
 				pilot_1.clear_everything()
 #What about a dictionary containing a path for every entity that might need one?
-func process_rt_signal(args: RTSigObj) -> void:
+
+
+func process_rt_attack_mode(args:RTSigObj)->void:
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
 	var lt: LogicalTile = logical_grid[args.x][args.y]
 	
@@ -102,7 +104,6 @@ func process_rt_signal(args: RTSigObj) -> void:
 	#This shouldn't just be a click on a tile, but any right click unhandled input. This duplication is intentional
 	if args.event == "right_click":
 		if pilot_1 != null:
-			print("This where we at")
 			clear_pilot_preview(pilot_1)
 			pilot_1.clear_everything()
 			
@@ -153,6 +154,22 @@ func process_rt_signal(args: RTSigObj) -> void:
 	var map_sig: MapSigObj = MapSigObj.new(self, args.x, args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
 	map_signal.emit(map_sig)  #Emit the current state of what's happened so the sidebars, etc. can decide what to display
 
+
+
+func process_rt_citybuilder_mode(args:RTSigObj)->void:
+	pass
+	
+
+func process_rt_buildingplace_mode(args:RTSigObj)->void:
+	pass
+
+func process_rt_signal(args: RTSigObj) -> void:
+	if map_mode == 1: # Attack mode
+		process_rt_attack_mode(args)
+	if map_mode == 0: #City builder mode, nothing being placed
+		process_rt_citybuilder_mode(args)
+	if map_mode == 2:
+		process_rt_buildingplace_mode(args)
 
 
 func set_mode(mode: int) -> void:

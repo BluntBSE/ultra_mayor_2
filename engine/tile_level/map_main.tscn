@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cqgi8y4fqpc4g"]
+[gd_scene load_steps=25 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_crbal"]
 [ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nwkov"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="8_8eogd"]
 [ext_resource type="Script" path="res://engine/tile_level/header_bar.gd" id="9_5i1fu"]
 [ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="10_7kf5a"]
+[ext_resource type="Script" path="res://engine/tile_level/UI/CityBuilder/OverWorldUI.gd" id="11_cjkeq"]
 [ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="11_dsoel"]
 [ext_resource type="PackedScene" uid="uid://b5ndi8j4pyptj" path="res://engine/tile_level/UI/CityBuilder/building_button.tscn" id="11_r281n"]
 [ext_resource type="FontFile" uid="uid://c06sl4fhg8vm2" path="res://engine/common/fonts/forced_square/FORCED SQUARE.ttf" id="12_d38qo"]
@@ -54,6 +55,9 @@ script = ExtResource("4_gbicw")
 [node name="AttackEventBus" type="Node" parent="Map"]
 unique_name_in_owner = true
 script = ExtResource("4_w7po0")
+
+[node name="PowerGridManager" type="Node" parent="Map"]
+unique_name_in_owner = true
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
@@ -289,6 +293,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("11_cjkeq")
 
 [node name="HeaderBar" type="ColorRect" parent="UICanvas/OverworldCityUI"]
 layout_mode = 0
@@ -415,13 +420,13 @@ theme = SubResource("Theme_nfc0e")
 color = Color(0.101961, 0.0509804, 0.113725, 1)
 script = ExtResource("5_hbcjr")
 
-[node name="Nav" type="Control" parent="UICanvas/OverworldCityUI/BuildSideBar"]
-visible = false
+[node name="ConstructNav" type="Control" parent="UICanvas/OverworldCityUI/BuildSideBar"]
+unique_name_in_owner = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TileRect" type="ColorRect" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav"]
+[node name="TileRect" type="ColorRect" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav"]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 322.0
@@ -430,7 +435,7 @@ offset_bottom = 522.0
 mouse_filter = 2
 color = Color(0.984314, 0.529412, 0.478431, 0)
 
-[node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TileRect"]
+[node name="BuildingPort" type="TextureRect" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TileRect"]
 modulate = Color(0.921569, 0.764706, 0.984314, 1)
 layout_mode = 0
 offset_right = 1095.0
@@ -439,7 +444,7 @@ scale = Vector2(0.188198, 0.188198)
 texture = ExtResource("8_8eogd")
 expand_mode = 1
 
-[node name="TileDataRect" type="ColorRect" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TileRect"]
+[node name="TileDataRect" type="ColorRect" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TileRect"]
 layout_mode = 1
 offset_left = 1.0
 offset_top = 195.0
@@ -448,28 +453,28 @@ offset_bottom = 256.0
 theme = ExtResource("7_mjg08")
 color = Color(0, 0, 0, 0.658824)
 
-[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TileRect/TileDataRect"]
+[node name="OccupantData" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TileRect/TileDataRect"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 3.0
 offset_right = 200.0
 offset_bottom = 56.0
 
-[node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TileRect/TileDataRect/OccupantData"]
+[node name="BuildingName" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TileRect/TileDataRect/OccupantData"]
 layout_mode = 2
 theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Coal Plant"
 fit_content = true
 
-[node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TileRect/TileDataRect/OccupantData"]
+[node name="TerrainName" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TileRect/TileDataRect/OccupantData"]
 layout_mode = 2
 theme = ExtResource("7_mjg08")
 bbcode_enabled = true
 text = "Bog"
 fit_content = true
 
-[node name="UpgradeBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TileRect/TileDataRect"]
+[node name="UpgradeBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TileRect/TileDataRect"]
 layout_mode = 2
 offset_left = 7.0
 offset_top = 37.0
@@ -478,7 +483,7 @@ offset_bottom = 56.0
 theme = ExtResource("12_fii81")
 text = "Upgrade"
 
-[node name="TerrainData" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav"]
+[node name="TerrainData" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav"]
 layout_mode = 0
 offset_left = 38.0
 offset_top = 622.0
@@ -486,7 +491,7 @@ offset_right = 256.0
 offset_bottom = 750.0
 theme = ExtResource("12_fii81")
 
-[node name="Population" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TerrainData"]
+[node name="Population" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TerrainData"]
 layout_mode = 2
 theme = ExtResource("12_fii81")
 theme_override_font_sizes/normal_font_size = 22
@@ -494,7 +499,7 @@ bbcode_enabled = true
 text = "Population: 696,696"
 fit_content = true
 
-[node name="Development" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TerrainData"]
+[node name="Development" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TerrainData"]
 layout_mode = 2
 theme = ExtResource("12_fii81")
 theme_override_font_sizes/normal_font_size = 22
@@ -502,7 +507,7 @@ bbcode_enabled = true
 text = "Development: X"
 fit_content = true
 
-[node name="Power" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TerrainData"]
+[node name="Power" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TerrainData"]
 layout_mode = 2
 theme = ExtResource("12_fii81")
 theme_override_font_sizes/normal_font_size = 22
@@ -510,7 +515,7 @@ bbcode_enabled = true
 text = "Power: 9"
 fit_content = true
 
-[node name="Services" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TerrainData"]
+[node name="Services" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TerrainData"]
 layout_mode = 2
 theme = ExtResource("12_fii81")
 theme_override_font_sizes/normal_font_size = 22
@@ -518,7 +523,7 @@ bbcode_enabled = true
 text = "Services: 9"
 fit_content = true
 
-[node name="Resilience" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TerrainData"]
+[node name="Resilience" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TerrainData"]
 layout_mode = 2
 theme = ExtResource("12_fii81")
 theme_override_font_sizes/normal_font_size = 22
@@ -526,7 +531,7 @@ bbcode_enabled = true
 text = "Resilience: 9"
 fit_content = true
 
-[node name="Modifiers" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/TerrainData"]
+[node name="Modifiers" type="RichTextLabel" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/TerrainData"]
 layout_mode = 2
 theme = ExtResource("12_fii81")
 theme_override_font_sizes/normal_font_size = 22
@@ -534,7 +539,7 @@ bbcode_enabled = true
 text = "Modifiers: None"
 fit_content = true
 
-[node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav"]
+[node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 0
 offset_left = 24.0
@@ -544,7 +549,7 @@ offset_bottom = 988.0
 theme = ExtResource("7_mjg08")
 text = "END TURN"
 
-[node name="ResetBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav"]
+[node name="ResetBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 0
 offset_left = 25.0
@@ -554,12 +559,12 @@ offset_bottom = 915.0
 theme = ExtResource("7_mjg08")
 text = "UNDO"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav"]
 layout_mode = 0
 offset_left = 43.0
 offset_top = 3.0
@@ -567,42 +572,44 @@ offset_right = 216.0
 offset_bottom = 243.0
 theme_override_constants/separation = 10
 
-[node name="OpenConstructBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/VBoxContainer2"]
+[node name="OpenConstructBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("7_mjg08")
 theme_override_font_sizes/font_size = 20
 text = "CONSTRUCT"
 
-[node name="OpenResearchBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/VBoxContainer2"]
+[node name="OpenResearchBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("7_mjg08")
 theme_override_font_sizes/font_size = 20
 text = "RESEARCH"
 
-[node name="OpenMechBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/VBoxContainer2"]
+[node name="OpenMechBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("7_mjg08")
 theme_override_font_sizes/font_size = 20
 text = "MECHS"
 
-[node name="OpenCampaignBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/VBoxContainer2"]
+[node name="OpenCampaignBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("7_mjg08")
 theme_override_font_sizes/font_size = 20
 text = "CAMPAIGN"
 
-[node name="OpenLandscapeBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Nav/VBoxContainer2"]
+[node name="OpenLandscapeBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("7_mjg08")
 theme_override_font_sizes/font_size = 20
 text = "Landscape"
 
-[node name="Construct" type="Control" parent="UICanvas/OverworldCityUI/BuildSideBar"]
+[node name="ConstructMenu" type="Control" parent="UICanvas/OverworldCityUI/BuildSideBar"]
+unique_name_in_owner = true
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ConstructSideBar" type="ColorRect" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct"]
+[node name="ConstructSideBar" type="ColorRect" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu"]
 layout_mode = 0
 offset_right = 280.0
 offset_bottom = 1015.0
@@ -610,7 +617,7 @@ theme = SubResource("Theme_nfc0e")
 color = Color(0.101961, 0.0509804, 0.113725, 1)
 script = ExtResource("5_hbcjr")
 
-[node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar"]
+[node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 0
 offset_left = 24.0
@@ -620,7 +627,7 @@ offset_bottom = 988.0
 theme = ExtResource("7_mjg08")
 text = "END TURN"
 
-[node name="ResetBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar"]
+[node name="ResetBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 0
 offset_left = 25.0
@@ -630,7 +637,7 @@ offset_bottom = 915.0
 theme = ExtResource("7_mjg08")
 text = "UNDO"
 
-[node name="BuildingCategories" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar"]
+[node name="BuildingCategories" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 47.0
@@ -638,35 +645,35 @@ offset_right = 255.0
 offset_bottom = 210.0
 theme = ExtResource("12_fii81")
 
-[node name="Button" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingCategories"]
+[node name="Button" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Power"
 
-[node name="Button2" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingCategories"]
+[node name="Button2" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Services"
 
-[node name="Button3" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingCategories"]
+[node name="Button3" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Research"
 
-[node name="Button4" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingCategories"]
+[node name="Button4" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Medical"
 
-[node name="Button5" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingCategories"]
+[node name="Button5" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Infrastructure"
 
-[node name="Button6" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingCategories"]
+[node name="Button6" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Hangars"
 
-[node name="Button7" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingCategories"]
+[node name="Button7" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Military"
 
-[node name="BuildingScroll" type="ScrollContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar"]
+[node name="BuildingScroll" type="ScrollContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -679,43 +686,43 @@ offset_right = -11.88
 offset_bottom = -15.42
 theme = ExtResource("7_mjg08")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="BuildingButton" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="BuildingButton2" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton2" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="BuildingButton3" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton3" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="BuildingButton4" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton4" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="BuildingButton5" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton5" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="BuildingButton6" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton6" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="BuildingButton7" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton7" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="BuildingButton8" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
+[node name="BuildingButton8" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
 layout_mode = 2
 
-[node name="RichTextLabel" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar"]
+[node name="CloseConstructionButton" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar"]
 layout_mode = 0
 offset_left = 16.0
 offset_right = 256.0
 offset_bottom = 38.0
 theme = ExtResource("12_fii81")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 26
 keep_pressed_outside = true
-text = "CONSTRUCTION"
+text = "RETURN"
 
 [node name="ColorRect" type="ColorRect" parent="UICanvas/OverworldCityUI/BuildSideBar"]
 layout_mode = 0
@@ -988,6 +995,8 @@ environment = SubResource("Environment_7snnj")
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/AttackSideBar/EndTurnBtn" to="Map" method="end_turn"]
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
-[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/Nav/EndTurnBtn" to="Map" method="end_turn"]
-[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/Construct/ConstructSideBar/EndTurnBtn" to="Map" method="end_turn"]
+[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/EndTurnBtn" to="Map" method="end_turn"]
+[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2/OpenConstructBtn" to="UICanvas/OverworldCityUI" method="_on_open_construct_btn_button_up"]
+[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/EndTurnBtn" to="Map" method="end_turn"]
+[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/CloseConstructionButton" to="UICanvas/OverworldCityUI" method="_on_close_construction_button_button_up"]
 [connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]

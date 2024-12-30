@@ -31,8 +31,12 @@ TODO: Make the "construct" button open up the building menu
 -Whence executed, put the real building down
 -Development & Buildings are their own layer
 -Apply its effect layer to the terrain in the given radius
+-If appropriate, update its speed chart
 -When mousing over a placed building, create a hollow outline of its effect radius.
--If the building is a power
+-If the building is a power building, check to see if there are any existing power connections.
+
+####UPDATING POWER####
+
 
 
 ####OVERLAYS###
