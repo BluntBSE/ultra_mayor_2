@@ -31,7 +31,7 @@ static func draw_tile_sprites(tile: LogicalTile, rendered_grid: Array) -> void:
 	var rendered_tile: RenderedTile = rendered_grid[tile.x][tile.y]
 	#Handle buildings
 	if tile.building != null:
-		var building_sprite: Resource = load(tile.building.sprite)
+		var building_sprite: Resource = tile.building.sprite
 		rendered_tile.building_sprite.texture = building_sprite
 
 

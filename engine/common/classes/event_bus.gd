@@ -1,5 +1,5 @@
 extends Node
-class_name AttackEventBus
+class_name EventBus
 
 #Not a ring buffer. This array gets cleared at the end of the turn
 #It can be traversed to provide undo effects.
@@ -20,11 +20,14 @@ signal just_did
 
 #Aggregation is the responsibility of the caller, if needed
 
-func add_command(command:AttackCommand)->void:
+func add(command:Command)->void:
 	queue.append(command)
 	pass
 
-func add_do(command:AttackCommand)->void:
+func add_do(command:Command)->void:
+	# If the head is at the end of the array, append a new command and do it immediately.
+	# If the head is NOT at the end of the array, delete all commands after the head.
+	# Then, add the command and do it immediately. (Supports undo/redo)
 	if head == queue.size():
 		queue.append(command)
 		command.do()
@@ -38,10 +41,7 @@ func add_do(command:AttackCommand)->void:
 		head += 1
 		just_did.emit(command)
 		
-	# If the head is at the end of the array, append a new command and do it immediately.
-	# If the head is NOT at the end of the array, delete all commands after the head.
-	# Then, add the command and do it immediately. (Supports undo/redo)
-	pass
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

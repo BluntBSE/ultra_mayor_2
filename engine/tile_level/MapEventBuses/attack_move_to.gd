@@ -1,4 +1,4 @@
-extends AttackCommand
+extends Command
 class_name AttackMoveTo
 
 var map:Map_2

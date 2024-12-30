@@ -1,5 +1,9 @@
 extends ColorRect
 class_name BuildingButton
+var building:Building
+var point_cost:RichTextLabel
+var building_name:RichTextLabel
+var building_sprite:TextureRect
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,9 +16,17 @@ func _process(delta: float) -> void:
 	
 	
 
-func unpack(building:Building)->void:
+func unpack(_building:Building)->void:
 	#Get all the building data, update sprites and costs.
-	pass
+	point_cost = find_child("PointCost", true, false)
+	building_name = find_child("BuildingName", true, false)
+	building_sprite = find_child("BuildingSprite", true, false)
+	building = _building
+	point_cost.text = "[center]" + str(building.ap_cost) + "[/center]"
+	building_sprite.texture = _building.sprite
+	building_name.text = _building.display_text
+
+	
 
 func update(tree:Object, state:Object)->void:
 	#Takes in the player's currently unlocked tech tree

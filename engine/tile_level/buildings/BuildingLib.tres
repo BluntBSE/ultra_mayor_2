@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BuildingLib" load_steps=3 format=3 uid="uid://c0fh8oig0gnwd"]
+
+[ext_resource type="Script" path="res://engine/tile_level/buildings/classes/building_lib.gd" id="1_rc3kw"]
+[ext_resource type="Resource" uid="uid://cetk6ngi061j3" path="res://engine/tile_level/buildings/power/coal_plant.tres" id="1_rkmno"]
+
+[resource]
+script = ExtResource("1_rc3kw")
+coal_plant = ExtResource("1_rkmno")

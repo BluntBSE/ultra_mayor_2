@@ -37,7 +37,7 @@ static var lib:Dictionary = {
 	"mountain": Terrain.new(
 		{
 		"display_text": "Mountains",
-		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain.png",
+		"sprite": "res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/roadeffort.png",
 		"portrait": "res://engine/tile_level/terrain/assets/portraits/AI_mountain_portrait.jpg",
 		"move_cost": 3
 		}

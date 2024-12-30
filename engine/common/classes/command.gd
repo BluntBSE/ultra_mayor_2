@@ -1,5 +1,5 @@
 extends Node
-class_name AttackCommand #Attack as in "Kaiju attack" not attack generally.
+class_name Command
 signal finished
 
 func do()->void:

@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_crbal"]
 [ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nwkov"]
 [ext_resource type="Script" path="res://engine/tile_level/MapEventBuses/debug_manager.gd" id="4_gbicw"]
-[ext_resource type="Script" path="res://engine/tile_level/MapEventBuses/attack_event_bus.gd" id="4_w7po0"]
+[ext_resource type="Script" path="res://engine/common/classes/event_bus.gd" id="4_w7po0"]
+[ext_resource type="Script" path="res://engine/tile_level/MapEventBuses/cb_event_bus.gd" id="5_5eh5t"]
 [ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="5_hbcjr"]
 [ext_resource type="Texture2D" uid="uid://d1qakg8u0h24w" path="res://engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png" id="6_w682q"]
 [ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="7_mjg08"]
@@ -12,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://blhu6j6tuavgf" path="res://engine/common/ui_assets/options_icon_2.png" id="10_7kf5a"]
 [ext_resource type="Script" path="res://engine/tile_level/UI/CityBuilder/OverWorldUI.gd" id="11_cjkeq"]
 [ext_resource type="Script" path="res://engine/tile_level/ScreenFilters.gd" id="11_dsoel"]
-[ext_resource type="PackedScene" uid="uid://b5ndi8j4pyptj" path="res://engine/tile_level/UI/CityBuilder/building_button.tscn" id="11_r281n"]
 [ext_resource type="FontFile" uid="uid://c06sl4fhg8vm2" path="res://engine/common/fonts/forced_square/FORCED SQUARE.ttf" id="12_d38qo"]
 [ext_resource type="Script" path="res://engine/tile_level/UI/BattleFilter.gd" id="12_ebqm5"]
 [ext_resource type="Theme" uid="uid://slpthlsh3ieo" path="res://engine/tile_level/UI/CityBuilder/small_ui_theme.tres" id="12_fii81"]
@@ -58,6 +58,10 @@ script = ExtResource("4_w7po0")
 
 [node name="PowerGridManager" type="Node" parent="Map"]
 unique_name_in_owner = true
+
+[node name="CBEventBus" type="Node" parent="Map"]
+unique_name_in_owner = true
+script = ExtResource("5_5eh5t")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
@@ -418,7 +422,6 @@ offset_right = 1921.0
 offset_bottom = 1081.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0.101961, 0.0509804, 0.113725, 1)
-script = ExtResource("5_hbcjr")
 
 [node name="ConstructNav" type="Control" parent="UICanvas/OverworldCityUI/BuildSideBar"]
 unique_name_in_owner = true
@@ -615,7 +618,6 @@ offset_right = 280.0
 offset_bottom = 1015.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0.101961, 0.0509804, 0.113725, 1)
-script = ExtResource("5_hbcjr")
 
 [node name="EndTurnBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar"]
 custom_minimum_size = Vector2(240, 0)
@@ -686,33 +688,10 @@ offset_right = -11.88
 offset_bottom = -15.42
 theme = ExtResource("7_mjg08")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll"]
+[node name="BuildingVertical" type="VBoxContainer" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
-
-[node name="BuildingButton" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
-
-[node name="BuildingButton2" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
-
-[node name="BuildingButton3" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
-
-[node name="BuildingButton4" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
-
-[node name="BuildingButton5" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
-
-[node name="BuildingButton6" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
-
-[node name="BuildingButton7" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
-
-[node name="BuildingButton8" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingScroll/VBoxContainer" instance=ExtResource("11_r281n")]
-layout_mode = 2
 
 [node name="CloseConstructionButton" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar"]
 layout_mode = 0

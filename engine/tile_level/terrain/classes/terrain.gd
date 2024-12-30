@@ -11,4 +11,3 @@ func _init(args:Dictionary)->void:
 	sprite=args.sprite
 	portrait=args.portrait
 	move_cost=args.move_cost
-

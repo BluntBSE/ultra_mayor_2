@@ -200,6 +200,6 @@ func cleanup_UI()->void:
 		active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
-	var bus:AttackEventBus = map.get_node("AttackEventBus")
+	var bus:EventBus = map.get_node("AttackEventBus")
 	var command:AttackAssignPilot = AttackAssignPilot.new(map, map.logical_grid[pilot.x][pilot.y], map.logical_grid[kaiju.x][kaiju.y])
 	bus.add_do(command)

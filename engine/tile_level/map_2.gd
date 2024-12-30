@@ -18,7 +18,7 @@ enum valid_targets { ANY, KAIJU, PILOTS, OCCUPANTS, BUILDINGS, NONE}
 
 
 #REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED  A REAL STATE MACHINE?
-var map_mode: int = map_modes.CITY_BUILDER
+var map_mode: int = map_modes.ATTACK
 var valid_target: int = valid_targets.ANY
 var selection_primary: LogicalTile
 var selection_secondary: LogicalTile

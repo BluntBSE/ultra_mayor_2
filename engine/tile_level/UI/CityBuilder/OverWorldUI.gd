@@ -3,6 +3,7 @@ class_name OverWorldCityUI
 
 @onready var construction_menu:Control = %ConstructMenu
 @onready var construction_nav:Control = %ConstructNav
+@onready var building_vertical:VBoxContainer = %BuildingVertical
 
 func close_city_menu(menu:Control)->void:
 	menu.visible = false
@@ -14,10 +15,25 @@ func open_city_menu(menu:Control)->void:
 
 
 func _on_close_construction_button_button_up() -> void:
-	print("Construct should close")
 	close_city_menu(construction_menu)
+	for child:Node in %BuildingVertical.get_children():
+		child.queue_free()
 
 
 func _on_open_construct_btn_button_up() -> void:
-	print("Construct should open")
 	open_city_menu(construction_menu)
+	open_building_category("power")
+	
+	
+func open_building_category(category:String)->void:
+	var props:Array = ResLibsNode.buildings.get_property_list()
+	var buildings:Array
+	for property:Dictionary in props:
+		if property.class_name == &"Building":
+			buildings.append(ResLibsNode.buildings[property.name])
+	for building:Building in buildings:
+		var btn:BuildingButton = load("res://engine/tile_level/UI/CityBuilder/building_button.tscn").instantiate()
+		remove_child(btn)
+		%BuildingVertical.add_child(btn)
+		btn.unpack(building)
+	pass
