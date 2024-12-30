@@ -10,6 +10,31 @@ We mostly access them through the variable on the map.
 
 
 --QUEUE--
+TODO: Make the "construct" button open up the building menu
+-Make it clear that clicking it again will close it
+-Make clicking in the world close it (and right clicking if we don't want closer inspection)
+-Make the menu close
+-Upon clicking a button, check to make sure the player has enough AP
+-Make the buttons make a building outline follow the cursor as it hovers over tiles
+-Probably by having a stored "placing:..." variable
+-This makes the button highlighted until it's placed
+-Make right-clicking or an unhandled left click dismiss the placement.
+-Upon left clicking,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 TODO: Really show what happens if the Kaiju has to move through a pilot
 
 
