@@ -971,6 +971,9 @@ script = ExtResource("18_pba3o")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7snnj")
 
+[node name="PlayerState" type="Node" parent="."]
+unique_name_in_owner = true
+
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/AttackSideBar/EndTurnBtn" to="Map" method="end_turn"]
 [connection signal="button_up" from="UICanvas/OverworldBattleUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/HeaderBar/TextureButton" to="." method="_on_texture_button_button_up"]

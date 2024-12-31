@@ -10,8 +10,10 @@ func stateEnter(args:Dictionary)->void:
 
 func stateExit()->void:
 	reference.selection_mask.visible = false
+	reference.stop_trying.emit()
 
 
 func stateHandleInput(args:Dictionary)->void:
 	if args.event == "secondary_click":
 		reference.state_machine.Change("basic", {})
+		reference.stop_trying.emit()

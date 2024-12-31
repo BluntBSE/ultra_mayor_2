@@ -7,3 +7,8 @@ func do_try(build_command:Command)->void:
 	print("do try called with", build_command)
 	trying = build_command
 	
+	
+
+func _process(delta:float)->void:
+	pass
+	

@@ -5,6 +5,11 @@ class_name OverWorldCityUI
 @onready var construction_nav:Control = %ConstructNav
 @onready var building_vertical:VBoxContainer = %BuildingVertical
 @onready var event_bus:CBEventBus = %CBEventBus
+signal try_building_signal
+
+func _ready()->void:
+	connect("try_building_signal", event_bus.do_try)
+	pass
 
 func close_city_menu(menu:Control)->void:
 	menu.visible = false
@@ -35,9 +40,16 @@ func open_building_category(category:String)->void:
 			buildings.append(ResLibsNode.buildings[property.name])
 	for building:Building in buildings:
 		var btn:BuildingButton = load("res://engine/tile_level/UI/CityBuilder/building_buttons/building_button.tscn").instantiate()
-		btn.connect("try_building", event_bus.do_try)
 		#connect map to switch it to placing building
 		remove_child(btn)
 		%BuildingVertical.add_child(btn)
 		btn.unpack(building)
+		if btn.can_afford(%PlayerState, building) == true:
+			btn.set_enabled(true)
+			btn.connect("try_building", try_building)
+			
 	pass
+	
+func try_building(building_command:BuildingCommand)->void:
+	print("Try building was called from UI")
+	try_building_signal.emit(building_command)

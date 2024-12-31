@@ -1,5 +1,8 @@
 extends ColorRect
 class_name BuildingButton
+
+var enabled:bool
+
 var building:Building
 var point_cost:RichTextLabel
 var building_name:RichTextLabel
@@ -17,7 +20,8 @@ var hv_bg_color:Color = Color("d8acf4")
 
 
 
-signal try_building
+signal try_building #Emitted with a BuildingCommand
+signal stop_trying
 var state_machine:StateMachine
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -80,4 +84,24 @@ func custom_hover()->void:
 	
 func custom_exit()->void:
 	handle_input({"event":"exit"})
+	pass
+	
+func generate_building_command(building:Building)->BuildingCommand:
+	var command:BuildingCommand = BuildingCommand.new()
+	command.building = building
+	command.ap_cost = building.ap_cost
+	return command
+	
+func emit_building_command()->void:
+	print("Building button emitted building:", building)
+	try_building.emit(generate_building_command(building))
+
+func can_afford(state:Node, _building:Building)->bool:
+	#CHeck affordability
+	return true
+
+func set_enabled(_bool:bool)->void:
+	enabled = _bool
+
+func handle_was_done()->void:
 	pass

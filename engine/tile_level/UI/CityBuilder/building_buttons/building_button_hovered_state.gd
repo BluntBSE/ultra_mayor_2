@@ -10,7 +10,10 @@ func stateEnter(args:Dictionary)->void:
 
 func stateHandleInput(args:Dictionary)->void:
 	if args.event == "primary_click":
+		print("Primary click detected")
 		reference.state_machine.Change("selected", {})
+		reference.emit_building_command()
+		
 	
 	if args.event == "exit":
 		reference.state_machine.Change("basic", {})
