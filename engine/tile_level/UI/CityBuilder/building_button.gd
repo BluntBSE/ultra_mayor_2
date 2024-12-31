@@ -4,15 +4,29 @@ var building:Building
 var point_cost:RichTextLabel
 var building_name:RichTextLabel
 var building_sprite:TextureRect
+var building_bg:ColorRect
+var ap_bg:ColorRect
+var button_bg:ColorRect
+var selection_mask:ColorRect
 
+var og_bg_color:Color = Color("1a0d1d")
+var og_ap_color:Color = Color("dd96f9")
+var og_bs_color:Color = Color("dd96f9")
+var hv_bg_color:Color = Color("d8acf4")
+#hover d8acf4
+
+
+
+signal try_building
+var state_machine:StateMachine
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+	state_machine = StateMachine.new()
+	state_machine.Add("basic", BuildingButtonBasicState.new(self, {}))
+	state_machine.Add("hovered", BuildingButtonHoveredState.new(self,{}))
+	state_machine.Add("selected", BuildingButtonSelectedState.new(self,{}))
 	pass
+
 	
 	
 
@@ -21,10 +35,13 @@ func unpack(_building:Building)->void:
 	point_cost = find_child("PointCost", true, false)
 	building_name = find_child("BuildingName", true, false)
 	building_sprite = find_child("BuildingSprite", true, false)
+	button_bg = find_child("ButtonBG", true, false)
+	selection_mask = find_child("SelectionMask", true, false)
 	building = _building
-	point_cost.text = "[center]" + str(building.ap_cost) + "[/center]"
+	point_cost.text = "[center]" + str(building.ap_cost) + " AP" + "[/center]"
 	building_sprite.texture = _building.sprite
 	building_name.text = _building.display_text
+	state_machine.Change("basic", {})
 
 	
 
@@ -34,4 +51,33 @@ func update(tree:Object, state:Object)->void:
 	#To change how buildings are highlighted
 	
 	
+	pass
+	
+	
+func _process(_delta:float) -> void:
+	state_machine._current.stateUpdate(_delta)
+	
+
+func handle_input(args:Dictionary)->void:
+	state_machine._current.stateHandleInput(args)
+	pass	
+	
+func handle_gui_input(event:InputEvent)->void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
+		var event_str:String = "primary_click"
+		handle_input({"event":event_str})
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
+		var event_str:String = "secondary_click"
+		print("secondary click")
+		handle_input({"event":event_str})
+		return
+
+func custom_hover()->void:
+	print("Custom hover fired!")
+	handle_input({"event":"hover"})
+	pass
+	
+func custom_exit()->void:
+	handle_input({"event":"exit"})
 	pass

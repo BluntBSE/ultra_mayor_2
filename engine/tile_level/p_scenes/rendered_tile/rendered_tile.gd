@@ -131,7 +131,6 @@ func handle_input(args:Dictionary)->void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float) -> void:
-	pass
 	state_machine._current.stateUpdate(_delta)
 
 
