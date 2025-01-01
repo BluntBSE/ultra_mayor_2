@@ -1,6 +1,6 @@
 extends Node
 class_name OverWorldCityUI
-
+@onready var map:Map_2 = %Map
 @onready var construction_menu:Control = %ConstructMenu
 @onready var construction_nav:Control = %ConstructNav
 @onready var building_vertical:VBoxContainer = %BuildingVertical
@@ -9,6 +9,7 @@ signal try_building_signal
 
 func _ready()->void:
 	connect("try_building_signal", event_bus.do_try)
+	connect("try_building_signal", map.process_try_building )
 	pass
 
 func close_city_menu(menu:Control)->void:

@@ -38,6 +38,10 @@ const SELECTION_HIGHLIGHTS:Array = [
 	"pilot_move_origin",
 ]
 
+func process_try_building(_command:BuildingCommand)->void:
+	print("Map entered placement mode")
+	map_mode = map_modes.PLACING_BUILDING
+
 func unselect_all()->void:
 	if selection_primary:
 		var rt:RenderedTile = rendered_grid[selection_primary.x][selection_primary.y]
@@ -161,6 +165,16 @@ func process_rt_citybuilder_mode(args:RTSigObj)->void:
 	
 
 func process_rt_buildingplace_mode(args:RTSigObj)->void:
+	print("Buildingplace mode process")
+	var rt: RenderedTile = rendered_grid[args.x][args.y]
+	var lt: LogicalTile = logical_grid[args.x][args.y]
+	var bus:CBEventBus = %CBEventBus
+	if args.event == "hover_enter":
+		rt.preview_building(bus.trying)
+		rt.active_highlights.append("basic_hovered")
+	if args.event == "hover_exit":
+		rt.unpreview_building()
+		rt.active_highlights.erase("basic_hovered")
 	pass
 
 func process_rt_signal(args: RTSigObj) -> void:

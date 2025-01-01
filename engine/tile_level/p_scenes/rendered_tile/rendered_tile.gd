@@ -17,6 +17,7 @@ var infra_sprite: Sprite2D
 @onready var move_cost: RichTextLabel = %move_cost
 var effect_sprite: Sprite2D
 var rendered_occupant: Object
+var previewing:bool = false #This is "true" if a preview building sprite is on the tile.
 
 var TO_MODULATE:Array = ["bg_sprite", "infra_sprite", "building_sprite"]#List of nodes that should be affected by the custom do_modulate function
 #Append any children you want to modulate to TO_MODULATE when they become parented.
@@ -167,3 +168,22 @@ func _on_hover_area_input_event(_viewport:Node, event:InputEvent, shape_idx:int)
 
 func reset_self()->void:
 	handle_input({"event": RTInputs.CLEAR})
+	
+	
+func preview_building(command:BuildingCommand)->void:
+	var building:Building = command.building
+	var sprite:Sprite2D = %building_sprite
+	sprite.texture = building.sprite
+	var shadermat:ShaderMaterial = sprite.material
+	#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
+	shadermat.set_shader_parameter("active", true)
+	pass
+	
+func unpreview_building()->void:
+	%building_sprite.material.set_shader_parameter("active",false)
+	var lt:LogicalTile = logical_grid[x][y]
+	if lt.building == null:
+		%building_sprite.texture = null
+	else:
+		%building_sprite.texture = lt.building.sprite
+	pass
