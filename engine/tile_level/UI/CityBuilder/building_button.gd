@@ -102,6 +102,15 @@ func can_afford(state:Node, _building:Building)->bool:
 
 func set_enabled(_bool:bool)->void:
 	enabled = _bool
+	if enabled == false:
+		state_machine.Change("basic", {})
+		
+
+func process_released(command:BuildingCommand, _bool:bool)->void:
+	enabled = _bool
+	if enabled == false:
+		state_machine.Change("basic", {})
+	pass
 
 func handle_was_done()->void:
 	pass

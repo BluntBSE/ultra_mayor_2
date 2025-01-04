@@ -28,9 +28,9 @@ var pilot_1: LogicalPilot
 @onready var side_bar: AttackSideBar = %AttackSideBar
 
 signal map_signal  #Currently used to populate sidebar with what you hover over
-signal map_select_occ_signal
-signal map_hover_signal
-signal map_target_signal
+#signal map_select_occ_signal
+#signal map_hover_signal
+#signal map_target_signal
 signal reset_rts
 signal lock_camera
 
@@ -41,6 +41,13 @@ const SELECTION_HIGHLIGHTS:Array = [
 func process_try_building(_command:BuildingCommand)->void:
 	print("Map entered placement mode")
 	map_mode = map_modes.PLACING_BUILDING
+	
+func process_release(command:Command)->void:
+	print("Process released called with", command)
+	print("Map leaved placement mode")
+	var rt:RenderedTile = rendered_grid[command.x][command.y]
+	rt.unpreview_building()
+	map_mode = map_modes.CITY_BUILDER
 
 func unselect_all()->void:
 	if selection_primary:
@@ -165,16 +172,25 @@ func process_rt_citybuilder_mode(args:RTSigObj)->void:
 	
 
 func process_rt_buildingplace_mode(args:RTSigObj)->void:
-	print("Buildingplace mode process")
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
 	var lt: LogicalTile = logical_grid[args.x][args.y]
 	var bus:CBEventBus = %CBEventBus
+	
+	if args.event == "left_click":
+		if ( %CBEventBus.is_legal(args) == true ):
+			bus.add_do(bus.trying)
+	
 	if args.event == "hover_enter":
-		rt.preview_building(bus.trying)
+		#TODO: Insert sanity checks from CBEventBus first.
+		if ( %CBEventBus.is_legal(args) == true ):
+			rt.preview_building(bus.trying)
+
 		rt.active_highlights.append("basic_hovered")
 	if args.event == "hover_exit":
 		rt.unpreview_building()
 		rt.active_highlights.erase("basic_hovered")
+	
+	
 	pass
 
 func process_rt_signal(args: RTSigObj) -> void:

@@ -48,6 +48,8 @@ func open_building_category(category:String)->void:
 		if btn.can_afford(%PlayerState, building) == true:
 			btn.set_enabled(true)
 			btn.connect("try_building", try_building)
+			var callable:Callable = Callable(btn, "process_released")
+			event_bus.released.connect(callable.bind(false))
 			
 	pass
 	
