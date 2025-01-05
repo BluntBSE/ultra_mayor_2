@@ -38,6 +38,14 @@ static func draw_tile_sprites(tile: LogicalTile, rendered_grid: Array) -> void:
 		rendered_tile.building_sprite.texture = null
 
 
+static func unpreview_sprite(tile:RenderedTile)->void:
+	tile.unpreview_building()
+
+static func unpreview_all(rendered_grid:Array)->void:
+	for col:Array in rendered_grid:
+		for tile:RenderedTile in col:
+			tile.unpreview_building()
+
 static func draw_all_tile_sprites(logical_grid: Array, rendered_grid: Array) -> void:
 	for column: Array in logical_grid:
 		for tile: LogicalTile in column:

@@ -981,5 +981,6 @@ unique_name_in_owner = true
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/ResetBtn" to="UICanvas/OverworldCityUI" method="_on_undo_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2/OpenConstructBtn" to="UICanvas/OverworldCityUI" method="_on_open_construct_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/EndTurnBtn" to="Map" method="end_turn"]
+[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/ResetBtn" to="UICanvas/OverworldCityUI" method="_on_undo_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/CloseConstructionButton" to="UICanvas/OverworldCityUI" method="_on_close_construction_button_button_up"]
 [connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]

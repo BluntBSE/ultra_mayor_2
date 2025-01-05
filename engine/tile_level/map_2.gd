@@ -98,6 +98,10 @@ func _input(event:InputEvent)->void:
 			if pilot_1:
 				clear_pilot_preview(pilot_1)
 				pilot_1.clear_everything()
+			if map_mode == map_modes.PLACING_BUILDING:
+				var event_bus:CBEventBus = %CBEventBus
+				event_bus.release(event_bus.trying)
+				pass
 #What about a dictionary containing a path for every entity that might need one?
 
 
