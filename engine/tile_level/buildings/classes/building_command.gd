@@ -1,5 +1,6 @@
 extends Command
 class_name BuildingCommand
+var player_state:PlayerState
 var initiated_by:BuildingButton
 var building:Building
 var previous_building:Building
@@ -17,6 +18,7 @@ func do()->void:
 	lt.building = building
 	#TODO: Super hacky atm don't do draw_all_tile_sprites like this
 	MapHelpers.draw_tile_sprites(lt, rg)
+	player_state.action_points -= building.ap_cost
 
 	
 func undo()->void:
@@ -25,5 +27,6 @@ func undo()->void:
 	print("Previous building was", previous_building)
 	lt.building = previous_building
 	MapHelpers.draw_tile_sprites(lt, rg)
-	
+	player_state.action_points += building.ap_cost
+
 	

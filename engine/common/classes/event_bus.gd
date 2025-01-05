@@ -7,6 +7,7 @@ var queue:Array
 var head:int = 0
 var tail:int
 signal just_did
+signal just_undid
 
 #EVENT QUEUE NEEDS TO BATCH REQUESTS THAT ARE ALIKE EACH OTHER: 
 
@@ -51,12 +52,20 @@ func add_do(command:Command)->void:
 		
 
 func undo()->void:
-	print("Undo called with", queue)
+	print("Undo called with", queue, "head at", head)
 	print(queue.size())
 	if queue.size() > 0:
-		print("Event queue bigger than 0, reverted head")
-		var q_command:Command = queue[head].undo()
-		head -= 1
+		if head>0:
+			print("Event queue bigger than 0, reverted head")
+			var q_command:Command = queue[head].undo()
+			head -= 1
+			just_undid.emit(q_command)
+		else:
+			var q_command:Command = queue[head].undo()
+			just_undid.emit(q_command)
+			queue = []
+	else:
+		print("nothing in queue")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

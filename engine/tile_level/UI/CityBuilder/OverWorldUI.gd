@@ -33,12 +33,15 @@ func _on_open_construct_btn_button_up() -> void:
 	
 	
 func open_building_category(category:String)->void:
-	var props:Array = ResLibsNode.buildings.get_property_list()
+	var props:Array = ResLibsNode.buildings.get_property_list() #A glorified alternative to a JSON
 	var buildings:Array
 	#TODO: Loading slow? You should probably do this in the autoload, not every time you open the menu
 	for property:Dictionary in props:
 		if property.class_name == &"Building":
-			buildings.append(ResLibsNode.buildings[property.name])
+			print("TESTING", ResLibsNode.buildings[property.name])
+			if ResLibsNode.buildings[property.name] != null:
+				if ResLibsNode.buildings[property.name].category == category:
+					buildings.append(ResLibsNode.buildings[property.name])
 	for building:Building in buildings:
 		var btn:BuildingButton = load("res://engine/tile_level/UI/CityBuilder/building_buttons/building_button.tscn").instantiate()
 		#connect map to switch it to placing building
@@ -50,11 +53,17 @@ func open_building_category(category:String)->void:
 			btn.connect("try_building", try_building)
 			var callable:Callable = Callable(btn, "process_released")
 			event_bus.released.connect(callable.bind(false))
+		else:
+			#Do grayed out building
+			btn.modulate = Color(0.1,0.1,0.1,1.0)
+			pass
 			
 	pass
 	
 func try_building(building_command:BuildingCommand)->void:
+	#Place to add data before going to queue
 	print("Try building was called from UI")
+	building_command.player_state = %PlayerState
 	try_building_signal.emit(building_command)
 
 

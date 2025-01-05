@@ -11,6 +11,8 @@ We mostly access them through the variable on the map.
 
 --QUEUE--
 
+UNDO TO 0
+
 ####PLACING BUILDINGS####
 TODO: Make the "construct" button open up the building menu
 -Make it clear that clicking it again will close it

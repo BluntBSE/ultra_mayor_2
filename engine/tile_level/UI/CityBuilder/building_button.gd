@@ -96,9 +96,10 @@ func emit_building_command()->void:
 	print("Building button emitted building:", building)
 	try_building.emit(generate_building_command(building))
 
-func can_afford(state:Node, _building:Building)->bool:
-	#CHeck affordability
-	return true
+func can_afford(state:PlayerState, _building:Building)->bool:
+	if state.action_points >= _building.ap_cost:
+		return true
+	else: return false
 
 func set_enabled(_bool:bool)->void:
 	enabled = _bool
