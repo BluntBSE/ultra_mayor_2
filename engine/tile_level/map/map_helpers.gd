@@ -33,6 +33,9 @@ static func draw_tile_sprites(tile: LogicalTile, rendered_grid: Array) -> void:
 	if tile.building != null:
 		var building_sprite: Resource = tile.building.sprite
 		rendered_tile.building_sprite.texture = building_sprite
+	
+	if tile.building == null:
+		rendered_tile.building_sprite.texture = null
 
 
 static func draw_all_tile_sprites(logical_grid: Array, rendered_grid: Array) -> void:

@@ -24,6 +24,7 @@ func do_try(build_command:BuildingCommand)->void:
 	build_command.rg = map.rendered_grid
 	trying = build_command
 	
+	
 
 func process_rt_signal(rt_sig:RTSigObj)->void:
 	

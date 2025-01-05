@@ -349,3 +349,7 @@ func draw_kaiju_paths() -> void:
 		_kaiju.path_to_target()
 		_kaiju.show_movement()
 	pass
+
+
+func _on_undo_btn_button_up() -> void:
+	pass # Replace with function body.

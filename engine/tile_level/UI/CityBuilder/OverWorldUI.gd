@@ -42,7 +42,7 @@ func open_building_category(category:String)->void:
 	for building:Building in buildings:
 		var btn:BuildingButton = load("res://engine/tile_level/UI/CityBuilder/building_buttons/building_button.tscn").instantiate()
 		#connect map to switch it to placing building
-		remove_child(btn)
+		#remove_child(btn)
 		%BuildingVertical.add_child(btn)
 		btn.unpack(building)
 		if btn.can_afford(%PlayerState, building) == true:
@@ -56,3 +56,9 @@ func open_building_category(category:String)->void:
 func try_building(building_command:BuildingCommand)->void:
 	print("Try building was called from UI")
 	try_building_signal.emit(building_command)
+
+
+func _on_undo_btn_button_up() -> void:
+	print("Undo up, with", event_bus, event_bus.head)
+	event_bus.undo()
+	pass # Replace with function body.
