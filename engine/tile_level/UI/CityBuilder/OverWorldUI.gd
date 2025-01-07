@@ -10,7 +10,9 @@ signal try_building_signal
 func _ready()->void:
 	connect("try_building_signal", event_bus.do_try)
 	connect("try_building_signal", map.process_try_building )
-	pass
+	event_bus.building_placed.connect(update_building_btns)
+	event_bus.just_undid.connect(update_building_btns)
+	
 
 func close_city_menu(menu:Control)->void:
 	menu.visible = false
@@ -55,7 +57,8 @@ func open_building_category(category:String)->void:
 			event_bus.released.connect(callable.bind(false))
 		else:
 			#Do grayed out building
-			btn.modulate = Color(0.1,0.1,0.1,1.0)
+			btn.set_enabled(false)
+			
 			pass
 			
 	pass
@@ -65,7 +68,19 @@ func try_building(building_command:BuildingCommand)->void:
 	print("Try building was called from UI")
 	building_command.player_state = %PlayerState
 	try_building_signal.emit(building_command)
+	#Re-open the menu to trigger all the refreshes
 
+func update_building_btns(_command:BuildingCommand)->void:
+	print("Called update building btns")
+	var buildvert:VBoxContainer = %BuildingVertical
+	for child:BuildingButton in buildvert.get_children():
+		if child.can_afford(%PlayerState, child.building):
+			print("CAN AFFORD")
+			child.set_enabled(true)
+		else:
+			print("CANT AFFORD")
+			child.set_enabled(false)
+	pass
 
 func _on_undo_btn_button_up() -> void:
 	print("Undo up, with", event_bus, event_bus.head)

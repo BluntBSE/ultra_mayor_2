@@ -3,8 +3,10 @@ extends GenericState
 var reference:BuildingButton
 
 func stateEnter(args:Dictionary)->void:
+	print("Enteres basic button state")
 	reference = _reference
 	reference.button_bg.color = reference.og_bg_color
+	reference.selection_mask
 	pass
 
 

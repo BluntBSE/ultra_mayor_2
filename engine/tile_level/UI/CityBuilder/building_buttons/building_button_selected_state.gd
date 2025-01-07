@@ -10,6 +10,9 @@ func stateEnter(args:Dictionary)->void:
 
 func stateExit()->void:
 	reference.selection_mask.visible = false
+	#23232345
+	#ffffff45
+	reference.color = Color("#ffffff45")
 	reference.stop_trying.emit()
 
 

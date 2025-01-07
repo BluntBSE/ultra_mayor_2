@@ -9,6 +9,7 @@ signal released
 
 func _ready()->void:
 	just_did.connect(release)
+	just_did.connect(process_just_did)
 	released.connect(map.process_release)
 
 	
@@ -27,7 +28,6 @@ func do_try(build_command:BuildingCommand)->void:
 	
 
 func process_rt_signal(rt_sig:RTSigObj)->void:
-	
 	pass
 
 func release(command:Command)->void:
@@ -35,6 +35,9 @@ func release(command:Command)->void:
 	#trying = null TODO: Whence?
 	released.emit(command)
 
+func process_just_did(_command:BuildingCommand)->void:
+	building_placed.emit(_command) #For UI and stuff to know to update costs.
+	
 
 func _process(delta:float)->void:
 	pass

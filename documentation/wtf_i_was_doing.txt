@@ -11,7 +11,12 @@ We mostly access them through the variable on the map.
 
 --QUEUE--
 
-UNDO TO 0
+Add mech building
+Upon button press, switch to Kaiju Attack mode.
+Upon mech buildings, which themselves must specify what pilot they serve, spawn mechs of the given type.
+Player state probably needs to track each pilot's unlocks etc. on a per pilot basis. A big dictionary?
+Is a resource better? You're looking at: Array of upgrades, array of chosen cards, and array of possible cards.
+Not too many. Serializing seems excessive so I'm going to vote keeping it in memory as a unique object class.
 
 ####PLACING BUILDINGS####
 TODO: Make the "construct" button open up the building menu

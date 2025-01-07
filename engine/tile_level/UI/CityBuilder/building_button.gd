@@ -27,6 +27,7 @@ var state_machine:StateMachine
 func _ready() -> void:
 	state_machine = StateMachine.new()
 	state_machine.Add("basic", BuildingButtonBasicState.new(self, {}))
+	state_machine.Add("disabled", BuildingButtonDisabledState.new(self, {}))
 	state_machine.Add("hovered", BuildingButtonHoveredState.new(self,{}))
 	state_machine.Add("selected", BuildingButtonSelectedState.new(self,{}))
 	pass
@@ -103,8 +104,10 @@ func can_afford(state:PlayerState, _building:Building)->bool:
 
 func set_enabled(_bool:bool)->void:
 	enabled = _bool
-	if enabled == false:
+	if enabled == true:
 		state_machine.Change("basic", {})
+	if enabled == false:
+		state_machine.Change("disabled", {})
 		
 
 func process_released(command:BuildingCommand, _bool:bool)->void:
