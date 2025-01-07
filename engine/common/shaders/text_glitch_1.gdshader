@@ -37,19 +37,19 @@ void vertex () {
 	vertex_pos = VERTEX; //passed to fragment for real_uv
 	vec2 within_texture_pixel=vec2(floor(UV * custom_resolution));
 
-	
+
 	if( (sin(custom_time) > random(within_texture_pixel)) )  {
 		VERTEX.y += x_displacement;
 		VERTEX.x += y_displacement * flip_flop(custom_time);
 		//VERTEX *= mix(sprite_scale_begin, sprite_scale_end, 1.0);
 
 	}
-	
+
 	if ( ( tan(custom_time) > random(within_texture_pixel)) ) {
 		VERTEX.y -= x_displacement;
 		VERTEX.y -= y_displacement;
 	}
-	
+
 	//Close if active
 	}
 
@@ -60,14 +60,14 @@ void fragment() {
 	//COLOR -= vec4(1.0,1.0,1.0,0.0); //Unset the color
 	//COLOR += color_1;
 
-	
-	
+
+
 	vec2 within_texture_pixel=vec2(floor(UV * custom_resolution));
 	vec2 tex_size = vec2(textureSize(TEXTURE, 0));
 	vec2 real_uv = vertex_pos / tex_size;
 	if( (sin(custom_time) > random(within_texture_pixel) - 0.3) )  {
 	COLOR -= color_1;
-			
+
 }
 	if ( ( tan(custom_time) > random(within_texture_pixel)) ) {
 		COLOR += color_1;
