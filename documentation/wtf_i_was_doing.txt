@@ -1,4 +1,6 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
+CONSIDER: Maybe not every pilot gets "Shove?" The ability to daisy chain shoves is pretty beefy.
+Maybe a kaiju can only be shoved once or something?
 
 MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?
 POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
@@ -9,15 +11,62 @@ We mostly access them through the variable on the map.
 
 --QUEUE--
 
+Add mech building
+Upon button press, switch to Kaiju Attack mode.
+Upon mech buildings, which themselves must specify what pilot they serve, spawn mechs of the given type.
+Player state probably needs to track each pilot's unlocks etc. on a per pilot basis. A big dictionary?
+Is a resource better? You're looking at: Array of upgrades, array of chosen cards, and array of possible cards.
+Not too many. Serializing seems excessive so I'm going to vote keeping it in memory as a unique object class.
 
-BUG: Right mouse does not close any open contexts
+####PLACING BUILDINGS####
+TODO: Make the "construct" button open up the building menu
+-Make it clear that clicking it again will close it
+-Make clicking in the world close it (and right clicking if we don't want closer inspection)
+-Make the menu close
+-Upon hovering, open the tooltip panel
+-Upon clicking a button, check to make sure the player has enough AP
+-If not, make angry noise around AP.
+-Make the buttons make a building outline follow the cursor as it hovers over tiles
+-While the outline hovers over different terrain, update the tooltip panel accordingly.
+-e.g: Most buildings require a development level of at least 1.
+-While the outline hovers over terrain, update the radius of its effect in a hollow aura around the hexes
+-Probably by having a stored "placing:..." variable
+-This makes the button highlighted until it's placed
+-Make right-clicking or an unhandled left click dismiss the placement.
+-Upon left clicking, create a build command, add it to the event queue, then execute from queue
+-Command must have: The building being placed, the location where it is being placed, the amount of AP spent, and the turn in which it was placed (for campaign reasons)
+-Whence executed, put the real building down
+-Development & Buildings are their own layer
+-Apply its effect layer to the terrain in the given radius
+-If appropriate, update its speed chart
+-When mousing over a placed building, create a hollow outline of its effect radius.
+-If the building is a power building, check to see if there are any existing power connections.
 
-TODO: Animate cards as they resolve - done primitively	
-TODO:
--Subtask: Separate player animations and Kaiju animations
+####UPDATING POWER####
 
-TODO: Limbs can be disabled
-TODO: Kaiju can go down.
+
+
+####OVERLAYS###
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TODO: Really show what happens if the Kaiju has to move through a pilot
+
+
+TODO: Make a decision about Kaiju pathing. Can they go through pilots or not?
+Ideas: Maybe if a pilot goes down, the Kaiju moves into the pilots' space before continuing movement?
 	
 TODO: Win the kaiju battle  - does an event bus, if any, precede this?
 

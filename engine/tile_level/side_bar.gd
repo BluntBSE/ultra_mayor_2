@@ -1,5 +1,5 @@
 extends ColorRect
-class_name SideBar
+class_name AttackSideBar
 
 @onready var map:Map_2 = %Map
 #Rendering nodes
@@ -42,7 +42,7 @@ func occupant_to_sidebar(lt:LogicalTile)->void:
 
 func tile_to_sidebar(lt:LogicalTile)->void:
 	if lt.building != null:
-		var texture:Resource = load(lt.building.portrait)
+		var texture:Texture2D = lt.building.portrait
 		building_name.visible = true
 		building_port.texture = texture
 		building_name.text = lt.building.display_text

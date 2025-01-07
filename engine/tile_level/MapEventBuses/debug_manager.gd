@@ -25,7 +25,7 @@ func add_test_elements() -> void:
 	var tt_4: LogicalTile = logical_grid[23][23]
 	var tt_5: LogicalTile = logical_grid[24][12]
 	var tt_6: LogicalTile = logical_grid[24][11]
-	tt_1.building = BuildingsLib.lib["coal_plant"]
+	tt_1.building = ResLibsNode.buildings.coal_plant
 
 
 	add_pilot("demo_pilot", tt_2)

@@ -25,4 +25,3 @@ func _process(_delta: float) ->void:
 		zoom -= Vector2(0.01,0.01)
 	if Input.is_key_label_pressed(KEY_F):
 		zoom += Vector2(0.01,0.01)
-

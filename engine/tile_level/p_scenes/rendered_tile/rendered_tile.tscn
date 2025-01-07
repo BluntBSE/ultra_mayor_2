@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw7s8jxs3oihv"]
+[gd_scene load_steps=7 format=3 uid="uid://bw7s8jxs3oihv"]
 
 [ext_resource type="Script" path="res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.gd" id="1_0e00g"]
 [ext_resource type="Texture2D" uid="uid://dbc2omoe4y20n" path="res://engine/tile_level/terrain/assets/tileset_b/PNG/tail_3/1.png" id="2_32lfy"]
 [ext_resource type="Texture2D" uid="uid://f5lsng1agvpx" path="res://engine/tile_level/terrain/assets/Snow/Snow5.png" id="2_db4uc"]
+[ext_resource type="Shader" path="res://engine/tile_level/p_scenes/rendered_tile/pure_white.gdshader" id="3_q7hmc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_80wkt"]
+resource_local_to_scene = true
+shader = ExtResource("3_q7hmc")
+shader_parameter/active = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a0ent"]
 radius = 32.0156
@@ -23,6 +29,7 @@ centered = false
 
 [node name="building_sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_80wkt")
 position = Vector2(97, 107)
 scale = Vector2(4.21, 4.21)
 
@@ -43,6 +50,7 @@ shape = SubResource("CircleShape2D_a0ent")
 
 [node name="xy_coords" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
+visible = false
 offset_left = 73.0
 offset_top = 92.0
 offset_right = 124.0

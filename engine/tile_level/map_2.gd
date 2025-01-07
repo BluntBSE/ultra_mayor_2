@@ -13,30 +13,41 @@ var kaijus: Array = []
 var kaiju_blocks: Array = []
 var turn_counter: int = 0
 var camera:Camera2D
-enum map_modes { CITY_BUILDER, BATTLE_MODE }
+enum map_modes { CITY_BUILDER, ATTACK, PLACING_BUILDING }
 enum valid_targets { ANY, KAIJU, PILOTS, OCCUPANTS, BUILDINGS, NONE}
 
 
 #REFLECT EVERY DAY YOU ARE HERE: DO YOU NEED  A REAL STATE MACHINE?
-var map_mode: int = map_modes.BATTLE_MODE
+var map_mode: int = map_modes.ATTACK
 var valid_target: int = valid_targets.ANY
 var selection_primary: LogicalTile
 var selection_secondary: LogicalTile
 var pilot_1: LogicalPilot
 #Observers
 @onready var header: TileMapHeaderBar = %HeaderBar
-@onready var side_bar: SideBar = %SideBar
+@onready var side_bar: AttackSideBar = %AttackSideBar
 
 signal map_signal  #Currently used to populate sidebar with what you hover over
-signal map_select_occ_signal
-signal map_hover_signal
-signal map_target_signal
+#signal map_select_occ_signal
+#signal map_hover_signal
+#signal map_target_signal
 signal reset_rts
 signal lock_camera
 
 const SELECTION_HIGHLIGHTS:Array = [
 	"pilot_move_origin",
 ]
+
+func process_try_building(_command:BuildingCommand)->void:
+	print("Map entered placement mode")
+	map_mode = map_modes.PLACING_BUILDING
+	
+func process_release(command:Command)->void:
+	print("Process released called with", command)
+	print("Map leaved placement mode")
+	var rt:RenderedTile = rendered_grid[command.x][command.y]
+	rt.unpreview_building()
+	map_mode = map_modes.CITY_BUILDER
 
 func unselect_all()->void:
 	if selection_primary:
@@ -87,8 +98,13 @@ func _input(event:InputEvent)->void:
 			if pilot_1:
 				clear_pilot_preview(pilot_1)
 				pilot_1.clear_everything()
+			if map_mode == map_modes.PLACING_BUILDING:
+				var event_bus:CBEventBus = %CBEventBus
+				event_bus.release(event_bus.trying)
 #What about a dictionary containing a path for every entity that might need one?
-func process_rt_signal(args: RTSigObj) -> void:
+
+
+func process_rt_attack_mode(args:RTSigObj)->void:
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
 	var lt: LogicalTile = logical_grid[args.x][args.y]
 	
@@ -102,7 +118,6 @@ func process_rt_signal(args: RTSigObj) -> void:
 	#This shouldn't just be a click on a tile, but any right click unhandled input. This duplication is intentional
 	if args.event == "right_click":
 		if pilot_1 != null:
-			print("This where we at")
 			clear_pilot_preview(pilot_1)
 			pilot_1.clear_everything()
 			
@@ -153,6 +168,41 @@ func process_rt_signal(args: RTSigObj) -> void:
 	var map_sig: MapSigObj = MapSigObj.new(self, args.x, args.y, logical_grid[args.x][args.y], args.event, selection_primary, selection_secondary, map_mode)
 	map_signal.emit(map_sig)  #Emit the current state of what's happened so the sidebars, etc. can decide what to display
 
+
+
+func process_rt_citybuilder_mode(args:RTSigObj)->void:
+	pass
+	
+
+func process_rt_buildingplace_mode(args:RTSigObj)->void:
+	var rt: RenderedTile = rendered_grid[args.x][args.y]
+	var lt: LogicalTile = logical_grid[args.x][args.y]
+	var bus:CBEventBus = %CBEventBus
+	
+	if args.event == "left_click":
+		if ( %CBEventBus.is_legal(args) == true ):
+			bus.add_do(bus.trying)
+	
+	if args.event == "hover_enter":
+		#TODO: Insert sanity checks from CBEventBus first.
+		if ( %CBEventBus.is_legal(args) == true ):
+			rt.preview_building(bus.trying)
+
+		rt.active_highlights.append("basic_hovered")
+	if args.event == "hover_exit":
+		rt.unpreview_building()
+		rt.active_highlights.erase("basic_hovered")
+	
+	
+	pass
+
+func process_rt_signal(args: RTSigObj) -> void:
+	if map_mode == 1: # Attack mode
+		process_rt_attack_mode(args)
+	if map_mode == 0: #City builder mode, nothing being placed
+		process_rt_citybuilder_mode(args)
+	if map_mode == 2:
+		process_rt_buildingplace_mode(args)
 
 
 func set_mode(mode: int) -> void:
@@ -302,3 +352,7 @@ func draw_kaiju_paths() -> void:
 		_kaiju.path_to_target()
 		_kaiju.show_movement()
 	pass
+
+
+func _on_undo_btn_button_up() -> void:
+	pass # Replace with function body.

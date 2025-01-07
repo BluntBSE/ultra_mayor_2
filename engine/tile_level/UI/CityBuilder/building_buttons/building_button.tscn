@@ -1,0 +1,92 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5ndi8j4pyptj"]
+
+[ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="1_j4yuk"]
+[ext_resource type="Script" path="res://engine/tile_level/UI/CityBuilder/building_button.gd" id="1_k5bx2"]
+[ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="2_ksvng"]
+[ext_resource type="Texture2D" uid="uid://7tqviu2263ju" path="res://engine/tile_level/terrain/assets/town/Ex-BAS Town/Buildings/Electricity/CoalPowerPlant.png" id="3_armpq"]
+
+[node name="BuildingButton" type="ColorRect"]
+custom_minimum_size = Vector2(235, 110)
+theme = ExtResource("1_j4yuk")
+color = Color(0.866667, 0.588235, 0.976471, 1)
+script = ExtResource("1_k5bx2")
+
+[node name="ButtonBG" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
+mouse_filter = 2
+color = Color(0.101961, 0.0509804, 0.113725, 1)
+
+[node name="APColor" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 177.0
+offset_top = 76.0
+offset_right = 231.0
+offset_bottom = 104.0
+mouse_filter = 2
+color = Color(0.866667, 0.588235, 0.976471, 1)
+
+[node name="PointCost" type="RichTextLabel" parent="APColor"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource("2_ksvng")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]7 AP[/center]"
+fit_content = true
+
+[node name="SpriteBG" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 12.0
+offset_right = 118.0
+offset_bottom = 98.0
+mouse_filter = 2
+color = Color(0.866667, 0.588235, 0.976471, 1)
+
+[node name="BuildingSprite" type="TextureRect" parent="SpriteBG"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 14.0
+offset_right = 100.0
+offset_bottom = 86.0
+mouse_filter = 2
+texture = ExtResource("3_armpq")
+
+[node name="BuildingName" type="RichTextLabel" parent="."]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 142.0
+offset_top = 8.0
+offset_right = -4.0
+offset_bottom = -37.0
+mouse_filter = 2
+theme = ExtResource("2_ksvng")
+theme_override_constants/line_separation = 3
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[right]COAL POWER PLANT[/right]"
+fit_content = true
+
+[node name="SelectionMask" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 235.0
+offset_bottom = 110.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.270588)
+
+[connection signal="gui_input" from="." to="." method="handle_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="custom_hover"]
+[connection signal="mouse_exited" from="." to="." method="custom_exit"]

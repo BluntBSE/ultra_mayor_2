@@ -1,15 +1,22 @@
+extends Resource
 class_name Building
 
-var display_text:String
-var sprite:String
-var portrait:String
-var category:String
+@export var id:String
+@export var display_text:String
+@export var sprite:Texture2D
+@export var portrait:Texture2D
+@export var category:String
+@export var tier:int #Kaiju will tend to go for the highest tier?
+@export var ap_cost:int
+@export var effects:Dictionary
+@export var provides_power: bool
+@export var power_provided:int
+#Effects are of the following form:
+"""
+{
+	"services":3,
+	"medical":2
+}
 
-#This constructor is basically called only by the "Lib" dictionary
-func _init(args:Dictionary)->void:
-	display_text=args.display_text
-	sprite=args.sprite
-	portrait=args.portrait
-	if args.category != null:
-		category=args.category
-
+Where the integers represent the radius in which the building provides a given service.
+"""

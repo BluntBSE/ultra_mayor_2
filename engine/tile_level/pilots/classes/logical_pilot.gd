@@ -1,9 +1,11 @@
 class_name LogicalPilot extends Occupant
 
-
+##On-map variables##
 var reachable_path:Array = []
 #Deck, etc.
 var deck_path:String
+var init_deck_limit:int
+var deck_limit:int
 var deck:Array = []
 var energy:int
 var services:Services
@@ -12,12 +14,12 @@ var arrows:Array = []
 var disabled:bool = false
 var rendered_pilot:RenderedPilot
 var battling:LogicalKaiju
-signal pilot_path
 
+##Off-map variables##
+var upgrades:Array = []
+var unlocked_cards:Dictionary #Dictionary of resources, with key equivalent to the resource ID
 
 #var deck:DeckObject (array of Card Objects instead?)
-
-#Maybe it's useful to store LAST/CURRENT_POSITION and LAST_MR here? To add a fast reset?
 
 func _init(args:Dictionary)->void:
 	sprite = args.sprite
@@ -200,6 +202,6 @@ func cleanup_UI()->void:
 		active_context = null
 
 func assign_to_battle(pilot:LogicalPilot, kaiju:LogicalKaiju)->void:
-	var bus:AttackEventBus = map.get_node("AttackEventBus")
+	var bus:EventBus = map.get_node("AttackEventBus")
 	var command:AttackAssignPilot = AttackAssignPilot.new(map, map.logical_grid[pilot.x][pilot.y], map.logical_grid[kaiju.x][kaiju.y])
 	bus.add_do(command)

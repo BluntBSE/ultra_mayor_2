@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Building" load_steps=3 format=3 uid="uid://cetk6ngi061j3"]
+
+[ext_resource type="Script" path="res://engine/tile_level/buildings/classes/building.gd" id="1_sm6vd"]
+[ext_resource type="Texture2D" uid="uid://7tqviu2263ju" path="res://engine/tile_level/terrain/assets/town/Ex-BAS Town/Buildings/Electricity/CoalPowerPlant.png" id="2_cp581"]
+
+[resource]
+script = ExtResource("1_sm6vd")
+id = "coal_plant"
+display_text = "Coal Power Plant"
+sprite = ExtResource("2_cp581")
+portrait = ExtResource("2_cp581")
+category = "power"
+tier = 1
+ap_cost = 5
+effects = {}
+provides_power = true
+power_provided = 20

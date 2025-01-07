@@ -1,0 +1,35 @@
+The city building portion of Ultra Mayor revolves around the accumulation of Action Points, which are used to build buildings.
+
+
+
+LIST OF TILE QUALITIES:
+	
+Amenities (Swimming pools, etc) - Aura
+Electricity - handled as connections between cells, not  auras like the others...Probably?
+Healthcare - Aura
+Services (Transportation, schools, etc.)
+Development level (Population?)
+
+
+
+
+LIST OF BUILDINGS
+
+
+
+DEVELOPMENT TIERS-
+
+Infrastructure - connects electricity only. Allows construction of buildings.
+
+
+MECH HANGARS-
+Dept. Health
+Dept. Public Works
+Dept. Energy
+Dept. Defense
+Dept. Education
+Dept. Administration
+Dept. Transportation
+
+
+TECH TREE

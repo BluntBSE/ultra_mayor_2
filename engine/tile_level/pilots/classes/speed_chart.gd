@@ -15,4 +15,3 @@ func _init(chart:Dictionary)->void:
 			self[key] = chart[key]
 		else:
 			self[key] = TerrainLib.lib[key].move_cost
-
