@@ -33,14 +33,20 @@ func _on_open_construct_btn_button_up() -> void:
 	open_city_menu(construction_menu)
 	open_building_category("power")
 	
+func clear_building_buttons()->void:
+	for btn:BuildingButton in %BuildingVertical.get_children():
+		btn.queue_free()
+
 	
 func open_building_category(category:String)->void:
+	clear_building_buttons()
+	print("Opening building category: ", category)
 	var props:Array = ResLibsNode.buildings.get_property_list() #A glorified alternative to a JSON
 	var buildings:Array
 	#TODO: Loading slow? You should probably do this in the autoload, not every time you open the menu
 	for property:Dictionary in props:
 		if property.class_name == &"Building":
-			print("TESTING", ResLibsNode.buildings[property.name])
+			print(property.name)
 			if ResLibsNode.buildings[property.name] != null:
 				if ResLibsNode.buildings[property.name].category == category:
 					buildings.append(ResLibsNode.buildings[property.name])
@@ -85,4 +91,11 @@ func update_building_btns(_command:BuildingCommand)->void:
 func _on_undo_btn_button_up() -> void:
 	print("Undo up, with", event_bus, event_bus.head)
 	event_bus.undo()
+	pass # Replace with function body.
+
+
+func _on_hangars_btn_button_up() -> void:
+	print("Pressed hangars button")
+	open_city_menu(construction_menu)
+	open_building_category("hangars")
 	pass # Replace with function body.

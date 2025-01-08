@@ -11,6 +11,12 @@ class_name Building
 @export var effects:Dictionary
 @export var provides_power: bool
 @export var power_provided:int
+@export var unlocks_research_group:String = ""
+@export var hangar_for:String = ""
+@export var techs_needed:Array
+@export var requirements:Array
+@export var builds_on:Array
+
 #Effects are of the following form:
 """
 {

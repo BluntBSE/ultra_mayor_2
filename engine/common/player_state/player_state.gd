@@ -12,6 +12,10 @@ var techs:Dictionary:
 	get:
 		return techs
 
+var extant_pilots:Array = [] #LogicalPilots.
+#Hangar object = {"hangar": "hangar_public_works", 
+var hangars:Array = []#Updated when an appropriate building is placed
+
 signal ap_updated
 signal techs_updated
 

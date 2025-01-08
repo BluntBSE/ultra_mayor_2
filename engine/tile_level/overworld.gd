@@ -1,4 +1,16 @@
 extends Node
+@onready var map:Map_2 = %Map
+
+
+
+func builder_to_attack(state:PlayerState, map:Map_2)->void:
+	var lg:Array = map.logical_grid
+	var rg:Array = map.rendered_grid
+	#For each hangar on the map, see if the PlayerState has a corresponding mecha
+	#If not, create a new mecha in the PlayerState	
+	#From this list of mecha, spawn each mecha on its corresponding hangar on the grid.
+	pass
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,13 +25,13 @@ func _process(delta: float) -> void:
 
 func _input(event:InputEvent)->void:
 	if event is InputEventKey and event.pressed:
-		if event.scancode == KEY_DELETE:
+		var k_event:InputEventKey = event
+		if k_event.key_label == KEY_DELETE:
 			print("Delete key hit. Rendering Kaiju warning")
 			if %KaijuWarning.visible == true:
 				%KaijuWarning.visible = false
 			else:
 				%KaijuWarning.visible=true
-	if event is InputEventKey and event.pressed:
-		if event.scancode == KEY_INSERT:
-			print("Insert key hit. Switching from builder to combat")
+		if k_event.key_label == KEY_INSERT:
+			print("Insert key hit. Switching from builder to attack")
 			pass

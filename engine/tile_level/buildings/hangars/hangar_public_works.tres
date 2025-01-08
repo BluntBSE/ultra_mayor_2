@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Building" load_steps=3 format=3 uid="uid://bfjt2doov0552"]
+
+[ext_resource type="Texture2D" uid="uid://drysi0mv5svxv" path="res://engine/tile_level/terrain/assets/town/Ex-BAS Town/Buildings/Water/WaterTreatmentPlant.png" id="1_5qfl8"]
+[ext_resource type="Script" path="res://engine/tile_level/buildings/classes/building.gd" id="1_p0v7f"]
+
+[resource]
+script = ExtResource("1_p0v7f")
+id = "hangar_public_works"
+display_text = "Hangar: Public Works"
+sprite = ExtResource("1_5qfl8")
+portrait = ExtResource("1_5qfl8")
+category = "hangars"
+tier = 1
+ap_cost = 10
+effects = {}
+provides_power = false
+power_provided = 0
+unlocks_research_group = "mecha_pw"
+hangar_for = "public_works"

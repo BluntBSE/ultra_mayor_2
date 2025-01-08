@@ -15,3 +15,5 @@ ap_cost = 5
 effects = {}
 provides_power = true
 power_provided = 20
+unlocks_research_group = ""
+hangar_for = ""

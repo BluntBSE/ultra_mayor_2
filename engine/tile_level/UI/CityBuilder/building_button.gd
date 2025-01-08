@@ -101,6 +101,9 @@ func can_afford(state:PlayerState, _building:Building)->bool:
 	if state.action_points >= _building.ap_cost:
 		return true
 	else: return false
+	
+func requirements_met(state:PlayerState, _building:Building)->bool:
+	return false
 
 func set_enabled(_bool:bool)->void:
 	enabled = _bool

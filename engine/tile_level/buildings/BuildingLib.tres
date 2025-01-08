@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="BuildingLib" load_steps=3 format=3 uid="uid://c0fh8oig0gnwd"]
+[gd_resource type="Resource" script_class="BuildingLib" load_steps=4 format=3 uid="uid://c0fh8oig0gnwd"]
 
 [ext_resource type="Script" path="res://engine/tile_level/buildings/classes/building_lib.gd" id="1_rc3kw"]
 [ext_resource type="Resource" uid="uid://cetk6ngi061j3" path="res://engine/tile_level/buildings/power/coal_plant.tres" id="1_rkmno"]
+[ext_resource type="Resource" uid="uid://bfjt2doov0552" path="res://engine/tile_level/buildings/hangars/hangar_public_works.tres" id="2_mk4pl"]
 
 [resource]
 script = ExtResource("1_rc3kw")
 coal_plant = ExtResource("1_rkmno")
+hangar_public_works = ExtResource("2_mk4pl")
