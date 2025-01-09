@@ -2,6 +2,7 @@ class_name BuildingButtonSelectedState
 extends GenericState
 var reference:BuildingButton
 
+#SelectionMask color is typically ffffff45 fo rselected
 func stateEnter(args:Dictionary)->void:
 	reference = _reference
 	reference.button_bg.color = reference.hv_bg_color

@@ -85,7 +85,7 @@ layout_mode = 0
 offset_right = 235.0
 offset_bottom = 110.0
 mouse_filter = 2
-color = Color(1, 1, 1, 0.270588)
+color = Color(0.0980392, 0.0980392, 0.0980392, 0.439216)
 
 [connection signal="gui_input" from="." to="." method="handle_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="custom_hover"]
