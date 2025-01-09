@@ -38,7 +38,6 @@ func process_rt_signal(rt_sig:RTSigObj)->void:
 
 func release(command:Command)->void:
 	print("Release emitted")
-	#trying = null TODO: Whence?
 	released.emit(command)
 
 func process_just_did(_command:BuildingCommand)->void:

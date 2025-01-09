@@ -16,6 +16,7 @@ func do()->void:
 	var lt:LogicalTile = lg[x][y]
 	previous_building = lt.building
 	lt.building = building
+	#TODO: Embarking
 	#TODO: Super hacky atm don't do draw_all_tile_sprites like this
 	MapHelpers.draw_tile_sprites(lt, rg)
 	player_state.action_points -= building.ap_cost
