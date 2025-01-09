@@ -187,6 +187,8 @@ func process_rt_buildingplace_mode(args:RTSigObj)->void:
 		#TODO: Insert sanity checks from CBEventBus first.
 		if ( %CBEventBus.is_legal(args) == true ):
 			rt.preview_building(bus.trying)
+		else:
+			rt.preview_bad_building(bus.trying)
 
 		rt.active_highlights.append("basic_hovered")
 	if args.event == "hover_exit":

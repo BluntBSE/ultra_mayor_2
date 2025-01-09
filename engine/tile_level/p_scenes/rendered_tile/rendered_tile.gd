@@ -177,6 +177,17 @@ func preview_building(command:BuildingCommand)->void:
 	var shadermat:ShaderMaterial = sprite.material
 	#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
 	shadermat.set_shader_parameter("active", true)
+	shadermat.set_shader_parameter("color", Vector4(1.0,1.0,1.0,1.0))
+	pass
+	
+func preview_bad_building(command:BuildingCommand)->void:
+	var building:Building = command.building
+	var sprite:Sprite2D = %building_sprite
+	sprite.texture = building.sprite
+	var shadermat:ShaderMaterial = sprite.material
+	#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
+	shadermat.set_shader_parameter("active", true)
+	shadermat.set_shader_parameter("color", Vector4(1.0,0.1,0.1,1.0))
 	pass
 	
 func unpreview_building()->void:

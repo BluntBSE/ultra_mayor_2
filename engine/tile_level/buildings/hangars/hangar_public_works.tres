@@ -19,4 +19,4 @@ unlocks_research_group = "mecha_pw"
 hangar_for = "public_works"
 techs_needed = []
 requirements = ["unique_hangar"]
-builds_on = ["plains"]
+builds_on = ["plain"]

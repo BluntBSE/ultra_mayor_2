@@ -103,10 +103,18 @@ func can_afford(state:PlayerState, _building:Building)->bool:
 	else: return false
 
 func check_unique_hangars(state:PlayerState, id:String)->bool:
+	print("Checking for unique hangars in comparison to ", id)
 	var unique:bool = true
+	if state.hangars.size() == 0:
+		return unique
+	for hangar:Hangar in state.hangars:
+		print(hangar.id)
+
 	for hangar:Hangar in state.hangars:
 		if id == hangar.id:
+			print("Hangar", id,  " is not unique.")
 			unique = false
+	print("Uniqueness comparison is returning ", unique)
 	return unique
 	
 func requirements_met(state:PlayerState, _building:Building)->bool:
@@ -118,15 +126,17 @@ func requirements_met(state:PlayerState, _building:Building)->bool:
 		return false
 	#Check different styles of unique requirements
 	if _building.requirements.size() > 0:
+		print(_building.display_text, " requires ", _building.requirements)
 		if "unique_hangar" in _building.requirements:
 			all_conditions.append(check_unique_hangars(state, _building.id))
-	
+			
+	print("ALL CONDITIONS ", all_conditions)
 	if all_conditions.size() > 0:
 		if false not in all_conditions:
 			all_met = true
 		else:
 			all_met = false
-	
+	print(_building.display_text, " requirements met? ", all_met)
 	return all_met
 
 func set_enabled(_bool:bool)->void:

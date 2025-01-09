@@ -1,14 +1,11 @@
 REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 CONSIDER: Maybe not every pilot gets "Shove?" The ability to daisy chain shoves is pretty beefy.
+CONSIDER: Do pilots fully block Kaiju or not?
+CONSIDER: What happens when a grid does not have enough power? Maybe an AP penalty per development?
 Maybe a kaiju can only be shoved once or something?
 
-MINOR BUG: KAIJU PATHS MIGHT REDRAW EVEN IF NOTHING ENTERS? When 2 equally good paths are there?
-POSSIBLE FIX: Check and see if anything on the path of it is in kaiju_blocks to see if a redraw is necessary.
 
-LogicalTiles currently parent themselves directly to the map. Is it worth putting them in a dummy node called LogicalTiles?
-We mostly access them through the variable on the map.
-
-
+BUG: Hangar doesn't check for uniqueness properly after re-opening menu
 --QUEUE--
 
 Add mech building

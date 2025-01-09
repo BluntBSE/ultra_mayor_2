@@ -7,25 +7,27 @@ var p_state:PlayerState
 func process_did(command:BuildingCommand)->void:
 	print("Player played a building - From BPManager")
 	if command.building.hangar_for != "":
-		print("BPManager: Player played a hangar")
 		handle_did_hangar(command, p_state)
-		var hangar:Hangar = Hangar.new(command.building.id, command.building.hangar_for, command.x, command.y, map)
-		print("Appending hangar: ", hangar )
-		p_state.hangars.append(hangar)
 	pass
 
 func process_undid(command:BuildingCommand)->void:
+	print("BPManager: Player undid a building with command:", command)
+	
+	if command.building.hangar_for != "":
+		handle_undid_hangar(command, p_state)
 	pass
 
 
 func handle_did_hangar(command:BuildingCommand, state:PlayerState)->void:
-	print("Player just placed a hangar")
-	
-	pass
+		var hangar:Hangar = Hangar.new(command.building.id, command.building.hangar_for, command.x, command.y, map)
+		p_state.append_hangar(hangar)
 
-func handle_undid_hangar(command:BuildingCommand)->void:
+
+func handle_undid_hangar(command:BuildingCommand, p_state:PlayerState)->void:
 	print("Player just undid a hangar")
-	pass# Called when the node enters the scene tree for the first time.
+	var hangar:Hangar = Hangar.new(command.building.id, command.building.hangar_for, command.x, command.y, map)
+	p_state.erase_hangar(hangar)
+
 func _ready() -> void:
 	cb_event_bus = %CBEventBus
 	p_state = %PlayerState

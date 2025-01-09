@@ -57,11 +57,14 @@ func undo()->void:
 	if queue.size() > 0:
 		if head>0:
 			print("Event queue bigger than 0, reverted head")
-			var q_command:Command = queue[head].undo()
+			var q_command:Command = queue[head]
+			q_command.undo()
 			head -= 1
 			just_undid.emit(q_command)
 		else:
-			var q_command:Command = queue[head].undo()
+			var q_command:Command = queue[head]
+			q_command.undo()
+			print("Undid with a single queue")
 			just_undid.emit(q_command)
 			queue = []
 	else:

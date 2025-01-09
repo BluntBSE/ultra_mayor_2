@@ -5,13 +5,15 @@ class_name OverWorldCityUI
 @onready var construction_nav:Control = %ConstructNav
 @onready var building_vertical:VBoxContainer = %BuildingVertical
 @onready var event_bus:CBEventBus = %CBEventBus
+@onready var player_state:PlayerState = %PlayerState
 signal try_building_signal
 
 func _ready()->void:
 	connect("try_building_signal", event_bus.do_try)
 	connect("try_building_signal", map.process_try_building )
-	event_bus.building_placed.connect(update_building_btns)
-	event_bus.just_undid.connect(update_building_btns)
+	event_bus.building_placed.connect(process_building_placed)
+	event_bus.just_undid.connect(process_building_placed)
+	player_state.hangars_modified.connect(process_hangars_modified)
 	
 
 func close_city_menu(menu:Control)->void:
@@ -48,6 +50,7 @@ func open_building_category(category:String)->void:
 		if property.class_name == &"Building":
 			print(property.name)
 			if ResLibsNode.buildings[property.name] != null:
+				#TODO: Check for unlocks or not. Haven't yet decided if we want to render all items, grayed out, or only append after unlocking
 				if ResLibsNode.buildings[property.name].category == category:
 					buildings.append(ResLibsNode.buildings[property.name])
 	for building:Building in buildings:
@@ -56,7 +59,7 @@ func open_building_category(category:String)->void:
 		#remove_child(btn)
 		%BuildingVertical.add_child(btn)
 		btn.unpack(building)
-		if btn.can_afford(%PlayerState, building) == true:
+		if btn.can_afford(%PlayerState, building) == true and btn.requirements_met(%PlayerState, building) == true:
 			btn.set_enabled(true)
 			btn.connect("try_building", try_building)
 			var callable:Callable = Callable(btn, "process_released")
@@ -76,7 +79,14 @@ func try_building(building_command:BuildingCommand)->void:
 	try_building_signal.emit(building_command)
 	#Re-open the menu to trigger all the refreshes
 
-func update_building_btns(_command:BuildingCommand)->void:
+func process_building_placed(_command:BuildingCommand)->void:
+	update_building_btns()
+
+func process_hangars_modified(hangars:Array)->void:
+	print("OverworldCityUI: Process hangars modified")
+	update_building_btns()
+
+func update_building_btns()->void:
 	print("Called update building btns")
 	var buildvert:VBoxContainer = %BuildingVertical
 	for child:BuildingButton in buildvert.get_children():
