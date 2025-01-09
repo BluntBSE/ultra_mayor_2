@@ -80,11 +80,11 @@ func update_building_btns(_command:BuildingCommand)->void:
 	print("Called update building btns")
 	var buildvert:VBoxContainer = %BuildingVertical
 	for child:BuildingButton in buildvert.get_children():
-		if child.can_afford(%PlayerState, child.building):
-			print("CAN AFFORD")
+		if child.can_afford(%PlayerState, child.building) and child.requirements_met(%PlayerState, child.building):
+			print("CAN AFFORD AND REQUIREMENTS MET")
 			child.set_enabled(true)
 		else:
-			print("CANT AFFORD")
+			print("CANT AFFORD OR REQUIREMENTS NOT MET")
 			child.set_enabled(false)
 	pass
 

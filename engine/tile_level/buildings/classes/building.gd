@@ -15,7 +15,7 @@ class_name Building
 @export var hangar_for:String = ""
 @export var techs_needed:Array
 @export var requirements:Array
-@export var builds_on:Array
+@export var builds_on:Array #Terrain ids
 
 #Effects are of the following form:
 """

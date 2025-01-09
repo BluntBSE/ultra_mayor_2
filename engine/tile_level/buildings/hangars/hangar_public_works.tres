@@ -17,3 +17,6 @@ provides_power = false
 power_provided = 0
 unlocks_research_group = "mecha_pw"
 hangar_for = "public_works"
+techs_needed = []
+requirements = ["unique_hangar"]
+builds_on = ["plains"]

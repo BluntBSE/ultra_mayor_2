@@ -101,9 +101,33 @@ func can_afford(state:PlayerState, _building:Building)->bool:
 	if state.action_points >= _building.ap_cost:
 		return true
 	else: return false
+
+func check_unique_hangars(state:PlayerState, id:String)->bool:
+	var unique:bool = true
+	for hangar:Hangar in state.hangars:
+		if id == hangar.id:
+			unique = false
+	return unique
 	
 func requirements_met(state:PlayerState, _building:Building)->bool:
-	return false
+	#Building requirements: unique_hangar,
+	var all_conditions:Array = []
+	var all_met:bool = true
+	#Check if all required techs are unlocked
+	if _building.techs_needed.size() > 0:
+		return false
+	#Check different styles of unique requirements
+	if _building.requirements.size() > 0:
+		if "unique_hangar" in _building.requirements:
+			all_conditions.append(check_unique_hangars(state, _building.id))
+	
+	if all_conditions.size() > 0:
+		if false not in all_conditions:
+			all_met = true
+		else:
+			all_met = false
+	
+	return all_met
 
 func set_enabled(_bool:bool)->void:
 	enabled = _bool
