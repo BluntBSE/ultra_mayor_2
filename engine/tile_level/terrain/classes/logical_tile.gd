@@ -8,6 +8,7 @@ var building:Building
 var occupant:Occupant = null
 var x:int
 var y:int
+var population:int = 0
 var development:int = 0 #0 = None. 1 = Utilities Only. 2-3-4 are "1 2 3" from player perspective.
 var power:int = 0
 var power_grid:int #unique identifier for whatever grid we're on

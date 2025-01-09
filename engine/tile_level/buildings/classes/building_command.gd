@@ -4,6 +4,7 @@ var player_state:PlayerState
 var initiated_by:BuildingButton
 var building:Building
 var previous_building:Building
+var previous_development:int
 var lg:Array
 var rg:Array
 var x:int
@@ -14,12 +15,17 @@ var special_requirements:Array = []
 
 func do()->void:
 	var lt:LogicalTile = lg[x][y]
-	previous_building = lt.building
-	lt.building = building
-	#TODO: Embarking
-	#TODO: Super hacky atm don't do draw_all_tile_sprites like this
-	MapHelpers.draw_tile_sprites(lt, rg)
-	player_state.action_points -= building.ap_cost
+	if building.is_development == false:
+		previous_building = lt.building
+		lt.building = building
+		#TODO: Embarking
+		#TODO: Super hacky atm don't do draw_all_tile_sprites like this
+		MapHelpers.draw_tile_sprites(lt, rg)
+		player_state.action_points -= building.ap_cost
+	if building.is_development == true:
+		previous_development = lt.development
+		
+		
 
 	
 func undo()->void:

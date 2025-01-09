@@ -1,15 +1,18 @@
 class_name Terrain
+extends Resource
+#TODO: Make this a resource
+@export var id:String
+@export var display_text:String
 
-var id:String
-var display_text:String
-var sprite:String
-var portrait:String
-var move_cost:int
-
-#This constructor is basically called only by the dictionary.
-func _init(args:Dictionary)->void:
-	id=args.id
-	display_text=args.display_text
-	sprite=args.sprite
-	portrait=args.portrait
-	move_cost=args.move_cost
+@export var no_building_sprite_dev_0:Texture2D
+@export var no_building_sprite_dev_1:Texture2D
+@export var no_building_sprite_dev_2:Texture2D
+@export var no_building_sprite_dev_3:Texture2D
+@export var no_building_sprite_dev_4:Texture2D
+@export var building_sprite_dev_0:Texture2D
+@export var building_sprite_dev_1:Texture2D
+@export var building_sprite_dev_2:Texture2D
+@export var building_sprite_dev_3:Texture2D
+@export var building_sprite_dev_4:Texture2D
+@export var portrait:Texture2D
+@export var move_cost:int
