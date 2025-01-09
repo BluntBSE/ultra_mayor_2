@@ -6,6 +6,7 @@ Maybe a kaiju can only be shoved once or something?
 
 
 BUG: Hangar doesn't check for uniqueness properly after re-opening menu
+BUG: After undoing a building, can't place building again. Probably has to do with connecting it...W
 --QUEUE--
 
 Add mech building

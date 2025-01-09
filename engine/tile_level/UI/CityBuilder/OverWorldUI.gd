@@ -67,6 +67,9 @@ func open_building_category(category:String)->void:
 		else:
 			#Do grayed out building
 			btn.set_enabled(false)
+			btn.connect("try_building", try_building)
+			var callable:Callable = Callable(btn, "process_released")
+			event_bus.released.connect(callable.bind(false))
 			
 			pass
 			
@@ -93,6 +96,10 @@ func update_building_btns()->void:
 		if child.can_afford(%PlayerState, child.building) and child.requirements_met(%PlayerState, child.building):
 			print("CAN AFFORD AND REQUIREMENTS MET")
 			child.set_enabled(true)
+			#if child.connections
+			#child.connect("try_building", try_building)
+			#var callable:Callable = Callable(child, "process_released")
+			#event_bus.released.connect(callable.bind(false))
 		else:
 			print("CANT AFFORD OR REQUIREMENTS NOT MET")
 			child.set_enabled(false)
