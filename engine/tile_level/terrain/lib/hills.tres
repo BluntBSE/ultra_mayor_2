@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=4 format=3 uid="uid://c6ixyqackicby"]
+
+[ext_resource type="Texture2D" uid="uid://ydgpkf606pid" path="res://engine/tile_level/terrain/assets/tileset_b/PNG/tail_2/hills.png" id="1_unwiu"]
+[ext_resource type="Texture2D" uid="uid://dwexdhnhqi03q" path="res://engine/tile_level/terrain/assets/portraits/AI_hills_portrait.jpg" id="2_7jbf8"]
+[ext_resource type="Script" path="res://engine/tile_level/terrain/classes/terrain.gd" id="3_1xfqs"]
+
+[resource]
+script = ExtResource("3_1xfqs")
+id = "hills"
+display_text = "Hills"
+no_building_sprite_dev_0 = ExtResource("1_unwiu")
+no_building_sprite_dev_1 = ExtResource("1_unwiu")
+no_building_sprite_dev_2 = ExtResource("1_unwiu")
+no_building_sprite_dev_3 = ExtResource("1_unwiu")
+no_building_sprite_dev_4 = ExtResource("1_unwiu")
+building_sprite_dev_0 = ExtResource("1_unwiu")
+building_sprite_dev_1 = ExtResource("1_unwiu")
+building_sprite_dev_2 = ExtResource("1_unwiu")
+building_sprite_dev_3 = ExtResource("1_unwiu")
+building_sprite_dev_4 = ExtResource("1_unwiu")
+portrait = ExtResource("2_7jbf8")
+move_cost = 2

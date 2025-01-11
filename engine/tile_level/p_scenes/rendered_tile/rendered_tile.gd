@@ -92,11 +92,8 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		position.y = y * map.y_offset
 		#Replace these with better handlers
 		var lt:LogicalTile = logical_grid[x][y]
-		print("LT IS ", lt)
-		if lt.terrain:
-			print(lt.terrain.display_text)
-			print(lt.terrain.portrait)
-			%bg_sprite.texture = lt.terrain.portrait
+		#TODO: Replace with appropriate sprite for development etc.
+		%bg_sprite.texture = lt.terrain.no_building_sprite_dev_0
 
 
 # Called when the node enters the scene tree for the first time.

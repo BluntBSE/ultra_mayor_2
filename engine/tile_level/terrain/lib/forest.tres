@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=4 format=3 uid="uid://b5wvlpedrpa2r"]
+
+[ext_resource type="Texture2D" uid="uid://bqy527i0vsev3" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/forest_1.png" id="1_vbrj1"]
+[ext_resource type="Texture2D" uid="uid://bt555fr70yft6" path="res://engine/tile_level/terrain/assets/portraits/AI_forest_portrait.jpg" id="2_627mk"]
+[ext_resource type="Script" path="res://engine/tile_level/terrain/classes/terrain.gd" id="3_a28c0"]
+
+[resource]
+script = ExtResource("3_a28c0")
+id = "forest"
+display_text = "Forest"
+no_building_sprite_dev_0 = ExtResource("1_vbrj1")
+no_building_sprite_dev_1 = ExtResource("1_vbrj1")
+no_building_sprite_dev_2 = ExtResource("1_vbrj1")
+no_building_sprite_dev_3 = ExtResource("1_vbrj1")
+no_building_sprite_dev_4 = ExtResource("1_vbrj1")
+building_sprite_dev_0 = ExtResource("1_vbrj1")
+building_sprite_dev_1 = ExtResource("1_vbrj1")
+building_sprite_dev_2 = ExtResource("1_vbrj1")
+building_sprite_dev_3 = ExtResource("1_vbrj1")
+building_sprite_dev_4 = ExtResource("1_vbrj1")
+portrait = ExtResource("2_627mk")
+move_cost = 2

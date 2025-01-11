@@ -189,7 +189,11 @@ func find_path()->Dictionary:
 				neighbors.erase(neighbor)
 
 		for neighbor:Dictionary in neighbors:
-			var current_terrain:Terrain= logical_grid[current.x][current.y].terrain
+			var lt:LogicalTile = logical_grid[current.x][current.y]
+			if not lt.terrain:
+				print("Didn't find a terrain at: ",
+				)
+			var current_terrain:Terrain = lt.terrain
 			#Adjust for speed chart here
 			var new_cost:int = cost_so_far[current] + current_terrain.move_cost
 			if !cost_so_far.has(neighbor) or new_cost < cost_so_far[neighbor]:
