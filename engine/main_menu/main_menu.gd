@@ -24,7 +24,6 @@ func _on_start_game_btn_button_up() -> void:
 	var services:Services = main.get_node("Services")
 	var game_main:Node = load("res://engine/tile_level/map_main.tscn").instantiate()
 
-
 	main.add_child(game_main)
 	self.queue_free()
 	#TODO: Replace this with a choose-slot menu. Once we know what it is we need to save...

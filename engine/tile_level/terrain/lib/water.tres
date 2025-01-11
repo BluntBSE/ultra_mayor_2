@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=4 format=3 uid="uid://boi11rygou4ob"]
+
+[ext_resource type="Texture2D" uid="uid://cd854lkr5ed1n" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/water.png" id="1_rwe5g"]
+[ext_resource type="Texture2D" uid="uid://dxwb5vdfabnoq" path="res://engine/tile_level/terrain/assets/portraits/AI_water_portrait.jpg" id="2_8dfgo"]
+[ext_resource type="Script" path="res://engine/tile_level/terrain/classes/terrain.gd" id="3_6hdy7"]
+
+[resource]
+script = ExtResource("3_6hdy7")
+id = "water"
+display_text = "Water"
+no_building_sprite_dev_0 = ExtResource("1_rwe5g")
+no_building_sprite_dev_1 = ExtResource("1_rwe5g")
+no_building_sprite_dev_2 = ExtResource("1_rwe5g")
+no_building_sprite_dev_3 = ExtResource("1_rwe5g")
+no_building_sprite_dev_4 = ExtResource("1_rwe5g")
+building_sprite_dev_0 = ExtResource("1_rwe5g")
+building_sprite_dev_1 = ExtResource("1_rwe5g")
+building_sprite_dev_2 = ExtResource("1_rwe5g")
+building_sprite_dev_3 = ExtResource("1_rwe5g")
+building_sprite_dev_4 = ExtResource("1_rwe5g")
+portrait = ExtResource("2_8dfgo")
+move_cost = 4

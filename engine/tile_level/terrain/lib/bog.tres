@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=4 format=3 uid="uid://dq4w3543a4u85"]
+
+[ext_resource type="Texture2D" uid="uid://ctaksoyj6nttg" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/bog.png" id="1_ym8rw"]
+[ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="2_1fbh0"]
+[ext_resource type="Script" path="res://engine/tile_level/terrain/classes/terrain.gd" id="3_u8h3x"]
+
+[resource]
+script = ExtResource("3_u8h3x")
+id = "bog"
+display_text = "Bog"
+no_building_sprite_dev_0 = ExtResource("1_ym8rw")
+no_building_sprite_dev_1 = ExtResource("1_ym8rw")
+no_building_sprite_dev_2 = ExtResource("1_ym8rw")
+no_building_sprite_dev_3 = ExtResource("1_ym8rw")
+no_building_sprite_dev_4 = ExtResource("1_ym8rw")
+building_sprite_dev_0 = ExtResource("1_ym8rw")
+building_sprite_dev_1 = ExtResource("1_ym8rw")
+building_sprite_dev_2 = ExtResource("1_ym8rw")
+building_sprite_dev_3 = ExtResource("1_ym8rw")
+building_sprite_dev_4 = ExtResource("1_ym8rw")
+portrait = ExtResource("2_1fbh0")
+move_cost = 3
