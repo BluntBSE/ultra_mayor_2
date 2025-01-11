@@ -78,7 +78,7 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		logical_parent = logical_grid[x][y]
 		#Connect map to RT signal
 		connect("rt_signal", map.process_rt_signal)
-		map. reset_rts.connect(handle_input.bind({"event":RTInputs.CLEAR}))
+		map.reset_rts.connect(handle_input.bind({"event":RTInputs.CLEAR}))
 
 
 		%xy_coords.text = str(x) + ", " + str(y)
@@ -91,9 +91,12 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		z_index = z_index + (y * 10)
 		position.y = y * map.y_offset
 		#Replace these with better handlers
-		var key:String = logical_grid[x][y].terrain
-		var terrain_sprite:String = TerrainLib.lib[key].sprite
-		%bg_sprite.texture = load(terrain_sprite)
+		var lt:LogicalTile = logical_grid[x][y]
+		print("LT IS ", lt)
+		if lt.terrain:
+			print(lt.terrain.display_text)
+			print(lt.terrain.portrait)
+			%bg_sprite.texture = lt.terrain.portrait
 
 
 # Called when the node enters the scene tree for the first time.

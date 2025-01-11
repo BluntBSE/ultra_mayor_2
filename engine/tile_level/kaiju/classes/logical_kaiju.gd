@@ -189,9 +189,9 @@ func find_path()->Dictionary:
 				neighbors.erase(neighbor)
 
 		for neighbor:Dictionary in neighbors:
-			var current_terrain:String = logical_grid[current.x][current.y].terrain
+			var current_terrain:Terrain= logical_grid[current.x][current.y].terrain
 			#Adjust for speed chart here
-			var new_cost:int = cost_so_far[current] + TerrainLib.lib[current_terrain].move_cost
+			var new_cost:int = cost_so_far[current] + current_terrain.move_cost
 			if !cost_so_far.has(neighbor) or new_cost < cost_so_far[neighbor]:
 				cost_so_far[neighbor] = new_cost
 				frontier.push_back(neighbor)
@@ -215,7 +215,7 @@ func find_path()->Dictionary:
 	var reachable_path:Array = []
 	var reach_cost:int = 0 #Couldn't figure out how to use cost_so_far without referencing original terrain anyway.
 	for path_coords:Dictionary in full_path:
-		reach_cost += TerrainLib.lib[logical_grid[path_coords.x][path_coords.y].terrain].move_cost
+		reach_cost += logical_grid[path_coords.x][path_coords.y].terrain.move_cost
 		if reach_cost <= moves_remaining:
 			path_coords.reach_cost = reach_cost
 			reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})

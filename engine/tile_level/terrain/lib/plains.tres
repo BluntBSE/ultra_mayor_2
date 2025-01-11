@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Terrain" load_steps=4 format=3 uid="uid://e28n3bpdnx0b"]
+
+[ext_resource type="Texture2D" uid="uid://bouvxvf0kei7x" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain.png" id="1_1oxga"]
+[ext_resource type="Texture2D" uid="uid://biro2nm87mkg3" path="res://engine/tile_level/terrain/assets/portraits/AI_plains_portrait.jpg" id="2_4osjo"]
+[ext_resource type="Script" path="res://engine/tile_level/terrain/classes/terrain.gd" id="3_kkicp"]
+
+[resource]
+script = ExtResource("3_kkicp")
+id = "plains"
+display_text = "Plains"
+no_building_sprite_dev_0 = ExtResource("1_1oxga")
+no_building_sprite_dev_1 = ExtResource("1_1oxga")
+no_building_sprite_dev_2 = ExtResource("1_1oxga")
+no_building_sprite_dev_3 = ExtResource("1_1oxga")
+no_building_sprite_dev_4 = ExtResource("1_1oxga")
+building_sprite_dev_0 = ExtResource("1_1oxga")
+building_sprite_dev_1 = ExtResource("1_1oxga")
+building_sprite_dev_2 = ExtResource("1_1oxga")
+building_sprite_dev_3 = ExtResource("1_1oxga")
+building_sprite_dev_4 = ExtResource("1_1oxga")
+portrait = ExtResource("2_4osjo")
+move_cost = 1

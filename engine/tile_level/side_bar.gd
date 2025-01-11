@@ -48,11 +48,11 @@ func tile_to_sidebar(lt:LogicalTile)->void:
 		building_name.text = lt.building.display_text
 	else:
 		building_name.visible = false
-		building_port.texture = load(TerrainLib.lib[lt.terrain].portrait)
+		building_port.texture = lt.terrain.portrait
 
 
 	#Non-nullables
-	terrain_name.text = TerrainLib.lib[lt.terrain].display_text
+	terrain_name.text = lt.terrain.display_text
 	power.text = "Power: " + str(lt.power)
 	development.text = "Development: " + str(lt.development)
 	services.text = "Services: " + str (lt.services)

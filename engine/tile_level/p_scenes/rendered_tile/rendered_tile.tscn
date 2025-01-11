@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bw7s8jxs3oihv"]
+[gd_scene load_steps=9 format=3 uid="uid://bw7s8jxs3oihv"]
 
 [ext_resource type="Script" path="res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.gd" id="1_0e00g"]
-[ext_resource type="Texture2D" uid="uid://dbc2omoe4y20n" path="res://engine/tile_level/terrain/assets/tileset_b/PNG/tail_3/1.png" id="2_32lfy"]
+[ext_resource type="Texture2D" uid="uid://cekoii8t7ryqi" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain.png" id="2_2pht1"]
 [ext_resource type="Texture2D" uid="uid://f5lsng1agvpx" path="res://engine/tile_level/terrain/assets/Snow/Snow5.png" id="2_db4uc"]
+[ext_resource type="Texture2D" uid="uid://dg3uigiwux2b2" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain_infra_2.png" id="3_1qkf0"]
 [ext_resource type="Shader" path="res://engine/tile_level/p_scenes/rendered_tile/pure_white.gdshader" id="3_q7hmc"]
+[ext_resource type="Texture2D" uid="uid://7tqviu2263ju" path="res://engine/tile_level/terrain/assets/town/Ex-BAS Town/Buildings/Electricity/CoalPowerPlant.png" id="5_rkxd8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80wkt"]
 resource_local_to_scene = true
@@ -20,19 +22,22 @@ script = ExtResource("1_0e00g")
 
 [node name="bg_sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-texture = ExtResource("2_32lfy")
+texture = ExtResource("2_2pht1")
 centered = false
 
 [node name="infra_sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(1.2, 1.2)
+position = Vector2(-3.8147e-06, 0)
+scale = Vector2(1, 1)
+texture = ExtResource("3_1qkf0")
 centered = false
 
 [node name="building_sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_80wkt")
-position = Vector2(97, 107)
-scale = Vector2(4.21, 4.21)
+position = Vector2(93, 101)
+scale = Vector2(2, 2)
+texture = ExtResource("5_rkxd8")
 
 [node name="effect_sprite" type="Sprite2D" parent="."]
 visible = false
@@ -46,6 +51,7 @@ position = Vector2(7, 20)
 scale = Vector2(2.39377, 2.39377)
 
 [node name="hover_collider" type="CollisionShape2D" parent="hover_area"]
+visible = false
 position = Vector2(36, 36)
 shape = SubResource("CircleShape2D_a0ent")
 

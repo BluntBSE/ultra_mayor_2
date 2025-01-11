@@ -177,8 +177,8 @@ static func generate_logical_terrain_map(width: int, height: int) -> Array:
 			#X = moisture
 			#y = altitude
 			var terrain_options: Array = [
-				["plain", "plain", "mountain"],
-				["plain", "forest", "hills"],
+				["plains", "plains", "mountain"],
+				["plains", "forest", "hills"],
 				["water", "bog", "hills"],
 			]
 
@@ -188,9 +188,13 @@ static func generate_logical_terrain_map(width: int, height: int) -> Array:
 
 
 static func apply_logical_terrain_map(grid: Array, terrain_map: Array) -> Array:
+	#These have string keys.
 	for col in range(grid.size()):
 		for row in range(grid[col].size()):
 			var tile: LogicalTile = grid[col][row]
-			tile.terrain = terrain_map[col][row].terrain
+			var terrain_key:String = terrain_map[col][row].terrain
+			var all_terrain:TerrainLib = load("res://engine/tile_level/terrain/lib/terrain_lib.tres")
+			var terrain:Terrain = all_terrain[terrain_key]
+			tile.terrain = terrain
 
 	return grid

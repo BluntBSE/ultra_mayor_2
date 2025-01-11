@@ -2,7 +2,7 @@ class_name LogicalTile
 extends Node
 
 var sprite:String = "res://engine/tile_level/assets/Snow/Snow1.png" #shouldn't be here.
-var terrain:String = "snow"
+var terrain:Terrain
 #var building:String = ""
 var building:Building
 var occupant:Occupant = null

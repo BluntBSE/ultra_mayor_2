@@ -10,8 +10,12 @@ static var bog: int
 static var dunes: int
 
 func _init(chart:Dictionary)->void:
-	for key:String in TerrainLib.lib.keys():
-		if chart.has(key):
-			self[key] = chart[key]
-		else:
-			self[key] = TerrainLib.lib[key].move_cost
+	#TODO: This is a debug speed chart intialized arbitrarily
+	snow = 2
+	water = 3
+	mountain = 4
+	forest = 2
+	dunes = 2
+	bog = 2
+	plain = 1
+	hills = 2

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TerrainLib" load_steps=4 format=3 uid="uid://b8rojn33ty538"]
+
+[ext_resource type="Script" path="res://engine/tile_level/terrain/lib/terrain_lib.gd" id="1_4virg"]
+[ext_resource type="Resource" uid="uid://e28n3bpdnx0b" path="res://engine/tile_level/terrain/lib/plains.tres" id="1_ewfki"]
+[ext_resource type="Resource" uid="uid://bdft8fmku3bfe" path="res://engine/tile_level/terrain/lib/snow.tres" id="3_x2puy"]
+
+[resource]
+script = ExtResource("1_4virg")
+plains = ExtResource("1_ewfki")
+snow = ExtResource("3_x2puy")

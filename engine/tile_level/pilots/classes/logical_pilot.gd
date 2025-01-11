@@ -18,7 +18,7 @@ var battling:LogicalKaiju
 ##Off-map variables##
 var upgrades:Array = []
 var unlocked_cards:Dictionary #Dictionary of resources, with key equivalent to the resource ID
-
+var terrain_lib:TerrainLib
 #var deck:DeckObject (array of Card Objects instead?)
 
 func _init(args:Dictionary)->void:
@@ -42,6 +42,7 @@ func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Arra
 	services = get_tree().root.get_node("Main/Services")
 	var temp: Resource = load(deck_path)
 	deck = temp.cards
+	terrain_lib = load("res://engine/tile_level/terrain/lib/terrain_lib.tres")
 
 
 
@@ -133,7 +134,7 @@ func find_path(target:LogicalTile)->void:
 		for neighbor:Dictionary in neighbors:
 			var current_terrain:String = logical_grid[current.x][current.y].terrain
 			#Adjust for speed chart here
-			var new_cost:int = cost_so_far[current] + TerrainLib.lib[current_terrain].move_cost
+			var new_cost:int = cost_so_far[current] + terrain_lib[current_terrain].move_cost
 
 			if new_cost > moves_remaining:
 				pass
@@ -162,7 +163,9 @@ func find_path(target:LogicalTile)->void:
 	var reach_cost:int = 0 #Couldn't figure out how to use cost_so_far without referencing original terrain anyway.
 	for path_coords:Dictionary in full_path:
 		#TODO: Modify for speed chart later
-		reach_cost += TerrainLib.lib[logical_grid[path_coords.x][path_coords.y].terrain].move_cost
+		var terrain:Terrain = load("res://engine/tile_level/terrain/lib/terrain_lib.tres")
+		var terrain_cost:int = logical_grid[path_coords.x][path_coords.y].terrain.move_cost
+		reach_cost += terrain_cost
 		if reach_cost <= moves_remaining:
 			path_coords.reach_cost = reach_cost
 			_reachable_path.append({"tile":logical_grid[path_coords.x][path_coords.y], "reach_cost": reach_cost, "x":path_coords.x, "y":path_coords.y})

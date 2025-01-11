@@ -5,5 +5,5 @@ class_name BattleObject
 
 var kaiju:LogicalKaiju
 var pilots:Array = [] #
-var terrain:String = "" #Or enum?
+var terrain:Terrain
 var modifiers:Array = []
