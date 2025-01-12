@@ -1,15 +1,15 @@
 [gd_resource type="Resource" script_class="TerrainLib" load_steps=12 format=3 uid="uid://b8rojn33ty538"]
 
 [ext_resource type="Script" path="res://engine/tile_level/terrain/lib/terrain_lib.gd" id="1_4virg"]
-[ext_resource type="Resource" uid="uid://b5wvlpedrpa2r" path="res://engine/tile_level/terrain/lib/forest.tres" id="1_dhx4n"]
+[ext_resource type="Resource" path="res://engine/tile_level/terrain/lib/forest.tres" id="1_dhx4n"]
 [ext_resource type="Resource" uid="uid://e28n3bpdnx0b" path="res://engine/tile_level/terrain/lib/plains.tres" id="1_ewfki"]
-[ext_resource type="Resource" uid="uid://dq4w3543a4u85" path="res://engine/tile_level/terrain/lib/bog.tres" id="1_y4kmj"]
+[ext_resource type="Resource" path="res://engine/tile_level/terrain/lib/bog.tres" id="1_y4kmj"]
 [ext_resource type="Texture2D" uid="uid://cekoii8t7ryqi" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain.png" id="3_6nyb3"]
 [ext_resource type="Script" path="res://engine/tile_level/terrain/classes/terrain.gd" id="3_cuwvk"]
-[ext_resource type="Resource" uid="uid://c6ixyqackicby" path="res://engine/tile_level/terrain/lib/hills.tres" id="3_kxo5n"]
+[ext_resource type="Resource" path="res://engine/tile_level/terrain/lib/hills.tres" id="3_kxo5n"]
 [ext_resource type="Resource" uid="uid://bdft8fmku3bfe" path="res://engine/tile_level/terrain/lib/snow.tres" id="3_x2puy"]
 [ext_resource type="Texture2D" uid="uid://dv6r703jqxss3" path="res://engine/tile_level/terrain/assets/portraits/AI_mountain_portrait.jpg" id="4_aguxe"]
-[ext_resource type="Resource" uid="uid://boi11rygou4ob" path="res://engine/tile_level/terrain/lib/water.tres" id="11_aqrcg"]
+[ext_resource type="Resource" path="res://engine/tile_level/terrain/lib/water.tres" id="11_aqrcg"]
 
 [sub_resource type="Resource" id="Resource_hbxkx"]
 script = ExtResource("3_cuwvk")

@@ -35,7 +35,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdscript_formatter/plugin.cfg")
+enabled=PackedStringArray("res://addons/gd_profiler/plugin.cfg", "res://addons/gdscript_formatter/plugin.cfg")
 
 [input]
 

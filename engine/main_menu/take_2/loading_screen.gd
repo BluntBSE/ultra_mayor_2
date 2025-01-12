@@ -1,0 +1,23 @@
+extends ColorRect
+class_name LoadingScreen
+
+
+func enable()->void:
+	print("Loading screen enable called")
+	visible=true
+	
+func disable()->void:
+	print("Loading screen disable called")
+	visible=false
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var main_menu:Node = get_tree().root.find_child("MainMenu", true, false)
+	main_menu.start_game.connect(enable)
+	main_menu.game_started.connect(disable)
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
