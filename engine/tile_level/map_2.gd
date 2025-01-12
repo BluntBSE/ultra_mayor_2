@@ -335,6 +335,7 @@ func _ready() -> void:
 	var terrain: Array = MapHelpers.generate_logical_terrain_map(grid_width, grid_height)
 	logical_grid = MapHelpers.generate_logical_grid(grid_width, grid_height, self)
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
+	#GENERATE HERE IS DEFERRED...?
 	rendered_grid = MapHelpers.generate_rendered_grid(self, logical_grid, rendered_grid, x_offset, y_offset)
 	#DEBUG POPULATION
 	%DebugManager.unpack(self, logical_grid, rendered_grid)

@@ -789,7 +789,7 @@ text = "[center]Action Points: 70/100[/center]"
 [node name="KaijuWarning" type="ColorRect" parent="UICanvas/OverworldCityUI"]
 unique_name_in_owner = true
 visible = false
-modulate = Color(1, 1, 1, 0.986231)
+modulate = Color(1, 1, 1, 1.36287)
 layout_mode = 0
 offset_left = 1386.0
 offset_top = 127.0

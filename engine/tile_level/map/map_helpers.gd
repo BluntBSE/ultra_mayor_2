@@ -18,10 +18,11 @@ static func generate_rendered_grid(map: Node, logical_grid: Array, _rendered_gri
 	for x: int in logical_grid.size():
 		output_rg.append([])
 		for y: int in logical_grid[x].size():
-			var rendered_tile: RenderedTile = load("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
+			var rendered_tile: RenderedTile = preload("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
 			rendered_tile.unpack(x, y, map, logical_grid)
 			#Replace these with better handlers
 			output_rg[x].append(rendered_tile)
+			#map.call_deferred("add_child", rendered_tile)
 			map.add_child(rendered_tile)
 
 	return output_rg
