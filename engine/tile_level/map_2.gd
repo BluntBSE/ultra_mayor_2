@@ -1,5 +1,48 @@
 extends Node2D
 class_name Map_2
+#THREADING - initialization
+var i_mutex: Mutex
+var i_semaphore: Semaphore
+var i_thread: Thread
+var i_exit_thread := false
+var grid_sum:int = grid_width * grid_height
+var rts_counted:int = 0#Incremented by multithreaded loading of rendered_tiles
+
+func i_thread_function()->void:
+	#Initializations
+	while true:
+		i_semaphore.wait() # Wait until posted.
+
+		i_mutex.lock()
+		var should_exit:bool = i_exit_thread # Protect with Mutex.
+		i_mutex.unlock()
+
+		if should_exit:
+			break
+		
+		print("RTS Currently == ", get_rts_counted())
+		print("Grid sum is ", grid_sum)
+		if get_rts_counted() == grid_sum:
+			print("All rendered tiles are counted by the i_thread")
+
+		i_mutex.lock()
+		#Do logic on sensitive item. In this case, instantiating rendered_grid
+		generate_rendered_grid(self, logical_grid, rendered_grid, x_offset, y_offset)
+		print("RT Slork")
+		i_mutex.unlock()
+
+func get_rts_counted()->int:
+	i_mutex.lock()
+	return rts_counted
+	i_mutex.unlock()
+
+func process_rt_unpacked()->void:
+	i_mutex.lock()
+	rts_counted +=1
+	i_mutex.unlock()
+	print("We now have", get_rts_counted())
+#/Threading
+
 
 var logical_grid: Array = []
 var grid_width: int = 40
@@ -26,7 +69,13 @@ var pilot_1: LogicalPilot
 #Observers
 @onready var header: TileMapHeaderBar = %HeaderBar
 @onready var side_bar: AttackSideBar = %AttackSideBar
+##INIT SIGNALS
+signal initiated
+signal rg_started
+signal rg_finished
 
+
+##END INIT
 signal map_signal  #Currently used to populate sidebar with what you hover over
 #signal map_select_occ_signal
 #signal map_hover_signal
@@ -329,21 +378,65 @@ func move_kaijus(kaijus:Array)->void:
 	pass
 
 
+#WorkerThreadPool
+func unpack_tile(_logical_grid:Array, _rendered_grid:Array, _x:int, _y:int)->void:
+			print("Hi from the worker thread pool! This is ", _x, " ", _y)
+			var r: RenderedTile = preload("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
+			r.unpacked.connect(process_rt_unpacked)
+			r.unpack(_x, _y, self, _logical_grid)
+			_rendered_grid[_x].append(r)
+
+func dummy_callable(x:int, y:int)->void:
+	print("(",x,",",y,")")
+
+func generate_rendered_grid(_map: Node, _logical_grid: Array, _rendered_grid: Array, _x_offset: int, _y_offset: int) -> Array:
+	var output_rg: Array = []
+	var tasks:Array = []
+	for x: int in _logical_grid.size():
+		output_rg.append([])
+		for y: int in _logical_grid[x].size():
+			#var rendered_tile: RenderedTile = preload("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
+			#rendered_tile.unpacked.connect(process_rt_unpacked)
+			#rendered_tile.unpack(x, y, _map, _logical_grid)
+			#output_rg[x].append(rendered_tile)
+			#var callable:Callable = dummy_callable.bind(x,y)
+			print("From GRG loop, X: ", x, "Y: ", y)
+			var callable:Callable = unpack_tile.bind(_logical_grid, _rendered_grid, x, y)
+			var task_id:int = WorkerThreadPool.add_task(callable)
+			tasks.append(task_id)
+	for task:int in tasks:
+		WorkerThreadPool.wait_for_task_completion(task)		
+	print("Got past WorkerThreadPool")
+	return output_rg
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	grid_sum = grid_height * grid_width
+
+
 	camera = get_parent().get_node("MainCamera")
 	var terrain: Array = MapHelpers.generate_logical_terrain_map(grid_width, grid_height)
 	logical_grid = MapHelpers.generate_logical_grid(grid_width, grid_height, self)
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
-	#GENERATE HERE IS DEFERRED...?
-	rendered_grid = MapHelpers.generate_rendered_grid(self, logical_grid, rendered_grid, x_offset, y_offset)
+
+	#Begin threaded init.
+	i_thread = Thread.new()
+	i_semaphore = Semaphore.new()
+	i_mutex = Mutex.new()
+	i_thread.start(i_thread_function)
+	i_semaphore.post()
+	
+	
+	#rendered_grid = thread_rg.wait_to_finish()
 	#DEBUG POPULATION
-	%DebugManager.unpack(self, logical_grid, rendered_grid)
-	%DebugManager.add_test_elements()
-	MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
-	MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
+	#%DebugManager.unpack(self, logical_grid, rendered_grid)
+	#%DebugManager.add_test_elements()
+	#MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
+	#MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
 	#END DEBUG POPULATION
-	draw_kaiju_paths()
+	#draw_kaiju_paths()
+	#get_parent().initiated.emit()
 	#kaiju.find_target()
 
 
@@ -359,3 +452,14 @@ func draw_kaiju_paths() -> void:
 
 func _on_undo_btn_button_up() -> void:
 	pass # Replace with function body.
+	
+
+func process_rg_thread_started(thread:Thread)->void:
+	print("Process_rg_thread_started called")
+	pass
+		
+	
+func _process(delta:float)->void:
+	#Used mostly for the unfurling of dependencies in _ready()
+	
+	pass

@@ -529,6 +529,11 @@ theme = ExtResource("6_tq3qu")
 text = "QUIT
 "
 
+[node name="ThreadBtn" type="Button" parent="VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("6_tq3qu")
+text = "THREADING"
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_6g1ko")
@@ -538,3 +543,4 @@ texture = ExtResource("10_l35k3")
 
 [connection signal="button_up" from="VBoxContainer2/StartGameBtn" to="." method="_on_start_game_btn_button_up"]
 [connection signal="button_up" from="VBoxContainer2/QuitBtn" to="." method="_on_quit_btn_button_up"]
+[connection signal="button_up" from="VBoxContainer2/ThreadBtn" to="." method="increment_counter"]

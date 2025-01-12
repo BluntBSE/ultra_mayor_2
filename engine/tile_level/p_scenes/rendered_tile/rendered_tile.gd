@@ -22,6 +22,16 @@ var previewing:bool = false #This is "true" if a preview building sprite is on t
 var TO_MODULATE:Array = ["bg_sprite", "infra_sprite", "building_sprite"]#List of nodes that should be affected by the custom do_modulate function
 #Append any children you want to modulate to TO_MODULATE when they become parented.
 
+signal rt_signal
+signal unpacked
+signal entered_tree_custom
+
+
+var occupant_sprite_width: int = 128
+var occupant_sprite_height: int = 128
+
+
+
 func do_modulate(color:Color)->void:
 	var list:Array = []
 	for _name:String in TO_MODULATE:
@@ -62,13 +72,12 @@ func apply_highlights()->void:
 	else:
 		do_modulate(Color.WHITE)
 
-signal rt_signal
 
-
-var occupant_sprite_width: int = 128
-var occupant_sprite_height: int = 128
-
-
+func connect_all_signals()->void:
+	#This is its own function so it can be deferred
+		connect("rt_signal", map.process_rt_signal)
+		map.reset_rts.connect(handle_input.bind({"event":RTInputs.CLEAR}))
+		
 
 func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		x = _x
@@ -77,8 +86,7 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		logical_grid = _logical_grid
 		logical_parent = logical_grid[x][y]
 		#Connect map to RT signal
-		connect("rt_signal", map.process_rt_signal)
-		map.reset_rts.connect(handle_input.bind({"event":RTInputs.CLEAR}))
+		call_deferred("connect_all_signals")
 
 
 		%xy_coords.text = str(x) + ", " + str(y)
@@ -94,6 +102,8 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		var lt:LogicalTile = logical_grid[x][y]
 		#TODO: Replace with appropriate sprite for development etc.
 		%bg_sprite.texture = lt.terrain.no_building_sprite_dev_0
+		
+		unpacked.emit()
 
 
 # Called when the node enters the scene tree for the first time.
