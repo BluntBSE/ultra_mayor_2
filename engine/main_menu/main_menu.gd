@@ -40,6 +40,7 @@ func instantiate_main()->void:
 	#main.add_child(game_main)
 	#game_started.emit()
 	#self.queue_free()
+	#
 
 	pass
 	
