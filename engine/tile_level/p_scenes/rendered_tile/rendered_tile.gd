@@ -79,7 +79,8 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		#Connect map to RT signal
 		connect("rt_signal", map.process_rt_signal)
 		map.reset_rts.connect(handle_input.bind({"event":RTInputs.CLEAR}))
-
+		#We put this in the unpack because we want it deferred. Sorry.
+		map.add_child(self)
 
 		%xy_coords.text = str(x) + ", " + str(y)
 		#rendered_tile.z_index = y
@@ -94,6 +95,7 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 		var lt:LogicalTile = logical_grid[x][y]
 		#TODO: Replace with appropriate sprite for development etc.
 		%bg_sprite.texture = lt.terrain.no_building_sprite_dev_0
+
 
 
 # Called when the node enters the scene tree for the first time.

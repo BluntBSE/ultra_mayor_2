@@ -50,6 +50,10 @@ position = Vector2(7, 20)
 scale = Vector2(2.39377, 2.39377)
 
 [node name="hover_collider" type="CollisionShape2D" parent="hover_area"]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
+physics_interpolation_mode = 1
 visible = false
 position = Vector2(36, 36)
 shape = SubResource("CircleShape2D_a0ent")

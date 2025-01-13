@@ -28,11 +28,12 @@ var pilot_1: LogicalPilot
 @onready var side_bar: AttackSideBar = %AttackSideBar
 
 signal map_signal  #Currently used to populate sidebar with what you hover over
-#signal map_select_occ_signal
+#signal map_select_occ_signalf
 #signal map_hover_signal
 #signal map_target_signal
 signal reset_rts
 signal lock_camera
+signal unpacked
 
 const SELECTION_HIGHLIGHTS:Array = [
 	"pilot_move_origin",
@@ -331,20 +332,23 @@ func move_kaijus(kaijus:Array)->void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	pass
+	#DEBUG POPULATION
+	#%DebugManager.unpack(self, logical_grid, rendered_grid)
+	#%DebugManager.add_test_elements()
+	#MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
+	#MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
+	#END DEBUG POPULATION
+	#draw_kaiju_paths()
+	#kaiju.find_target()
+
+func unpack()->void:
 	camera = get_parent().get_node("MainCamera")
 	var terrain: Array = MapHelpers.generate_logical_terrain_map(grid_width, grid_height)
 	logical_grid = MapHelpers.generate_logical_grid(grid_width, grid_height, self)
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
 	rendered_grid = MapHelpers.generate_rendered_grid(self, logical_grid, rendered_grid, x_offset, y_offset)
-	#DEBUG POPULATION
-	%DebugManager.unpack(self, logical_grid, rendered_grid)
-	%DebugManager.add_test_elements()
-	MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
-	MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
-	#END DEBUG POPULATION
-	draw_kaiju_paths()
-	#kaiju.find_target()
-
+	unpacked.emit()
 
 func draw_kaiju_paths() -> void:
 	var kaijus: Array = get_kaiju()

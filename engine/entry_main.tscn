@@ -1,28 +1,119 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnsl3ikdvgw6d"]
+[gd_scene load_steps=12 format=3 uid="uid://bnsl3ikdvgw6d"]
 
 [ext_resource type="PackedScene" uid="uid://b76fbdw7wngcq" path="res://engine/main_menu/take_2/main_menu_2.tscn" id="1_6naxm"]
 [ext_resource type="Script" path="res://engine/common/services/services.gd" id="2_qp26l"]
 [ext_resource type="Script" path="res://engine/common/sounds/sound_test.gd" id="3_mobfb"]
 [ext_resource type="Script" path="res://engine/common/services/sound_service.gd" id="3_y2520"]
 [ext_resource type="AudioStream" uid="uid://cpebpduwkoi7j" path="res://music/Soft Chill IDM.mp3" id="5_vbu1u"]
+[ext_resource type="Texture2D" uid="uid://bmvyl4245u6th" path="res://engine/common/assets/pacific-rim-uprising-concept-art-1-posterized.jpg" id="6_5mjjm"]
 [ext_resource type="Script" path="res://engine/main_menu/take_2/loading_screen.gd" id="6_nrpla"]
-[ext_resource type="Shader" path="res://engine/common/shaders/basics_with_pulse.gdshader" id="7_dlol7"]
 [ext_resource type="FontFile" uid="uid://1idi5vmmueda" path="res://engine/common/fonts/inversionz/Inversionz Unboxed.otf" id="8_8dkch"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_atewx"]
-resource_local_to_scene = true
-shader = ExtResource("7_dlol7")
-shader_parameter/brightness = 1.0
-shader_parameter/contrast = 1.0
-shader_parameter/saturation = 1.0
-shader_parameter/b_pulse = false
-shader_parameter/c_pulse = true
-shader_parameter/s_pulse = false
-shader_parameter/c_speed = 4.0
-shader_parameter/b_speed = 1.0
-shader_parameter/s_speed = 1.0
+[sub_resource type="Animation" id="Animation_vudsy"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel2:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel2:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel2:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RichTextLabel2:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_ix3dw"]
+resource_name = "loading_pulse"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RichTextLabel2:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RichTextLabel2:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RichTextLabel2:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RichTextLabel2:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bktec"]
+_data = {
+"RESET": SubResource("Animation_vudsy"),
+"loading_pulse": SubResource("Animation_ix3dw")
+}
 
 [node name="Main" type="Node2D"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 
 [node name="SoundConnector" type="Node" parent="."]
 script = ExtResource("3_mobfb")
@@ -41,27 +132,40 @@ script = ExtResource("2_qp26l")
 stream = ExtResource("5_vbu1u")
 volume_db = -20.0
 
-[node name="LoadingScreen" type="ColorRect" parent="."]
+[node name="LoadingScreen" type="TextureRect" parent="."]
 unique_name_in_owner = true
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 visible = false
+self_modulate = Color(0.251019, 0.166471, 0.357214, 1)
 top_level = true
 z_index = 4096
 z_as_relative = false
-offset_left = -8.0
-offset_top = -11.0
-offset_right = 1940.0
-offset_bottom = 1093.0
-color = Color(0, 0, 0, 1)
+offset_left = -871.0
+offset_top = -202.0
+offset_right = 2866.0
+offset_bottom = 1916.0
+texture = ExtResource("6_5mjjm")
+stretch_mode = 5
 script = ExtResource("6_nrpla")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="LoadingScreen"]
-material = SubResource("ShaderMaterial_atewx")
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 layout_mode = 0
-offset_left = 517.0
-offset_top = 418.0
-offset_right = 1464.0
-offset_bottom = 694.0
+offset_left = 1763.0
+offset_top = 1060.0
+offset_right = 2654.0
+offset_bottom = 1204.0
 theme_override_fonts/normal_font = ExtResource("8_8dkch")
 theme_override_font_sizes/normal_font_size = 200
 bbcode_enabled = true
-text = "LOADING GAME"
+text = "LOADING"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_bktec")
+}
+autoplay = "loading_pulse"
