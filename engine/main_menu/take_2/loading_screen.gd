@@ -1,13 +1,13 @@
 extends ColorRect
 class_name LoadingScreen
 
+signal waited
 
 func enable()->void:
-	print("Loading screen enable called")
 	visible=true
 	
 func disable()->void:
-	print("Loading screen disable called")
+	var timer:SceneTreeTimer = get_tree().create_timer(4)
 	visible=false
 
 # Called when the node enters the scene tree for the first time.
