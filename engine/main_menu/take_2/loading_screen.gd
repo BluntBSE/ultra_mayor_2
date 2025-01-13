@@ -1,4 +1,4 @@
-extends ColorRect
+extends TextureRect
 class_name LoadingScreen
 
 signal waited
