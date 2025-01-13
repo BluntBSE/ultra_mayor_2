@@ -168,7 +168,7 @@ func assign_instant(arg:Array)->void:#Truly this is an untyped variable of eithe
 
 
 func play_card(card: RenderedCard, resolve_targets_1: Array, resolve_targets_2: Array, instant_targets: Array) -> void:
-	var stub: PlayerCardStub = load("res://engine/card_game/stubs/p_card_stub_prototype_1.tscn").instantiate()
+	var stub: PlayerCardStub = preload("res://engine/card_game/stubs/p_card_stub_prototype_1.tscn").instantiate()
 
 	var ref_lc: LogicalCard = _reference.lc
 	var ref_origin: PilotButton = _reference.origin

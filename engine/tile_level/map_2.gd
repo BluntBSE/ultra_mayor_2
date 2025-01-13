@@ -337,12 +337,12 @@ func _ready() -> void:
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
 	rendered_grid = MapHelpers.generate_rendered_grid(self, logical_grid, rendered_grid, x_offset, y_offset)
 	#DEBUG POPULATION
-	%DebugManager.unpack(self, logical_grid, rendered_grid)
-	%DebugManager.add_test_elements()
-	MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
-	MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
+	#%DebugManager.unpack(self, logical_grid, rendered_grid)
+	#%DebugManager.add_test_elements()
+	#MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
+	#MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
 	#END DEBUG POPULATION
-	draw_kaiju_paths()
+	#draw_kaiju_paths()
 	#kaiju.find_target()
 
 

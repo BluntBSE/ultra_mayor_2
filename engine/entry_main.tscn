@@ -43,6 +43,9 @@ volume_db = -20.0
 
 [node name="LoadingScreen" type="ColorRect" parent="."]
 unique_name_in_owner = true
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
 visible = false
 top_level = true
 z_index = 4096

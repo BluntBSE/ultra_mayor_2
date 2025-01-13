@@ -13,8 +13,9 @@ func disable()->void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var main_menu:Node = get_tree().root.find_child("MainMenu", true, false)
-	main_menu.start_game.connect(enable)
-	main_menu.game_started.connect(disable)
+	main_menu.start_game.connect(func()->void:call_thread_safe("enable"))
+	main_menu.game_started.connect(func()->void:call_thread_safe("disable"))
+
 	pass # Replace with function body.
 
 
