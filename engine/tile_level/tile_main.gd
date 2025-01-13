@@ -8,10 +8,6 @@ func process_map_unpacked()->void:
 
 func pre_add()->void:
 	%Map.unpacked.connect(process_map_unpacked)
-	print("Hello from pre add! This node is in ORBIT")
-	var new_node:Node = Node.new()
-	add_child(new_node)
-	print("Added a new node before adding to the main tree")
 	%Map.unpack()
 
 # Called when the node enters the scene tree for the first time.

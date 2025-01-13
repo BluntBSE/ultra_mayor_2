@@ -36,6 +36,7 @@ func instantiate_main()->void:
 	game_main = ResourceLoader.load_threaded_get(map_main_path)
 	var game_main:GameMain = game_main.instantiate()
 	game_main.all_clear.connect(process_game_all_clear)
+	main.call_deferred("add_child", game_main)
 	game_main.pre_add()
 	#main.add_child(game_main)
 	#game_started.emit()
@@ -45,7 +46,6 @@ func instantiate_main()->void:
 	pass
 	
 func process_game_all_clear(game_main:GameMain)->void:
-	main.call_deferred("add_child", game_main)
 	game_started.emit()
 	
 func _on_load_game_btn_button_up() -> void:

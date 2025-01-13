@@ -13,12 +13,14 @@ static func generate_logical_grid(grid_x: int, grid_y: int, _map: Map_2) -> Arra
 	return grid
 
 
-static func generate_rendered_grid(map: Node, logical_grid: Array, _rendered_grid: Array, _x_offset: int, _y_offset: int) -> Array:
+static func generate_rendered_grid(map: Map_2, logical_grid: Array, _rendered_grid: Array, _x_offset: int, _y_offset: int) -> Array:
+	print("Hello from GRG")
 	var output_rg: Array = []
 	for x: int in logical_grid.size():
 		output_rg.append([])
 		for y: int in logical_grid[x].size():
 			var rendered_tile: RenderedTile = preload("res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.tscn").instantiate()
+			rendered_tile.unpacked.connect(map.process_rt_unpack)
 			var callable:Callable = Callable(rendered_tile, "unpack").bind(x,y,map,logical_grid)			
 			#rendered_tile.unpack(x, y, map, logical_grid)
 			callable.call_deferred()

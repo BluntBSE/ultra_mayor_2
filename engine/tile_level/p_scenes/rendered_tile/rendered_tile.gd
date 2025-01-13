@@ -63,6 +63,7 @@ func apply_highlights()->void:
 		do_modulate(Color.WHITE)
 
 signal rt_signal
+signal unpacked
 
 
 var occupant_sprite_width: int = 128
@@ -100,6 +101,7 @@ func unpack(_x:int, _y:int, _map:Map_2, _logical_grid:Array) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("Rendered Tile is in scene tree!")
 	bg_sprite = get_node("bg_sprite")
 
 	state_machine.Add("basic", BasicStateRT.new(self, {}))
@@ -108,6 +110,7 @@ func _ready() -> void:
 	state_machine.Add("hovered_basic", HoveredBasicRT.new(self,{}))
 	#Default state:
 	state_machine.Change("basic",{})
+	unpacked.emit()
 
 
 func handle_input(args:Dictionary)->void:

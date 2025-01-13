@@ -4,6 +4,9 @@ class_name Map_2
 var logical_grid: Array = []
 var grid_width: int = 40
 var grid_height: int = 30
+var grid_total:int = 1200
+var grid_counted:int
+
 @export var x_offset: int = 190
 @export var y_offset: int = 160
 var rendered_grid: Array = []  #Possibly maintaining both the visual nodes and decoupled logic is excessive. Oh well.
@@ -28,9 +31,8 @@ var pilot_1: LogicalPilot
 @onready var side_bar: AttackSideBar = %AttackSideBar
 
 signal map_signal  #Currently used to populate sidebar with what you hover over
-#signal map_select_occ_signalf
-#signal map_hover_signal
-#signal map_target_signal
+
+signal all_rts_done
 signal reset_rts
 signal lock_camera
 signal unpacked
@@ -333,22 +335,33 @@ func move_kaijus(kaijus:Array)->void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
-	#DEBUG POPULATION
-	#%DebugManager.unpack(self, logical_grid, rendered_grid)
-	#%DebugManager.add_test_elements()
-	#MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
-	#MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
+
+
+func process_rt_unpack()->void:
+	grid_counted += 1
+	print(grid_counted)
+	if grid_counted == grid_total:
+		print("All RTS are done")
+		all_rts_done.emit()
+		
+func debug_populate()->void:
+	print("Debug populating")
+	%DebugManager.unpack(self, logical_grid, rendered_grid)
+	%DebugManager.add_test_elements()
+	MapHelpers.draw_all_tile_sprites(logical_grid, rendered_grid)
+	MapHelpers.draw_all_occupants(logical_grid, rendered_grid)
 	#END DEBUG POPULATION
-	#draw_kaiju_paths()
-	#kaiju.find_target()
+	draw_kaiju_paths()
+	unpacked.emit()		
 
 func unpack()->void:
+	print("Hello from Map Unpack!")
+	all_rts_done.connect(debug_populate)
 	camera = get_parent().get_node("MainCamera")
 	var terrain: Array = MapHelpers.generate_logical_terrain_map(grid_width, grid_height)
 	logical_grid = MapHelpers.generate_logical_grid(grid_width, grid_height, self)
 	MapHelpers.apply_logical_terrain_map(logical_grid, terrain)
 	rendered_grid = MapHelpers.generate_rendered_grid(self, logical_grid, rendered_grid, x_offset, y_offset)
-	unpacked.emit()
 
 func draw_kaiju_paths() -> void:
 	var kaijus: Array = get_kaiju()
