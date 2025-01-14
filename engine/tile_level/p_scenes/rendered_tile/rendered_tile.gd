@@ -183,7 +183,19 @@ func preview_building(command:BuildingCommand)->void:
 	#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
 	shadermat.set_shader_parameter("active", true)
 	shadermat.set_shader_parameter("color", Vector4(1.0,1.0,1.0,1.0))
-	pass
+
+func preview_development(command:BuildingCommand)->void:
+	var building:Building = command.building
+	var bg_sprite:Sprite2D = %bg_sprite
+	var projected_development:int = logical_parent.development + building.development_provided
+	var terrain_key:String = ""
+	if logical_parent.building == null:
+		terrain_key = "no_building_sprite_dev_"
+		terrain_key += str(projected_development)
+	else:
+		terrain_key = "building_sprite_dev_"
+		terrain_key += str(projected_development)
+	
 	
 func preview_bad_building(command:BuildingCommand)->void:
 	var building:Building = command.building
