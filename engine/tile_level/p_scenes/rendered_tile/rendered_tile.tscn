@@ -1,11 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://bw7s8jxs3oihv"]
+[gd_scene load_steps=11 format=3 uid="uid://bw7s8jxs3oihv"]
 
 [ext_resource type="Script" path="res://engine/tile_level/p_scenes/rendered_tile/rendered_tile.gd" id="1_0e00g"]
 [ext_resource type="Texture2D" uid="uid://bouvxvf0kei7x" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain.png" id="2_cvp52"]
 [ext_resource type="Texture2D" uid="uid://f5lsng1agvpx" path="res://engine/tile_level/terrain/assets/Snow/Snow5.png" id="2_db4uc"]
 [ext_resource type="Texture2D" uid="uid://dg3uigiwux2b2" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/mountain_infra_2.png" id="3_1qkf0"]
 [ext_resource type="Texture2D" uid="uid://24lykfkjndfp" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain_with_building_dev_4.png" id="3_4tts0"]
+[ext_resource type="Shader" path="res://engine/tile_level/p_scenes/rendered_tile/development_preview.gdshader" id="3_mu51g"]
 [ext_resource type="Shader" path="res://engine/tile_level/p_scenes/rendered_tile/pure_white.gdshader" id="3_q7hmc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3itee"]
+shader = ExtResource("3_mu51g")
+shader_parameter/active = false
+shader_parameter/color = Color(1, 1, 1, 0.490196)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80wkt"]
 resource_local_to_scene = true
@@ -27,6 +33,9 @@ centered = false
 
 [node name="bg_preview_sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0.556863)
+material = SubResource("ShaderMaterial_3itee")
 texture = ExtResource("3_4tts0")
 centered = false
 
@@ -65,7 +74,6 @@ shape = SubResource("CircleShape2D_a0ent")
 
 [node name="xy_coords" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
-visible = false
 offset_left = 73.0
 offset_top = 92.0
 offset_right = 124.0

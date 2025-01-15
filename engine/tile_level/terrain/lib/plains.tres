@@ -1,7 +1,11 @@
-[gd_resource type="Resource" script_class="Terrain" load_steps=4 format=3 uid="uid://e28n3bpdnx0b"]
+[gd_resource type="Resource" script_class="Terrain" load_steps=8 format=3 uid="uid://e28n3bpdnx0b"]
 
 [ext_resource type="Texture2D" uid="uid://bouvxvf0kei7x" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain.png" id="1_1oxga"]
 [ext_resource type="Texture2D" uid="uid://biro2nm87mkg3" path="res://engine/tile_level/terrain/assets/portraits/AI_plains_portrait.jpg" id="2_4osjo"]
+[ext_resource type="Texture2D" uid="uid://drq8kjdn6i71f" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain_with_building_dev_2.png" id="2_mmkkj"]
+[ext_resource type="Texture2D" uid="uid://cvev84xw45p7k" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain_with_building_dev_1.png" id="2_pjiw3"]
+[ext_resource type="Texture2D" uid="uid://24lykfkjndfp" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain_with_building_dev_4.png" id="2_q2mua"]
+[ext_resource type="Texture2D" uid="uid://bcp88mcj3f63a" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain_with_building_dev_3.png" id="3_es1i3"]
 [ext_resource type="Script" path="res://engine/tile_level/terrain/classes/terrain.gd" id="3_kkicp"]
 
 [resource]
@@ -9,14 +13,14 @@ script = ExtResource("3_kkicp")
 id = "plains"
 display_text = "Plains"
 no_building_sprite_dev_0 = ExtResource("1_1oxga")
-no_building_sprite_dev_1 = ExtResource("1_1oxga")
-no_building_sprite_dev_2 = ExtResource("1_1oxga")
-no_building_sprite_dev_3 = ExtResource("1_1oxga")
-no_building_sprite_dev_4 = ExtResource("1_1oxga")
+no_building_sprite_dev_1 = ExtResource("2_pjiw3")
+no_building_sprite_dev_2 = ExtResource("2_mmkkj")
+no_building_sprite_dev_3 = ExtResource("3_es1i3")
+no_building_sprite_dev_4 = ExtResource("2_q2mua")
 building_sprite_dev_0 = ExtResource("1_1oxga")
-building_sprite_dev_1 = ExtResource("1_1oxga")
-building_sprite_dev_2 = ExtResource("1_1oxga")
-building_sprite_dev_3 = ExtResource("1_1oxga")
-building_sprite_dev_4 = ExtResource("1_1oxga")
+building_sprite_dev_1 = ExtResource("2_pjiw3")
+building_sprite_dev_2 = ExtResource("2_mmkkj")
+building_sprite_dev_3 = ExtResource("3_es1i3")
+building_sprite_dev_4 = ExtResource("2_q2mua")
 portrait = ExtResource("2_4osjo")
 move_cost = 1

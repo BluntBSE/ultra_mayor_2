@@ -19,10 +19,11 @@ func is_legal(rt_signal:RTSigObj)->bool:
 	trying.y = rt_signal.y
 	#Check terrain
 	var lt:LogicalTile = map.logical_grid[trying.x][trying.y]
-	if lt.terrain not in trying.building.builds_on:
-		#Do bad preview
-		print("Can't build on ", lt.terrain, "looking for", trying.building.builds_on)
-		return false
+	if trying.building.builds_on.size()>0:	
+		if lt.terrain.id not in trying.building.builds_on:
+			#Do bad preview
+			print("Can't build on ", lt.terrain, "looking for", trying.building.builds_on)
+			return false
 	return true
 
 func do_try(build_command:BuildingCommand)->void:

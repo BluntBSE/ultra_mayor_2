@@ -40,7 +40,17 @@ static func draw_tile_sprites(tile: LogicalTile, rendered_grid: Array) -> void:
 	
 	if tile.building == null:
 		rendered_tile.building_sprite.texture = null
-
+	
+	#Handle development
+	var terrain_key:String = ""
+	if tile.building == null:
+		terrain_key = "no_building_sprite_dev_"
+		terrain_key += str(tile.development)
+		rendered_tile.bg_sprite.texture = tile.terrain[terrain_key]
+	else:
+		terrain_key = "building_sprite_dev_"
+		terrain_key += str(tile.development)	
+		rendered_tile.bg_sprite.texture = tile.terrain[terrain_key]
 
 static func unpreview_sprite(tile:RenderedTile)->void:
 	tile.unpreview_building()

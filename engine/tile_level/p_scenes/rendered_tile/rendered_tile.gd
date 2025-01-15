@@ -195,6 +195,10 @@ func preview_development(command:BuildingCommand)->void:
 	else:
 		terrain_key = "building_sprite_dev_"
 		terrain_key += str(projected_development)
+	var preview_sprite:Sprite2D = %bg_preview_sprite
+	var terrains:Resource = preload("res://engine/tile_level/terrain/lib/terrain_lib.tres")
+	preview_sprite.texture = terrains.plains[terrain_key]
+	preview_sprite.visible = true
 	
 	
 func preview_bad_building(command:BuildingCommand)->void:
@@ -210,6 +214,7 @@ func preview_bad_building(command:BuildingCommand)->void:
 func unpreview_building()->void:
 	%building_sprite.material.set_shader_parameter("active",false)
 	var lt:LogicalTile = logical_grid[x][y]
+	%bg_preview_sprite.visible = false
 	if lt.building == null:
 		%building_sprite.texture = null
 	else:

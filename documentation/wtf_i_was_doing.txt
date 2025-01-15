@@ -4,6 +4,45 @@ CONSIDER: Do pilots fully block Kaiju or not?
 CONSIDER: What happens when a grid does not have enough power? Maybe an AP penalty per development?
 Maybe a kaiju can only be shoved once or something?
 
+--POSSIBLE CAMPAIGN PROMISES--
+
+TERRAIN:
+MAKE A WATERFRONT - Terraform N tiles into water near development > 2
+MAKE A FOREST - Terraform land into Forest 
+MAKE A NATURE PRESERVE - Select N contiguous tiles near the city. Lose the ability to build here.
+MAKE WALLS - Make N Walls
+EXPAND THE CITY BY N TILES (Usually involves leveling terrain)
+
+BUILDINGS:
+Build an arts
+Build a medical district
+Build a research hospital
+Build a university campus
+Build an airport -- can't be built within several tiles of development
+Build a central park
+Build an opera house
+Build a business complex
+Build a housing project - Increases population
+Build a disaster recovery center - Prevents DEVASTATION in a small radius around it
+Provide N additional power to the network
+Build an industrial plant - reduces amenities nearby
+Build a monument park
+
+POLICY: 
+Build no military buildings for N turns
+
+
+KAIJU:
+Fortified Perimeter: Don't allow the next Kaiju to come within N tiles of a development
+Spectacle of Defense: Defeat the next Kaiju within N tiles of a development	
+Fire safety: Defeat the next kaiju with no FIRE element cards
+Energy Rationing: Defeat the next kaiju with no ELECTRIC element cards
+Privacy Policy: Defeat the next kaiju with no PSYCHIC cards
+Accomplish the next KAIJU RESEARCH OBJECTIVE within the next N turns
+Safety First: Do not allow any pilots to go down during the next Kaiju attack
+
+
+
 
 
 --QUEUE--
