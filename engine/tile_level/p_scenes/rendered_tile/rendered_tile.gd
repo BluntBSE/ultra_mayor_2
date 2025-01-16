@@ -176,6 +176,7 @@ func reset_self()->void:
 	
 	
 func preview_building(command:BuildingCommand)->void:
+	print("Previewing building")
 	var building:Building = command.building
 	var sprite:Sprite2D = %building_sprite
 	sprite.texture = building.sprite
@@ -185,33 +186,35 @@ func preview_building(command:BuildingCommand)->void:
 	shadermat.set_shader_parameter("color", Vector4(1.0,1.0,1.0,1.0))
 
 func preview_development(command:BuildingCommand)->void:
+	print("Previewing development")
 	var building:Building = command.building
 	var bg_sprite:Sprite2D = %bg_sprite
-	var projected_development:int = logical_parent.development + building.development_provided
-	var terrain_key:String = ""
-	if logical_parent.building == null:
-		terrain_key = "no_building_sprite_dev_"
-		terrain_key += str(projected_development)
-	else:
-		terrain_key = "building_sprite_dev_"
-		terrain_key += str(projected_development)
 	var preview_sprite:Sprite2D = %bg_preview_sprite
-	var terrains:Resource = preload("res://engine/tile_level/terrain/lib/terrain_lib.tres")
-	preview_sprite.texture = terrains.plains[terrain_key]
+	preview_sprite.texture = command.building.sprite
 	preview_sprite.visible = true
 	
 	
 func preview_bad_building(command:BuildingCommand)->void:
 	var building:Building = command.building
 	var sprite:Sprite2D = %building_sprite
-	sprite.texture = building.sprite
-	var shadermat:ShaderMaterial = sprite.material
-	#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
-	shadermat.set_shader_parameter("active", true)
-	shadermat.set_shader_parameter("color", Vector4(1.0,0.1,0.1,1.0))
-	pass
+	if command.building.is_development == false:
+		sprite.texture = building.sprite
+		var shadermat:ShaderMaterial = sprite.material
+		#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
+		shadermat.set_shader_parameter("active", true)
+		shadermat.set_shader_parameter("color", Vector4(1.0,0.1,0.1,1.0))
+		return
+	if command.building.is_development == true:
+		print("Previewing bad development")
+		%bg_preview_sprite.texture == building.sprite
+		%bg_preview_sprite.modulate = Color("ab253c8e")
+		%bg_preview_sprite.visible = true
 	
 func unpreview_building()->void:
+	#Development
+	%bg_preview_sprite.visible = false
+	%bg_preview_sprite.modulate = Color("ffffff8e")
+	#Building
 	%building_sprite.material.set_shader_parameter("active",false)
 	var lt:LogicalTile = logical_grid[x][y]
 	%bg_preview_sprite.visible = false

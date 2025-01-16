@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bivtv8sv6bbuj" path="res://engine/common/themes/main_menu_theme_2.tres" id="1_j4yuk"]
 [ext_resource type="Script" path="res://engine/tile_level/UI/CityBuilder/building_button.gd" id="1_k5bx2"]
 [ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="2_ksvng"]
-[ext_resource type="Texture2D" uid="uid://7tqviu2263ju" path="res://engine/tile_level/terrain/assets/town/Ex-BAS Town/Buildings/Electricity/CoalPowerPlant.png" id="3_armpq"]
+[ext_resource type="Texture2D" uid="uid://cvev84xw45p7k" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain_with_building_dev_1.png" id="4_7sdt6"]
 
 [node name="BuildingButton" type="ColorRect"]
 custom_minimum_size = Vector2(235, 110)
@@ -61,22 +61,23 @@ offset_left = 14.0
 offset_right = 100.0
 offset_bottom = 86.0
 mouse_filter = 2
-texture = ExtResource("3_armpq")
+texture = ExtResource("4_7sdt6")
+expand_mode = 3
 
 [node name="BuildingName" type="RichTextLabel" parent="."]
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 142.0
-offset_top = 8.0
+offset_left = 118.0
+offset_top = 12.0
 offset_right = -4.0
 offset_bottom = -37.0
 mouse_filter = 2
 theme = ExtResource("2_ksvng")
 theme_override_constants/line_separation = 3
-theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
-text = "[right]COAL POWER PLANT[/right]"
+text = "[right]Infrastructure[/right]"
 fit_content = true
 
 [node name="SelectionMask" type="ColorRect" parent="."]

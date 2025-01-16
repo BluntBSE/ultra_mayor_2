@@ -690,7 +690,7 @@ text = "Research"
 layout_mode = 2
 text = "Medical"
 
-[node name="Button5" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
+[node name="InfraBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Infrastructure"
 
@@ -789,7 +789,7 @@ text = "[center]Action Points: 70/100[/center]"
 [node name="KaijuWarning" type="ColorRect" parent="UICanvas/OverworldCityUI"]
 unique_name_in_owner = true
 visible = false
-modulate = Color(1, 1, 1, 0.0970981)
+modulate = Color(1, 1, 1, 1.31886)
 layout_mode = 0
 offset_left = 1386.0
 offset_top = 127.0
@@ -1072,6 +1072,7 @@ environment = SubResource("Environment_7snnj")
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2/OpenConstructBtn" to="UICanvas/OverworldCityUI" method="_on_open_construct_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/EndTurnBtn" to="Map" method="end_turn"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/ResetBtn" to="UICanvas/OverworldCityUI" method="_on_undo_btn_button_up"]
+[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories/InfraBtn" to="UICanvas/OverworldCityUI" method="_on_infra_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories/HangarsBtn" to="UICanvas/OverworldCityUI" method="_on_hangars_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/CloseConstructionButton" to="UICanvas/OverworldCityUI" method="_on_close_construction_button_button_up"]
 [connection signal="button_up" from="UICanvas/ScreenFilters/Battle/BattleButton" to="UICanvas/ScreenFilters/Battle" method="start_battle"]

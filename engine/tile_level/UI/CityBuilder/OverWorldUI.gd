@@ -103,16 +103,19 @@ func update_building_btns()->void:
 		else:
 			print("CANT AFFORD OR REQUIREMENTS NOT MET")
 			child.set_enabled(false)
-	pass
 
 func _on_undo_btn_button_up() -> void:
 	print("Undo up, with", event_bus, event_bus.head)
 	event_bus.undo()
-	pass # Replace with function body.
 
 
 func _on_hangars_btn_button_up() -> void:
 	print("Pressed hangars button")
 	open_city_menu(construction_menu)
 	open_building_category("hangars")
-	pass # Replace with function body.
+
+
+func _on_infra_btn_button_up() -> void:
+	print("Pressed infrastructure button")
+	open_city_menu(construction_menu)
+	open_building_category("infrastructure")

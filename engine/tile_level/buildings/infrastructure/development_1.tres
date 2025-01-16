@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Building" load_steps=3 format=3 uid="uid://cmlmnpdu6uoym"]
+
+[ext_resource type="Texture2D" uid="uid://cvev84xw45p7k" path="res://engine/tile_level/terrain/assets/tileset_a/PNG/tail_1/plain_with_building_dev_1.png" id="1_0coy8"]
+[ext_resource type="Script" path="res://engine/tile_level/buildings/classes/building.gd" id="2_ufddj"]
+
+[resource]
+script = ExtResource("2_ufddj")
+id = "development_1"
+display_text = "Infrastructure"
+sprite = ExtResource("1_0coy8")
+portrait = ExtResource("1_0coy8")
+category = "infrastructure"
+tier = 0
+ap_cost = 1
+effects = []
+effect_radius = 0
+provides_power = false
+power_provided = 0
+power_used = 1
+unlocks_research_group = ""
+hangar_for = ""
+is_development = true
+development_provided = 1
+population_provided = 0
+base_ap_per_turn = -1
+development_needed = 0
+techs_needed = []
+requirements = []
+builds_on = ["plains"]
