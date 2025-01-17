@@ -8,8 +8,10 @@ Maybe a kaiju can only be shoved once or something?
 
 
 --QUEUE--
+BUG: Any tile that's already been hovered becomes an issue
 Development might be better served as discrete buildings instead of the +1 style of the....
 actually idk.
+BUG: Can select multiple buildings to place at once.
 Hover over tiles in build mode
 Build development
 Not-allowed reason

@@ -188,6 +188,7 @@ func preview_building(command:BuildingCommand)->void:
 func preview_development(command:BuildingCommand)->void:
 	print("Previewing development")
 	var building:Building = command.building
+	print("Development id, ", building.id)
 	var bg_sprite:Sprite2D = %bg_sprite
 	var preview_sprite:Sprite2D = %bg_preview_sprite
 	preview_sprite.texture = command.building.sprite
@@ -197,7 +198,9 @@ func preview_development(command:BuildingCommand)->void:
 func preview_bad_building(command:BuildingCommand)->void:
 	var building:Building = command.building
 	var sprite:Sprite2D = %building_sprite
+	var preview_sprite:Sprite2D = %bg_preview_sprite
 	if command.building.is_development == false:
+		print("Previewing bad building")
 		sprite.texture = building.sprite
 		var shadermat:ShaderMaterial = sprite.material
 		#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
@@ -206,9 +209,11 @@ func preview_bad_building(command:BuildingCommand)->void:
 		return
 	if command.building.is_development == true:
 		print("Previewing bad development")
-		%bg_preview_sprite.texture == building.sprite
-		%bg_preview_sprite.modulate = Color("ab253c8e")
+		print("Bad development is: ", command.building.id)
 		%bg_preview_sprite.visible = true
+		preview_sprite.texture = command.building.sprite
+		%bg_preview_sprite.modulate = Color("ab253c8e")
+
 	
 func unpreview_building()->void:
 	#Development
@@ -222,4 +227,3 @@ func unpreview_building()->void:
 		%building_sprite.texture = null
 	else:
 		%building_sprite.texture = lt.building.sprite
-	pass

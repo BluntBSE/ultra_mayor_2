@@ -67,3 +67,4 @@ development_2 = SubResource("Resource_itihu")
 development_3 = ExtResource("5_i1cxg")
 development_4 = SubResource("Resource_25jr1")
 hangar_public_works = ExtResource("2_ouhqd")
+trail_color = null

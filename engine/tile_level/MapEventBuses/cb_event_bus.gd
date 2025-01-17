@@ -29,6 +29,7 @@ func is_legal(rt_signal:RTSigObj)->bool:
 	if trying.building.development_needed > 0:
 		if lt.development < trying.building.development_needed:
 			conditions_failed.append('development')
+			print("Can't build on ", lt.x, " ", lt.y, "")
 			
 	if conditions_failed.size() < 1:
 		return true
