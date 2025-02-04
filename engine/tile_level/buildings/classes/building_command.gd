@@ -25,6 +25,7 @@ func do()->void:
 		lt.development = building.development_provided
 		MapHelpers.draw_tile_sprites(lt, rg)
 		player_state.action_points -= building.ap_cost
+	MapHelpers.remove_placement_radius(self,lg,rg)
 
 		
 		

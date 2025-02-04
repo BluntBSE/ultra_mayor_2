@@ -13,6 +13,7 @@ category = "hangars"
 tier = 1
 ap_cost = 10
 effects = []
+effect_value = 0
 effect_radius = 0
 provides_power = false
 power_provided = 0

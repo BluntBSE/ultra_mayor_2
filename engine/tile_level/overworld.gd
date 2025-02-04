@@ -3,7 +3,7 @@ extends Node
 
 
 
-func builder_to_attack(state:PlayerState, map:Map_2)->void:
+func builder_to_attack(_state:PlayerState, _map:Map_2)->void:
 	var lg:Array = map.logical_grid
 	var rg:Array = map.rendered_grid
 	#For each hangar on the map, see if the PlayerState has a corresponding mecha
@@ -18,9 +18,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+
 
 
 func _input(event:InputEvent)->void:

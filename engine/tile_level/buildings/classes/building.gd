@@ -9,6 +9,7 @@ class_name Building
 @export var tier:int #Kaiju will tend to go for the highest tier?
 @export var ap_cost:int
 @export var effects:Array #Strings. valid == medical, services, amenities, cannon_1
+@export var effect_value:int
 @export var effect_radius:int
 @export var provides_power: bool
 @export var power_provided:int

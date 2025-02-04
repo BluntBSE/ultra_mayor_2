@@ -31,6 +31,74 @@ static func generate_rendered_grid(map: Map_2, logical_grid: Array, _rendered_gr
 	return output_rg
 
 
+static func placement_radius(building_command:BuildingCommand, _lg:Array, _rg:Array)->void:
+	var x:int = building_command.x
+	var y:int = building_command.y
+	var range:int = building_command.building.effect_radius
+	if range<=0:
+		return
+	var neighbors:Array = neighbors_in_radius(_lg, x, y, range)
+	for neighbor:LogicalTile in neighbors:
+		var rt:RenderedTile = _rg[neighbor.x][neighbor.y]
+		rt.active_highlights.append("basic_hovered")
+		rt.apply_highlights()
+
+static func remove_placement_radius(building_command:BuildingCommand, _lg:Array, _rg:Array)->void:
+	var x:int = building_command.x
+	var y:int = building_command.y
+	var range:int = building_command.building.effect_radius
+	if range<=0:
+		return
+	var neighbors:Array = neighbors_in_radius(_lg, x, y, range)
+	for neighbor:LogicalTile in neighbors:
+		var rt:RenderedTile = _rg[neighbor.x][neighbor.y]
+		rt.active_highlights.erase("basic_hovered")
+		rt.apply_highlights()	
+	
+static func neighbors_in_radius(_lg:Array, x:int, y:int, radius:int)->Array:
+	var origin: Dictionary = {"x": x, "y": y, "tile": _lg[x][y]}
+
+	# Initialize a set to keep track of visited nodes
+	var visited: Array = []
+	#visited.append(origin)
+	#Tiles to return
+	var tiles:Array = []
+
+	# Initialize a queue for breadth-first search
+	var queue: Array = []
+	queue.append({"x": x, "y": y, "distance": 0})
+
+	while queue.size() > 0:
+		var current: Dictionary = queue.pop_front()
+		var current_x: int = current.x
+		var current_y: int = current.y
+		var current_distance: int = current.distance
+
+		# Skip the origin point
+		if current_distance > 0:
+			var ct:LogicalTile
+			ct = current.tile
+
+
+		# If the current distance is less than the radius, find neighbors
+		if current_distance < radius:
+			var neighbors: Array = PathHelpers.find_neighbors(current, _lg)
+			for neighbor: Dictionary in neighbors:
+				var neighbor_x: int = neighbor.x
+				var neighbor_y: int = neighbor.y
+				var neighbor_point: Dictionary = {"x": neighbor_x, "y": neighbor_y, "tile": _lg[neighbor_x][neighbor_y]}
+
+				# If the neighbor has not been visited, add it to the queue
+				if not visited.has(neighbor_point):
+					visited.append(neighbor_point)
+					queue.append({"x": neighbor_x, "y": neighbor_y, "distance": current_distance + 1, "tile": _lg[neighbor_x][neighbor_y]})
+	
+	for node:Dictionary in visited:
+		print(node)
+		tiles.append(node.tile)
+	
+	return tiles
+
 static func draw_tile_sprites(tile: LogicalTile, rendered_grid: Array) -> void:
 	var rendered_tile: RenderedTile = rendered_grid[tile.x][tile.y]
 	#Handle buildings

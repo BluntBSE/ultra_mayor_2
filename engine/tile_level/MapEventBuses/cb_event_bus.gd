@@ -1,11 +1,18 @@
 extends EventBus
 class_name CBEventBus
 #This class is distinct because it holds a reference to a command the user is *trying* to do.
-var trying:BuildingCommand
+var trying:BuildingCommand:
+	set(value):
+		if trying:
+			released.emit(trying) #Tell everyone we're no longer trying to place the last building.
+		trying = value
+	get():
+		return trying
 @onready var map:Map_2 = %Map
 signal building_legal
 signal building_placed
 signal released
+
 
 func _ready()->void:
 	just_did.connect(release)

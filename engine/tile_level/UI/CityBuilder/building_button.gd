@@ -103,18 +103,19 @@ func can_afford(state:PlayerState, _building:Building)->bool:
 	else: return false
 
 func check_unique_hangars(state:PlayerState, id:String)->bool:
-	print("Checking for unique hangars in comparison to ", id)
+	#print("Checking for unique hangars in comparison to ", id)
 	var unique:bool = true
 	if state.hangars.size() == 0:
 		return unique
 	for hangar:Hangar in state.hangars:
-		print(hangar.id)
+		pass
+		#print(hangar.id)
 
 	for hangar:Hangar in state.hangars:
 		if id == hangar.id:
-			print("Hangar", id,  " is not unique.")
+			#print("Hangar", id,  " is not unique.")
 			unique = false
-	print("Uniqueness comparison is returning ", unique)
+	#print("Uniqueness comparison is returning ", unique)
 	return unique
 	
 func requirements_met(state:PlayerState, _building:Building)->bool:
@@ -130,7 +131,6 @@ func requirements_met(state:PlayerState, _building:Building)->bool:
 		if "unique_hangar" in _building.requirements:
 			all_conditions.append(check_unique_hangars(state, _building.id))
 			
-	print("ALL CONDITIONS ", all_conditions)
 	if all_conditions.size() > 0:
 		if false not in all_conditions:
 			all_met = true
@@ -148,9 +148,13 @@ func set_enabled(_bool:bool)->void:
 		
 
 func process_released(command:BuildingCommand, _bool:bool)->void:
+	#print("Building button: Process released received ", command.building.id)
+	#This function is usually called via the construction of a callable that binds the _bool to something
+	#Based on whether or not the building is unlocked. This is currently done in the OverworldBuilding UI
 	enabled = _bool
 	if enabled == false:
-		state_machine.Change("basic", {})
+		if building == command.building:
+			state_machine.Change("basic", {})
 	pass
 
 func handle_was_done()->void:

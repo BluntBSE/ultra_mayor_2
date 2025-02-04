@@ -13,6 +13,7 @@ category = "power"
 tier = 1
 ap_cost = 5
 effects = []
+effect_value = 0
 effect_radius = 0
 provides_power = true
 power_provided = 20

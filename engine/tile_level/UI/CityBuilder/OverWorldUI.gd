@@ -58,7 +58,7 @@ func open_building_category(category:String)->void:
 		#connect map to switch it to placing building
 		#remove_child(btn)
 		%BuildingVertical.add_child(btn)
-		btn.unpack(building)
+		btn.unpack(building) #Maybe these should be arguments to unpack, not in this conditional
 		if btn.can_afford(%PlayerState, building) == true and btn.requirements_met(%PlayerState, building) == true:
 			btn.set_enabled(true)
 			btn.connect("try_building", try_building)
@@ -80,12 +80,11 @@ func try_building(building_command:BuildingCommand)->void:
 	print("Try building was called from UI")
 	building_command.player_state = %PlayerState
 	try_building_signal.emit(building_command)
-	#Re-open the menu to trigger all the refreshes
 
 func process_building_placed(_command:BuildingCommand)->void:
 	update_building_btns()
 
-func process_hangars_modified(hangars:Array)->void:
+func process_hangars_modified(_hangars:Array)->void:
 	print("OverworldCityUI: Process hangars modified")
 	update_building_btns()
 
@@ -116,6 +115,12 @@ func _on_hangars_btn_button_up() -> void:
 
 
 func _on_infra_btn_button_up() -> void:
-	print("Pressed infrastructure button")
+	DebugHelpers.ndprint("Pressed infrastructure button")
 	open_city_menu(construction_menu)
 	open_building_category("infrastructure")
+
+
+func _on_medical_btn_button_up() -> void:
+	DebugHelpers.ndprint("Pressed medical button")
+	open_city_menu(construction_menu)
+	open_building_category("medical")

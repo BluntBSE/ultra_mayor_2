@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cqgi8y4fqpc4g"]
+[gd_scene load_steps=33 format=3 uid="uid://cqgi8y4fqpc4g"]
 
 [ext_resource type="Script" path="res://engine/tile_level/tile_main.gd" id="1_crbal"]
 [ext_resource type="Script" path="res://engine/tile_level/map_2.gd" id="2_nwkov"]
@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://engine/tile_level/MapEventBuses/debug_manager.gd" id="4_gbicw"]
 [ext_resource type="Script" path="res://engine/common/classes/event_bus.gd" id="4_w7po0"]
 [ext_resource type="Script" path="res://engine/tile_level/MapEventBuses/cb_event_bus.gd" id="5_5eh5t"]
-[ext_resource type="Script" path="res://engine/tile_level/side_bar.gd" id="5_hbcjr"]
+[ext_resource type="Script" path="res://engine/tile_level/attack_side_bar.gd" id="5_hbcjr"]
 [ext_resource type="Texture2D" uid="uid://d1qakg8u0h24w" path="res://engine/tile_level/pilots/assets/portraits/demo/carrie_toned_test.png" id="6_w682q"]
 [ext_resource type="Theme" uid="uid://bg5tlpydbsukx" path="res://engine/common/themes/base_theme.tres" id="7_mjg08"]
 [ext_resource type="Texture2D" uid="uid://m4jpdalqdojh" path="res://engine/tile_level/terrain/assets/portraits/AI_swamp_portrait.jpg" id="8_8eogd"]
@@ -26,6 +26,7 @@
 [ext_resource type="Shader" path="res://engine/common/shaders/basics_with_pulse.gdshader" id="17_6ggcl"]
 [ext_resource type="Script" path="res://engine/tile_level/UI/CityBuilder/kaiju_warning.gd" id="17_c1ia5"]
 [ext_resource type="FontFile" uid="uid://b1jhwaars6okg" path="res://engine/common/fonts/unitblock-font/Unitblock-JpJma.ttf" id="17_myo54"]
+[ext_resource type="Script" path="res://engine/tile_level/build_mode_side_bar.gd" id="18_56s3q"]
 [ext_resource type="Script" path="res://engine/tile_level/camera/tile_camera.gd" id="18_pba3o"]
 [ext_resource type="Script" path="res://engine/common/player_state/player_state.gd" id="23_tlioa"]
 
@@ -75,6 +76,7 @@ script = ExtResource("3_mn4ek")
 unique_name_in_owner = true
 script = ExtResource("2_nwkov")
 x_offset = 185
+y_offset = null
 
 [node name="arrows" type="Node2D" parent="Map"]
 
@@ -442,7 +444,7 @@ bbcode_enabled = true
 text = "[center]Income: +2[/center]"
 fit_content = true
 
-[node name="BuildSideBar" type="ColorRect" parent="UICanvas/OverworldCityUI"]
+[node name="BuildSideBar" type="ColorRect" parent="UICanvas/OverworldCityUI" node_paths=PackedStringArray("map", "building_port", "building_name", "terrain_name", "population", "power", "development", "services", "resilience", "modifiers_rtl")]
 layout_mode = 0
 offset_left = 1641.0
 offset_top = 66.0
@@ -450,6 +452,17 @@ offset_right = 1921.0
 offset_bottom = 1081.0
 theme = SubResource("Theme_nfc0e")
 color = Color(0.101961, 0.0509804, 0.113725, 1)
+script = ExtResource("18_56s3q")
+map = NodePath("../../../Map")
+building_port = NodePath("ConstructNav/TileRect/BuildingPort")
+building_name = NodePath("ConstructNav/TileRect/TileDataRect/OccupantData/BuildingName")
+terrain_name = NodePath("ConstructNav/TileRect/TileDataRect/OccupantData/TerrainName")
+population = NodePath("ConstructNav/TerrainData/Population")
+power = NodePath("ConstructNav/TerrainData/Power")
+development = NodePath("ConstructNav/TerrainData/Development")
+services = NodePath("ConstructNav/TerrainData/Services")
+resilience = NodePath("ConstructNav/TerrainData/Resilience")
+modifiers_rtl = NodePath("ConstructNav/TerrainData/Modifiers")
 
 [node name="ConstructNav" type="Control" parent="UICanvas/OverworldCityUI/BuildSideBar"]
 unique_name_in_owner = true
@@ -686,7 +699,7 @@ text = "Services"
 layout_mode = 2
 text = "Research"
 
-[node name="Button4" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
+[node name="MedicalBtn" type="Button" parent="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories"]
 layout_mode = 2
 text = "Medical"
 
@@ -789,7 +802,7 @@ text = "[center]Action Points: 70/100[/center]"
 [node name="KaijuWarning" type="ColorRect" parent="UICanvas/OverworldCityUI"]
 unique_name_in_owner = true
 visible = false
-modulate = Color(1, 1, 1, 1.31886)
+modulate = Color(1, 1, 1, 1.49837)
 layout_mode = 0
 offset_left = 1386.0
 offset_top = 127.0
@@ -1072,6 +1085,7 @@ environment = SubResource("Environment_7snnj")
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructNav/VBoxContainer2/OpenConstructBtn" to="UICanvas/OverworldCityUI" method="_on_open_construct_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/EndTurnBtn" to="Map" method="end_turn"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/ResetBtn" to="UICanvas/OverworldCityUI" method="_on_undo_btn_button_up"]
+[connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories/MedicalBtn" to="UICanvas/OverworldCityUI" method="_on_medical_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories/InfraBtn" to="UICanvas/OverworldCityUI" method="_on_infra_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/BuildingCategories/HangarsBtn" to="UICanvas/OverworldCityUI" method="_on_hangars_btn_button_up"]
 [connection signal="button_up" from="UICanvas/OverworldCityUI/BuildSideBar/ConstructMenu/ConstructSideBar/CloseConstructionButton" to="UICanvas/OverworldCityUI" method="_on_close_construction_button_button_up"]

@@ -118,6 +118,7 @@ func handle_input(args:Dictionary)->void:
 		return
 
 	if args.event == RTInputs.CLEAR:
+		print("RTInputs clear received")
 		if state_machine._current_state_id != "basic":
 			state_machine.Change("basic", {})
 			active_highlights = []
@@ -127,7 +128,7 @@ func handle_input(args:Dictionary)->void:
 
 	if args.event == RTInputs.REVERT:
 		return
-	#This is typically triggered by GameMain up above
+	#This is typically triggered by MapMain up above
 	#It might seem goofy to emit a signal from this tile, send it to main, then send instructions back
 	#But we have state on both the main and this particular tile and the outcomes are dependent on both.
 
@@ -151,8 +152,11 @@ func custom_hover_exit()  -> void:
 	rt_signal.emit(rt_sig_obj)
 
 func custom_hover_enter()  -> void:
+	print("RT Custhover enter")
 	if map.valid_target == map.valid_targets.NONE:
+		print("RT Says: no targets permitted!")
 		return
+	print("RT says targets permitted")
 	var event_str:String = "hover_enter"
 	var rt_sig_obj:RTSigObj = RTSigObj.new(self, x,y,event_str)
 	rt_signal.emit(rt_sig_obj)
@@ -200,7 +204,6 @@ func preview_bad_building(command:BuildingCommand)->void:
 	var sprite:Sprite2D = %building_sprite
 	var preview_sprite:Sprite2D = %bg_preview_sprite
 	if command.building.is_development == false:
-		print("Previewing bad building")
 		sprite.texture = building.sprite
 		var shadermat:ShaderMaterial = sprite.material
 		#We have the resource set as local to scene, so I dont think we need to do a set_instance_parameter...
@@ -208,8 +211,6 @@ func preview_bad_building(command:BuildingCommand)->void:
 		shadermat.set_shader_parameter("color", Vector4(1.0,0.1,0.1,1.0))
 		return
 	if command.building.is_development == true:
-		print("Previewing bad development")
-		print("Bad development is: ", command.building.id)
 		%bg_preview_sprite.visible = true
 		preview_sprite.texture = command.building.sprite
 		%bg_preview_sprite.modulate = Color("ab253c8e")

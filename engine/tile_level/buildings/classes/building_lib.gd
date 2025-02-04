@@ -13,6 +13,8 @@ class_name BuildingLib
 @export var hospital_1:Building = null
 @export_group("hangars")
 @export var hangar_public_works:Building = null
+@export_group("services")
+
 
 
 func _get_property_list()->Array:

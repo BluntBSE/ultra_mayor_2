@@ -1,5 +1,6 @@
 extends Node2D
 class_name Map_2
+var print_debug:bool = true
 
 var logical_grid: Array = []
 var grid_width: int = 40
@@ -42,12 +43,11 @@ const SELECTION_HIGHLIGHTS:Array = [
 ]
 
 func process_try_building(_command:BuildingCommand)->void:
-	print("Map entered placement mode")
+	DebugHelpers.ndprint("Map entered placement mode", false)
 	map_mode = map_modes.PLACING_BUILDING
 	
 func process_release(command:Command)->void:
-	print("Process released called with", command)
-	print("Map leaved placement mode")
+
 	var rt:RenderedTile = rendered_grid[command.x][command.y]
 	rt.unpreview_building()
 	map_mode = map_modes.CITY_BUILDER
@@ -174,8 +174,14 @@ func process_rt_attack_mode(args:RTSigObj)->void:
 
 
 func process_rt_citybuilder_mode(args:RTSigObj)->void:
-	pass
-	
+	var rt: RenderedTile = rendered_grid[args.x][args.y]
+	var lt: LogicalTile = logical_grid[args.x][args.y]
+	if args.event == "hover_enter":
+		rt.active_highlights.append("basic_hovered")
+	if args.event == "hover_exit":
+		rt.active_highlights.erase("basic_hovered")
+
+	rt.apply_highlights()
 
 func process_rt_buildingplace_mode(args:RTSigObj)->void:
 	var rt: RenderedTile = rendered_grid[args.x][args.y]
@@ -184,6 +190,7 @@ func process_rt_buildingplace_mode(args:RTSigObj)->void:
 	
 	if args.event == "left_click":
 		if ( %CBEventBus.is_legal(args) == true ):
+			print("Map: Left click detected, building")
 			bus.add_do(bus.trying)
 	
 	if args.event == "hover_enter":
@@ -191,6 +198,7 @@ func process_rt_buildingplace_mode(args:RTSigObj)->void:
 		if (%CBEventBus.trying.building.is_development == false):
 			if ( %CBEventBus.is_legal(args) == true ):
 				rt.preview_building(bus.trying)
+				MapHelpers.placement_radius(bus.trying, logical_grid, rendered_grid)
 			else:
 				rt.preview_bad_building(bus.trying)
 		if (%CBEventBus.trying.building.is_development == true):
@@ -202,9 +210,10 @@ func process_rt_buildingplace_mode(args:RTSigObj)->void:
 	if args.event == "hover_exit":
 		rt.unpreview_building()
 		rt.active_highlights.erase("basic_hovered")
+		MapHelpers.remove_placement_radius(bus.trying,logical_grid,rendered_grid)
 	
-	
-	pass
+	rt.apply_highlights()
+
 
 func process_rt_signal(args: RTSigObj) -> void:
 	if map_mode == 1: # Attack mode
