@@ -7,7 +7,7 @@ var y:int
 var event:String
 
 func _init(_rt:RenderedTile, _x:int, _y:int, _event:String)->void:
-	rt = _rt
-	x = _x
-	y = _y
-	event = _event
+    rt = _rt
+    x = _x
+    y = _y
+    event = _event

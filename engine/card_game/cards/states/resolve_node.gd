@@ -4,6 +4,6 @@ class_name ResolveNodeState
 ## This lets us await for an arbitrary amount of time (during transit) before emitting that we're all done
 
 func stateEnter(args:Dictionary)->void:
-	_reference.was_resolved.emit(_reference)
-	_reference.state_machine.queue_free()
-	_reference.queue_free()
+    _reference.was_resolved.emit(_reference)
+    _reference.state_machine.queue_free()
+    _reference.queue_free()

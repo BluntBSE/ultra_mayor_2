@@ -16,27 +16,27 @@ var paused:bool = false #Used to syncopate the moving animation.
 var logical_kaiju:LogicalKaiju
 
 func update_sprite(texture:CompressedTexture2D)->void:
-	#sprite = %sprite
-	%sprite.texture = texture
-	og_width =+ float(%sprite.texture.get_height())
-	og_height = float(%sprite.texture.get_width())
-	var h_scale:float = float(occupant_sprite_height) / og_height
-	var w_scale:float = float(occupant_sprite_width) / og_width
-	%sprite.scale = Vector2(w_scale, h_scale)
+    #sprite = %sprite
+    %sprite.texture = texture
+    og_width =+ float(%sprite.texture.get_height())
+    og_height = float(%sprite.texture.get_width())
+    var h_scale:float = float(occupant_sprite_height) / og_height
+    var w_scale:float = float(occupant_sprite_width) / og_width
+    %sprite.scale = Vector2(w_scale, h_scale)
 
 
 func _ready() -> void:
 
-	state_machine.Add("basic", BasicStateKaiju.new(self, {}))
-	state_machine.Add("moving", MovingStateKaiju.new(self, {}))
+    state_machine.Add("basic", BasicStateKaiju.new(self, {}))
+    state_machine.Add("moving", MovingStateKaiju.new(self, {}))
 
-	state_machine.Change("basic",{})
+    state_machine.Change("basic",{})
 
 
 func unpack(lk:LogicalKaiju)->void:
-	logical_kaiju = lk
-	lk.rendered_kaiju = self
+    logical_kaiju = lk
+    lk.rendered_kaiju = self
 
 
 func _process(d:float) ->void:
-	state_machine.stateUpdate(d)
+    state_machine.stateUpdate(d)

@@ -22,61 +22,61 @@ signal just_undid
 #Aggregation is the responsibility of the caller, if needed
 
 func add(command:Command)->void:
-	queue.append(command)
-	pass
+    queue.append(command)
+    pass
 
 func add_do(command:Command)->void:
-	# If the head is at the end of the array, append a new command and do it immediately.
-	# If the head is NOT at the end of the array, delete all commands after the head.
-	# Then, add the command and do it immediately. (Supports undo/redo)
-	
-	
-	if head == queue.size()-1:
-		queue.append(command)
-		command.do()
-		head += 1
-		just_did.emit(command)
-	elif queue.size() == 0:
-		print("Added to empty queue")
-		queue.append(command)
-		command.do()
-		head = 0
-		just_did.emit(command)
-	else:
-		var sliced:Array = queue.slice(0, head+1)
-		queue = sliced
-		queue.append(command)
-		command.do()
-		head += 1
-		just_did.emit(command)
-		
+    # If the head is at the end of the array, append a new command and do it immediately.
+    # If the head is NOT at the end of the array, delete all commands after the head.
+    # Then, add the command and do it immediately. (Supports undo/redo)
+    
+    
+    if head == queue.size()-1:
+        queue.append(command)
+        command.do()
+        head += 1
+        just_did.emit(command)
+    elif queue.size() == 0:
+        print("Added to empty queue")
+        queue.append(command)
+        command.do()
+        head = 0
+        just_did.emit(command)
+    else:
+        var sliced:Array = queue.slice(0, head+1)
+        queue = sliced
+        queue.append(command)
+        command.do()
+        head += 1
+        just_did.emit(command)
+        
 
 func undo()->void:
-	print("Undo called with", queue, "head at", head)
-	print(queue.size())
-	if queue.size() > 0:
-		if head>0:
-			print("Event queue bigger than 0, reverted head")
-			var q_command:Command = queue[head]
-			q_command.undo()
-			head -= 1
-			just_undid.emit(q_command)
-		else:
-			var q_command:Command = queue[head]
-			q_command.undo()
-			print("Undid with a single queue")
-			just_undid.emit(q_command)
-			queue = []
-	else:
-		print("nothing in queue")
+    print("Undo called with", queue, "head at", head)
+    print(queue.size())
+    if queue.size() > 0:
+        if head>0:
+            print("Event queue bigger than 0, reverted head")
+            var q_command:Command = queue[head]
+            q_command.undo()
+            head -= 1
+            just_undid.emit(q_command)
+        else:
+            var q_command:Command = queue[head]
+            q_command.undo()
+            print("Undid with a single queue")
+            just_undid.emit(q_command)
+            queue = []
+    else:
+        print("nothing in queue")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+    pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
-	
-	
+    pass
+    
+    

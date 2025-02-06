@@ -5,7 +5,7 @@ class_name AttackDoSelection
 
 
 func do(map:Map_2, tile:LogicalTile)->void:
-	pass
-	
+    pass
+    
 func undo()->void:
-	pass
+    pass

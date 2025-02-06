@@ -6,42 +6,42 @@ var text_box:RichTextLabel
 signal submit
 
 func _ready()->void:
-	#window = get_parent()
-	text_box = %SubmitText
+    #window = get_parent()
+    text_box = %SubmitText
 
 
 func do_submit()->void:
-	submit.emit()
+    submit.emit()
 
 func handle_submit_response(num_instant:int, num_resolve:int, num_resolve_secondary:int, lc:LogicalCard)->void:
-	#BUG: This has to happen when you're about to play a card, too.
-	print("Handle submit response called for: ", lc.display_name, num_instant, num_resolve, num_resolve_secondary)
-	if num_instant > 0:
-		text_box.text = "[center]Assign up to " + str(num_instant) + " " + parse_target_type(lc.instant_target_type) + "[/center]"
-		return
-	if num_resolve > 0:
-		text_box.text = "[center]Assign up to " + str(num_resolve)  + " " + parse_target_type(lc.resolve_target_type) + "[/center]"
-		return
-	if num_resolve_secondary >0:
-		text_box.text = "[center]Assign up to " + str(num_resolve_secondary)  + " final " + parse_target_type(lc.resolve_secondary_ttype) + "[/center]"
-		return
-	pass
+    #BUG: This has to happen when you're about to play a card, too.
+    print("Handle submit response called for: ", lc.display_name, num_instant, num_resolve, num_resolve_secondary)
+    if num_instant > 0:
+        text_box.text = "[center]Assign up to " + str(num_instant) + " " + parse_target_type(lc.instant_target_type) + "[/center]"
+        return
+    if num_resolve > 0:
+        text_box.text = "[center]Assign up to " + str(num_resolve)  + " " + parse_target_type(lc.resolve_target_type) + "[/center]"
+        return
+    if num_resolve_secondary >0:
+        text_box.text = "[center]Assign up to " + str(num_resolve_secondary)  + " final " + parse_target_type(lc.resolve_secondary_ttype) + "[/center]"
+        return
+    pass
 
 func parse_target_type(num:int)->String:
-	## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
-	if num == 0:
-		return "pilot cards"
-	if num == 1:
-		return "pilots"
-	if num == 2:
-		return "kaiju cards"
-	if num == 3:
-		return "kaiju limbs"
-	if num == 4:
-		return "none"
-	if num == 5:
-		return "pilot or kaiju cards"
-	if num == 6:
-		return "pilots or kaiju limbs"
+    ## 0 = P_STUBS, 1 = P_BUTTONS, 2 = K_STUBS, 3 = K_BUTTONS, 4 = NONE, 5 = ALL_STUBS, 6 = ALL_BUTTONS
+    if num == 0:
+        return "pilot cards"
+    if num == 1:
+        return "pilots"
+    if num == 2:
+        return "kaiju cards"
+    if num == 3:
+        return "kaiju limbs"
+    if num == 4:
+        return "none"
+    if num == 5:
+        return "pilot or kaiju cards"
+    if num == 6:
+        return "pilots or kaiju limbs"
 
-	return ""
+    return ""

@@ -18,18 +18,18 @@ class_name BuildingLib
 
 
 func _get_property_list()->Array:
-	var properties:Array = []
-	properties.append({
-		name = "Rotate",
-		type = TYPE_NIL,
-		hint_string = "rotate_",
-		usage = PROPERTY_USAGE_GROUP | PROPERTY_USAGE_SCRIPT_VARIABLE
-	})
+    var properties:Array = []
+    properties.append({
+        name = "Rotate",
+        type = TYPE_NIL,
+        hint_string = "rotate_",
+        usage = PROPERTY_USAGE_GROUP | PROPERTY_USAGE_SCRIPT_VARIABLE
+    })
 
-	# This property won't get added to the group
-	# due to not having the "rotate_" prefix.
-	properties.append({
-		name = "trail_color",
-		type = TYPE_COLOR
-	})
-	return properties
+    # This property won't get added to the group
+    # due to not having the "rotate_" prefix.
+    properties.append({
+        name = "trail_color",
+        type = TYPE_COLOR
+    })
+    return properties

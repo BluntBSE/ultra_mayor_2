@@ -27,50 +27,50 @@ var modifiers:Array  = []
 # Called when the node enters the scene tree for the first time.
 
 func occupant_to_sidebar(lt:LogicalTile)->void:
-	if lt.occupant != null:
-			var occupant_portrait:String = lt.occupant.portrait
-			occupant_port.texture = load(occupant_portrait)
-			occupant_name.text = lt.occupant.display_name
-			%OccupantData.visible=true
-			%ODataRect.visible=true
+    if lt.occupant != null:
+            var occupant_portrait:String = lt.occupant.portrait
+            occupant_port.texture = load(occupant_portrait)
+            occupant_name.text = lt.occupant.display_name
+            %OccupantData.visible=true
+            %ODataRect.visible=true
 
-	else:
-			occupant_port.texture = null
-			%OccupantData.visible = false
-			%ODataRect.visible=false
+    else:
+            occupant_port.texture = null
+            %OccupantData.visible = false
+            %ODataRect.visible=false
 
 
 func tile_to_sidebar(lt:LogicalTile)->void:
-	if lt.building != null:
-		var texture:Texture2D = lt.building.portrait
-		building_name.visible = true
-		building_port.texture = texture
-		building_name.text = lt.building.display_text
-	else:
-		building_name.visible = false
-		building_port.texture = lt.terrain.portrait
+    if lt.building != null:
+        var texture:Texture2D = lt.building.portrait
+        building_name.visible = true
+        building_port.texture = texture
+        building_name.text = lt.building.display_text
+    else:
+        building_name.visible = false
+        building_port.texture = lt.terrain.portrait
 
 
-	#Non-nullables
-	terrain_name.text = lt.terrain.display_text
-	power.text = "Power: " + str(lt.power)
-	development.text = "Development: " + str(lt.development)
-	services.text = "Services: " + str (lt.services)
-	resilience.text = "Resilience: " + str(lt.resilience)
+    #Non-nullables
+    terrain_name.text = lt.terrain.display_text
+    power.text = "Power: " + str(lt.power)
+    development.text = "Development: " + str(lt.development)
+    services.text = "Services: " + str (lt.services)
+    resilience.text = "Resilience: " + str(lt.resilience)
 
 
 func _ready()->void:
-	map.connect("map_signal", handle_map_signal)
+    map.connect("map_signal", handle_map_signal)
 
-	pass # Replace with function body.
+    pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta:float)->void:
-	pass
+    pass
 
 func handle_map_signal(args:MapSigObj)->void:
-	#TODO: Revisit this once you have Kaiju interaction.
-		tile_to_sidebar(args.logical_tile)
-		if args.selection_primary == null:
-			occupant_to_sidebar(args.logical_tile)
+    #TODO: Revisit this once you have Kaiju interaction.
+        tile_to_sidebar(args.logical_tile)
+        if args.selection_primary == null:
+            occupant_to_sidebar(args.logical_tile)

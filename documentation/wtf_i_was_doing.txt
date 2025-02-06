@@ -73,7 +73,7 @@ TODO: Really show what happens if the Kaiju has to move through a pilot
 
 TODO: Make a decision about Kaiju pathing. Can they go through pilots or not?
 Ideas: Maybe if a pilot goes down, the Kaiju moves into the pilots' space before continuing movement?
-	
+    
 TODO: Win the kaiju battle  - does an event bus, if any, precede this?
 
 POSSIBLY: Put card events in a bus so you can have good pauses after them and stuff.

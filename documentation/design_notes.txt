@@ -4,16 +4,16 @@ REFLECT EVERY DAY: DOES TILEMAIN.MAP NEED A STATE MACHINE?
 REVERT on state machines was added to generically highlight UI elements and have them "go back to whatever they were before"
 
 HEXAGONS:
-	We're using XY cordinates with "odd-r" (odd y) offset to the right
+    We're using XY cordinates with "odd-r" (odd y) offset to the right
 
 
 BATTLES:
-	The "Battle scene" is instantiated at the moment a turn is ended
-	But is not populated with a battle object until it is given a battle from the battle filter
+    The "Battle scene" is instantiated at the moment a turn is ended
+    But is not populated with a battle object until it is given a battle from the battle filter
 
 
 IDEAL POSSIBLE ACTIONS:
-	"hover"
-	"exit"
-	"left_click"
-	"right_click"
+    "hover"
+    "exit"
+    "left_click"
+    "right_click"

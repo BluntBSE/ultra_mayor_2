@@ -29,8 +29,8 @@ class_name Building
 #Real talk though probably don't want variable radiuses...
 """
 {
-	"services":3,
-	"medical":2
+    "services":3,
+    "medical":2
 }
 
 Where the integers represent the radius in which the building provides a given service.

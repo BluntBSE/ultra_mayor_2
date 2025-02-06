@@ -15,13 +15,13 @@ var logical_grid:Array
 var rendered_grid:Array
 
 func occupant_unpack()->void:
-	pass
+    pass
 
 func unpack(_map:Node2D, _x:int, _y:int, _logical_grid:Array,_rendered_grid:Array)->void:
-	x = _x
-	y = _y
-	map = _map
-	logical_grid=_logical_grid
-	logical_grid[_x][_y].add_child(self)
-	rendered_grid=_rendered_grid
-	occupant_unpack()
+    x = _x
+    y = _y
+    map = _map
+    logical_grid=_logical_grid
+    logical_grid[_x][_y].add_child(self)
+    rendered_grid=_rendered_grid
+    occupant_unpack()

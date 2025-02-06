@@ -17,33 +17,33 @@ var logical_pilot:LogicalPilot
 
 
 func update_sprite(texture: CompressedTexture2D) -> void:
-	#sprite = %sprite
-	%sprite.texture = texture
-	og_width = float(%sprite.texture.get_height())
-	og_height = float(%sprite.texture.get_width())
-	var h_scale: float = float(occupant_sprite_height) / og_height
-	var w_scale: float = float(occupant_sprite_width) / og_width
-	%sprite.scale = Vector2(w_scale, h_scale)
+    #sprite = %sprite
+    %sprite.texture = texture
+    og_width = float(%sprite.texture.get_height())
+    og_height = float(%sprite.texture.get_width())
+    var h_scale: float = float(occupant_sprite_height) / og_height
+    var w_scale: float = float(occupant_sprite_width) / og_width
+    %sprite.scale = Vector2(w_scale, h_scale)
 
 
 func _ready() -> void:
-	state_machine.Add("basic", BasicStatePilot.new(self, {}))
-	state_machine.Add("moving", MovingStatePilot.new(self, {}))
+    state_machine.Add("basic", BasicStatePilot.new(self, {}))
+    state_machine.Add("moving", MovingStatePilot.new(self, {}))
 
-	state_machine.Change("basic", {})
+    state_machine.Change("basic", {})
 
 func unpack(lp:LogicalPilot)->void:
-	logical_pilot = lp
-	lp.rendered_pilot = self
+    logical_pilot = lp
+    lp.rendered_pilot = self
 
 func match_state()->void:
-	#Interrogate the current state of the LP. Render accordingly
-	if logical_pilot.disabled == true:
-		do_disabled()
+    #Interrogate the current state of the LP. Render accordingly
+    if logical_pilot.disabled == true:
+        do_disabled()
 
 func _process(d: float) -> void:
-	state_machine.stateUpdate(d)
+    state_machine.stateUpdate(d)
 
 func do_disabled()->void:
-	print("DISABLED PILOT: ", logical_pilot.name)
-	modulate = Color(0.2,0.2,0.2,1.0)
+    print("DISABLED PILOT: ", logical_pilot.name)
+    modulate = Color(0.2,0.2,0.2,1.0)
